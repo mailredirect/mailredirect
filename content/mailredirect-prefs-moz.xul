@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?> 
+<?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect-prefs.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd"> 
+
+<page id="mailRedirectPrefs"
+  headertitle="&mailredirectSettings.label;"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  class="color-dialog"
+  orient="vertical"
+  onload="initSeamonkey();">
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="bundle_mailredirect-prefs" src="chrome://mailredirect/locale/mailredirect-prefs.properties"/>
+  </stringbundleset>
+
+  <script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
+  <script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
+  <script type="application/x-javascript" src="chrome://mailredirect/content/exUnregisterer.js"/>
+  
+  <groupbox>
+    <caption label="&prefsGroup.label;"/>
+    <checkbox id="copyToSentMail" label="&copyToSentMails.label;" accesskey="&copyToSentMails.accesskey;"
+      tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"
+      prefstring="extensions.mailredirect.copyToSentMail" preftype="bool" pref="true" prefdefval="true" /> 
+
+    <separator class="thin"/>
+
+    <hbox autostretch="never">
+      <label control="concurrentConnections" value="&concurrentConnections.label;"
+        tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"
+        accesskey="&concurrentConnections.accesskey;"/>
+      <textbox id="concurrentConnections" size="3"
+        prefstring="extensions.mailredirect.concurrentConnections" preftype="int" pref="true" prefdefval="5" /> 
+    </hbox>
+
+    <separator class="thick"/>
+
+    <hbox autostretch="never">
+      <checkbox id="debug" label="&debug.label;" accesskey="&debug.accesskey;"
+        tooltip="xToolTip" xtooltiptext="&debug.tooltip;"
+        prefstring="extensions.mailredirect.debug" preftype="bool" pref="true" prefdefval="false" /> 
+      <button class="dialog" id="saveConsoleContent" accesskey="&saveConsoleContent.accesskey;"
+        label="&saveConsoleContent.label;" oncommand="saveConsoleContent();" />
+    </hbox>
+  </groupbox>
+
+  <hbox autostretch="never">
+    <button class="dialog" id="uninstallButton" accesskey="&uninstallButton.accesskey;" 
+      label="&uninstallButton.label;" oncommand="doUninstall();" />
+  </hbox>
+
+  <tooltip id="xToolTip" noautohide="true"
+    onpopupshowing="this.label=document.tooltipNode.getAttribute('xtooltiptext');"/>
+</page> 

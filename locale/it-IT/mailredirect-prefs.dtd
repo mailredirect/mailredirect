@@ -1,0 +1,23 @@
+<!ENTITY mailredirectSettings.title "Impostazioni di MailRedirect">
+
+<!ENTITY prefsGroup.label "Opzioni">
+
+<!ENTITY copyToSentMails.label "Lascia una copia del messaggio reindirizzato nella cartella Posta inviata">
+<!ENTITY copyToSentMails.accesskey "c">
+<!ENTITY copyToSentMails.tooltip "Mettendo il segno di spunta una copia del messaggio reindirizzato verrà lasciata nella cartella Posta inviata. Lasciando tale opzione priva di spunta non verrà effettuata alcuna copia del messaggio reindirizzato. Nota: quando le impostazioni usate per l'account per reindirizzare sono 'non salvare i messaggi inviati', pur mettendo il segno di spunta, non verrà comunque salvata alcuna copia dei messaggi reindirizzati.">
+
+<!ENTITY debug.label "Log degli errori">
+<!ENTITY debug.accesskey "E">
+<!ENTITY debug.tooltip "Attiva/Disattiva il log degli errori per MailRedirect. I log verranno salvati nella console JavaScript.">
+
+<!ENTITY saveConsoleContent.label "Salva il contenuto della console JavaScript...">
+<!ENTITY saveConsoleContent.accesskey "S">
+
+<!ENTITY concurrentConnections.label "Numero di connessioni SMTP simultanee:">
+<!ENTITY concurrentConnections.accesskey "N">
+<!ENTITY concurrentConnections.tooltip "Con questa opzione viene specificato il numero di connessioni SMTP da effettuarsi durante l'invio dei messaggi. In generale, questo porta ad un potenziamento del processo di invio quando si desidera reindirizzare una quantità enorme di messaggi.\nNota: impostando come parametro lo zero il numero di connessioni simultanee sarà illimitato - si noti che questa impostazione potrebbe rendere instabile il server SMTP o far fallire l'invio di alcuni messaggi. In caso di problemi impostare tale parametro ad uno.">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Mail Redirect">
+<!ENTITY uninstallButton.label "Disinstalla...">
+<!ENTITY uninstallButton.accesskey "D">

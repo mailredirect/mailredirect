@@ -1,0 +1,48 @@
+<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
+<!ENTITY bounceToAddr.label "перенаправить:">
+
+<!ENTITY fileMenu.label "Файл">
+<!ENTITY fileMenu.accesskey "Ф">
+<!ENTITY closeCmd.label "Закрыть">
+<!ENTITY closeCmd.accesskey "З">
+
+<!ENTITY forwardBounce.label "Перенаправить">
+<!ENTITY forwardBounce.modifiers "accel">
+<!ENTITY forwardBounce.accesskey "П">
+<!ENTITY bounceButton.label "Перенаправить">
+<!ENTITY bounceButton.tooltip "Перенаправить сообщения">
+
+<!ENTITY addressButton.label "Адресная книга">
+<!ENTITY addressButton.tooltip "Перейти в адресную книгу">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.accesskey "П">
+<!ENTITY messengerCmd.label "Почта и группы новостей">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.accesskey "А">
+<!ENTITY addressBookCmd.label "Адресная книга">
+<!ENTITY viewMenu.label "Вид">
+<!ENTITY viewMenu.accesskey "В">
+<!ENTITY viewToolbarsMenuNew.label "Показать/скрыть">
+<!ENTITY viewToolbarsMenuNew.accesskey "П">
+<!ENTITY showBounceToolbarCmd.label "Панель инструментов">
+<!ENTITY showBounceToolbarCmd.accesskey "П">
+<!ENTITY showStatusbarCmd.label "Строка состояния">
+<!ENTITY showStatusbarCmd.accesskey "С">
+<!ENTITY tasksMenu.label "Инструменты">
+<!ENTITY tasksMenu.accesskey "И">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Перейти на страницу Mozilla Thunderbird в интернет">
+
+<!ENTITY fromAddr.label "От:">
+<!ENTITY fromAddr.accesskey "О">
+
+<!ENTITY bounceMailsLabel.label "Следующие сообщения будут перенаправлены:">
+<!ENTITY date.label "Дата">
+<!ENTITY sender.label "Отправитель">
+<!ENTITY subject.label "Тема">
+
+<!ENTITY toAddr.label "Перенаправить:">
+<!ENTITY ccAddr.label "Копия:">
+<!ENTITY bccAddr.label "Скрытая копия:">

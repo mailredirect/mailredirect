@@ -1,0 +1,48 @@
+<!ENTITY msgMailRedirectWindow.title "Przeadresuj wiadomości">
+<!ENTITY bounceToAddr.label "redirect to:">
+
+<!ENTITY fileMenu.label "Plik">
+<!ENTITY fileMenu.accesskey "P">
+<!ENTITY closeCmd.label "Zamknij">
+<!ENTITY closeCmd.accesskey "Z">
+
+<!ENTITY forwardBounce.label "Wyślij">
+<!ENTITY forwardBounce.accesskey "W">
+<!ENTITY bounceButton.label "Wyślij">
+<!ENTITY bounceButton.tooltip "Wyślij przeadresowane wiadomości">
+
+<!ENTITY addressButton.label "Adresy">
+<!ENTITY addressButton.tooltip "Wyświetl książkę adresową">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.accesskey "P">
+<!ENTITY messengerCmd.label "Poczta i grupy dyskusyjne">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.label "Książka adresowa">
+<!ENTITY viewMenu.label "Widok">
+<!ENTITY viewMenu.accesskey "W">
+<!ENTITY viewToolbarsMenuNew.label "Paski narzędzi">
+<!ENTITY viewToolbarsMenuNew.accesskey "n">
+<!ENTITY showBounceToolbarCmd.label "Redirect Toolbar">
+<!ENTITY showBounceToolbarCmd.accesskey "o">
+<!ENTITY showStatusbarCmd.label "Pasek stanu">
+<!ENTITY showStatusbarCmd.accesskey "s">
+<!ENTITY tasksMenu.label "Narzędzia">
+<!ENTITY tasksMenu.accesskey "N">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Thunderbird.pl">
+
+<!ENTITY fromAddr.label "Nadawca:">
+<!ENTITY fromAddr.accesskey "d">
+
+<!ENTITY bounceMailsLabel.label "Następujące wiadomości zostaną przeadresowane:">
+<!ENTITY date.label "Data">
+<!ENTITY sender.label "Nadawca">
+<!ENTITY subject.label "Temat">
+
+<!ENTITY toAddr.label "Przeadresuj do:">
+<!ENTITY ccAddr.label "Kopia:">
+<!ENTITY bccAddr.label "Ukryta kopia:">
+

@@ -1,0 +1,23 @@
+content	mailredirect	jar:chrome/mailredirect.jar!/content/
+
+overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://mailredirect/content/mailredirect.xul
+overlay	chrome://global/content/customizeToolbar.xul	chrome://mailredirect/content/mailredirectCustomizeToolbar.xul
+overlay	chrome://communicator/content/pref/preftree.xul	chrome://mailredirect/content/mailredirectPrefsOverlay.xul
+
+locale	mailredirect	en-US	jar:chrome/mailredirect.jar!/locale/en-US/
+locale	mailredirect	de-DE	jar:chrome/mailredirect.jar!/locale/de-DE/
+locale	mailredirect	de-AT	jar:chrome/mailredirect.jar!/locale/de-AT/
+locale	mailredirect	cs-CZ	jar:chrome/mailredirect.jar!/locale/cs-CZ/
+locale	mailredirect	es-ES	jar:chrome/mailredirect.jar!/locale/es-ES/
+locale	mailredirect	es-AR	jar:chrome/mailredirect.jar!/locale/es-AR/
+locale	mailredirect	fr-FR	jar:chrome/mailredirect.jar!/locale/fr-FR/
+locale	mailredirect	it-IT	jar:chrome/mailredirect.jar!/locale/it-IT/
+locale	mailredirect	sv-SE	jar:chrome/mailredirect.jar!/locale/sv-SE/
+locale	mailredirect	sk-SK	jar:chrome/mailredirect.jar!/locale/sk-SK/
+locale	mailredirect	pl-PL	jar:chrome/mailredirect.jar!/locale/pl-PL/
+locale	mailredirect	ro-RO	jar:chrome/mailredirect.jar!/locale/ro-RO/
+locale	mailredirect	ru-RU	jar:chrome/mailredirect.jar!/locale/ru-RU/
+locale	mailredirect	nl-NL	jar:chrome/mailredirect.jar!/locale/nl-NL/
+
+skin	mailredirect	classic/1.0	jar:chrome/mailredirect-skin.jar!/skin/classic/
+

@@ -1,0 +1,4 @@
+<!ENTITY bounceCommand.accesskey "P">
+<!ENTITY bounceCommand.label "Presmerovať">
+<!ENTITY bounceCommand.tooltip "Presmeruje vybranú správu na niekoho iného">
+<!ENTITY bounceMsgCmd.key "B">

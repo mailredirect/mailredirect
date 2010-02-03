@@ -1,0 +1,19 @@
+#mailredirect-toolbarbutton {
+  -moz-image-region: rect(0px 23px 21px 0px);
+  list-style-image: url("chrome://mailredirect/skin/mailredirect.png");
+}
+
+#mailredirect-toolbarbutton:hover {
+  -moz-image-region: rect(0px 46px 21px 23px);
+  list-style-image: url("chrome://mailredirect/skin/mailredirect.png");
+}
+
+#mailredirect-toolbarbutton:hover:active {
+  -moz-image-region: rect(0px 69px 21px 46px);
+  list-style-image: url("chrome://mailredirect/skin/mailredirect.png");
+}
+
+#mailredirect-toolbarbutton[disabled="true"] {
+  -moz-image-region: rect(0px 92px 21px 69px) !important;
+  list-style-image: url("chrome://mailredirect/skin/mailredirect.png");
+}

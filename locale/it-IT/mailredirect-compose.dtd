@@ -1,0 +1,48 @@
+<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
+<!ENTITY bounceToAddr.label "reindirizza a:">
+
+<!ENTITY fileMenu.label "File">
+<!ENTITY fileMenu.accesskey "F">
+<!ENTITY closeCmd.label "Chiudi">
+<!ENTITY closeCmd.accesskey "C">
+
+<!ENTITY forwardBounce.label "Reindirizza">
+<!ENTITY forwardBounce.accesskey "i">
+<!ENTITY bounceButton.label "Reindirizza">
+<!ENTITY bounceButton.tooltip "Reindirizza i messaggi">
+
+<!ENTITY addressButton.label "Rubrica">
+<!ENTITY addressButton.tooltip "Vai alla rubrica">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.accesskey "p">
+<!ENTITY messengerCmd.label "Posta e gruppi di discussione">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.accesskey "r">
+<!ENTITY addressBookCmd.label "Rubrica">
+<!ENTITY viewMenu.label "Visualizza">
+<!ENTITY viewMenu.accesskey "V">
+<!ENTITY viewToolbarsMenuNew.label "Barra degli strumenti">
+<!ENTITY viewToolbarsMenuNew.accesskey "T">
+<!ENTITY showBounceToolbarCmd.label "Reindirizza">
+<!ENTITY showBounceToolbarCmd.accesskey "i">
+<!ENTITY showStatusbarCmd.label "Barra di stato">
+<!ENTITY showStatusbarCmd.accesskey "S">
+<!ENTITY tasksMenu.label "Strumenti">
+<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Vai al sito web di Mozilla Thunderbird">
+
+<!ENTITY fromAddr.label "Account:">
+<!ENTITY fromAddr.accesskey "a">
+
+<!ENTITY bounceMailsLabel.label "I seguenti messaggi verranno reindirizzati:">
+<!ENTITY date.label "Data">
+<!ENTITY sender.label "Mittente">
+<!ENTITY subject.label "Soggetto">
+
+<!ENTITY toAddr.label "Reindirizza:">
+<!ENTITY ccAddr.label "Reindirizza (Cc):">
+<!ENTITY bccAddr.label "Reindirizza (Bcc):">
+

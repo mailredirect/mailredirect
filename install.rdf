@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id> 
+    <em:name>Mail Redirect</em:name>
+    <em:version>0.7.4</em:version>
+    <em:description>Allow to redirect (a.k.a. "bounce") mail messages to other recipients</em:description>
+    <em:creator>Pawe&#322; Krze&#347;niak</em:creator>
+    <em:contributor>Ronald Wahl (TB3 port)</em:contributor>
+    <em:homepageURL>http://mailredirect.mozdev.org</em:homepageURL>
+    <em:optionsURL>chrome://mailredirect/content/mailredirect-prefs.xul</em:optionsURL>
+    <em:iconURL>chrome://mailredirect/skin/mailredirect-icon.png</em:iconURL>
+
+    <em:file>
+      <Description about="urn:mozilla:extension:file:mailredirect.jar">
+        <em:package>content/</em:package>
+        <em:locale>locale/en-US/</em:locale> <!-- Pawe³ Krzeœniak <pawel.krzesniakREMOVE@THISgmail.com> -->
+        <em:locale>locale/de-DE/</em:locale> <!-- Lars Roth <kontaktREMOVE@THISlars-roth.de> -->
+                                             <!-- updated by: Alexander Ihrig <thunderREMOVE@THISthunderbird-mail.de> -->
+        <em:locale>locale/de-AT/</em:locale> <!-- Lars Roth <kontaktREMOVE@THISlars-roth.de> -->
+                                             <!-- updated by: Alexander Ihrig <thunderREMOVE@THISthunderbird-mail.de> -->
+        <em:locale>locale/fr-FR/</em:locale> <!-- Laurent Malgras <laurentREMOVE@THISmalgras.net> -->
+        <em:locale>locale/it-IT/</em:locale> <!-- Neo <matrixisalloverREMOVE@THISgmail.com> -->
+        <em:locale>locale/sv-SE/</em:locale> <!-- Niklas Bjärholm <niklas.bjarholmREMOVE@THISnpn.se> -->
+        <em:locale>locale/cs-CZ/</em:locale> <!-- Tomas Drbohlav <drbREMOVE@THISkarlov.mff.cuni.cz> -->
+        <em:locale>locale/es-ES/</em:locale> <!-- Antonio Pardo <apardoREMOVE@THISunav.es> -->
+        <em:locale>locale/es-AR/</em:locale> <!-- Thad McGinnis <charlesmcginnisREMOVE@THISamnet.co.cr> -->
+        <em:locale>locale/sk-SK/</em:locale> <!-- Branislav Rozbora <rozboraREMOVE@THISmozilla.sk> -->
+        <em:locale>locale/pl-PL/</em:locale> <!-- Lukasz Stelmach <lukasz.stelmachREMOVE@THIStelmark.waw.pl> -->
+        <em:locale>locale/ro-RO/</em:locale> <!-- Lari Tanase <larieuREMOVE@THISgmail.com> -->
+	<em:locale>locale/ru-RU/</em:locale> <!-- Evgeny Lavrov <EvgenyLavrovREMOVE@THISgmail.com> -->
+	<em:locale>locale/nl-NL/</em:locale> <!-- Onno Ekker <o.e.ekkerREMOVE@THISgmail.com> -->
+      </Description>
+      <Description about="urn:mozilla:extension:file:mailredirect-skin.jar">
+        <em:skin>skin/classic/</em:skin>
+      </Description>
+    </em:file>
+    
+    <em:targetApplication>
+      <!-- Thunderbird -->
+      <Description>
+        <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+        <em:minVersion>3.0a1</em:minVersion>
+        <em:maxVersion>3.0.*</em:maxVersion>
+      </Description>
+      <!-- SeaMonkey -->
+      <Description>
+        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+        <em:minVersion>2.0a1</em:minVersion>
+        <em:maxVersion>2.0.*</em:maxVersion>
+      </Description>
+      <!-- Postbox -->
+      <Description>
+	<em:id>postbox@postbox-inc.com</em:id>
+	<em:minVersion>1.0b1</em:minVersion>
+	<em:maxVersion>1.1.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+  </Description>
+
+</RDF>

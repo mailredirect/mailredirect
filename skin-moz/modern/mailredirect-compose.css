@@ -1,0 +1,11 @@
+#bounceTree treechildren::-moz-tree-row(notsent) {
+  background-color: #ff0000;
+} 
+
+#bounceTree treechildren::-moz-tree-cell-text(notsent) {
+  color: #ffffff;
+}
+
+#bounceToolbar > .toolbar-holder > .toolbar-primary-icon {
+  background-image: url("chrome://messenger/skin/icons/mast-mail.gif");
+} 

@@ -1,0 +1,4 @@
+<!ENTITY bounceCommand.label "Omdirigera">
+<!ENTITY bounceCommand.accesskey "O">
+<!ENTITY bounceCommand.tooltip "Omdirigera valda meddelanden">
+<!ENTITY bounceMsgCmd.key "B">

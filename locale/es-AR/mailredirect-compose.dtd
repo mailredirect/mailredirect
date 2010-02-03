@@ -1,0 +1,48 @@
+<!ENTITY msgMailRedirectWindow.title "Correo Reexpedir">
+<!ENTITY bounceToAddr.label "redirect to:">
+
+<!ENTITY fileMenu.label "Archivo">
+<!ENTITY fileMenu.accesskey "A">
+<!ENTITY closeCmd.label "Cerrar">
+<!ENTITY closeCmd.accesskey "C">
+
+<!ENTITY forwardBounce.label "Reexpedir">
+<!ENTITY forwardBounce.accesskey "i">
+<!ENTITY bounceButton.label "Reexpedir">
+<!ENTITY bounceButton.tooltip "Reexpedir mensages">
+
+<!ENTITY addressButton.label "Direcciones">
+<!ENTITY addressButton.tooltip "Ir a la libreta de direcciones">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.label "Mail &amp; Newsgroups">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.label "Direcciones">
+<!ENTITY viewMenu.label "Ver">
+<!ENTITY viewMenu.accesskey "V">
+<!ENTITY viewToolbarsMenuNew.label "Barras de herramientas">
+<!ENTITY viewToolbarsMenuNew.accesskey "H">
+<!ENTITY showBounceToolbarCmd.label "Barra de Reexpedir">
+<!ENTITY showBounceToolbarCmd.accesskey "R">
+<!ENTITY showStatusbarCmd.label "Barra de estado">
+<!ENTITY showStatusbarCmd.accesskey "s">
+<!ENTITY tasksMenu.label "Herramientas">
+<!ENTITY tasksMenu.accesskey "t">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Ir a la página web de Mozilla Thunderbird">
+
+<!ENTITY fromAddr.label "Cuenta:">
+<!ENTITY fromAddr.accesskey "a">
+
+<!ENTITY bounceMailsLabel.label "Los correos siguientes se reexpedirán:">
+<!ENTITY date.label "Fecha">
+<!ENTITY sender.label "Remitente">
+<!ENTITY subject.label "Asunto">
+
+<!ENTITY toAddr.label "Reenviado-a:">
+<!ENTITY ccAddr.label "Reenviado-Cc:">
+<!ENTITY bccAddr.label "Reenviado-Bcc:">
+

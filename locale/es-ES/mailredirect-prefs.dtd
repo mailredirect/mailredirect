@@ -1,0 +1,16 @@
+<!ENTITY concurrentConnections.accesskey "N">
+<!ENTITY concurrentConnections.label "Número de conexiones SMTP simultáneas:">
+<!ENTITY concurrentConnections.tooltip "La opción permite especificar el número de conexiones que se establecerán con el servidor SMTP al enviar los mensajes. En general, esto permite mejorar el rendimiento si redirige una gran cantidad de mensajes. \nNota: Si deja el valor de este parámetro en cero no se establecen límiten en el número de conexiones simultáneas - esto puede ocasionar problemas en la estabilidad del servidor SMTP y el envío de algunos mensajes puede fallar. En caso de tener problemas ponga el valor a 1.">
+<!ENTITY copyToSentMails.accesskey "c">
+<!ENTITY copyToSentMails.label "Guardar una copia de los mensajes redirigidos en la carpeta Enviados">
+<!ENTITY copyToSentMails.tooltip "Si marca esta opción una copia de los mensajes redirigidos se guardará en la carpeta de enviados. Si no la marca no se guardará copia en ninguna carpeta.\nNota: Si marca esta opción pero las opciones de la cuenta están establecidas para no guardar ningún mensaje enviado, no se guardará copia de los mensajes redirigidos.">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.label "Depuración">
+<!ENTITY debug.tooltip "Habilitar la depuración para la extensión. Los ficheros de registro aparecen en la consola Javascript.">
+<!ENTITY mailredirectSettings.label "Redirigir Correo">
+<!ENTITY mailredirectSettings.title "Opciones MailRedirect">
+<!ENTITY prefsGroup.label "Opciones">
+<!ENTITY saveConsoleContent.accesskey "G">
+<!ENTITY saveConsoleContent.label "Guardar contenido de la consola Javascript">
+<!ENTITY uninstallButton.accesskey "D">
+<!ENTITY uninstallButton.label "Desinstalar">

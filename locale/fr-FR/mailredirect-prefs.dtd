@@ -1,0 +1,24 @@
+<!ENTITY mailredirectSettings.title "MailRedirect Options">
+
+<!ENTITY prefsGroup.label "Préférences">
+
+<!ENTITY copyToSentMails.label "Placer une copie du message redirigé dans le dossier Envoyés ?">
+<!ENTITY copyToSentMails.accesskey "c">
+<!ENTITY copyToSentMails.tooltip "Si cette option est cochée, une copie du message redirigé est placée dans le dossier Envoyés. Si cette option n'est pas cochée, le message redirigé n'est pas copié.\nRemarque : Si cette option est cochée et que le compte utilisé pour la redirection a pour paramètre de 'ne pas faire de copie des messages envoyés', aucune copie du message redirigé ne sera enregistrée.">
+
+<!ENTITY debug.label "Débogage">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Activer/Désactiver le débogueur de l'extension MailRedirect. Logs envoyés vers la Console JavaScript.">
+
+<!ENTITY saveConsoleContent.label "Sauvegarder le contenu de la Console JavaScript...">
+<!ENTITY saveConsoleContent.accesskey "S">
+
+<!ENTITY concurrentConnections.label "Nombre de connexions SMTP simultanées :">
+<!ENTITY concurrentConnections.accesskey "N">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "Nombre de connexions à établir sur votre serveur SMTP lors de l'envoi des messages. En général, cela permet d’améliorer les performances lors de l'envoi d'un nombre important de messages.\nRemarque : Utiliser la valeur 0 pour ne pas limiter le nombre de connexions simultanées - la stabilité de votre serveur SMTP peut être affectée ou l'envoi de certains messages peut échouer. En cas de problème, mettre cette valeur à 1.">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Mail Redirect">
+<!ENTITY uninstallButton.label "Désinstaller...">
+<!ENTITY uninstallButton.accesskey "i">

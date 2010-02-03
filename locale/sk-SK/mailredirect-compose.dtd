@@ -1,0 +1,40 @@
+<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.label "Adresár">
+<!ENTITY addressButton.label "Adresár">
+<!ENTITY addressButton.tooltip "Prejsť na adresár">
+<!ENTITY bccAddr.label "Znovu odoslať - Skrytá kópia:">
+<!ENTITY bounceButton.label "Presmerovať">
+<!ENTITY bounceButton.tooltip "Presmerovať správu na niekoho iného">
+<!ENTITY bounceMailsLabel.label "Nasledovné správy budú presmerované:">
+<!ENTITY bounceToAddr.label "presmerovať komu:">
+<!ENTITY ccAddr.label "Znovu odoslať - Kópia:">
+<!ENTITY closeCmd.accesskey "Z">
+<!ENTITY closeCmd.key "W">
+<!ENTITY closeCmd.label "Zavrieť">
+<!ENTITY date.label "Dátum">
+<!ENTITY fileMenu.accesskey "S">
+<!ENTITY fileMenu.label "Súbor">
+<!ENTITY forwardBounce.accesskey "P">
+<!ENTITY forwardBounce.label "Presmerovať">
+<!ENTITY fromAddr.accesskey "O">
+<!ENTITY fromAddr.label "Od:">
+<!ENTITY messengerCmd.accesskey "P">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.label "Pošta &amp; diskusie">
+<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
+<!ENTITY sender.label "Odosielateľ">
+<!ENTITY showBounceToolbarCmd.accesskey "p">
+<!ENTITY showBounceToolbarCmd.label "Panel nástrojov MailRedirect">
+<!ENTITY showStatusbarCmd.accesskey "S">
+<!ENTITY showStatusbarCmd.label "Stavový riadok">
+<!ENTITY subject.label "Predmet">
+<!ENTITY tasksMenu.accesskey "N">
+<!ENTITY tasksMenu.label "Nástroje">
+<!ENTITY throbber.tooltip "Prejsť na domovskú stránku Mozilla Thunderbird">
+<!ENTITY throbberItem.title "">
+<!ENTITY toAddr.label "Znovu odoslať - Komu:">
+<!ENTITY viewMenu.accesskey "Z">
+<!ENTITY viewMenu.label "Zobraziť">
+<!ENTITY viewToolbarsMenuNew.accesskey "n">
+<!ENTITY viewToolbarsMenuNew.label "Panely s nástrojmi">

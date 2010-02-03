@@ -1,0 +1,48 @@
+<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
+<!ENTITY bounceToAddr.label "redirect to:">
+
+<!ENTITY fileMenu.label "Soubor">
+<!ENTITY fileMenu.accesskey "S">
+<!ENTITY closeCmd.label "Zavřít">
+<!ENTITY closeCmd.accesskey "Z">
+
+<!ENTITY forwardBounce.label "Přesměrovat">
+<!ENTITY forwardBounce.accesskey "t">
+<!ENTITY bounceButton.label "Přesměrovat">
+<!ENTITY bounceButton.tooltip "Přesměrovat zprávu na někoho jiného">
+
+<!ENTITY addressButton.label "Adresář">
+<!ENTITY addressButton.tooltip "Přejde na adresář">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.label "Mail &amp; Newsgroups">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.label "Adresář">
+<!ENTITY viewMenu.label "Zobrazit">
+<!ENTITY viewMenu.accesskey "Z">
+<!ENTITY viewToolbarsMenuNew.label "Lišty nástrojů">
+<!ENTITY viewToolbarsMenuNew.accesskey "n">
+<!ENTITY showBounceToolbarCmd.label "Lišta přesměrování">
+<!ENTITY showBounceToolbarCmd.accesskey "p">
+<!ENTITY showStatusbarCmd.label "Stavová lišta">
+<!ENTITY showStatusbarCmd.accesskey "S">
+<!ENTITY tasksMenu.label "Nástroje">
+<!ENTITY tasksMenu.accesskey "N">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Přejde na domovskou stránku aplikace Mozilla Thunderbird">
+
+<!ENTITY fromAddr.label "Od:">
+<!ENTITY fromAddr.accesskey "O">
+
+<!ENTITY bounceMailsLabel.label "Následující zprávu budou přesměrovány:">
+<!ENTITY date.label "Datum">
+<!ENTITY sender.label "Odesílatel">
+<!ENTITY subject.label "Předmět">
+
+<!ENTITY toAddr.label "Komu:">
+<!ENTITY ccAddr.label "Kopie:">
+<!ENTITY bccAddr.label "Skrytá kopie:">
+

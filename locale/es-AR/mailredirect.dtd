@@ -1,0 +1,4 @@
+<!ENTITY bounceCommand.label "Reexpedir">
+<!ENTITY bounceCommand.accesskey "i">
+<!ENTITY bounceCommand.tooltip "Reexpedir mensajes seleccionados">
+<!ENTITY bounceMsgCmd.key "B">
