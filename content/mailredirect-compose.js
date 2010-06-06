@@ -1850,7 +1850,10 @@ nsMsgSendListener.prototype =
          .QueryInterface(Components.interfaces.nsIMessenger);
        var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[this.URIidx]);
        var msgHdr = msgService.messageURIToMsgHdr(mstate.selectedURIs[this.URIidx]);
-       var keywords = msgHdr.getStringProperty("keywords");
+       /*
+	* redirected status bug
+	*
+	* var keywords = msgHdr.getStringProperty("keywords");
        if (keywords.length != 0) {
          if (! /(?:^| )redirected(?: |$)/.test(keywords)) {
            keywords += " redirected";
@@ -1861,6 +1864,18 @@ nsMsgSendListener.prototype =
        msgHdr.setStringProperty("keywords", keywords);
        var msgDb = msgHdr.folder.msgDatabase;
        msgDb.Commit(1); // msgDb.Commit(MSG_DB_LARGE_COMMIT);
+       */
+
+       var msg = Components.classes["@mozilla.org/supports-array;1"]
+	 .createInstance(Components.interfaces.nsISupportsArray);
+       msg.AppendElement(msgHdr);
+       try {
+         msgHdr.folder.addKeywordsToMessages(msg, "redirected");
+       } catch(e) {
+	 dumper.dump(e)
+       }
+       /* End of bugfix */
+
      }
        },
   onSendNotPerformed : function(aMsgID, aStatus) {
