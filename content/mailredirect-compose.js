@@ -1866,13 +1866,13 @@ nsMsgSendListener.prototype =
        msgDb.Commit(1); // msgDb.Commit(MSG_DB_LARGE_COMMIT);
        */
 
-       var msg = Components.classes["@mozilla.org/supports-array;1"]
-	 .createInstance(Components.interfaces.nsISupportsArray);
-       msg.AppendElement(msgHdr);
+       var msg = Components.classes["@mozilla.org/array;1"]
+	 .createInstance(Components.interfaces.nsIMutableArray);
+       msg.appendElement(msgHdr, false);
        try {
          msgHdr.folder.addKeywordsToMessages(msg, "redirected");
        } catch(e) {
-	 dumper.dump(e)
+	 dumper.dump(e);
        }
        /* End of bugfix */
 
