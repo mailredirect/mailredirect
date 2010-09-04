@@ -1,0 +1,4 @@
+<!ENTITY bounceCommand.label "Redirecionar">
+<!ENTITY bounceCommand.accesskey "i">
+<!ENTITY bounceCommand.tooltip "Redirecionar mensagens selecionadas">
+<!ENTITY bounceMsgCmd.key "B">

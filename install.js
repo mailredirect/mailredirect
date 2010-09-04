@@ -2,9 +2,9 @@
 // 1. Set parameters of package installation
 const APP_DISPLAY_NAME = "Mail Redirect";
 const APP_NAME = "mailredirect";
-const APP_VERSION = "0.7.4";
+const APP_VERSION = "0.7.6";
 
-const supported_locales = ["en-US", "de-DE", "fr-FR", "it-IT", "sv-SE", "cs-CZ", "es-ES", "es-AR", "de-AT", "sk-SK", "pl-PL", "ro-RO", "ru-RU", "nl-NL" ];
+const supported_locales = ["en-US", "de-DE", "fr-FR", "it-IT", "sv-SE", "cs-CZ", "es-ES", "es-AR", "de-AT", "sk-SK", "pl-PL", "ro-RO", "ru-RU", "nl-NL", "pt-BR" ];
 
 const APP_PACKAGE = "/" + APP_NAME;
 const APP_JAR_FILE = APP_NAME + ".jar";

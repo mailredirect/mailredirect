@@ -173,6 +173,7 @@ function updateMailRedirectMenuCmd()
 function openMailRedirectComposeWindow()
 {
   var selectedURIs;
+  var server;
   var folder;
   if (typeof gFolderDisplay !== "undefined") {
       selectedURIs = gFolderDisplay.selectedMessageUris;

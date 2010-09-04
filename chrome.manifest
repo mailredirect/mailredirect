@@ -18,6 +18,7 @@ locale	mailredirect	pl-PL	jar:chrome/mailredirect.jar!/locale/pl-PL/
 locale	mailredirect	ro-RO	jar:chrome/mailredirect.jar!/locale/ro-RO/
 locale	mailredirect	ru-RU	jar:chrome/mailredirect.jar!/locale/ru-RU/
 locale	mailredirect	nl-NL	jar:chrome/mailredirect.jar!/locale/nl-NL/
+locale	mailredirect	pt-BR	jar:chrome/mailredirect.jar!/locale/pt-BR/
 
 skin	mailredirect	classic/1.0	jar:chrome/mailredirect-skin.jar!/skin/classic/
 

@@ -69,7 +69,7 @@
 <!-- <script type="application/x-javascript" src="chrome://global/content/charsetOverlay.js"/> -->
 <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js"/>
 <script type="application/x-javascript" src="chrome://communicator/content/utilityOverlay.js"/>
-
+<script type="application/x-javascript" src="chrome://messenger/content/msgHdrViewOverlay.js"/>
 
 <keyset id="mailKeys">
   <key keycode="VK_ESCAPE" command="cmd_mailredirect_close"/>
@@ -241,7 +241,11 @@
       <separator class="thin"/>
       <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
       <separator class="thin"/>
-      <tree id="bounceTree" rows="3" flex="1" hidecolumnpicker="true" seltype="single" 
+      <!-- NOTE: The tree element below used to have rows="3" set but this
+		 caused a 100% CPU load issue with TB3.1. So it has been
+		 removed for now.
+      -->
+      <tree id="bounceTree" flex="1" hidecolumnpicker="true" seltype="single" 
         class="plain" disableKeyNavigation="true">
         <treecols>
           <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />

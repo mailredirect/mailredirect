@@ -635,6 +635,37 @@ function LoadIdentity(startup)
     }
 }
 
+function GetMsgHdrForUri (msg_uri) {
+  var messenger = Components.classes["@mozilla.org/messenger;1"].createInstance()
+    .QueryInterface(Components.interfaces.nsIMessenger);
+  var mms = messenger.messageServiceFromURI(msg_uri)
+    .QueryInterface(Components.interfaces.nsIMsgMessageService);
+  var hdr = null;
+
+  if (mms) {
+    try {
+      hdr = mms.messageURIToMsgHdr(msg_uri);
+    } catch (ex) { }
+    if (!hdr) {
+      try {
+	var url_o = new Object(); // return container object
+	mms.GetUrlForUri(msg_uri, url_o, msgWindow);
+	var url = url_o.value.QueryInterface
+	  (Components.interfaces.nsIMsgMessageUrl);
+	hdr = url.messageHeader;
+      } catch (ex) { }
+    }
+  }
+  if (!hdr && gDBView && gDBView.msgFolder) {
+    try {
+      hdr = gDBView.msgFolder.GetMessageHeader
+	(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
+    } catch (ex) { }
+  }
+
+  return hdr;
+}
+
 function BounceLoad()
 {
   aAccountManager = Components.classes["@mozilla.org/messenger/account-manager;1"]
@@ -643,8 +674,9 @@ function BounceLoad()
     .getService(Components.interfaces.nsIPromptService);
   mimeHeaderParser = Components.classes["@mozilla.org/messenger/headerparser;1"]
     .getService(Components.interfaces.nsIMsgHeaderParser);
-  var mail3paneWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService()
-    .QueryInterface(Components.interfaces.nsIWindowMediator).getMostRecentWindow("mail:3pane");
+  var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService().QueryInterface(Components.interfaces.nsIWindowMediator)
+  var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
+  var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
 
   // First get the preferences service
   try {
@@ -658,12 +690,14 @@ function BounceLoad()
   }
 
   // copy toolbar appearance settings from mail3pane
-  var aBounceToolbar = document.getElementById('bounceToolbar');
-  if (aBounceToolbar) {
-    var mailBar = mail3paneWindow.document.getElementById('mail-bar');
-    if (mailBar) {
-      aBounceToolbar.setAttribute("iconsize", mailBar.getAttribute("iconsize"));
-      aBounceToolbar.setAttribute("mode", mailBar.getAttribute("mode"));
+  if (mail3paneWindow) {
+    var aBounceToolbar = document.getElementById('bounceToolbar');
+    if (aBounceToolbar) {
+      var mailBar = mail3paneWindow.document.getElementById('mail-bar');
+      if (mailBar) {
+	aBounceToolbar.setAttribute("iconsize", mailBar.getAttribute("iconsize"));
+	aBounceToolbar.setAttribute("mode", mailBar.getAttribute("mode"));
+      }
     }
   }
 
@@ -747,7 +781,6 @@ function BounceLoad()
 
     var dateFormatService = Components.classes["@mozilla.org/intl/scriptabledateformat;1"]
       .getService(Components.interfaces.nsIScriptableDateFormat);
-    var date = new Date();
     
     for (var i=0; i<mstate.size; ++i) {
       var aRow = document.createElement("treerow");
@@ -756,31 +789,48 @@ function BounceLoad()
 
       dumper.dump(mstate.selectedURIs[i]);
       var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[i]);
-      var msgHdr = msgService.messageURIToMsgHdr(mstate.selectedURIs[i]);
-
-      var aCell = document.createElement("treecell");
-      aCell.setAttribute("label", msgHdr.mime2DecodedSubject);
-
+      var msgSubject = "";
+      var msgAuthor = "";
+      var msgDate = null;
       var propertiesString = ""; 
-      if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
-      if (msgHdr.flags & 0x0001)  propertiesString += " read";
-      if (msgHdr.flags & 0x0002)  propertiesString += " replied";
-      if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
-      if (msgHdr.flags & 0x10000) propertiesString += " new";
-      if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
+      var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
+      if (msgHdr) {
+	msgSubject = msgHdr.mime2DecodedSubject;
+	msgAuthor = msgHdr.mime2DecodedAuthor;
+	msgDate = msgHdr.date;
+	if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
+	if (msgHdr.flags & 0x0001)  propertiesString += " read";
+	if (msgHdr.flags & 0x0002)  propertiesString += " replied";
+	if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
+	if (msgHdr.flags & 0x10000) propertiesString += " new";
+	if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
+      } else if (currMsgWindow && currMsgWindow.messageHeaderSink) {
+	msgHdr = currMsgWindow.messageHeaderSink.dummyMsgHeader;
+	if (msgHdr) {
+	  msgSubject = msgHdr.subject;
+	  msgAuthor = msgHdr.author;
+	}
+      }
+      
+      var aCell = document.createElement("treecell");
+      aCell.setAttribute("label", msgSubject);
       aCell.setAttribute("properties", propertiesString);
       aRow.appendChild(aCell);
 
       var aCell = document.createElement("treecell");
-      aCell.setAttribute("label", msgHdr.mime2DecodedAuthor);
+      aCell.setAttribute("label", msgAuthor);
       aRow.appendChild(aCell);
 
       var aCell = document.createElement("treecell");
-      date.setTime(msgHdr.date / 1000);
-      var dateString = dateFormatService.FormatDateTime("",
-          dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
+      var dateString = "";
+      if (msgDate) {
+	var date = new Date();
+	date.setTime(msgDate / 1000);
+	dateString = dateFormatService.FormatDateTime("",
+	  dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
           date.getFullYear(), date.getMonth()+1, date.getDate(),
           date.getHours(), date.getMinutes(), date.getSeconds());
+      }
       aCell.setAttribute("label", dateString);
       aRow.appendChild(aCell);
 
