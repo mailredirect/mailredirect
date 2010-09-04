@@ -66,12 +66,23 @@ isCommandEnabled: function(command)
                     /*dumper.dump('isCommandEnabled(' + command + ')  = ' + 
                         ((!mailredirectIsOffline) && (GetNumSelectedMessages() > 0))
                       ); */
+		      var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService().QueryInterface(Components.interfaces.nsIWindowMediator);
+		      var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
+		      var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
+
                     switch(command) {
-                      case "cmd_mailredirect_menu":
-                      case "cmd_mailredirect":
-                        return ((!mailredirectIsOffline) && (GetNumSelectedMessages() > 0));
-                      default:
-                        return false;
+			case "cmd_mailredirect_menu":
+			case "cmd_mailredirect":
+			    if (!mailredirectIsOffline) {
+				if (currMsgWindow) {
+				    return true;
+				} else if (mail3paneWindow) {
+				    return (GetNumSelectedMessages() > 0);
+				}
+			    }
+			    return false;
+			default:
+			    return false;
                     }
                   },
 doCommand: function(command)

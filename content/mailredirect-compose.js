@@ -674,7 +674,7 @@ function BounceLoad()
     .getService(Components.interfaces.nsIPromptService);
   mimeHeaderParser = Components.classes["@mozilla.org/messenger/headerparser;1"]
     .getService(Components.interfaces.nsIMsgHeaderParser);
-  var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService().QueryInterface(Components.interfaces.nsIWindowMediator)
+  var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService().QueryInterface(Components.interfaces.nsIWindowMediator);
   var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
   var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
 

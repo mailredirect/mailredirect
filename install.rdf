@@ -5,14 +5,15 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id> 
     <em:name>Mail Redirect</em:name>
-    <em:version>0.7.6</em:version>
+    <em:version>0.7.6.1</em:version>
     <em:description>Allow to redirect (a.k.a. "bounce") mail messages to other recipients</em:description>
     <em:creator>Pawel Krzesniak</em:creator>
     <em:contributor>Ronald Wahl (TB3 port)</em:contributor>
     <em:homepageURL>http://mailredirect.mozdev.org</em:homepageURL>
     <em:optionsURL>chrome://mailredirect/content/mailredirect-prefs.xul</em:optionsURL>
     <em:iconURL>chrome://mailredirect/skin/mailredirect-icon.png</em:iconURL>
-
+    <em:updateURL>http://downloads.mozdev.org/mailredirect/update.rdf</em:updateURL>
+    <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeCTk1UeuneGxy0g3bJcUoSfF+CNTfNrnmsSKYGtLvwgfcecW2i0tuV52U8EcQ1nfGuDZtvuHJiu1rdn57G3BsVfTwwyfxY35w7Kjk4/J7HtB/+3EPyV81PT+flO5YT/F4yeO+k5MiAWsIb6Re2RF1ildra4lqxY+va4uDQuXJ3wIDAQAB</em:updateKey>
     <em:file>
       <Description about="urn:mozilla:extension:file:mailredirect.jar">
         <em:package>content/</em:package>
