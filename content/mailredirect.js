@@ -33,7 +33,7 @@ var MailRedirectOfflineObserver = {
 
 function AddOfflineObserver()
 {
-  //dumper.dump('in AddOfflineObserver()');
+  dumper.dump('in AddOfflineObserver()');
   var observerService = Components.classes["@mozilla.org/observer-service;1"]
     .getService(Components.interfaces.nsIObserverService);
   observerService.addObserver(MailRedirectOfflineObserver, "network:offline-status-changed", false);
@@ -63,8 +63,8 @@ supportsCommand : function(command)
                   },
 isCommandEnabled: function(command)
                   {
-                    /*dumper.dump('isCommandEnabled(' + command + ')  = ' + 
-                        ((!mailredirectIsOffline) && (GetNumSelectedMessages() > 0))
+                    /* dumper.dump('isCommandEnabled(' + command + ')  = ' + 
+                        ((!mailredirectIsOffline) && (GetNumSelectedMessages() > 0  && !gFolderDisplay.selectedMessageIsFeed))
                       ); */
 		      var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService().QueryInterface(Components.interfaces.nsIWindowMediator);
 		      var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
@@ -77,7 +77,7 @@ isCommandEnabled: function(command)
 				if (currMsgWindow) {
 				    return true;
 				} else if (mail3paneWindow) {
-				    return (GetNumSelectedMessages() > 0);
+				    return GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed;
 				}
 			    }
 			    return false;

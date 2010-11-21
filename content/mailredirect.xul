@@ -27,6 +27,10 @@
     <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
   </commandset>
 
+  <commandset id="mailToolbarItems">
+      <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
+  </commandset>
+
   <!-- if (thunderbird) -->
   <toolbarpalette id="MailToolbarPalette">
     <toolbarbutton class="toolbarbutton-1" id="mailredirect-toolbarbutton" label="&bounceCommand.label;"
