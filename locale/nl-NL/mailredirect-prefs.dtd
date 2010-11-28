@@ -19,6 +19,20 @@
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "Hiermee stelt u het aantal verbindingen in die met uw SMTP server worden opgezet bij het verzenden van berichten. U kunt hier betere prestaties mee bereiken als u veel berichten tegelijk heradresseert.\nN.B.: Als u deze parameter op nul instelt, geldt er geen limiet voor het aantal gelijktijdige verbindingen - dit kan de stabiliteit van uw SMTP server beïnvloeden of het heradresseren van enkele berichten zou kunnen mislukken. Als u problemen ondervindt, stel dan de waarde een in.">
 
+<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+
+<!ENTITY defaultResentTo.label "Heradresseer-Aan:">
+<!ENTITY defaultResentTo.accesskey "a">
+<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentCc.label "Heradresseer-Cc:">
+<!ENTITY defaultResentCc.accesskey "C">
+<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentBcc.label "Heradresseer-Bcc:">
+<!ENTITY defaultResentBcc.accesskey "c">
+<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Heradresseer bericht">
 <!ENTITY uninstallButton.label "De\u00EFnstalleren...">

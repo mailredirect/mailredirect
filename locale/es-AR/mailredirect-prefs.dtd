@@ -12,14 +12,28 @@
 <!ENTITY debug.tooltip "Apagar on/off debugging para mailredirect extension. Bitácoras están dirigidas a la Consola de JavaScript.">
 
 <!ENTITY saveConsoleContent.label "Guardar contenidos de la Consola de JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "S">
+<!ENTITY saveConsoleContent.accesskey "G">
 
 <!ENTITY concurrentConnections.label "Numero de connections concurrentes de SMTP :">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "The option specifies number of connections that will be established to your SMTP server while sending messages. In general, this allows you to increase performance of sending process when you choose to redirect huge amount of messages.\nNote: If you set this parameter to zero no limits of concurrent connections will apply - be awared that it could impact on stability of your SMTP server or sending of some messages could fail. In case of any problems set this value to one.">
 
+<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+
+<!ENTITY defaultResentTo.label "Reenviado-a:">
+<!ENTITY defaultResentTo.accesskey "a">
+<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentCc.label "Reenviado-Cc:">
+<!ENTITY defaultResentCc.accesskey "C">
+<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentBcc.label "Reenviado-Bcc:">
+<!ENTITY defaultResentBcc.accesskey "B">
+<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Redireccionar Correo">
 <!ENTITY uninstallButton.label "Desinstalar...">
-<!ENTITY uninstallButton.accesskey "D">
+<!ENTITY uninstallButton.accesskey "s">

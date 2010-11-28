@@ -701,6 +701,43 @@ function BounceLoad()
     }
   }
 
+  // get defaults for Resent-To, Resent-Cc and Resent-Bcc from preferences
+  var defaultResentToString  = "";
+  var defaultResentCcString  = "";
+  var defaultResentBccString = "";
+  try {
+    defaultResentToString  = aPrefs.getCharPref("extensions.mailredirect.defaultResentTo").replace(/^\s+|\s+$/g, "");
+    defaultResentCcString  = aPrefs.getCharPref("extensions.mailredirect.defaultResentCc").replace(/^\s+|\s+$/g, "");
+    defaultResentBccString = aPrefs.getCharPref("extensions.mailredirect.defaultResentBcc").replace(/^\s+|\s+$/g, "");
+  }
+  catch (ex) { 
+    // do nothing...
+  }
+
+  // set defaults for Resent-To, Resent-Cc and Resent-Bcc in the bounce dialog
+  var addr;
+  if (defaultResentToString != "") {
+    var defaultResentToArray = defaultResentToString.split(",");
+    for (var idx in defaultResentToArray) {
+      addr = defaultResentToArray[idx].replace(/^\s+|\s+$/g, "");
+      if (addr != "") awAddRecipient("addr_to", addr);
+    }
+  }
+  if (defaultResentCcString != "") {
+    var defaultResentCcArray = defaultResentCcString.split(",");
+    for (var idx in defaultResentCcArray) {
+      addr = defaultResentCcArray[idx].replace(/^\s+|\s+$/g, "");
+      if (addr != "") awAddRecipient("addr_cc", addr);
+    }
+  }
+  if (defaultResentBccString != "") {
+    var defaultResentBccArray = defaultResentBccString.split(",");
+    for (var idx in defaultResentBccArray) {
+      addr = defaultResentBccArray[idx].replace(/^\s+|\s+$/g, "");
+      if (addr != "") awAddRecipient("addr_bcc", addr);
+    }
+  }
+
   try {
     sAccountManagerDataSource = Components.classes["@mozilla.org/rdf/datasource;1?name=msgaccountmanager"]
       .createInstance(Components.interfaces.nsIRDFDataSource);

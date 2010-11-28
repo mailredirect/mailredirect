@@ -14,3 +14,13 @@
 <!ENTITY saveConsoleContent.label "Guardar contenido de la consola Javascript">
 <!ENTITY uninstallButton.accesskey "D">
 <!ENTITY uninstallButton.label "Desinstalar">
+<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!ENTITY defaultResentTo.label "Redirigir A:">
+<!ENTITY defaultResentTo.accesskey "A">
+<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentCc.label "Redirigir-Cc:">
+<!ENTITY defaultResentCc.accesskey "C">
+<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentBcc.label "Redirigir-Bcc:">
+<!ENTITY defaultResentBcc.accesskey "B">
+<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">

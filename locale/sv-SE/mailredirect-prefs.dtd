@@ -19,6 +19,20 @@
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "Detta värde bestämmer antalet anslutningar som kommer att etableras till din SMTP server när meddelanden skickas. I allmänhet låter detta dig öka prestandan när du väljer att skicka stora mängder brev.\nNotera: Om du sätter detta värde till 0(noll) kommer inga begränsningar att gälla. Tänk på att detta kan påverka stabiliteten på din SMTP server eller att sändningen av vissa brev misslyckas. Om du stöter på några problem så sätt detta värde till 1.">
 
+<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+
+<!ENTITY defaultResentTo.label "Omdirigera-Till:">
+<!ENTITY defaultResentTo.accesskey "T">
+<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentCc.label "Omdirigera-Kopia:">
+<!ENTITY defaultResentCc.accesskey "K">
+<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentBcc.label "Omdirigera-Dold kopia:">
+<!ENTITY defaultResentBcc.accesskey "D">
+<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Omdirigera Brev">
 <!ENTITY uninstallButton.label "Avinstallera...">

@@ -19,7 +19,21 @@
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "Optiunea speciffica cate conexiuni concurente sa fie stabilite catre servrul SMTP cand se trimit mesaje. In general, aceasta optiune poate influenta(micsora) timpul in care se trimit mesajele, daca numarul acestora este foarte mare - este influentat si de numarul maxim de mesaje acceptat de server.\nNota: Daca setati acest parametru la 0 de fapt nu se va aplica nici o limita - fiti atent caci poate sa afecteze stabilitatea serverului SMTP sau unele mesaje nu se vor trimite deloc. In caz ca apar astfel de probleme setati valuarea la unu.">
 
+<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+
+<!ENTITY defaultResentTo.label "Retrimite-To:">
+<!ENTITY defaultResentTo.accesskey "T">
+<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentCc.label "Retrimite-Cc:">
+<!ENTITY defaultResentCc.accesskey "C">
+<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY defaultResentBcc.label "Retrimite-Bcc:">
+<!ENTITY defaultResentBcc.accesskey "B">
+<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Redirecteaza Mail">
 <!ENTITY uninstallButton.label "Dezinstaleaza...">
-<!ENTITY uninstallButton.accesskey "U">
+<!ENTITY uninstallButton.accesskey "D">

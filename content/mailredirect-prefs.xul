@@ -43,6 +43,39 @@
     <button class="dialog" id="saveConsoleContent" accesskey="&saveConsoleContent.accesskey;"
       label="&saveConsoleContent.label;" oncommand="saveConsoleContent();" />
   </hbox>
+
+  <groupbox>
+    <caption label="&defaultRecipientsGroup.label;"/>
+    <hbox>
+      <spacer flex="1"/>
+      <label control="defaultResentTo" value="&defaultResentTo.label;"
+	     tooltip="xToolTip" xtooltiptext="&defaultResentTo.tooltip;"
+	     accesskey="&defaultResentTo.accesskey;"/>
+      <textbox id="defaultResentTo" size="48"
+	       prefstring="extensions.mailredirect.defaultResentTo"
+	       preftype="string" pref="true" prefdefval="" /> 
+    </hbox>
+
+    <hbox>
+      <spacer flex="1"/>
+      <label control="defaultResentCc" value="&defaultResentCc.label;"
+	     tooltip="xToolTip" xtooltiptext="&defaultResentCc.tooltip;"
+	     accesskey="&defaultResentCc.accesskey;"/>
+      <textbox id="defaultResentCc" size="48"
+	       prefstring="extensions.mailredirect.defaultResentCc"
+	       preftype="string" pref="true" prefdefval="" /> 
+    </hbox>
+
+    <hbox>
+      <spacer flex="1"/>
+      <label control="defaultResentBcc" value="&defaultResentBcc.label;"
+	     tooltip="xToolTip" xtooltiptext="&defaultResentBcc.tooltip;"
+	     accesskey="&defaultResentBcc.accesskey;"/>
+      <textbox id="defaultResentBcc" size="48"
+	       prefstring="extensions.mailredirect.defaultResentBcc"
+	       preftype="string" pref="true" prefdefval="" /> 
+    </hbox>
+  </groupbox>
 </groupbox>
 
 <tooltip id="xToolTip" noautohide="true"

@@ -14,3 +14,13 @@
 <!ENTITY saveConsoleContent.label "Uložiť obsah ladiacej konzoly JavaScript...">
 <!ENTITY uninstallButton.accesskey "O">
 <!ENTITY uninstallButton.label "Odinštalovať...">
+<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!ENTITY defaultResentTo.label "Znovu odoslať - Komu:">
+<!ENTITY defaultResentTo.accesskey "K">
+<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentCc.label "Znovu odoslať - Kópia:">
+<!ENTITY defaultResentCc.accesskey "p">
+<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentBcc.label "Znovu odoslať - Skrytá kópia:">
+<!ENTITY defaultResentBcc.accesskey "y">
+<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">

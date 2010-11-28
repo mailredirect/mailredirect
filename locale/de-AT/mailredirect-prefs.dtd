@@ -34,6 +34,20 @@
                                            gesendet werden können. Wenn Probleme auftreten, setzen Sie 
                                            die Anzahl bitte auf Eins.">
 
+<!ENTITY defaultRecipientsGroup.label "Voreingestellte Empfänger">
+
+<!ENTITY defaultResentTo.label "Umleiten-An:">
+<!ENTITY defaultResentTo.accesskey "A">
+<!ENTITY defaultResentTo.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
+
+<!ENTITY defaultResentCc.label "Umleiten-CC:">
+<!ENTITY defaultResentCc.accesskey "C">
+<!ENTITY defaultResentCc.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
+
+<!ENTITY defaultResentBcc.label "Umleiten-BCC:">
+<!ENTITY defaultResentBcc.accesskey "B">
+<!ENTITY defaultResentBcc.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
+
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label       "Nachricht umleiten">
 <!ENTITY uninstallButton.label            "Deinstallieren...">

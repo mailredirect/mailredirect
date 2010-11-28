@@ -1,6 +1,6 @@
 // need to be global variable
 // List of persisted elements (required by seamonkey to save prefs)
-var _elementIDs = ["copyToSentMail", "debug", "concurrentConnections"];
+var _elementIDs = ["copyToSentMail", "debug", "concurrentConnections", "defaultResentTo", "defaultResentCc", "defaultResentBcc"];
     
 function initPrefs()
 {
@@ -21,6 +21,8 @@ function initPrefs()
       if (element.getAttribute("preftype") == "int") {
         element.value = nsPreferences.getIntPref(element.getAttribute("prefstring"),
             parseInt(element.getAttribute("prefdefval")));
+      } else if (element.getAttribute("preftype") == "string") {
+	element.value = nsPreferences.copyUnicharPref(element.getAttribute("prefstring"));
       }
     }
   }
@@ -42,6 +44,8 @@ function savePrefs()
     } else if (eltType == "textbox") {
       if (element.getAttribute("preftype") == "int") {
         nsPreferences.setIntPref(element.getAttribute("prefstring"), parseInt(element.value));
+      } else if (element.getAttribute("preftype") == "string") {
+        nsPreferences.setUnicharPref(element.getAttribute("prefstring"), element.value);
       }
     } 
   }
