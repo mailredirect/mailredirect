@@ -166,10 +166,8 @@
 
     <toolbarspring flex="1"/>
 
-    <toolbaritem id="throbber-box" title="&throbberItem.title;" align="center" pack="center">
-      <button id="navigator-throbber" oncommand="loadThrobberUrl('compose.throbber.url')" tooltiptext="&throbber.tooltip;">
-        <observes element="broadcaster_throbber" attribute="busy"/>
-      </button>
+    <toolbaritem id="throbber-box" title="&throbberItem.title;" align="center" pack="center" mousethrough="always">
+	<image/>
     </toolbaritem>
   </toolbar>
 </toolbox>
@@ -220,7 +218,7 @@
 		     timeout="300" maxrows="4"
 		     completedefaultindex="true" forcecomplete="true"
 		     minresultsforpopup="3" ignoreblurwhilesearching="true"
-		     ontextcommand="awRecipientTextCommand(eventParam, this)"
+		     ontextentered="awRecipientTextCommand(eventParam, this)"
 		     onerrorcommand="awRecipientErrorCommand(eventParam, this)"
 		     oninput="gContentChanged=true; setupAutocomplete();" disableonsend="true"
 		     onkeypress="awRecipientKeyPress(event, this)"

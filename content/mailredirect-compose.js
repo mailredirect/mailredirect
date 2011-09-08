@@ -16,10 +16,6 @@ const JS_FILE_NS_SYNC                 = 0x40;
 const JS_FILE_NS_EXCL                 = 0x80; 
 
 // from nsDirPrefs.h
-const kAllDirectoryRoot        = "moz-abdirectory://";
-const kMDBDirectoryRoot        = "moz-abmdbdirectory://";
-const kLDAPDirectoryRoot       = "moz-abldapdirectory://";
-
 const kPersonalAddressbookUri  = "moz-abmdbdirectory://abook.mab";
 const kCollectedAddressbookUri = "moz-abmdbdirectory://history.mab";
 
@@ -117,17 +113,6 @@ function RemoveValueFromAttribute(el, atr, val)
     el.setAttribute(atr, newval);
   }
 }
-
-function loadThrobberUrl(urlPref)
-{
-  var url;
-  try {
-    url = aPrefs.getComplexValue(urlPref, Components.interfaces.nsIPrefLocalizedString).data;
-    var messenger = Components.classes["@mozilla.org/messenger;1"].createInstance()
-      .QueryInterface(Components.interfaces.nsIMessenger);
-    messenger.launchExternalURL(url);
-  } catch (ex) {}
-} 
 
 function toOpenWindowByType( inType, uri )
 {
@@ -1585,15 +1570,25 @@ nsMsgStatusFeedback.prototype =
   statusTextFld : null,
   statusBar     : null,
   throbber      : null,
+  mailredirectTreeCell : null,
   URIidx : -1,
 
   ensureStatusFields : function()
-    {
-      // dumper.dump('ensureStatusFields');
+  {
+      //dumper.dump('ensureStatusFields');
       if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
       if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
-      if (!this.throbber)   this.throbber = document.getElementById("navigator-throbber");
-    },
+      if (!this.throbber)   this.throbber = document.getElementById("throbber-box");
+      if (!this.mailredirectTreeCell) {
+	var treeChildren = document.getElementById("topTreeChildren");
+        if (treeChildren) {
+          var el = treeChildren.getElementsByAttribute("URIidx", this.URIidx);
+          if (el) {
+            if (!this.mailredirectTreeCell) this.mailredirectTreeCell = el[0].lastChild;
+	  }
+        }
+      }
+  },
 
   updateStatusText : function()
   {
@@ -1879,7 +1874,7 @@ nsMsgSendListener.prototype =
   mailredirectTreeCell : null,
 
   ensureStatusFields : function() {
-      // dumper.dump('msgsendlistener.ensureStatusFields');
+      dumper.dump('msgsendlistener.ensureStatusFields');
       if (!this.mailredirectTreeRow || !this.mailredirectTreeCell) {
         var treeChildren = document.getElementById("topTreeChildren");
         if (treeChildren) {
@@ -2153,14 +2148,12 @@ function ResolveMailLists()
 {
   stillNeedToSearch = true;
 
-  var addrbookDirArray = GetABDirectories(kAllDirectoryRoot);
+  var addrbookDirArray = GetABDirectories();
   var nbrAddressbook = addrbookDirArray.length;
   for (var k=0; k<nbrAddressbook && stillNeedToSearch; ++k) {
     processedMailLists = [];
     var item = addrbookDirArray[k];
     var abDirectory = item.QueryInterface(Components.interfaces.nsIAbDirectory);
-    var source = abDirectory.QueryInterface(Components.interfaces.nsIRDFResource);
-    var uri = source.ValueUTF8;
     if (!abDirectory.supportsMailingLists) continue;
     mailListArray = BuildMailListArray(abDirectory);
     stillNeedToSearch = false;
@@ -2226,47 +2219,31 @@ function ResolveMailListAddress(item)
   return result;
 }
 
-var directoriesArray;
-var collectedADdressbook;
-function GetABDirectories(dirUri)
+function GetABDirectories()
 {
-  directoriesArray = [];
-  collectedAddressbook = null;
+  var abManager = Components.classes["@mozilla.org/abmanager;1"] 
+    .getService(Components.interfaces.nsIAbManager);
+  var directoriesArray = [];
+  var collectedAddressbook = null;
 
-  recursiveGetABDirectories(dirUri);
-  if (collectedAddressbook) directoriesArray.push(collectedAddressbook);
-  return directoriesArray;
-}
-
-function recursiveGetABDirectories(dirUri)
-{
-  var rdfService = Components.classes["@mozilla.org/rdf/rdf-service;1"]
-    .getService(Components.interfaces.nsIRDFService);
-  var resource = rdfService.GetResource(dirUri);
-
-  var directory = resource.QueryInterface(Components.interfaces.nsIAbDirectory);
-  var subDirectories = directory.childNodes;
-  while (subDirectories.hasMoreElements()) {
-    var item = subDirectories.getNext();
+  var directories = abManager.directories;
+  while (directories.hasMoreElements()) {
+    var item = directories.getNext();
     directory = item.QueryInterface(Components.interfaces.nsIAbDirectory);
     if (directory.isMailList) continue;
-    var source = directory.QueryInterface(Components.interfaces.nsIRDFResource);
-    var uri = source.ValueUTF8;
+    var uri = item.URI;
     if (uri == kPersonalAddressbookUri) {
       directoriesArray.unshift(directory);
     } else {
       if (uri == kCollectedAddressbookUri) {
-        if (dirUri == kMDBDirectoryRoot) {
-          directoriesArray.push(directory);
-        } else {
-          collectedAddressbook = directory;
-        }
+        collectedAddressbook = directory;
       } else {
         directoriesArray.push(directory);
       }
     }
-    recursiveGetABDirectories(uri);
   }
+  if (collectedAddressbook) directoriesArray.push(collectedAddressbook);
+  return directoriesArray;
 }
 
 function BuildMailListArray(parentDir)
