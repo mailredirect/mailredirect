@@ -90,7 +90,10 @@ function clearMState()
     if (el) {
       for (var i=0; i<el.length; ++i) {
 	// dumper.dump('el[' + i + ']=' + el[i]);
-        RemoveValueFromAttribute(el[i], "properties", "notsent");
+	RemoveValueFromAttribute(el[i], "properties", "notsent");
+	for (var n=0; n<el[i].childNodes.length; ++n) {
+	  RemoveValueFromAttribute(el[i].childNodes[n], "properties", "notsent");
+	}
 	var col = el[i].lastChild;
 	if (col) {
 	  col.setAttribute("mode", "normal");
