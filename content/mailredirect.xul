@@ -49,7 +49,7 @@
   <!-- endif -->
 
   <popup id="mailContext">
-    <menuitem id="mailContext-mailredirect" insertafter="mailContext-forward" 
+    <menuitem id="mailContext-mailredirect" insertafter="mailContext-forwardAsMenu,mailContext-forward" 
       label="&bounceCommand.label;" accesskey="&bounceCommand.accesskey;" 
       observes="cmd_mailredirect" />
   </popup>

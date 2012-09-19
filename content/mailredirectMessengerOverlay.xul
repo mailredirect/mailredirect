@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
+
+<overlay id="mailRedirectMessengerOverlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+
+  <menupopup id="appmenu_messageMenuPopup">
+    <menuitem id="appmenu_mailredirect" insertafter="appmenu_forwardAsMenu"
+      label="&bounceCommand.label;" observes="cmd_mailredirect" />
+  </menupopup>
+</overlay>

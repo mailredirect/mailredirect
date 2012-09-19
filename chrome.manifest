@@ -1,5 +1,6 @@
 content	mailredirect	jar:chrome/mailredirect.jar!/content/
 
+overlay chrome://messenger/content/messenger.xul chrome://mailredirect/content/mailredirectMessengerOverlay.xul
 overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://mailredirect/content/mailredirect.xul
 overlay	chrome://global/content/customizeToolbar.xul	chrome://mailredirect/content/mailredirectCustomizeToolbar.xul
 overlay	chrome://communicator/content/pref/preftree.xul	chrome://mailredirect/content/mailredirectPrefsOverlay.xul

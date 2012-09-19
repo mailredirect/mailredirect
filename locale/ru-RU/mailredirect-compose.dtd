@@ -7,7 +7,6 @@
 <!ENTITY closeCmd.accesskey "З">
 
 <!ENTITY forwardBounce.label "Перенаправить">
-<!ENTITY forwardBounce.modifiers "accel">
 <!ENTITY forwardBounce.accesskey "П">
 <!ENTITY bounceButton.label "Перенаправить">
 <!ENTITY bounceButton.tooltip "Перенаправить сообщения">

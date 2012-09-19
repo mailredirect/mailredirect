@@ -1,91 +1,47 @@
 <!ENTITY msgMailRedirectWindow.title "Heradresseer bericht">
-
 <!ENTITY bounceToAddr.label "Heradresseer aan:">
 
-
-
 <!ENTITY fileMenu.label "Bestand">
-
 <!ENTITY fileMenu.accesskey "B">
-
 <!ENTITY closeCmd.label "Sluiten">
-
 <!ENTITY closeCmd.accesskey "S">
-
 <!ENTITY closeCmd.key "W">
 
-
-
 <!ENTITY forwardBounce.label "Heradresseer">
-
 <!ENTITY forwardBounce.accesskey "H">
-
 <!ENTITY bounceButton.label "Heradresseer">
-
 <!ENTITY bounceButton.tooltip "Heradresseer berichten">
 
-
-
 <!ENTITY addressButton.label "Adresboek">
-
 <!ENTITY addressButton.tooltip "Adresboek openen">
 
-
-
 <!ENTITY messengerCmd.commandkey "1">
-
 <!ENTITY messengerCmd.accesskey "m">
-
 <!ENTITY messengerCmd.label "E-mail &amp; Nieuwsgroepen">
-
 <!ENTITY addressBookCmd.commandkey "2">
-
 <!ENTITY addressBookCmd.accesskey "a">
-
 <!ENTITY addressBookCmd.label "Adresboek">
-
 <!ENTITY viewMenu.label "Beeld">
-
 <!ENTITY viewMenu.accesskey "l">
-
 <!ENTITY viewToolbarsMenuNew.label "Werkbalken">
-
 <!ENTITY viewToolbarsMenuNew.accesskey "W">
-
 <!ENTITY showBounceToolbarCmd.label "Heradresseerwerkbalk">
-
 <!ENTITY showBounceToolbarCmd.accesskey "H">
-
 <!ENTITY showStatusbarCmd.label "Statusbalk">
-
 <!ENTITY showStatusbarCmd.accesskey "S">
-
 <!ENTITY tasksMenu.label "Extra">
-
 <!ENTITY tasksMenu.accesskey "x">
-
 <!ENTITY throbberItem.title "">
-
 <!ENTITY throbber.tooltip "">
 
 <!ENTITY fromAddr.label "Van:">
-
 <!ENTITY fromAddr.accesskey "V">
 
-
-
 <!ENTITY bounceMailsLabel.label "De volgende berichten worden geheradresseerd:">
-
 <!ENTITY date.label "Datum">
-
 <!ENTITY sender.label "Afzender">
-
 <!ENTITY subject.label "Onderwerp">
 
-
-
 <!ENTITY toAddr.label "Heradresseer-Aan:">
-
 <!ENTITY ccAddr.label "Heradresseer-Cc:">
-
 <!ENTITY bccAddr.label "Heradresseer-Bcc:">
