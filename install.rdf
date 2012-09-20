@@ -32,9 +32,9 @@
         <em:locale>locale/sk-SK/</em:locale> <!-- Branislav Rozbora <rozboraREMOVE@THISmozilla.sk> -->
         <em:locale>locale/pl-PL/</em:locale> <!-- Lukasz Stelmach <lukasz.stelmachREMOVE@THIStelmark.waw.pl> -->
         <em:locale>locale/ro-RO/</em:locale> <!-- Lari Tanase <larieuREMOVE@THISgmail.com> -->
-      	<em:locale>locale/ru-RU/</em:locale> <!-- Evgeny Lavrov <EvgenyLavrovREMOVE@THISgmail.com> -->
-      	<em:locale>locale/nl-NL/</em:locale> <!-- Onno Ekker <o.e.ekkerREMOVE@THISgmail.com> -->
-      	<em:locale>locale/pt-BR/</em:locale> <!-- Carlos Hix <carlos.hixREMOVE@THISgmail.com> -->
+        <em:locale>locale/ru-RU/</em:locale> <!-- Evgeny Lavrov <EvgenyLavrovREMOVE@THISgmail.com> -->
+        <em:locale>locale/nl-NL/</em:locale> <!-- Onno Ekker <o.e.ekkerREMOVE@THISgmail.com> -->
+        <em:locale>locale/pt-BR/</em:locale> <!-- Carlos Hix <carlos.hixREMOVE@THISgmail.com> -->
       </Description>
       <Description about="urn:mozilla:extension:file:mailredirect-skin.jar">
         <em:skin>skin/classic/</em:skin>
@@ -56,9 +56,9 @@
       </Description>
       <!-- Postbox -->
       <Description>
-	<em:id>postbox@postbox-inc.com</em:id>
-	<em:minVersion>1.0b1</em:minVersion>
-	<em:maxVersion>1.1.*</em:maxVersion>
+        <em:id>postbox@postbox-inc.com</em:id>
+        <em:minVersion>1.0b1</em:minVersion>
+        <em:maxVersion>1.1.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>
