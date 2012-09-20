@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?> 
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
 
 <?xml-stylesheet href="chrome://mailredirect/skin/mailredirect.css" type="text/css"?>
@@ -16,13 +16,13 @@
   <script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect.js"/>
 
   <keyset id="mailKeys">
-    <key id="key_mailredirect" modifiers="accel" key="&bounceMsgCmd.key;" 
+    <key id="key_mailredirect" modifiers="accel" key="&bounceMsgCmd.key;"
       oncommand="goDoCommand('cmd_mailredirect')"/>
   </keyset>
 
   <commandset id="mailCommands">
-    <command id="cmd_mailredirect_menu" oncommand="goDoCommand('cmd_mailredirect_menu')" 
-      commandupdater="true" oncommandupdate="updateMailRedirectMenuCmd()" 
+    <command id="cmd_mailredirect_menu" oncommand="goDoCommand('cmd_mailredirect_menu')"
+      commandupdater="true" oncommandupdate="updateMailRedirectMenuCmd()"
       events="create-menu-message" />
     <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
   </commandset>
@@ -45,12 +45,12 @@
           tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward" />
       </hbox>
     </toolbar>
-  </toolbox> 
+  </toolbox>
   <!-- endif -->
 
   <popup id="mailContext">
-    <menuitem id="mailContext-mailredirect" insertafter="mailContext-forwardAsMenu,mailContext-forward" 
-      label="&bounceCommand.label;" accesskey="&bounceCommand.accesskey;" 
+    <menuitem id="mailContext-mailredirect" insertafter="mailContext-forwardAsMenu,mailContext-forward"
+      label="&bounceCommand.label;" accesskey="&bounceCommand.accesskey;"
       observes="cmd_mailredirect" />
   </popup>
 

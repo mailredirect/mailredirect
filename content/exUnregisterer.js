@@ -1,5 +1,5 @@
 /*
-"exUnregisterer", the automatic unregisterer (Ver.0.4.2003041301) 
+"exUnregisterer", the automatic unregisterer (Ver.0.4.2003041301)
 
 exapmle:
 
@@ -79,10 +79,10 @@ function exUnregisterer()
 
 exUnregisterer.prototype =
 {
-	
-	// properties 
-	
-	mTarget : 
+
+	// properties
+
+	mTarget :
 	{
 		packages : [],
 		locales  : [],
@@ -90,10 +90,10 @@ exUnregisterer.prototype =
 		overlays : [],
 		overlaysTemp : []
 	},
- 
-	mEntriesURL : [], 
- 
-	get Chrome() 
+
+	mEntriesURL : [],
+
+	get Chrome()
 	{
 		if (!this._Chrome) {
 			this._Chrome = this.getURISpecFromKey('AChrom');
@@ -117,8 +117,8 @@ exUnregisterer.prototype =
 	{
 		return this.UChrome;
 	},
- 
-	get IOService() 
+
+	get IOService()
 	{
 		if (!this._IOService) {
 			this._IOService = Components.classes['@mozilla.org/network/io-service;1'].getService(Components.interfaces.nsIIOService);
@@ -126,8 +126,8 @@ exUnregisterer.prototype =
 		return this._IOService;
 	},
 	_IOService : null,
- 
-	get RDF() 
+
+	get RDF()
 	{
 		if (!this._RDF) {
 			this._RDF = Components.classes['@mozilla.org/rdf/rdf-service;1'].getService(Components.interfaces.nsIRDFService);
@@ -135,8 +135,8 @@ exUnregisterer.prototype =
 		return this._RDF;
 	},
 	_RDF : null,
- 
-	get RDFC() 
+
+	get RDFC()
 	{
 		if (!this._RDFC) {
 			this._RDFC = Components.classes['@mozilla.org/rdf/container;1'].createInstance(Components.interfaces.nsIRDFContainer);
@@ -144,8 +144,8 @@ exUnregisterer.prototype =
 		return this._RDFC;
 	},
 	_RDFC : null,
-  
-	// Initialize 
+
+	// Initialize
 	init : function(aDsourcePaths)
 	{
 		var rootnode =
@@ -273,8 +273,8 @@ exUnregisterer.prototype =
 
 		return;
 	},
-	
-	// Get an URI from an internal keyword 
+
+	// Get an URI from an internal keyword
 	getURISpecFromKey : function(aKeyword)
 	{
 		const DIR = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties);
@@ -295,8 +295,8 @@ exUnregisterer.prototype =
 	{
 		return this.getURISpecFromKey(aKeyword);
 	},
- 
-	// Convert an URI to a file path 
+
+	// Convert an URI to a file path
 	getFilePathFromURLSpec : function(aURL)
 	{
 		var url = Components.classes['@mozilla.org/network/standard-url;1'].createInstance(Components.interfaces.nsIURI);
@@ -325,8 +325,8 @@ exUnregisterer.prototype =
 	{
 		return this.getFilePathFromURLSpec(aURI);
 	},
- 
-	// Convert a file path to an URI 
+
+	// Convert a file path to an URI
 	getURLSpecFromFilePath : function(aPath)
 	{
 		var tempLocalFile = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
@@ -339,8 +339,8 @@ exUnregisterer.prototype =
 			return this.IOService.getURLSpecFromFile(tempLocalFile);
 		}
 	},
- 
-	// does exist the file? 
+
+	// does exist the file?
 	exists : function(aFilePathOrURL)
 	{
 		if (aFilePathOrURL.match(/^file:/))
@@ -350,8 +350,8 @@ exUnregisterer.prototype =
 		tempLocalFile.initWithPath(aFilePathOrURL);
 		return tempLocalFile.exists();
 	},
-  
-	// Unregister information 
+
+	// Unregister information
 	unregister : function()
 	{
 
@@ -402,8 +402,8 @@ exUnregisterer.prototype =
 
 		return;
 	},
-	
-	// Remove info from RDF files 
+
+	// Remove info from RDF files
 	removeResources : function(aDsourcePath, aRootURI, aTargets)
 	{
 		var dsource;
@@ -486,8 +486,8 @@ exUnregisterer.prototype =
 		dsource.QueryInterface(Components.interfaces.nsIRDFRemoteDataSource).Flush();
 		return;
 	},
-  
-	// Remove all user preferences containing the argument "branch" in the top of the name. 
+
+	// Remove all user preferences containing the argument "branch" in the top of the name.
 	removePrefs : function(aBranch)
 	{
 		//const PREF = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch(branch+'.');
@@ -503,10 +503,10 @@ exUnregisterer.prototype =
 
 		return;
 	},
- 
-	// File I/O 
-	
-	readFrom : function(aFile) 
+
+	// File I/O
+
+	readFrom : function(aFile)
 	{
 		var stream = Components.classes['@mozilla.org/network/file-input-stream;1'].createInstance(Components.interfaces.nsIFileInputStream);
 		stream.init(aFile, 1, 0, false); // open as "read only"
@@ -522,8 +522,8 @@ exUnregisterer.prototype =
 
 		return fileContents;
 	},
- 
-	writeTo : function(aFile, aContent) 
+
+	writeTo : function(aFile, aContent)
 	{
 		//imo if (aFile.exists()) aFile.remove(true);
 		//imo aFile.create(aFile.NORMAL_FILE_TYPE, 0600);
@@ -536,6 +536,5 @@ exUnregisterer.prototype =
 
 		stream.close();
 	}
-   
-} 
- 
+
+}

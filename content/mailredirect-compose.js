@@ -13,7 +13,7 @@ const JS_FILE_NS_CREATE_FILE          = 0x08;
 const JS_FILE_NS_APPEND               = 0x10;
 const JS_FILE_NS_TRUNCATE             = 0x20;
 const JS_FILE_NS_SYNC                 = 0x40;
-const JS_FILE_NS_EXCL                 = 0x80; 
+const JS_FILE_NS_EXCL                 = 0x80;
 
 // from nsDirPrefs.h
 const kPersonalAddressbookUri  = "moz-abmdbdirectory://abook.mab";
@@ -30,10 +30,10 @@ var aCurrentIdentity;
 var aSetupLdapAutocomplete = false;
 var aLDAPSession;
 var mailredirectIsOffline = false;
-var mimeHeaderParser; 
+var mimeHeaderParser;
 var mailredirectRecipients = null;
 var aSender = null;
-  
+
 // redirected mail states..
 var mstate = {
   selectedURIs : null,
@@ -44,7 +44,7 @@ var mstate = {
   msgSendObj : null,
   size : 0
 };
-  
+
 
 var msgWindow = Components.classes["@mozilla.org/messenger/msgwindow;1"].createInstance()
   .QueryInterface(Components.interfaces.nsIMsgWindow);
@@ -80,12 +80,12 @@ function clearMState()
     mstate.sendOperationInProgress[i] = false;
     mstate.msgSendObj[i] = null;
   }
-     
+
   // clear treeitems status in bounceTree
   var treeChildren = document.getElementById("topTreeChildren");
   // dumper.dump('treeChildren=' + treeChildren);
   if (treeChildren) {
-    var el = treeChildren.getElementsByTagName("treerow"); 
+    var el = treeChildren.getElementsByTagName("treerow");
     // dumper.dump('el=' + el + '   length=' + el.length);
     if (el) {
       for (var i=0; i<el.length; ++i) {
@@ -122,7 +122,7 @@ function toOpenWindowByType( inType, uri )
   var topWindow =
     Components.classes['@mozilla.org/appshell/window-mediator;1'].getService()
     .QueryInterface(Components.interfaces.nsIWindowMediator).getMostRecentWindow( inType );
-	
+
   if ( topWindow ) {
     topWindow.focus();
   } else {
@@ -130,7 +130,7 @@ function toOpenWindowByType( inType, uri )
   }
 }
 
-function toAddressBook() 
+function toAddressBook()
 {
   toOpenWindowByType("mail:addressbook", "chrome://messenger/content/addressbook/addressbook.xul");
 }
@@ -138,7 +138,7 @@ function toAddressBook()
 function toMessengerWindow()
 {
   toOpenWindowByType("mail:3pane", "chrome://messenger/content/messenger.xul");
-} 
+}
 
 function onViewToolbarCommand(aToolbarId, aMenuItemId)
 {
@@ -148,16 +148,16 @@ function onViewToolbarCommand(aToolbarId, aMenuItemId)
   if (!toolbar || !menuItem) return;
 
   var toolbarCollapsed = toolbar.collapsed;
-  
+
   // toggle the checkbox
   menuItem.setAttribute('checked', toolbarCollapsed);
-  
+
   // toggle visibility of the toolbar
-  toolbar.collapsed = !toolbarCollapsed;   
+  toolbar.collapsed = !toolbarCollapsed;
 
   document.persist(aToolbarId, 'collapsed');
   document.persist(aMenuItemId, 'checked');
-} 
+}
 
 
 var directoryServerObserver = {
@@ -165,7 +165,7 @@ var directoryServerObserver = {
       try {
           setupLdapAutocompleteSession();
       } catch (ex) {
-          // catch the exception and ignore it, so that if LDAP setup 
+          // catch the exception and ignore it, so that if LDAP setup
           // fails, the entire compose window doesn't get horked
       }
   }
@@ -242,21 +242,21 @@ function setupLdapAutocompleteSession()
           } catch (ex) {dumper.dump ("ERROR: Cannot get the LDAP autocomplete session\n" + ex + "\n");}
         }
     }
-            
-    if (autocompleteDirectory && !mailredirectIsOffline) { 
+
+    if (autocompleteDirectory && !mailredirectIsOffline) {
         // Add observer on the directory server we are autocompleting against
         // only if current server is different from previous.
-        // Remove observer if current server is different from previous       
+        // Remove observer if current server is different from previous
         aCurrentAutocompleteDirectory = autocompleteDirectory;
         if (prevAutocompleteDirectory) {
-          if (prevAutocompleteDirectory != aCurrentAutocompleteDirectory) { 
+          if (prevAutocompleteDirectory != aCurrentAutocompleteDirectory) {
             RemoveDirectorySettingsObserver(prevAutocompleteDirectory);
             AddDirectorySettingsObserver();
           }
         } else {
           AddDirectorySettingsObserver();
         }
-        
+
         if (LDAPSession) {
 	    let url = getPref(autocompleteDirectory + ".uri", true);
 
@@ -283,14 +283,14 @@ function setupLdapAutocompleteSession()
 
             // set the LDAP protocol version correctly
             var protocolVersion;
-            try { 
+            try {
 	        protocolVersion = getPref(autocompleteDirectory +
                                           ".protocolVersion");
             } catch (ex) {
                 // if we don't have this pref, no big deal
             }
             if (protocolVersion == "2") {
-                LDAPSession.version = 
+                LDAPSession.version =
                     Components.interfaces.nsILDAPConnection.VERSION2;
             }
 
@@ -405,7 +405,7 @@ function setupLdapAutocompleteSession()
 
             // override default search filter template?
             //
-            try { 
+            try {
 	        LDAPSession.filterTemplate = getPref(
                     autocompleteDirectory + ".autoComplete.filterTemplate",
                     true);
@@ -417,13 +417,13 @@ function setupLdapAutocompleteSession()
 
             // override default maxHits (currently 100)
             //
-            try { 
+            try {
                 // XXXdmose should really use .autocomplete.maxHits,
                 // but there's no UI for that yet
-                // 
+                //
 	        LDAPSession.maxHits = getPref(autocompleteDirectory + ".maxHits");
             } catch (ex) {
-                // if this pref isn't there, or is out of range, no big deal. 
+                // if this pref isn't there, or is out of range, no big deal.
                 // just let nsLDAPAutoCompleteSession use its default.
             }
 
@@ -455,7 +455,7 @@ function setupLdapAutocompleteSession()
         aCurrentAutocompleteDirectory = null;
       }
       if (aLDAPSession && aSessionAdded) {
-        for (i=1; i <= awGetMaxRecipients(); i++) 
+        for (i=1; i <= awGetMaxRecipients(); i++)
           document.getElementById("addressCol2#" + i).
               removeSession(aLDAPSession);
         aSessionAdded = false;
@@ -517,7 +517,7 @@ function compareAccountSortOrder(account1, account2)
     return -1;
   else if (sortValue1 > sortValue2)
     return 1;
-  else 
+  else
     return 0;
 }
 
@@ -593,7 +593,7 @@ function LoadIdentity(startup)
 {
     var identityElement = document.getElementById("msgIdentity");
     var prevIdentity = aCurrentIdentity;
-    
+
     if (identityElement) {
         var idKey = identityElement.value;
         aCurrentIdentity = aAccountManager.getIdentity(idKey);
@@ -607,7 +607,7 @@ function LoadIdentity(startup)
           var prefstring = "mail.identity." + prevIdentity.key;
           RemoveDirectoryServerObserver(prefstring);
         }
-      
+
         AddDirectoryServerObserver(false);
         if (!startup) {
 	  if (getPref("mail.autoComplete.highlightNonMatches"))
@@ -698,7 +698,7 @@ function BounceLoad()
     defaultResentCcString  = aPrefs.getCharPref("extensions.mailredirect.defaultResentCc").replace(/^\s+|\s+$/g, "");
     defaultResentBccString = aPrefs.getCharPref("extensions.mailredirect.defaultResentBcc").replace(/^\s+|\s+$/g, "");
   }
-  catch (ex) { 
+  catch (ex) {
     // do nothing...
   }
 
@@ -739,13 +739,13 @@ function BounceLoad()
   AddDirectoryServerObserver(true);
 
   try {
-    // XXX: We used to set commentColumn on the initial auto complete column after the document has loaded 
+    // XXX: We used to set commentColumn on the initial auto complete column after the document has loaded
     // inside of setupAutocomplete. But this happens too late for the first widget and it was never showing
     // the comment field. Try to set it before the document finishes loading:
-    if (aPrefs.getIntPref("mail.autoComplete.commentColumn"))             
+    if (aPrefs.getIntPref("mail.autoComplete.commentColumn"))
       document.getElementById('addressCol2#1').showCommentColumn = true;
-  } 
-  catch (ex) { 
+  }
+  catch (ex) {
     // do nothing...
   }
 
@@ -783,7 +783,7 @@ function BounceLoad()
       clearMState();
     }
     preSelectedIdentityKey = window.arguments[1];
-  } 
+  }
 
   if (!preSelectedIdentityKey) {
     // no pre selected identity, so use the default account
@@ -806,7 +806,7 @@ function BounceLoad()
 
     var dateFormatService = Components.classes["@mozilla.org/intl/scriptabledateformat;1"]
       .getService(Components.interfaces.nsIScriptableDateFormat);
-    
+
     for (var i=0; i<mstate.size; ++i) {
       var aRow = document.createElement("treerow");
       aRow.setAttribute("messageURI", mstate.selectedURIs[i]);
@@ -817,7 +817,7 @@ function BounceLoad()
       var msgSubject = "";
       var msgAuthor = "";
       var msgDate = null;
-      var propertiesString = ""; 
+      var propertiesString = "";
       var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
       if (msgHdr) {
 	msgSubject = msgHdr.mime2DecodedSubject;
@@ -836,7 +836,7 @@ function BounceLoad()
 	  msgAuthor = msgHdr.author;
 	}
       }
-      
+
       var aCell = document.createElement("treecell");
       aCell.setAttribute("label", msgSubject);
       aCell.setAttribute("properties", propertiesString);
@@ -938,16 +938,16 @@ function DoForwardBounceWithCheck()
   if (warn) {
     var checkValue = {value:false};
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-    var buttonPressed = aPromptService.confirmEx(window, 
-        ( (mstate.size> 1) ? BounceMsgsBundle.getString('sendMessagesCheckWindowTitle') : 
-        BounceMsgsBundle.getString('sendMessageCheckWindowTitle') ), 
+    var buttonPressed = aPromptService.confirmEx(window,
+        ( (mstate.size> 1) ? BounceMsgsBundle.getString('sendMessagesCheckWindowTitle') :
+        BounceMsgsBundle.getString('sendMessageCheckWindowTitle') ),
         ( (mstate.size> 1) ?  BounceMsgsBundle.getString('sendMessagesCheckLabel') :
         BounceMsgsBundle.getString('sendMessageCheckLabel') ),
         (aPromptService.BUTTON_TITLE_IS_STRING * aPromptService.BUTTON_POS_0) +
         (aPromptService.BUTTON_TITLE_CANCEL * aPromptService.BUTTON_POS_1),
         BounceMsgsBundle.getString('sendMessageCheckSendButtonLabel'),
         null, null,
-        BounceMsgsBundle.getString('CheckMsg'), 
+        BounceMsgsBundle.getString('CheckMsg'),
         checkValue);
     if (buttonPressed != 0) {
       return;
@@ -996,12 +996,12 @@ var envelopeDragObserver = {
       var attachment;
       var errorMsg;
 
-      for (var i = 0; i < dataListLength; i++) 
+      for (var i = 0; i < dataListLength; i++)
       {
         var item = dataList[i].first;
         var prettyName;
         var rawData = item.data;
-        
+
         if (item.flavour.contentType == "text/x-moz-address")
         {
           // process the address
@@ -1020,15 +1020,15 @@ var envelopeDragObserver = {
   getSupportedFlavours: function ()
     {
       var flavourSet = new FlavourSet();
-      flavourSet.appendFlavour("text/x-moz-address");      
+      flavourSet.appendFlavour("text/x-moz-address");
       return flavourSet;
     }
 };
 
-/********************************************** 
+/**********************************************
   **********************************************/
 
-  
+
 
 function createTempFile()
 {
@@ -1062,7 +1062,7 @@ function getResentDate()
 
   var now_string = days[now.getDay()] + ", " +
     now.getDate() + " " + months[now.getMonth()] + " " + now.getFullYear() + " ";
-                      
+
   var h = now.getHours(); if (h < 10) now_string += "0";
   now_string += h + ":";
   var m = now.getMinutes(); if (m < 10) now_string += "0";
@@ -1122,7 +1122,7 @@ function getUserAgent()
   return useragent;
 }
 
-// quoted-printable encoding 
+// quoted-printable encoding
 function QPencode(str)
 {
   // after write&try method it works..
@@ -1131,7 +1131,7 @@ function QPencode(str)
   var out;
 
   // in stable thunderbird 0.7.3 nsIMimeConverter interface was not implemented yet -- detect it
-  try { 
+  try {
     mimeEncoder = Components.classes["@mozilla.org/messenger/mimeconverter;1"]
       .getService(Components.interfaces.nsIMimeConverter);
   } catch(ex) {
@@ -1146,7 +1146,7 @@ function QPencode(str)
     var msgCompFields = Components.classes["@mozilla.org/messengercompose/composefields;1"]
       .createInstance(Components.interfaces.nsIMsgCompFields);
 
-    out = mimeEncoder.encodeMimePartIIStr_UTF8(uConv.ConvertFromUnicode(str), 
+    out = mimeEncoder.encodeMimePartIIStr_UTF8(uConv.ConvertFromUnicode(str),
         false, msgCompFields.characterSet, 0, 72);
   } else {
     out = "";
@@ -1195,11 +1195,11 @@ function getRecipients(onlyemails)
 
       if (fieldValue == null)
         fieldValue = inputField.getAttribute("value");
-     
-      if (fieldValue != "") { 
+
+      if (fieldValue != "") {
         var recipientType = awGetPopupElement(i).selectedItem.getAttribute("value");
 
-        try { 
+        try {
           recipient = mimeHeaderParser.reformatUnquotedAddresses(fieldValue);
         } catch (ex) {recipient = fieldValue;}
         var recipientType2;
@@ -1259,7 +1259,7 @@ function getRecipients(onlyemails)
   return ret;
 }
 
-  
+
 var msgCompFields;
 var concurrentConnections;
 function RealBounceMessages()
@@ -1325,8 +1325,8 @@ function RealBounceMessage(idx)
   }
 
   var messenger = Components.classes["@mozilla.org/messenger;1"].createInstance()
-    .QueryInterface(Components.interfaces.nsIMessenger); 
-  
+    .QueryInterface(Components.interfaces.nsIMessenger);
+
   var aScriptableInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"]
     .createInstance(Components.interfaces.nsIScriptableInputStream);
   var aFileOutputStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
@@ -1338,7 +1338,7 @@ function RealBounceMessage(idx)
 
   var aCopyListener = {
     onStartRequest: function(aRequest, aContext) {
-                      // write out Resent-* headers 
+                      // write out Resent-* headers
                       resenthdrs = getResentHeaders();
                       ret = aFileOutputStream.write(resenthdrs, resenthdrs.length);
                     },
@@ -1354,7 +1354,7 @@ function RealBounceMessage(idx)
                        return;
                      }
 
-                     // send a message 
+                     // send a message
                      var msgSend = Components.classes["@mozilla.org/messengercompose/send;1"]
                        .createInstance(Components.interfaces.nsIMsgSend);
                      mstate.msgSendObj[idx] = msgSend;
@@ -1372,7 +1372,7 @@ function RealBounceMessage(idx)
                            window.msgSendListener[idx],     // in nsIMsgSendListener   aListener,
                            window.MsgStatusFeedback[idx],   // in nsIMsgStatusFeedback aStatusFeedback,
                            null                             // in string               password
-                           ); 
+                           );
                      } catch(ex) {
                        switch (ex.result) {
                          // in mozilla 1.6 function has different declaration
@@ -1389,7 +1389,7 @@ function RealBounceMessage(idx)
                                window.msgSendListener[idx],     // in nsIMsgSendListener   aListener,
                                window.MsgStatusFeedback[idx],   // in nsIMsgStatusFeedback aStatusFeedback,
                                null                             // in string               password
-                               ); 
+                               );
                            break;
                          default:
                            dumper.dump('unhandled exception:\n' + ex);
@@ -1410,7 +1410,7 @@ function RealBounceMessage(idx)
                      // msgSend = null;
                      // dumper.dump("abc");
                    },
-       
+
     onDataAvailable: function(aRequest, aContext, aInputStream, aOffset, aCount) {
                        // dumper.dump("ondataavail req=" + aRequest + ",contxt=" + aContext + ",input="+aInputStream + ",off=" + aOffset + ",cnt=" + aCount);
                        aScriptableInputStream.init(aInputStream);
@@ -1483,7 +1483,7 @@ function RealBounceMessage(idx)
 
                              // remove sensitive headers (vide: nsMsgSendPart.cpp)
                              // From_ line format - http://www.qmail.org/man/man5/mbox.html
-                             if ( inHeader && 
+                             if ( inHeader &&
                                  (/^[>]*From \S+ /.test(line) ||
                                   /^bcc: /i.test(line) ||
                                   /^fcc: /i.test(line) ||
@@ -1504,7 +1504,7 @@ function RealBounceMessage(idx)
                                   /^x-account-key: /i.test(line) ||
                                   0)
                                   ) {
-                               // discard line 
+                               // discard line
                                //dumper.dump("forbidden line:" + line+"<<");
                              } else {
                                ret = aFileOutputStream.write(line, line.length);
@@ -1528,12 +1528,12 @@ function RealBounceMessage(idx)
 			   ret = aFileOutputStream.write(str, str.length);
 			   //dumper.dump("rest write ret = " + ret);
 			 }
-		       } 
+		       }
 		     }
   };
 
   var msgService = messenger.messageServiceFromURI(uri);
-  
+
   try {
     aFileOutputStream.init(localfile, JS_FILE_NS_WRONLY | JS_FILE_NS_CREATE_FILE | JS_FILE_NS_TRUNCATE, 0600, null);
   } catch(ex) {
@@ -1655,7 +1655,7 @@ nsMsgStatusFeedback.prototype =
 
       if (window.MeteorsStatus.pendingStartRequests > 0)
         window.MeteorsStatus.pendingStartRequests--;
-     
+
       // if we are going to be starting the meteors, cancel the start
       if (window.MeteorsStatus.pendingStartRequests == 0 && window.MeteorsStatus.startTimeoutID) {
         clearTimeout(window.MeteorsStatus.startTimeoutID);
@@ -1708,7 +1708,7 @@ nsMsgStatusFeedback.prototype =
       this.mailredirectTreeCell.setAttribute("mode", "undetermined");
       this.statusBar.setAttribute( "mode", "undetermined" );
     }
-  
+
     if (aStateFlags & Components.interfaces.nsIWebProgressListener.STATE_STOP) {
       // dumper.dump('onStateChange STATE_STOP');
       mstate.sendOperationInProgress[this.URIidx] = false;
@@ -1720,7 +1720,7 @@ nsMsgStatusFeedback.prototype =
       this.statusTextFld.setAttribute('label', "");
     }
   },
-    
+
   onProgressChange: function(aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress)
   {
     // dumper.dump(this.URIidx + '. onProgressChange(' + aWebProgress + ', ' + aRequest.name + ', ' + aCurSelfProgress + ', ' + aMaxSelfProgress + ', ' + aCurTotalProgress + ', ' + aMaxTotalProgress + ')');
@@ -1730,12 +1730,12 @@ nsMsgStatusFeedback.prototype =
       var percent = (aCurTotalProgress*100)/aMaxTotalProgress;
       if ( percent > 100 ) percent = 100;
       mstate.selectedURIsProgress[this.URIidx] = percent;
-      
+
       // dumper.dump(this.URIidx + '. onProgressChange = ' + percent);
       percent = Math.round(percent);
 
       // this.statusBar.removeAttribute("mode");
-      
+
       // Advance progress meter.
       this.mailredirectTreeCell.setAttribute("value", percent);
       this.updateStatusBar();
@@ -1766,7 +1766,7 @@ nsMsgStatusFeedback.prototype =
   updateStatusBar : function()
   {
     var sum = 0;
-    for (var i=0; i < mstate.size; sum += mstate.selectedURIsProgress[i++]) {} 
+    for (var i=0; i < mstate.size; sum += mstate.selectedURIsProgress[i++]) {}
     var percent = Math.round(sum / mstate.size);
     if (percent > 100) percent = 100;
 
@@ -1775,7 +1775,7 @@ nsMsgStatusFeedback.prototype =
   }
 };
 
-function nsMeteorsStatus() 
+function nsMeteorsStatus()
 {
 }
 
@@ -1824,14 +1824,14 @@ nsMeteorsStatus.prototype = {
       }
 
       dumper.dump('_stopMeteors: successfuly sent all messages? ' + success);
-        
+
       var msg;
       if (success) {
         (mstate.size > 1 ) ?
           msg = BounceMsgsBundle.getString("sendMessagesSuccessful") :
           msg = BounceMsgsBundle.getString("sendMessageSuccessful");
       } else {
-        (mstate.size > 1) ? 
+        (mstate.size > 1) ?
           msg = BounceMsgsBundle.getString("sendMessagesFailed") :
           msg = BounceMsgsBundle.getString("sendMessageFailed");
       }
@@ -1864,7 +1864,7 @@ nsMeteorsStatus.prototype = {
       }
     }
 };
- 
+
 function nsMsgSendListener(idx)
 {
   this.URIidx = idx;
@@ -1897,7 +1897,7 @@ nsMsgSendListener.prototype =
        return this;
      throw Components.results.NS_NOINTERFACE;
        },
-                   
+
        // nsIMsgSendListener
   onStartSending : function(aMsgID, aMsgSize) {
      // dumper.dump('onStartSending(' + aMsgID + ', ' + aMsgSize);
@@ -1910,7 +1910,7 @@ nsMsgSendListener.prototype =
        },
   onStopSending : function(aMsgID, aStatus, aMsg, returnFileSpec) {
      // dumper.dump(this.URIidx + '. onStopSending('+aMsgID+', '+aStatus +', '+aMsg+', '+returnFileSpec);
-       
+
      this.ensureStatusFields();
      mstate.selectedURIsProgress[this.URIidx] = 100;
      if (aStatus) {
@@ -1980,7 +1980,7 @@ nsMsgSendListener.prototype =
      // dumper.dump('OnStopCopy(' + aStatus + ')');
      /*
      if (aStatus) {
-       // mstate.successfulSent[this.URIidx] = false; 
+       // mstate.successfulSent[this.URIidx] = false;
      } else {
        mstate.selectedURIsProgress[this.URIidx] = 100;
      }
@@ -2111,7 +2111,7 @@ function WhichElementHasFocus()
   return null;
 }
 
-// Function that performs the logic of switching focus from 
+// Function that performs the logic of switching focus from
 // one element to another in the mail compose window.
 // The default element to switch to when going in either
 // direction (shift or no shift key pressed), is the
@@ -2130,7 +2130,7 @@ function SwitchElementFocus(event)
   if (focusedElement == addressingWidget) {
     document.getElementById("msgIdentity").focus();
   } else {
-    // addressingWidget.focus(); 
+    // addressingWidget.focus();
     var element = document.getElementById("addressCol2#" + awGetNumberOfRecipients());
     awSetFocus(awGetNumberOfRecipients(), element);
   }
@@ -2142,7 +2142,7 @@ function SwitchElementFocus(event)
  * ported from nsMsgCompose.cpp:3904 (nsMsgCompose::CheckAndPopulateRecipients)
  */
 
-    
+
 var mailListArray;
 var processedMailLists;
 var stillNeedToSearch;
@@ -2224,7 +2224,7 @@ function ResolveMailListAddress(item)
 
 function GetABDirectories()
 {
-  var abManager = Components.classes["@mozilla.org/abmanager;1"] 
+  var abManager = Components.classes["@mozilla.org/abmanager;1"]
     .getService(Components.interfaces.nsIAbManager);
   var directoriesArray = [];
   var collectedAddressbook = null;

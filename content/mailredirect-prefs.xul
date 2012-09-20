@@ -1,28 +1,28 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?> 
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
 <?xml-stylesheet href="chrome://messenger/skin/prefPanels.css" type="text/css"?>
 <?xml-stylesheet href="chrome://mailredirect/skin/mailredirect-prefs.css" type="text/css"?>
 
-<!DOCTYPE dialog SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd"> 
+<!DOCTYPE dialog SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd">
 
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   id="mailredirect"
   buttons="accept, cancel"
-  onload="initPrefs();" 
+  onload="initPrefs();"
   ondialogaccept="savePrefs();"
   title="&mailredirectSettings.title;">
 
 <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
 <script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
 <script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
- 
+
 <groupbox>
   <caption label="&prefsGroup.label;"/>
   <checkbox id="copyToSentMail" label="&copyToSentMails.label;" accesskey="&copyToSentMails.accesskey;"
     tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"
-    prefstring="extensions.mailredirect.copyToSentMail" preftype="bool" pref="true" prefdefval="true" /> 
+    prefstring="extensions.mailredirect.copyToSentMail" preftype="bool" pref="true" prefdefval="true" />
 
   <separator class="thin"/>
 
@@ -31,7 +31,7 @@
       tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"
       accesskey="&concurrentConnections.accesskey;"/>
     <textbox id="concurrentConnections" size="3"
-      prefstring="extensions.mailredirect.concurrentConnections" preftype="int" pref="true" prefdefval="5" /> 
+      prefstring="extensions.mailredirect.concurrentConnections" preftype="int" pref="true" prefdefval="5" />
   </hbox>
 
   <separator class="thick"/>
@@ -39,7 +39,7 @@
   <hbox>
     <checkbox id="debug" label="&debug.label;" accesskey="&debug.accesskey;"
       tooltip="xToolTip" xtooltiptext="&debug.tooltip;"
-      prefstring="extensions.mailredirect.debug" preftype="bool" pref="true" prefdefval="false" /> 
+      prefstring="extensions.mailredirect.debug" preftype="bool" pref="true" prefdefval="false" />
     <button class="dialog" id="saveConsoleContent" accesskey="&saveConsoleContent.accesskey;"
       label="&saveConsoleContent.label;" oncommand="saveConsoleContent();" />
   </hbox>
@@ -53,7 +53,7 @@
 	     accesskey="&defaultResentTo.accesskey;"/>
       <textbox id="defaultResentTo" size="48"
 	       prefstring="extensions.mailredirect.defaultResentTo"
-	       preftype="string" pref="true" prefdefval="" /> 
+	       preftype="string" pref="true" prefdefval="" />
     </hbox>
 
     <hbox>
@@ -63,7 +63,7 @@
 	     accesskey="&defaultResentCc.accesskey;"/>
       <textbox id="defaultResentCc" size="48"
 	       prefstring="extensions.mailredirect.defaultResentCc"
-	       preftype="string" pref="true" prefdefval="" /> 
+	       preftype="string" pref="true" prefdefval="" />
     </hbox>
 
     <hbox>
@@ -73,7 +73,7 @@
 	     accesskey="&defaultResentBcc.accesskey;"/>
       <textbox id="defaultResentBcc" size="48"
 	       prefstring="extensions.mailredirect.defaultResentBcc"
-	       preftype="string" pref="true" prefdefval="" /> 
+	       preftype="string" pref="true" prefdefval="" />
     </hbox>
   </groupbox>
 </groupbox>

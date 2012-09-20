@@ -1,6 +1,6 @@
 // author: Pawel Krzesniak
 
-  
+
 var mailredirectIsOffline = Components.classes["@mozilla.org/network/io-service;1"]
   .getService(Components.interfaces.nsIIOService).offline;
 
@@ -63,7 +63,7 @@ supportsCommand : function(command)
                   },
 isCommandEnabled: function(command)
                   {
-                    /* dumper.dump('isCommandEnabled(' + command + ')  = ' + 
+                    /* dumper.dump('isCommandEnabled(' + command + ')  = ' +
                         ((!mailredirectIsOffline) && (GetNumSelectedMessages() > 0  && !gFolderDisplay.selectedMessageIsFeed))
                       ); */
 		      var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService().QueryInterface(Components.interfaces.nsIWindowMediator);
@@ -132,7 +132,7 @@ function uninstallListeners(event)
 function mailRedirect_fillMailContextMenu(event)
 {
   mailRedirect_updateCommand(event);
-    
+
   var item = document.getElementById("mailContext-mailredirect");
   if (item) {
     item.removeAttribute("hidden");
@@ -158,7 +158,7 @@ function mailRedirect_updateCommand(event)
 function updateMailRedirectMenuCmd()
 {
   // dumper.dump('updateMailRedirectMenuCmd');
-    
+
   var forwardAsMenu = document.getElementById("forwardAsMenu");
   if (forwardAsMenu) {
     var MailRedirectMenuItem = document.getElementById("MailRedirectMenuItem");
@@ -206,4 +206,3 @@ function openMailRedirectComposeWindow()
       'chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no',
       selectedURIs, currentIdentity.key);
 }
-

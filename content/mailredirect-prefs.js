@@ -1,7 +1,7 @@
 // need to be global variable
 // List of persisted elements (required by seamonkey to save prefs)
 var _elementIDs = ["copyToSentMail", "debug", "concurrentConnections", "defaultResentTo", "defaultResentCc", "defaultResentBcc"];
-    
+
 function initPrefs()
 {
   // initialize the default window values...
@@ -47,7 +47,7 @@ function savePrefs()
       } else if (element.getAttribute("preftype") == "string") {
         nsPreferences.setUnicharPref(element.getAttribute("prefstring"), element.value);
       }
-    } 
+    }
   }
 }
 
@@ -67,7 +67,7 @@ function saveConsoleContent()
   var file = filePicker.file.QueryInterface(Components.interfaces.nsILocalFile);
   var fileStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
     .createInstance(Components.interfaces.nsIFileOutputStream);
-    
+
   const JS_FILE_NS_WRONLY               = 0x02;
   const JS_FILE_NS_CREATE_FILE          = 0x08;
   const JS_FILE_NS_TRUNCATE             = 0x20;
