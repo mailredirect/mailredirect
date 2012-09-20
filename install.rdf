@@ -3,7 +3,7 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id> 
+    <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:name>Mail Redirect</em:name>
     <em:version>0.7.6.12</em:version>
     <em:description>Allow to redirect (a.k.a. "bounce") mail messages to other recipients</em:description>
@@ -40,7 +40,7 @@
         <em:skin>skin/classic/</em:skin>
       </Description>
     </em:file>
-    
+
     <em:targetApplication>
       <!-- Thunderbird -->
       <Description>
