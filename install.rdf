@@ -6,6 +6,7 @@
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
     <em:version>0.7.6.12</em:version>
+    <em:unpack>true</em:unpack>
     <em:description>Allow to redirect (a.k.a. "bounce") mail messages to other recipients</em:description>
     <em:creator>Paweł Krześniak</em:creator>
     <em:contributor>Ronald Wahl (TB3 port)</em:contributor>
