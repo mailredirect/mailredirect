@@ -1,66 +1,50 @@
-<?xml version="1.0"?>
-
-<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
-
-  <Description about="urn:mozilla:install-manifest">
+<?xml version="1.0" encoding="UTF-8"?>
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest">
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
+    <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
     <em:version>0.7.6.12</em:version>
     <em:description>Allow to redirect (a.k.a. "bounce") mail messages to other recipients</em:description>
     <em:creator>Paweł Krześniak</em:creator>
     <em:contributor>Ronald Wahl (TB3 port)</em:contributor>
     <em:developer>Onno Ekker</em:developer>
+    <em:translator>Lars Roth &amp; Alexander Ihrig (de)</em:translator>
+    <em:translator>Thad McGinnis (es-AR)</em:translator>
+    <em:translator>Antonio Pardo (es-ES</em:translator>
+    <em:translator>Laurent Malgras (fr)</em:translator>
+    <em:translator>Neo (it)</em:translator>
+    <em:translator>Onno Ekker (nl)</em:translator>
+    <em:translator>Lukasz Stelmach (pl)</em:translator>
+    <em:translator>Carlos Hix (pt-BR)</em:translator>
+    <em:translator>Lari Tanase (ro)</em:translator>
+    <em:translator>Evgeny Lavrov (ru)</em:translator>
+    <em:translator>Branislav Rozbora (sk)</em:translator>
+    <em:translator>Niklas Bjarholm (sv-SE)</em:translator>
     <em:homepageURL>http://mailredirect.mozdev.org</em:homepageURL>
+    <em:updateURL>http://downloads.mozdev.org/mailredirect/update.rdf</em:updateURL>
+    <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeCTk1UeuneGxy0g3bJcUoSfF+CNTfNrnmsSKYGtLv
+                  wgfcecW2i0tuV52U8EcQ1nfGuDZtvuHJiu1rdn57G3BsVfTwwyfxY35w7Kjk4/J7HtB/+3EPyV81PT+f
+                  lO5YT/F4yeO+k5MiAWsIb6Re2RF1ildra4lqxY+va4uDQuXJ3wIDAQAB</em:updateKey>
     <em:optionsURL>chrome://mailredirect/content/mailredirect-prefs.xul</em:optionsURL>
     <em:iconURL>chrome://mailredirect/skin/mailredirect-icon.png</em:iconURL>
-    <em:updateURL>http://downloads.mozdev.org/mailredirect/update.rdf</em:updateURL>
-    <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeCTk1UeuneGxy0g3bJcUoSfF+CNTfNrnmsSKYGtLvwgfcecW2i0tuV52U8EcQ1nfGuDZtvuHJiu1rdn57G3BsVfTwwyfxY35w7Kjk4/J7HtB/+3EPyV81PT+flO5YT/F4yeO+k5MiAWsIb6Re2RF1ildra4lqxY+va4uDQuXJ3wIDAQAB</em:updateKey>
-    <em:file>
-      <Description about="urn:mozilla:extension:file:mailredirect.jar">
-        <em:package>content/</em:package>
-        <em:locale>locale/en-US/</em:locale> <!-- Pawel Krzesniak <pawel.krzesniakREMOVE@THISgmail.com> -->
-        <em:locale>locale/de-DE/</em:locale> <!-- Lars Roth <kontaktREMOVE@THISlars-roth.de> -->
-                                             <!-- updated by: Alexander Ihrig <thunderREMOVE@THISthunderbird-mail.de> -->
-        <em:locale>locale/de-AT/</em:locale> <!-- Lars Roth <kontaktREMOVE@THISlars-roth.de> -->
-                                             <!-- updated by: Alexander Ihrig <thunderREMOVE@THISthunderbird-mail.de> -->
-        <em:locale>locale/fr-FR/</em:locale> <!-- Laurent Malgras <laurentREMOVE@THISmalgras.net> -->
-        <em:locale>locale/it-IT/</em:locale> <!-- Neo <matrixisalloverREMOVE@THISgmail.com> -->
-        <em:locale>locale/sv-SE/</em:locale> <!-- Niklas Bjarholm <niklas.bjarholmREMOVE@THISnpn.se> -->
-        <em:locale>locale/cs-CZ/</em:locale> <!-- Tomas Drbohlav <drbREMOVE@THISkarlov.mff.cuni.cz> -->
-        <em:locale>locale/es-ES/</em:locale> <!-- Antonio Pardo <apardoREMOVE@THISunav.es> -->
-        <em:locale>locale/es-AR/</em:locale> <!-- Thad McGinnis <charlesmcginnisREMOVE@THISamnet.co.cr> -->
-        <em:locale>locale/sk-SK/</em:locale> <!-- Branislav Rozbora <rozboraREMOVE@THISmozilla.sk> -->
-        <em:locale>locale/pl-PL/</em:locale> <!-- Lukasz Stelmach <lukasz.stelmachREMOVE@THIStelmark.waw.pl> -->
-        <em:locale>locale/ro-RO/</em:locale> <!-- Lari Tanase <larieuREMOVE@THISgmail.com> -->
-        <em:locale>locale/ru-RU/</em:locale> <!-- Evgeny Lavrov <EvgenyLavrovREMOVE@THISgmail.com> -->
-        <em:locale>locale/nl-NL/</em:locale> <!-- Onno Ekker <o.e.ekkerREMOVE@THISgmail.com> -->
-        <em:locale>locale/pt-BR/</em:locale> <!-- Carlos Hix <carlos.hixREMOVE@THISgmail.com> -->
-      </Description>
-      <Description about="urn:mozilla:extension:file:mailredirect-skin.jar">
-        <em:skin>skin/classic/</em:skin>
-      </Description>
-    </em:file>
-
     <em:targetApplication>
-      <!-- Thunderbird -->
-      <Description>
+      <RDF:Description RDF:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.0a1</em:minVersion>
         <em:maxVersion>17.*</em:maxVersion>
-      </Description>
-      <!-- SeaMonkey -->
-      <Description>
+      </RDF:Description>
+      <RDF:Description RDF:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.0a1</em:minVersion>
         <em:maxVersion>2.14.*</em:maxVersion>
-      </Description>
-      <!-- Postbox -->
-      <Description>
+      </RDF:Description>
+      <RDF:Description RDF:about="rdf:#postbox">
         <em:id>postbox@postbox-inc.com</em:id>
         <em:minVersion>1.0b1</em:minVersion>
         <em:maxVersion>1.1.*</em:maxVersion>
-      </Description>
+      </RDF:Description>
     </em:targetApplication>
-  </Description>
-
-</RDF>
+  </RDF:Description>
+</RDF:RDF>
