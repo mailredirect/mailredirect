@@ -22,7 +22,7 @@
     <em:translator>Lari Tanase (ro)</em:translator>
     <em:translator>Evgeny Lavrov (ru)</em:translator>
     <em:translator>Branislav Rozbora (sk)</em:translator>
-    <em:translator>Niklas Bjarholm (sv-SE)</em:translator>
+    <em:translator>Niklas Bjärholm (sv-SE)</em:translator>
     <em:homepageURL>http://mailredirect.mozdev.org</em:homepageURL>
     <em:updateURL>http://downloads.mozdev.org/mailredirect/update.rdf</em:updateURL>
     <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeCTk1UeuneGxy0g3bJcUoSfF+CNTfNrnmsSKYGtLv
@@ -36,11 +36,15 @@
         <em:minVersion>3.0a1</em:minVersion>
         <em:maxVersion>17.*</em:maxVersion>
       </RDF:Description>
+    </em:targetApplication>
+    <em:targetApplication>
       <RDF:Description RDF:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.0a1</em:minVersion>
         <em:maxVersion>2.14.*</em:maxVersion>
       </RDF:Description>
+    </em:targetApplication>
+    <em:targetApplication>
       <RDF:Description RDF:about="rdf:#postbox">
         <em:id>postbox@postbox-inc.com</em:id>
         <em:minVersion>1.0b1</em:minVersion>
