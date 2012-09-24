@@ -1,4 +1,4 @@
-<!ENTITY bounceCommand.label "Redirect">
+<!ENTITY bounceCommand.label "Redirectează">
 <!ENTITY bounceCommand.accesskey "i">
-<!ENTITY bounceCommand.tooltip "Redirecteaza mesajul selectat">
+<!ENTITY bounceCommand.tooltip "Redirectează mesajele selectate">
 <!ENTITY bounceMsgCmd.key "B">
