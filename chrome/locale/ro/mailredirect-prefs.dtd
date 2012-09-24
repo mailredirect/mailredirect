@@ -1,39 +1,39 @@
-<!ENTITY mailredirectSettings.title "MailRedirect Setari">
+<!ENTITY mailredirectSettings.title "Setări MailRedirect">
 
-<!ENTITY prefsGroup.label "Preferinte">
+<!ENTITY prefsGroup.label "Preferințe">
 
-<!ENTITY copyToSentMails.label "Pune o copie a mesajului trimis in Dosarul(Folderul) Sent(Trimise)?">
+<!ENTITY copyToSentMails.label "Păstrați o copie în dosarul de Trimise?">
 <!ENTITY copyToSentMails.accesskey "c">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Daca aceasta optiune este bifata o copie a mesajului redirectat va fi pusa in Dosarul (Folderul) Sent(Trimise). Daca nu e bifata nu se pune o copie in nici un Folder.\nNota: daca aceasta optiune este bifata dar totusi setarile globale ale contului utilizat pentru redirectare sunt 'nu salva nici un mesaj' nici mesajul redirectat cu va avea o copie">
+<!ENTITY copyToSentMails.tooltip "Dacă această opțiune este bifată o copie a mesajului este pusă în dosarul de Trimise. Dacă opțiunea este debifată mailul este redirectat fără să fie pus in alt dosar.\nNotă: Deasemenea dacă există bifă dar setările contului sunt de așa natură că &quot;nu se păstrează mesajele trimise&quot; nu va exista copie a mesajului.">
 
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Pornete/Opreste sistemul de debug(identificare prbleme) pentru extensia de redirectare mailuri. Logurile vor fi redirectate catre consola JavaScript">
+<!ENTITY debug.tooltip "Pornește/Oprește debuggingul pentru extensia mailredirect. Logurile vor fi trimise către consola JavaScript.">
 
-<!ENTITY saveConsoleContent.label "Salveaza continutul Consolei JavaScript ...">
+<!ENTITY saveConsoleContent.label "Salvează conținutulconsolei JavaScript...">
 <!ENTITY saveConsoleContent.accesskey "S">
 
-<!ENTITY concurrentConnections.label "Numar de conexiuni concurente de tip SMTP:">
+<!ENTITY concurrentConnections.label "Numărul de conexiuni concurente SMTP:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "Optiunea speciffica cate conexiuni concurente sa fie stabilite catre servrul SMTP cand se trimit mesaje. In general, aceasta optiune poate influenta(micsora) timpul in care se trimit mesajele, daca numarul acestora este foarte mare - este influentat si de numarul maxim de mesaje acceptat de server.\nNota: Daca setati acest parametru la 0 de fapt nu se va aplica nici o limita - fiti atent caci poate sa afecteze stabilitatea serverului SMTP sau unele mesaje nu se vor trimite deloc. In caz ca apar astfel de probleme setati valuarea la unu.">
+<!ENTITY concurrentConnections.tooltip "Opțiunea specifică numărul conexiunilor ce vor fi stabilite către serverul SMTP când se trimit mailurile. În general această opțiune creste performanța când sunt retrimise extrem de multe mailuri.\nNotă: Dacă setați 0 nu se impune nici o limită  - fiți atenți caci poate afecta stabilitatea serverului SMTP. În caz de probleme setati la 1.">
 
-<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!ENTITY defaultRecipientsGroup.label "Destinatar(i) implicit(i):">
 
-<!ENTITY defaultResentTo.label "Retrimite-To:">
+<!ENTITY defaultResentTo.label "Retrimite către:">
 <!ENTITY defaultResentTo.accesskey "T">
-<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentTo.tooltip "Adrese de mail separate prin virgulă.">
 
-<!ENTITY defaultResentCc.label "Retrimite-Cc:">
+<!ENTITY defaultResentCc.label "Retrimite Cc:">
 <!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentCc.tooltip "Adrese de mail separate prin virgulă.">
 
-<!ENTITY defaultResentBcc.label "Retrimite-Bcc:">
-<!ENTITY defaultResentBcc.accesskey "B">
-<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentBcc.label "Retrimite Bcc:">
+<!ENTITY defaultResentBcc.accesskey "V">
+<!ENTITY defaultResentBcc.tooltip "Adrese de mail separate prin virgulă.">
 
 <!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Redirecteaza Mail">
-<!ENTITY uninstallButton.label "Dezinstaleaza...">
-<!ENTITY uninstallButton.accesskey "D">
+<!ENTITY mailredirectSettings.label "Redirectare Mailuri">
+<!ENTITY uninstallButton.label "Dezinstalează...">
+<!ENTITY uninstallButton.accesskey "U">

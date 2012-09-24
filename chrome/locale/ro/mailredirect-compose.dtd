@@ -1,47 +1,47 @@
-<!ENTITY msgMailRedirectWindow.title "Redirectare Mail">
-<!ENTITY bounceToAddr.label "Retrimite-To:">
+<!ENTITY msgMailRedirectWindow.title "Redirectare Mailuri">
+<!ENTITY bounceToAddr.label "redireactează către:">
 
-<!ENTITY fileMenu.label "Fisier">
+<!ENTITY fileMenu.label "Fișier">
 <!ENTITY fileMenu.accesskey "F">
-<!ENTITY closeCmd.label "Inchide">
+<!ENTITY closeCmd.label "Închide">
 <!ENTITY closeCmd.accesskey "C">
 
-<!ENTITY forwardBounce.label "Redirecteaza">
+<!ENTITY forwardBounce.label "Redirectează">
 <!ENTITY forwardBounce.accesskey "i">
-<!ENTITY bounceButton.label "Redirecteaza">
-<!ENTITY bounceButton.tooltip "Redirecteaza mesaj">
+<!ENTITY bounceButton.label "Redirectează">
+<!ENTITY bounceButton.tooltip "Redirectează mesajele">
 
-<!ENTITY addressButton.label "Agenda">
-<!ENTITY addressButton.tooltip "Mergi la agenda">
+<!ENTITY addressButton.label "Agendă">
+<!ENTITY addressButton.tooltip "Către agendă">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
 <!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "Mail &amp; GrupuriNoutati">
+<!ENTITY messengerCmd.label "Mailuri și Grupuri de Știri">
 <!ENTITY addressBookCmd.commandkey "2">
 <!ENTITY addressBookCmd.accesskey "a">
-<!ENTITY addressBookCmd.label "Agenda">
-<!ENTITY viewMenu.label "Vizualizare">
+<!ENTITY addressBookCmd.label "Agendă">
+<!ENTITY viewMenu.label "Vizualizează">
 <!ENTITY viewMenu.accesskey "V">
-<!ENTITY viewToolbarsMenuNew.label "Meniu Unelte">
+<!ENTITY viewToolbarsMenuNew.label "Bară Utilitare">
 <!ENTITY viewToolbarsMenuNew.accesskey "T">
-<!ENTITY showBounceToolbarCmd.label "Unealta Redirectare">
+<!ENTITY showBounceToolbarCmd.label "Bară Utilitare Rerirect">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
-<!ENTITY showStatusbarCmd.label "Meniu stare">
+<!ENTITY showStatusbarCmd.label "Bară Situații">
 <!ENTITY showStatusbarCmd.accesskey "S">
-<!ENTITY tasksMenu.label "Unelte">
+<!ENTITY tasksMenu.label "Utilitare">
 <!ENTITY tasksMenu.accesskey "T">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Mergi la Mozilla Thunderbird home page">
+<!ENTITY throbberItem.title ".">
+<!ENTITY throbber.tooltip "Către pagina principală Mozilla Thunderbird">
 
 <!ENTITY fromAddr.label "Cont:">
 <!ENTITY fromAddr.accesskey "a">
 
-<!ENTITY bounceMailsLabel.label "Urmatoarele Mailuri vor fi redirectate:">
-<!ENTITY date.label "Date">
+<!ENTITY bounceMailsLabel.label "Următoarele mailuri vor fi redirectate:">
+<!ENTITY date.label "Dată">
 <!ENTITY sender.label "Expeditor">
 <!ENTITY subject.label "Subiect">
 
-<!ENTITY toAddr.label "Retrimite-To:">
-<!ENTITY ccAddr.label "Retrimite-Cc:">
-<!ENTITY bccAddr.label "Retrimite-Bcc:">
+<!ENTITY toAddr.label "Retrimite către:">
+<!ENTITY ccAddr.label "Retrimite Cc:">
+<!ENTITY bccAddr.label "Retrimite Bcc:">
