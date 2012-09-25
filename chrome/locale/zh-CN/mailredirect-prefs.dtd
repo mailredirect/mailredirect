@@ -1,0 +1,39 @@
+<!ENTITY mailredirectSettings.title "MailRedirect 设置">
+
+<!ENTITY prefsGroup.label "首选项">
+
+<!ENTITY copyToSentMails.label "在已发送文件夹保存重定向邮件副本？">
+<!ENTITY copyToSentMails.accesskey "c">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "选中此项，将会在已发送文件夹下保存重定向消息的副本。不选此项，不会保存重定向消息的副本到任何文件夹。\n注意：如果选中此项但是重定向消息所在账户的设置是“不保存已发送消息”，那么重定向消息也不会被保存。">
+
+<!ENTITY debug.label "调试">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "打开/关闭 Mail Redirect 扩展的调试。记录会被发送到 Javascript 控制台。">
+
+<!ENTITY saveConsoleContent.label "保存 JavaScript 控制台内容...">
+<!ENTITY saveConsoleContent.accesskey "S">
+
+<!ENTITY concurrentConnections.label "SMTP 并发连接数：">
+<!ENTITY concurrentConnections.accesskey "N">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "此选项指定发送消息时建立到你的 SMTP 服务器的连接数。一般来说， 如果你要重定向大量的消息，增加连接数会提升发送的效率。\n注意：如果你设置此参数为 0，那么无并发连接数限制 - 但是要注意，这可能会影响你的 SMTP 服务器的稳定性或者导致某些消息发送失败。如果出现任何问题，请设置这个值为 1。">
+
+<!ENTITY defaultRecipientsGroup.label "默认收件人">
+
+<!ENTITY defaultResentTo.label "重定向收件人：">
+<!ENTITY defaultResentTo.accesskey "T">
+<!ENTITY defaultResentTo.tooltip "用逗号分隔电子邮件地址。">
+
+<!ENTITY defaultResentCc.label "重定向抄送：">
+<!ENTITY defaultResentCc.accesskey "C">
+<!ENTITY defaultResentCc.tooltip "用逗号分隔电子邮件地址。">
+
+<!ENTITY defaultResentBcc.label "重定向密件抄送：">
+<!ENTITY defaultResentBcc.accesskey "B">
+<!ENTITY defaultResentBcc.tooltip "用逗号分隔电子邮件地址。">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Mail Redirect">
+<!ENTITY uninstallButton.label "卸载...">
+<!ENTITY uninstallButton.accesskey "U">
