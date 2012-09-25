@@ -2,10 +2,10 @@
 
 <!ENTITY prefsGroup.label "Preferências">
 
-<!ENTITY copyToSentMails.label "Manter uma cópia da mensagem redirecionada nos Itens Enviados?">
-<!ENTITY copyToSentMails.accesskey "c">
+<!ENTITY copyToSentMails.label "Manter uma cópia da mensagem redirecionada na pasta Itens Enviados?">
+<!ENTITY copyToSentMails.accesskey "M">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "If this option is checked copy of redirected message is placed in Sent folder. If option is unchecked copy of redirected message is not copied to any folder.\nNote: If this option is checked and your settings for account used for redirecting are 'not to save sent messages at all' copy of redirected messages will not be saved either.">
+<!ENTITY copyToSentMails.tooltip "Se esta opção estiver selecionada, uma cópia da mensagem redirecionada será colocada na pasta Itens Enviados. Se esta opção não estiver selecionada, nenhuma cópia será enviada para pasta alguma.\nNota: Se esta opção estiver selecionada e sua configuração para a conta utilizada para o redirecionamento for 'nunca salvar mensagens', nenhuma cópia será também guardada.">
 
 <!ENTITY debug.label "Debugar">
 <!ENTITY debug.accesskey "D">
@@ -17,21 +17,21 @@
 <!ENTITY concurrentConnections.label "Número de conexões SMTP concorrentes:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "The option specifies number of connections that will be established to your SMTP server while sending messages. In general, this allows you to increase performance of sending process when you choose to redirect huge amount of messages.\nNote: If you set this parameter to zero no limits of concurrent connections will apply - be awared that it could impact on stability of your SMTP server or sending of some messages could fail. In case of any problems set this value to one.">
+<!ENTITY concurrentConnections.tooltip "Este parâmetro especifica o número de conexões que serão estabelecidas com o seu servidor SMTP ao enviar mensagens. Geralmente isto possibilita um incremento no desempenho do processo de envio quando um um número muito grande de mensagens for redirecionado.\nNota: se um zero for inserido neste campo, nenhum limite no número de conexões simultâneas será aplicado - fique atento que isto poderá impactar na estabilidade do seu servidor SMTP ou o envio de algumas mensagens poderá falhar. Em caso de qualquer problema configure este valor para um.">
 
-<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!ENTITY defaultRecipientsGroup.label "Destinatários Padrão">
 
 <!ENTITY defaultResentTo.label "Reenviar-Para:">
 <!ENTITY defaultResentTo.accesskey "P">
-<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentTo.tooltip "Lista de endereços de e-mail separados por vírgulas.">
 
 <!ENTITY defaultResentCc.label "Reenviar-Cc:">
 <!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentCc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
 
 <!ENTITY defaultResentBcc.label "Reenviar-Cco:">
 <!ENTITY defaultResentBcc.accesskey "o">
-<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentBcc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
