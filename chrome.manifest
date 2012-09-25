@@ -19,5 +19,6 @@ locale  mailredirect  ro     chrome/locale/ro/
 locale  mailredirect  ru     chrome/locale/ru/
 locale  mailredirect  sk     chrome/locale/sk/
 locale  mailredirect  sv-SE  chrome/locale/sv-SE/
+locale  mailredirect  zh-CN  chrome/locale/zh-CN/
 
 skin    mailredirect  classic/1.0  chrome/skin/classic/
