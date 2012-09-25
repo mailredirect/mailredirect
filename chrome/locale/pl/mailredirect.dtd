@@ -1,4 +1,4 @@
-<!ENTITY bounceCommand.label "Przeadresuj">
+<!ENTITY bounceCommand.label "Przekieruj">
 <!ENTITY bounceCommand.accesskey "j">
-<!ENTITY bounceCommand.tooltip "Przeadresuj wybrane wiadomości">
+<!ENTITY bounceCommand.tooltip "Przekieruj wybrane wiadomości">
 <!ENTITY bounceMsgCmd.key "B">

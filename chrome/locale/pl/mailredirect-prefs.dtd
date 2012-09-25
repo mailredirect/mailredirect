@@ -1,39 +1,39 @@
-<!ENTITY mailredirectSettings.title "MailRedirect Settings">
+<!ENTITY mailredirectSettings.title "MailRedirect – ustawienia">
 
-<!ENTITY prefsGroup.label "Preferences">
+<!ENTITY prefsGroup.label "Ustawienia">
 
-<!ENTITY copyToSentMails.label "Place copy of redirected mail in Sent folder?">
-<!ENTITY copyToSentMails.accesskey "c">
+<!ENTITY copyToSentMails.label "Umieszczaj kopię przekierowanych wiadomości w folderze Wysłane">
+<!ENTITY copyToSentMails.accesskey "U">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "If this option is checked copy of redirected message is placed in Sent folder. If option is unchecked copy of redirected message is not copied to any folder.\nNote: If this option is checked and your settings for account used for redirecting are 'not to save sent messages at all' copy of redirected messages will not be saved either.">
+<!ENTITY copyToSentMails.tooltip "Jeśli ta funkcja zostanie zaznaczona, kopie przekierowanych wiadomości będą umieszczane w folderze Wysłane.\nJeśli w ustawieniach konta nie jest wybrana funkcja zapisywania kopii wysyłanych wiadomości, kopie przekierowanych wiadomości także nie będą zapisywane.">
 
-<!ENTITY debug.label "Debug">
+<!ENTITY debug.label "Debuguj">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Turn on/off debugging for mailredirect extension. Logs are directed to JavaScript Console.">
+<!ENTITY debug.tooltip "Włącza/wyłącza wykrywanie błędów tego rozszerzenia. Wykryte błędy są wyświetlane w konsoli błędów.">
 
-<!ENTITY saveConsoleContent.label "Save JavaScript Console content...">
-<!ENTITY saveConsoleContent.accesskey "S">
+<!ENTITY saveConsoleContent.label "Zapisz zawartość konsoli błędów">
+<!ENTITY saveConsoleContent.accesskey "Z">
 
-<!ENTITY concurrentConnections.label "Number of concurrent SMTP connections:">
-<!ENTITY concurrentConnections.accesskey "N">
+<!ENTITY concurrentConnections.label "Liczba jednoczesnych połączeń SMTP:">
+<!ENTITY concurrentConnections.accesskey "L">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "The option specifies number of connections that will be established to your SMTP server while sending messages. In general, this allows you to increase performance of sending process when you choose to redirect huge amount of messages.\nNote: If you set this parameter to zero no limits of concurrent connections will apply - be awared that it could impact on stability of your SMTP server or sending of some messages could fail. In case of any problems set this value to one.">
+<!ENTITY concurrentConnections.tooltip "Funkcja określa liczbę ustanawianych połączeń z serwerem SMTP podczas wysyłania wiadomości. Umożliwia to zwiększenie wydajności procesu wysyłania, gdy chcesz przekierować dużą liczbę wiadomości.\nWartość 0 oznacza nielimitowaną liczbę jednoczesnych połączeń. Może to niekorzystnie wpłynąć na stabilność serwera SMTP lub spowodować niewysłanie części wiadomości. Jeśli występują jakiekolwiek problemy, ustaw wartość 1.">
 
-<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!ENTITY defaultRecipientsGroup.label "Domyślni odbiorcy przekierowywanych wiadomości">
 
-<!ENTITY defaultResentTo.label "Przeadresuj do:">
-<!ENTITY defaultResentTo.accesskey "P">
-<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentTo.label "Do:">
+<!ENTITY defaultResentTo.accesskey "D">
+<!ENTITY defaultResentTo.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
 
 <!ENTITY defaultResentCc.label "Kopia:">
 <!ENTITY defaultResentCc.accesskey "K">
-<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentCc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
 
 <!ENTITY defaultResentBcc.label "Ukryta kopia:">
 <!ENTITY defaultResentBcc.accesskey "y">
-<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResentBcc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
-<!ENTITY uninstallButton.label "Uninstall...">
-<!ENTITY uninstallButton.accesskey "U">
+<!ENTITY uninstallButton.label "Odinstaluj">
+<!ENTITY uninstallButton.accesskey "O">
