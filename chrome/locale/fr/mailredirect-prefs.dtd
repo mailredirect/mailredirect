@@ -19,19 +19,19 @@
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "Nombre de connexions à établir sur votre serveur SMTP lors de l'envoi des messages. En général, cela permet d’améliorer les performances lors de l'envoi d'un nombre important de messages.\nRemarque : Utiliser la valeur 0 pour ne pas limiter le nombre de connexions simultanées - la stabilité de votre serveur SMTP peut être affectée ou l'envoi de certains messages peut échouer. En cas de problème, mettre cette valeur à 1.">
 
-<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!-- ENTITY defaultRecipientsGroup.label "Default Recipients" -->
 
 <!ENTITY defaultResentTo.label "Rediriger-Pour:">
 <!ENTITY defaultResentTo.accesskey "P">
-<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses." -->
 
 <!ENTITY defaultResentCc.label "Rediriger-Cc:">
 <!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses." -->
 
 <!ENTITY defaultResentBcc.label "Rediriger-Bcc:">
 <!ENTITY defaultResentBcc.accesskey "B">
-<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses." -->
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">

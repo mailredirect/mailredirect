@@ -5,7 +5,7 @@
 <!ENTITY copyToSentMails.label "Копировать перенаправленные сообщения в папку Отправленные?">
 <!ENTITY copyToSentMails.accesskey "К">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "If this option is checked copy of redirected message is placed in Sent folder. If option is unchecked copy of redirected message is not copied to any folder.\nNote: If this option is checked and your settings for account used for redirecting are 'not to save sent messages at all' copy of redirected messages will not be saved either.">
+<!-- ENTITY copyToSentMails.tooltip "If this option is checked copy of redirected message is placed in Sent folder. If option is unchecked copy of redirected message is not copied to any folder.\nNote: If this option is checked and your settings for account used for redirecting are 'not to save sent messages at all' copy of redirected messages will not be saved either." -->
 
 <!ENTITY debug.label "Отладка">
 <!ENTITY debug.accesskey "О">
@@ -17,21 +17,21 @@
 <!ENTITY concurrentConnections.label "Количество конкурирующих соединений по протоколу SMTP:">
 <!ENTITY concurrentConnections.accesskey "К">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "The option specifies number of connections that will be established to your SMTP server while sending messages. In general, this allows you to increase performance of sending process when you choose to redirect huge amount of messages.\nNote: If you set this parameter to zero no limits of concurrent connections will apply - be awared that it could impact on stability of your SMTP server or sending of some messages could fail. In case of any problems set this value to one.">
+<!-- ENTITY concurrentConnections.tooltip "The option specifies number of connections that will be established to your SMTP server while sending messages. In general, this allows you to increase performance of sending process when you choose to redirect huge amount of messages.\nNote: If you set this parameter to zero no limits of concurrent connections will apply - be awared that it could impact on stability of your SMTP server or sending of some messages could fail. In case of any problems set this value to one." -->
 
-<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!-- ENTITY defaultRecipientsGroup.label "Default Recipients" -->
 
 <!ENTITY defaultResentTo.label "Перенаправить:">
 <!ENTITY defaultResentTo.accesskey "П">
-<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses." -->
 
 <!ENTITY defaultResentCc.label "Копия:">
 <!ENTITY defaultResentCc.accesskey "п">
-<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses." -->
 
 <!ENTITY defaultResentBcc.label "Скрытая копия:">
 <!ENTITY defaultResentBcc.accesskey "к">
-<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses." -->
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">

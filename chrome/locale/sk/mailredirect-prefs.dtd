@@ -19,19 +19,19 @@
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "Táto voľba určuje počet spojení, které budú naraz použité pre komunikáciu z SMTP serverom pri odosielaní správ. Obecne povedané - môžete tým urýchliť odosielanie, hlavne ak sa jedná o presmerovanie väčšieho počtu správ.\n Pri nastavení na 0 nebude počet súčasných spojení vôbec obmedzovaný - to môže mať vpliv hlavne na stabilitu SMTP servera a na odosielanie presmerovávaných správ. V prípade problémov nastavte na hodnotu 1.">
 
-<!ENTITY defaultRecipientsGroup.label "Default Recipients">
+<!-- ENTITY defaultRecipientsGroup.label "Default Recipients" -->
 
 <!ENTITY defaultResentTo.label "Znovu odoslať - Komu:">
 <!ENTITY defaultResentTo.accesskey "K">
-<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses." -->
 
 <!ENTITY defaultResentCc.label "Znovu odoslať - Kópia:">
 <!ENTITY defaultResentCc.accesskey "p">
-<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses." -->
 
 <!ENTITY defaultResentBcc.label "Znovu odoslať - Skrytá kópia:">
 <!ENTITY defaultResentBcc.accesskey "y">
-<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+<!-- ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses." -->
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
