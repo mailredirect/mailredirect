@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:em="http://www.mozilla.org/2004/em-rdf#">
-  <RDF:Description RDF:about="urn:mozilla:install-manifest">
+  <rdf:Description rdf:about="urn:mozilla:install-manifest">
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
     <em:version>0.7.6.13</em:version>
     <em:unpack>true</em:unpack>
-    <em:description>Allow to redirect (a.k.a. &quot;bounce&quot;) mail messages to other recipients</em:description>
+    <em:description>Allow to redirect (a.k.a. &quot;bounce&quot;) mail messages to other recipients.</em:description>
     <em:creator>Paweł Krześniak</em:creator>
     <em:developer>Ronald Wahl</em:developer>
     <em:developer>Onno Ekker</em:developer>
@@ -32,25 +32,25 @@
     <em:optionsURL>chrome://mailredirect/content/mailredirect-prefs.xul</em:optionsURL>
     <em:iconURL>chrome://mailredirect/skin/mailredirect-icon.png</em:iconURL>
     <em:targetApplication>
-      <RDF:Description RDF:about="rdf:#thunderbird">
+      <rdf:Description rdf:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.0a1</em:minVersion>
         <em:maxVersion>17.*</em:maxVersion>
-      </RDF:Description>
+      </rdf:Description>
     </em:targetApplication>
     <em:targetApplication>
-      <RDF:Description RDF:about="rdf:#seamonkey">
+      <rdf:Description rdf:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.0a1</em:minVersion>
         <em:maxVersion>2.14.*</em:maxVersion>
-      </RDF:Description>
+      </rdf:Description>
     </em:targetApplication>
     <em:targetApplication>
-      <RDF:Description RDF:about="rdf:#postbox">
+      <rdf:Description rdf:about="rdf:#postbox">
         <em:id>postbox@postbox-inc.com</em:id>
         <em:minVersion>1.0b1</em:minVersion>
         <em:maxVersion>1.1.*</em:maxVersion>
-      </RDF:Description>
+      </rdf:Description>
     </em:targetApplication>
-  </RDF:Description>
-</RDF:RDF>
+  </rdf:Description>
+</rdf:RDF>
