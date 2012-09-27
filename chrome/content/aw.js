@@ -105,19 +105,19 @@ function awAddRecipient(recipientType, address)
     if (awGetInputElement(row).value == "")
       break;
   }
-  
+
   if (row > top.MAX_RECIPIENTS)
     awAppendNewRow(false);
 
   awSetInputAndPopupValue(awGetInputElement(row), address, awGetPopupElement(row), recipientType, row);
- 
+
   /* be sure we still have an empty row left at the end */
   if (row == top.MAX_RECIPIENTS)
   {
     awAppendNewRow(true);
     awSetInputAndPopupValue(awGetInputElement(top.MAX_RECIPIENTS), "", awGetPopupElement(top.MAX_RECIPIENTS), "addr_to", top.MAX_RECIPIENTS);
   }
-} 
+}
 
 function awCleanupRows()
 {
@@ -229,14 +229,14 @@ function awAppendNewRow(setFocus)
     {
       input[0].setAttribute("value", "");
       input[0].setAttribute("id", "addressCol2#" + top.MAX_RECIPIENTS);
-    
-      //this copies the autocomplete sessions list from recipient#1 
-    
+
+      //this copies the autocomplete sessions list from recipient#1
+
       input[0].syncSessions(document.getElementById('addressCol2#1'));
 
   	  // also clone the showCommentColumn setting
   	  //
-  	  input[0].showCommentColumn = 
+  	  input[0].showCommentColumn =
 	      document.getElementById("addressCol2#1").showCommentColumn;
 
       // We always clone the first row.  The problem is that the first row
@@ -403,7 +403,7 @@ function DragOverAddressingWidget(event)
   var validFlavor = false;
   var dragSession = dragSession = aDragService.getCurrentSession();
 
-  if (dragSession.isDataFlavorSupported("text/x-moz-address")) 
+  if (dragSession.isDataFlavorSupported("text/x-moz-address"))
     validFlavor = true;
 
   if (validFlavor)
@@ -413,7 +413,7 @@ function DragOverAddressingWidget(event)
 function DropOnAddressingWidget(event)
 {
   var dragSession = aDragService.getCurrentSession();
-  
+
   var trans = Components.classes["@mozilla.org/widget/transferable;1"].createInstance(Components.interfaces.nsITransferable);
   trans.addDataFlavor("text/x-moz-address");
 
@@ -424,9 +424,9 @@ function DropOnAddressingWidget(event)
     var bestFlavor = new Object();
     var len = new Object();
     trans.getAnyTransferData ( bestFlavor, dataObj, len );
-    if ( dataObj )  
+    if ( dataObj )
       dataObj = dataObj.value.QueryInterface(Components.interfaces.nsISupportsString);
-    if ( !dataObj ) 
+    if ( !dataObj )
       continue;
 
     // pull the address out of the data object
@@ -437,12 +437,12 @@ function DropOnAddressingWidget(event)
     DropRecipient(event.target, address);
   }
 }
-  
+
 function DropRecipient(target, recipient)
 {
   // break down and add each address
   return parseAndAddAddresses(recipient, awGetPopupElement(top.MAX_RECIPIENTS).selectedItem.getAttribute("value"));
-} 
+}
 
 function _awSetAutoComplete(selectElem, inputElem)
 {
@@ -473,7 +473,7 @@ function awRecipientKeyPress(event, element)
     break;
   case KeyEvent.DOM_VK_RETURN:
   case KeyEvent.DOM_VK_TAB:
-    // if the user text contains a comma or a line return, ignore 
+    // if the user text contains a comma or a line return, ignore
     if (element.value.search(',') != -1)
     {
       var addresses = element.value;
@@ -482,7 +482,7 @@ function awRecipientKeyPress(event, element)
     }
     else if (event.keyCode == KeyEvent.DOM_VK_TAB)
       awTabFromRecipient(element, event);
-    
+
     break;
   }
 }
@@ -680,14 +680,14 @@ function parseAndAddAddresses(addressText, recipientType)
 
     aAutomatedAutoCompleteListener.init(fullNames.value, numAddresses, recipientType);
   }
-} 
+}
 
 function AutomatedAutoCompleteHandler()
 {
 }
 
-// state driven self contained object which will autocomplete a block of addresses without any UI. 
-// force picks the first match and adds it to the addressing widget, then goes on to the next 
+// state driven self contained object which will autocomplete a block of addresses without any UI.
+// force picks the first match and adds it to the addressing widget, then goes on to the next
 // name to complete.
 
 AutomatedAutoCompleteHandler.prototype =
@@ -729,7 +729,7 @@ AutomatedAutoCompleteHandler.prototype =
       if (this.namesToComplete[this.indexIntoNames].search('@') == -1) // don't autocomplete if address has an @ sign in it
       {
         // make sure total session count is updated before we kick off ANY actual searches
-        if (aAutocompleteSession) 
+        if (aAutocompleteSession)
           this.numSessionsToSearch++;
 
         if (aLDAPSession && aCurrentAutocompleteDirectory)
@@ -759,17 +759,17 @@ AutomatedAutoCompleteHandler.prototype =
     }
   },
 
-  onStatus:function(aStatus) 
+  onStatus:function(aStatus)
   {
     return;
   },
-  
-  onAutoComplete: function(aResults, aStatus) 
+
+  onAutoComplete: function(aResults, aStatus)
   {
     // store the results until all sessions are done and have reported in
     if (aResults)
       this.searchResults[this.numSessionsSearched] = aResults;
-    
+
     this.numSessionsSearched++; // bump our counter
 
     if (this.numSessionsToSearch <= this.numSessionsSearched)
@@ -782,7 +782,7 @@ AutomatedAutoCompleteHandler.prototype =
     var addressToAdd;
 
     // loop through the results looking for the non default case (default case is the address book with only one match, the default domain)
-    var sessionIndex; 
+    var sessionIndex;
 
     var searchResultsForSession;
 
@@ -815,8 +815,8 @@ AutomatedAutoCompleteHandler.prototype =
       addressToAdd = this.namesToComplete[this.indexIntoNames];
 
     // that will automatically set the focus on a new available row, and make sure it is visible
-    awAddRecipient(this.recipientType ? this.recipientType : "addr_to", addressToAdd);  
-    
+    awAddRecipient(this.recipientType ? this.recipientType : "addr_to", addressToAdd);
+
     this.indexIntoNames++;
     this.autoCompleteNextAddress();
   },
@@ -828,4 +828,4 @@ AutomatedAutoCompleteHandler.prototype =
         return this;
       throw Components.results.NS_NOINTERFACE;
   }
-} 
+}
