@@ -1,23 +1,23 @@
-<!ENTITY mailredirectSettings.title       "MailRedirect Einstellungen">
+<!ENTITY mailredirectSettings.title "MailRedirect - Einstellungen">
 
-<!ENTITY prefsGroup.label                 "Einstellungen">
+<!ENTITY prefsGroup.label "Einstellungen">
 
-<!ENTITY copyToSentMails.label            "Kopie umgeleiteter Nachricht im Ordner 'Gesendet' ablegen">
-<!ENTITY copyToSentMails.accesskey        "K">
+<!ENTITY copyToSentMails.label "Kopie umgeleiteter Nachricht im Ordner 'Gesendet' ablegen">
+<!ENTITY copyToSentMails.accesskey "K">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip          "Wenn ausgewählt, wird eine Kopie der umgeleiteten Nachricht im Ordner 'Gesendet' abgelegt. Wenn nicht ausgewählt, wird keine Kopie gespeichert.\nHinweis: Wenn in den allgemeinen Konten-Einstellungen gewählt wurde, keine Kopien zu speichern, dann werden trotz der hier aktivierten Option keine Kopien von umgeleiteten Nachrichten gespeichert.">
+<!ENTITY copyToSentMails.tooltip "Wenn ausgewählt, wird eine Kopie der umgeleiteten Nachricht im Ordner 'Gesendet' abgelegt. Wenn nicht ausgewählt, wird keine Kopie gespeichert.\nHinweis: Wenn in den allgemeinen Konten-Einstellungen gewählt wurde, keine Kopien zu speichern, dann werden trotz der hier aktivierten Option keine Kopien von umgeleiteten Nachrichten gespeichert.">
 
-<!ENTITY debug.label                      "Fehlersuche">
-<!ENTITY debug.accesskey                  "F">
-<!ENTITY debug.tooltip                    "An-/Abschalten des Debuggings für die Umleitungserweiterung. Logs werden in die JavaScript-Konsole geschrieben.">
+<!ENTITY debug.label "Fehlersuche aktivieren">
+<!ENTITY debug.accesskey "F">
+<!ENTITY debug.tooltip "An-/Abschalten des Debuggings für die Umleitungserweiterung. Logs werden in die JavaScript-Konsole geschrieben.">
 
-<!ENTITY saveConsoleContent.label         "Protokoll speichern...">
-<!ENTITY saveConsoleContent.accesskey     "P">
+<!ENTITY saveConsoleContent.label "Protokoll speichern...">
+<!ENTITY saveConsoleContent.accesskey "P">
 
 <!ENTITY concurrentConnections.label "Anzahl gleichzeitiger SMTP-Verbindungen:">
-<!ENTITY concurrentConnections.accesskey  "g">
+<!ENTITY concurrentConnections.accesskey "g">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip    "Diese Option bestimmt die Anzahl der gleichzeitigen Verbindungen mit Ihrem Postausgang-Server (SMTP), wenn mehrere Nachrichten umgeleitet werden. Wenn sehr viele Nachrichten umgeleitet werden, kann dies die Geschwindigkeit erhöhen.\nHinweis: Wenn Sie die Anzahl auf Null setzen, wird die Anzahl der gleichzeitigen Verbindungen nicht begrenzt. Dies könnte aber zu Problemen führen, sodass einzelne Nachrichten nicht gesendet werden können. Wenn Probleme auftreten, setzen Sie die Anzahl bitte auf Eins.">
+<!ENTITY concurrentConnections.tooltip "Diese Option bestimmt die Anzahl der gleichzeitigen Verbindungen mit Ihrem Postausgang-Server (SMTP), wenn mehrere Nachrichten umgeleitet werden. Wenn sehr viele Nachrichten umgeleitet werden, kann dies die Geschwindigkeit erhöhen.\nHinweis: Wenn Sie die Anzahl auf Null setzen, wird die Anzahl der gleichzeitigen Verbindungen nicht begrenzt. Dies könnte aber zu Problemen führen, sodass einzelne Nachrichten nicht gesendet werden können. Wenn Probleme auftreten, setzen Sie die Anzahl bitte auf Eins.">
 
 <!ENTITY defaultRecipientsGroup.label "Voreingestellte Empfänger">
 
@@ -34,6 +34,6 @@
 <!ENTITY defaultResentBcc.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
 
 <!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label       "Nachricht umleiten">
-<!ENTITY uninstallButton.label            "Deinstallieren...">
-<!ENTITY uninstallButton.accesskey        "D">
+<!ENTITY mailredirectSettings.label "Nachricht umleiten">
+<!ENTITY uninstallButton.label "Deinstallieren...">
+<!ENTITY uninstallButton.accesskey "D">

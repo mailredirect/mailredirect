@@ -16,8 +16,8 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "Mail &amp; Newsgroups">
+<!ENTITY messengerCmd.accesskey "H">
+<!ENTITY messengerCmd.label "Hauptfenster">
 <!ENTITY addressBookCmd.commandkey "2">
 <!ENTITY addressBookCmd.accesskey "A">
 <!ENTITY addressBookCmd.label "Adressbuch">
@@ -27,13 +27,12 @@
 <!ENTITY viewToolbarsMenuNew.accesskey "y">
 <!ENTITY showBounceToolbarCmd.label "Funktionen">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
-<!ENTITY showStatusbarCmd.label "Status">
+<!ENTITY showStatusbarCmd.label "Statusleiste">
 <!ENTITY showStatusbarCmd.accesskey "S">
 <!ENTITY tasksMenu.label "Extras">
 <!ENTITY tasksMenu.accesskey "x">
 <!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Mozilla Thunderbird Homepage aufrufen">
-
+<!ENTITY throbber.tooltip "Mozilla-Thunderbird-Homepage aufrufen">
 <!ENTITY fromAddr.label "Von:">
 <!ENTITY fromAddr.accesskey "V">
 

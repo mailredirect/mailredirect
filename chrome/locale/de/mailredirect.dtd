@@ -1,4 +1,4 @@
-<!ENTITY bounceCommand.label     "Umleiten">
+<!ENTITY bounceCommand.label "Umleiten">
 <!ENTITY bounceCommand.accesskey "i">
-<!ENTITY bounceCommand.tooltip   "Ausgewählte Nachrichten umleiten">
-<!ENTITY bounceMsgCmd.key        "B">
+<!ENTITY bounceCommand.tooltip "Ausgewählte Nachrichten umleiten">
+<!ENTITY bounceMsgCmd.key "B">
