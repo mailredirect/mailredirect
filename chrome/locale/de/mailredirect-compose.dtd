@@ -16,9 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
 <!ENTITY messengerCmd.accesskey "H">
 <!ENTITY messengerCmd.label "Hauptfenster">
 <!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "A">
 <!ENTITY addressBookCmd.label "Adressbuch">
 <!ENTITY viewMenu.label "Ansicht">
@@ -33,6 +35,7 @@
 <!ENTITY tasksMenu.accesskey "x">
 <!ENTITY throbberItem.title "">
 <!ENTITY throbber.tooltip "Mozilla-Thunderbird-Homepage aufrufen">
+
 <!ENTITY fromAddr.label "Von:">
 <!ENTITY fromAddr.accesskey "V">
 
