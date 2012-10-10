@@ -1,17 +1,17 @@
-<!ENTITY mailredirectSettings.title "Omdirigering Inställningar">
+<!ENTITY mailredirectSettings.title "Inställningar för MailRedirect">
 
 <!ENTITY prefsGroup.label "Allmänt">
 
-<!ENTITY copyToSentMails.label "Lägg till en kopia av omdirigerade brev i Skickat mappen?">
+<!ENTITY copyToSentMails.label "Lägg till en kopia av omdirigerade brev i mappen Skickat?">
 <!ENTITY copyToSentMails.accesskey "k">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Om detta alternativ är valt, kommer en kopia av omdirigerade brev att sparas i mappen Skickat. Om detta alternativ inte är valt, sparas ingen kopia i någon mapp. \nNotera: Om alternativet är valt och din kontoinställning som använts för omdirigering är 'spara inga kopior för skickade brev', kommer inga omdirigerade brev att sparas ändå.">
+<!ENTITY copyToSentMails.tooltip "Om detta alternativ är valt, kommer en kopia av omdirigerade brev att sparas i mappen Skickat. Om detta alternativ inte är valt, sparas ingen kopia i någon mapp. \nNotera: Om alternativet är valt och din kontoinställning som använts för omdirigering är &quot;spara inga kopior för skickade brev&quot;, kommer inga omdirigerade brev att sparas ändå.">
 
 <!ENTITY debug.label "Felsökning">
 <!ENTITY debug.accesskey "F">
 <!ENTITY debug.tooltip "Slå på/av felsökning av omdirigerings tillägget. Loggar skickas till JavaScript-konsolen.">
 
-<!ENTITY saveConsoleContent.label "Spara innehållet i JavaScript-konsolen...">
+<!ENTITY saveConsoleContent.label "Spara innehållet i JavaScript-konsolen…">
 <!ENTITY saveConsoleContent.accesskey "S">
 
 <!ENTITY concurrentConnections.label "Antal samtidiga SMTP anslutningar:">
@@ -19,21 +19,21 @@
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "Detta värde bestämmer antalet anslutningar som kommer att etableras till din SMTP server när meddelanden skickas. I allmänhet låter detta dig öka prestandan när du väljer att skicka stora mängder brev.\nNotera: Om du sätter detta värde till 0(noll) kommer inga begränsningar att gälla. Tänk på att detta kan påverka stabiliteten på din SMTP server eller att sändningen av vissa brev misslyckas. Om du stöter på några problem så sätt detta värde till 1.">
 
-<!-- ENTITY defaultRecipientsGroup.label "Default Recipients" -->
+<!ENTITY defaultRecipientsGroup.label "Standardmottagare">
 
 <!ENTITY defaultResentTo.label "Omdirigera-Till:">
 <!ENTITY defaultResentTo.accesskey "T">
-<!-- ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses." -->
+<!ENTITY defaultResentTo.tooltip "Kommaseparerad lista över e-postadresser.">
 
 <!ENTITY defaultResentCc.label "Omdirigera-Kopia:">
 <!ENTITY defaultResentCc.accesskey "K">
-<!-- ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses." -->
+<!ENTITY defaultResentCc.tooltip "Kommaseparerad lista över e-postadresser.">
 
 <!ENTITY defaultResentBcc.label "Omdirigera-Dold kopia:">
 <!ENTITY defaultResentBcc.accesskey "D">
-<!-- ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses." -->
+<!ENTITY defaultResentBcc.tooltip "Kommaseparerad lista över e-postadresser.">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Omdirigera Brev">
-<!ENTITY uninstallButton.label "Avinstallera...">
+<!ENTITY uninstallButton.label "Avinstallera…">
 <!ENTITY uninstallButton.accesskey "A">
