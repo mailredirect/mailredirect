@@ -11,7 +11,7 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Debuggen van Heradresseer extensie aan/uit zetten. Meldingen komen op de JavaScript Foutconsole.">
 
-<!ENTITY saveConsoleContent.label "Bewaar inhoud van JavaScript Foutconsole...">
+<!ENTITY saveConsoleContent.label "Bewaar inhoud van de JavaScript Foutconsole...">
 <!ENTITY saveConsoleContent.accesskey "B">
 
 <!ENTITY concurrentConnections.label "Aantal gelijktijdige SMTP verbindingen:">
