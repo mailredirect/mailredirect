@@ -1,9 +1,9 @@
 content  mailredirect  chrome/content/
 
-overlay  chrome://messenger/content/messenger.xul          chrome://mailredirect/content/mailredirectMessengerOverlay.xul
-overlay  chrome://messenger/content/mailWindowOverlay.xul  chrome://mailredirect/content/mailredirect.xul
-overlay  chrome://global/content/customizeToolbar.xul      chrome://mailredirect/content/mailredirectCustomizeToolbar.xul
-overlay  chrome://communicator/content/pref/preftree.xul   chrome://mailredirect/content/mailredirectPrefsOverlay.xul
+overlay  chrome://messenger/content/messenger.xul            chrome://mailredirect/content/mailredirectMessengerOverlay.xul
+overlay  chrome://messenger/content/mailWindowOverlay.xul    chrome://mailredirect/content/mailredirect.xul
+overlay  chrome://global/content/customizeToolbar.xul        chrome://mailredirect/content/mailredirectCustomizeToolbar.xul
+overlay  chrome://communicator/content/pref/preferences.xul  chrome://mailredirect/content/mailredirectPrefsOverlay.xul
 
 locale  mailredirect  en-US  chrome/locale/en-US/
 locale  mailredirect  cs     chrome/locale/cs/
@@ -22,3 +22,5 @@ locale  mailredirect  sv-SE  chrome/locale/sv-SE/
 locale  mailredirect  zh-CN  chrome/locale/zh-CN/
 
 skin    mailredirect  classic/1.0  chrome/skin/classic/
+skin    mailredirect  classic/1.0  chrome/skin-moz/classic/  application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+skin    mailredirect  modern/1.0   chrome/skin-moz/modern/   application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
