@@ -24,10 +24,8 @@
 
 
 <!DOCTYPE window [
-<!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect-compose.dtd" >
-%mailredirectDTD;
-<!ENTITY % addressingDTD SYSTEM "chrome://mailredirect/locale/aw.dtd" >
-%addressingDTD;
+  <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect-compose.dtd" >
+  %mailredirectDTD;
 ]>
 
 <window id="msgMailRedirectWindow"
@@ -79,8 +77,8 @@
   <key id="key_close" key="&closeCmd.key;" modifiers="accel" command="cmd_mailredirect_close"/>
 
   <!-- Tools Menu -->
-  <key id="key_mail"  key="&messengerCmd.commandkey;" oncommand="toMessengerWindow();" modifiers="accel"/>
-  <key id="key_addressbook"  key="&addressBookCmd.commandkey;" oncommand="toAddressBook();" modifiers="accel"/>
+  <key id="key_mail" key="&messengerCmd.commandkey;" modifiers="&messengerCmd.modifiers;" oncommand="toMessengerWindow();"/>
+  <key id="key_addressbook" key="&addressBookCmd.commandkey;" modifiers="&addressBookCmd.modifiers;" oncommand="toAddressBook();"/>
 
   <!-- Tab/F6 Keys -->
   <key keycode="VK_TAB" oncommand="SwitchElementFocus(event);" modifiers="control"/>
