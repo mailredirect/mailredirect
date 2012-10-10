@@ -16,9 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
 <!ENTITY messengerCmd.accesskey "E">
 <!ENTITY messengerCmd.label "Email &amp; Grupo de Notícias">
 <!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "C">
 <!ENTITY addressBookCmd.label "Catálogo de Endereços">
 <!ENTITY viewMenu.label "Exibir">

@@ -16,9 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
 <!ENTITY messengerCmd.accesskey "m">
 <!ENTITY messengerCmd.label "Mailuri și Grupuri de Știri">
 <!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "a">
 <!ENTITY addressBookCmd.label "Agendă">
 <!ENTITY viewMenu.label "Vizualizează">

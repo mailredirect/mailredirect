@@ -16,9 +16,11 @@
 <!ENTITY addressButton.tooltip "Adresboek openen">
 
 <!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY messengerCmd.accesskey "m">
 <!ENTITY messengerCmd.label "E-mail &amp; Nieuwsgroepen">
-<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.commandkey "B">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
 <!ENTITY addressBookCmd.accesskey "a">
 <!ENTITY addressBookCmd.label "Adresboek">
 <!ENTITY viewMenu.label "Beeld">

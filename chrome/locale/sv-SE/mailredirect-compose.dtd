@@ -16,9 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
 <!ENTITY messengerCmd.accesskey "d">
 <!ENTITY messengerCmd.label "E-post &amp; Diskussionsgrupper">
 <!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "a">
 <!ENTITY addressBookCmd.label "Adressboken">
 <!ENTITY viewMenu.label "Visa">

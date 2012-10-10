@@ -16,9 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
 <!ENTITY messengerCmd.accesskey "П">
 <!ENTITY messengerCmd.label "Почта и группы новостей">
 <!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "А">
 <!ENTITY addressBookCmd.label "Адресная книга">
 <!ENTITY viewMenu.label "Вид">

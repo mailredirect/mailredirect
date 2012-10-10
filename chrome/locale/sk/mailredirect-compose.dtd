@@ -16,9 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY messengerCmd.label "Pošta &amp; diskusie">
 <!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "a">
 <!ENTITY addressBookCmd.label "Adresár">
 <!ENTITY viewMenu.label "Zobraziť">
