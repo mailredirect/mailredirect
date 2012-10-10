@@ -1,5 +1,5 @@
-<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
-<!ENTITY bounceToAddr.label "redirect to:">
+<!-- ENTITY msgMailRedirectWindow.title "" -->
+<!-- ENTITY bounceToAddr.label "" -->
 
 <!ENTITY fileMenu.label "Soubor">
 <!ENTITY fileMenu.accesskey "S">
@@ -15,10 +15,12 @@
 <!ENTITY addressButton.tooltip "Přejde na adresář">
 
 <!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "Mail &amp; Newsgroups">
-<!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY messengerCmd.commandkey "" -->
+<!-- ENTITY messengerCmd.modifiers "" -->
+<!-- ENTITY messengerCmd.accesskey "" -->
+<!-- ENTITY messengerCmd.label "" -->
+<!-- ENTITY addressBookCmd.commandkey "" -->
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "a">
 <!ENTITY addressBookCmd.label "Adresář">
 <!ENTITY viewMenu.label "Zobrazit">
