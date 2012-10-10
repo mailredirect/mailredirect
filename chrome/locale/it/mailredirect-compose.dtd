@@ -16,9 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
 <!ENTITY messengerCmd.accesskey "p">
 <!ENTITY messengerCmd.label "Posta e gruppi di discussione">
 <!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
 <!ENTITY addressBookCmd.accesskey "r">
 <!ENTITY addressBookCmd.label "Rubrica">
 <!ENTITY viewMenu.label "Visualizza">
