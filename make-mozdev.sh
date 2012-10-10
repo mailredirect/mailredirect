@@ -10,6 +10,7 @@ for locale in *
 do
   for file in ${locale}/*.properties
   do
+    echo ${locale}/${file}
     grep -q '=$' ${file}      # Check if file has untranslated strings
     if [ $? -eq 0 ]
     then
@@ -30,6 +31,7 @@ for locale in *
 do
   for file in ${locale}/*.dtd
   do
+    echo ${locale}/${file}
     grep -q '""' ${file}      # Check if file has untranslated strings
     if [ $? -eq 0 ]
     then
