@@ -19,19 +19,19 @@
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "La opción permite especificar el número de conexiones que se establecerán con el servidor SMTP al enviar los mensajes. En general, esto permite mejorar el rendimiento si redirige una gran cantidad de mensajes. \nNota: Si deja el valor de este parámetro en cero no se establecen límiten en el número de conexiones simultáneas - esto puede ocasionar problemas en la estabilidad del servidor SMTP y el envío de algunos mensajes puede fallar. En caso de tener problemas ponga el valor a 1.">
 
-<!-- ENTITY defaultRecipientsGroup.label "Default Recipients" -->
+<!-- ENTITY defaultRecipientsGroup.label "" -->
 
 <!ENTITY defaultResentTo.label "Redirigir A:">
 <!ENTITY defaultResentTo.accesskey "A">
-<!-- ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses." -->
+<!-- ENTITY defaultResentTo.tooltip "" -->
 
 <!ENTITY defaultResentCc.label "Redirigir-Cc:">
 <!ENTITY defaultResentCc.accesskey "C">
-<!-- ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses." -->
+<!-- ENTITY defaultResentCc.tooltip "" -->
 
 <!ENTITY defaultResentBcc.label "Redirigir-Bcc:">
 <!ENTITY defaultResentBcc.accesskey "B">
-<!-- ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses." -->
+<!-- ENTITY defaultResentBcc.tooltip "" -->
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Redirigir Correo">
