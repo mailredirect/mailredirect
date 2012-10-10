@@ -1,84 +1,96 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
-<?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
-<?xml-stylesheet href="chrome://messenger/skin/prefPanels.css" type="text/css"?>
 <?xml-stylesheet href="chrome://mailredirect/skin/mailredirect-prefs.css" type="text/css"?>
 
-<!DOCTYPE dialog SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd">
+<!DOCTYPE prefwindow [
+  <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
+  %mailredirectPrefsDTD;
+]>
 
-<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-  id="mailredirect"
-  buttons="accept, cancel"
-  onload="initPrefs();"
-  ondialogaccept="savePrefs();"
-  title="&mailredirectSettings.title;">
+<prefwindow xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            id="mailredirect"
+            title="&mailredirectSettings.title;">
 
-<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
-<script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
-<script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="bundle_mailredirectPrefs" src="chrome://mailredirect/locale/mailredirect-prefs.properties"/>
+  </stringbundleset>
 
-<groupbox>
-  <caption label="&prefsGroup.label;"/>
-  <checkbox id="copyToSentMail" label="&copyToSentMails.label;" accesskey="&copyToSentMails.accesskey;"
-    tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"
-    prefstring="extensions.mailredirect.copyToSentMail" preftype="bool" pref="true" prefdefval="true" />
+  <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
 
-  <separator class="thin"/>
+  <prefpane>
+    <preferences>
+      <preference id="pref_copyToSentMail" name="extensions.mailredirect.copyToSentMail" type="bool"/>
+      <preference id="pref_concurrentConnections" name="extensions.mailredirect.concurrentConnections" type="int"/>
+      <preference id="pref_debug" name="extensions.mailredirect.debug" type="bool"/>
+      <preference id="pref_defaultResentTo" name="extensions.mailredirect.defaultResentTo" type="string"/>
+      <preference id="pref_defaultResentCc" name="extensions.mailredirect.defaultResentCc" type="string"/>
+      <preference id="pref_defaultResentBcc" name="extensions.mailredirect.defaultResentBcc" type="string"/>
+    </preferences>
 
-  <hbox>
-    <label control="concurrentConnections" value="&concurrentConnections.label;"
-      tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"
-      accesskey="&concurrentConnections.accesskey;"/>
-    <textbox id="concurrentConnections" size="3"
-      prefstring="extensions.mailredirect.concurrentConnections" preftype="int" pref="true" prefdefval="5" />
-  </hbox>
+    <groupbox>
+      <caption label="&prefsGroup.label;"/>
 
-  <separator class="thick"/>
+      <checkbox preference="pref_copyToSentMail" id="copyToSentMail"
+                label="&copyToSentMails.label;"
+                accesskey="&copyToSentMails.accesskey;"
+                tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"/>
+    
+      <separator class="thin"/>
+    
+      <hbox>
+        <label control="concurrentConnections"
+               value="&concurrentConnections.label;"
+               accesskey="&concurrentConnections.accesskey;"
+               tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
+        <textbox preference="pref_concurrentConnections" id="concurrentConnections" size="3"/>
+      </hbox>
+    
+      <separator class="thick"/>
+    
+      <hbox>
+        <checkbox preference="pref_debug" id="debug"
+                  label="&debug.label;"
+                  accesskey="&debug.accesskey;"
+                  tooltip="xToolTip" xtooltiptext="&debug.tooltip;"/>
+        <button class="dialog"
+                id="saveConsoleContent"
+                accesskey="&saveConsoleContent.accesskey;"
+                label="&saveConsoleContent.label;"
+                oncommand="saveConsoleContent();"/>
+      </hbox>
+    
+      <groupbox>
+        <caption label="&defaultRecipientsGroup.label;"/>
+        <hbox>
+          <spacer flex="1"/>
+          <label control="defaultResentTo" value="&defaultResentTo.label;"
+    	     tooltip="xToolTip" xtooltiptext="&defaultResentTo.tooltip;"
+    	     accesskey="&defaultResentTo.accesskey;"/>
+          <textbox preference="pref_defaultResentTo" id="defaultResentTo" size="48"/>
+        </hbox>
 
-  <hbox>
-    <checkbox id="debug" label="&debug.label;" accesskey="&debug.accesskey;"
-      tooltip="xToolTip" xtooltiptext="&debug.tooltip;"
-      prefstring="extensions.mailredirect.debug" preftype="bool" pref="true" prefdefval="false" />
-    <button class="dialog" id="saveConsoleContent" accesskey="&saveConsoleContent.accesskey;"
-      label="&saveConsoleContent.label;" oncommand="saveConsoleContent();" />
-  </hbox>
+        <hbox>
+          <spacer flex="1"/>
+          <label control="defaultResentCc" value="&defaultResentCc.label;"
+    	     tooltip="xToolTip" xtooltiptext="&defaultResentCc.tooltip;"
+    	     accesskey="&defaultResentCc.accesskey;"/>
+          <textbox preference="pref_defaultResentCc" id="defaultResentCc" size="48"/>
+        </hbox>
 
-  <groupbox>
-    <caption label="&defaultRecipientsGroup.label;"/>
-    <hbox>
-      <spacer flex="1"/>
-      <label control="defaultResentTo" value="&defaultResentTo.label;"
-	     tooltip="xToolTip" xtooltiptext="&defaultResentTo.tooltip;"
-	     accesskey="&defaultResentTo.accesskey;"/>
-      <textbox id="defaultResentTo" size="48"
-	       prefstring="extensions.mailredirect.defaultResentTo"
-	       preftype="string" pref="true" prefdefval="" />
-    </hbox>
+        <hbox>
+          <spacer flex="1"/>
+          <label control="defaultResentBcc" value="&defaultResentBcc.label;"
+    	     tooltip="xToolTip" xtooltiptext="&defaultResentBcc.tooltip;"
+    	     accesskey="&defaultResentBcc.accesskey;"/>
+          <textbox preference="pref_defaultResentBcc" id="defaultResentBcc" size="48"/>
+        </hbox>
+      </groupbox>
+    </groupbox>
 
-    <hbox>
-      <spacer flex="1"/>
-      <label control="defaultResentCc" value="&defaultResentCc.label;"
-	     tooltip="xToolTip" xtooltiptext="&defaultResentCc.tooltip;"
-	     accesskey="&defaultResentCc.accesskey;"/>
-      <textbox id="defaultResentCc" size="48"
-	       prefstring="extensions.mailredirect.defaultResentCc"
-	       preftype="string" pref="true" prefdefval="" />
-    </hbox>
+  </prefpane>
 
-    <hbox>
-      <spacer flex="1"/>
-      <label control="defaultResentBcc" value="&defaultResentBcc.label;"
-	     tooltip="xToolTip" xtooltiptext="&defaultResentBcc.tooltip;"
-	     accesskey="&defaultResentBcc.accesskey;"/>
-      <textbox id="defaultResentBcc" size="48"
-	       prefstring="extensions.mailredirect.defaultResentBcc"
-	       preftype="string" pref="true" prefdefval="" />
-    </hbox>
-  </groupbox>
-</groupbox>
+  <tooltip id="xToolTip" noautohide="true"
+           onpopupshowing="this.label=document.tooltipNode.getAttribute('xtooltiptext');"/>
 
-<tooltip id="xToolTip" noautohide="true"
-  onpopupshowing="this.label=document.tooltipNode.getAttribute('xtooltiptext');"/>
-
-</dialog>
+</prefwindow>

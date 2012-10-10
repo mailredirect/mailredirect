@@ -1,22 +1,20 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
 
-<!-- This is the overlay adds "Mail Redirect" entry to the prefs. -->
+<!-- This is the overlay that adds "Mail Redirect" entry to the prefs. -->
 
 <overlay id="mailRedirectPrefsOverlay"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <treechildren id="messengerChildren">
-    <treeitem id="mailredirect" insertafter="mailcomposepref">
-      <treerow>
-        <treecell url="chrome://mailredirect/content/mailredirect-prefs-moz.xul"
-          label="&mailredirectSettings.label;" id="mailredirectCell"/>
-      </treerow>
-    </treeitem>
+    <treeitem id="mailredirect" insertafter="composingItem"
+              label="&mailredirectSettings.label;"
+              prefpane="mailredirect_pane"
+              url="chrome://mailredirect/content/mailredirect-prefs-moz.xul" />
   </treechildren>
 
 </overlay>
