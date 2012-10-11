@@ -7,24 +7,24 @@
 <!ENTITY closeCmd.accesskey "F">
 
 <!ENTITY forwardBounce.label "Redirecionar">
-<!ENTITY forwardBounce.accesskey "i">
+<!ENTITY forwardBounce.accesskey "R">
 <!ENTITY bounceButton.label "Redirecionar">
 <!ENTITY bounceButton.tooltip "Redirecionar mensagens">
 
 <!ENTITY addressButton.label "Catálogo de Endereços">
 <!ENTITY addressButton.tooltip "Ir ao catálogo de endereços">
 
-<!ENTITY closeCmd.key "W">
+<!ENTITY closeCmd.key "X">
 <!ENTITY messengerCmd.commandkey "1">
-<!-- ENTITY messengerCmd.modifiers "" -->
-<!ENTITY messengerCmd.accesskey "E">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY messengerCmd.accesskey "m">
 <!ENTITY messengerCmd.label "Email &amp; Grupo de Notícias">
-<!ENTITY addressBookCmd.commandkey "2">
-<!-- ENTITY addressBookCmd.modifiers "" -->
+<!ENTITY addressBookCmd.commandkey "n">
+<!ENTITY addressBookCmd.modifiers "accel,shift">
 <!ENTITY addressBookCmd.accesskey "C">
 <!ENTITY addressBookCmd.label "Catálogo de Endereços">
 <!ENTITY viewMenu.label "Exibir">
-<!ENTITY viewMenu.accesskey "x">
+<!ENTITY viewMenu.accesskey "E">
 <!ENTITY viewToolbarsMenuNew.label "Barra de Ferramentas">
 <!ENTITY viewToolbarsMenuNew.accesskey "B">
 <!ENTITY showBounceToolbarCmd.label "Barra do Mail Redirect">
@@ -32,12 +32,12 @@
 <!ENTITY showStatusbarCmd.label "Barra de Status">
 <!ENTITY showStatusbarCmd.accesskey "S">
 <!ENTITY tasksMenu.label "Ferramentas">
-<!ENTITY tasksMenu.accesskey "F">
-<!ENTITY throbberItem.title "">
+<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY throbberItem.title "Processamento">
 <!ENTITY throbber.tooltip "Ir para a página do Mozilla Thunderbird">
 
 <!ENTITY fromAddr.label "Conta:">
-<!ENTITY fromAddr.accesskey "C">
+<!ENTITY fromAddr.accesskey "D">
 
 <!ENTITY bounceMailsLabel.label "As seguintes mensagens serão redirecionadas:">
 <!ENTITY date.label "Data">
