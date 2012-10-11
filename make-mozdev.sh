@@ -18,8 +18,10 @@ do
       do
         if expr index "${line}" '=' > /dev/null
         then
-          untranslatedstring="#${line%%=*}=$"
-          untranslatedstring="${untranslatedstring/\#\#/\#}"
+          untranslatedstring="^#${line%%=*}=$"
+          untranslatedstring="${untranslatedstring/\#\#/#}"
+          untranslatedstring="${untranslatedstring/\{/\\{}"
+          untranslatedstring="${untranslatedstring/\}/\}}"
           sed -r "s/${untranslatedstring//\//\\/}/${line//\//\\/}/" ${file} > ${file}.new
           mv ${file}.new ${file}
         fi
@@ -37,7 +39,7 @@ do
     then
       while read line
       do
-        if expr index "${line}" '!ENTITY' > /dev/null
+        if expr match "${line}" '<!ENTITY' > /dev/null
         then
           untranslatedstring="${line%%\"*}\"\" -->"
           untranslatedstring="${untranslatedstring/ENTITY/-- ENTITY}"
@@ -56,6 +58,6 @@ sed -r "s/chrome\//jar:chrome\/mailredirect.jar!\//" ../src-tb3/chrome.manifest 
 version=`grep em:version ../src-tb3/install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//"`
 cd mozdev
 rm mailredirect-${version}.xpi 2> /dev/null
-zip -r -D mailredirect-${version}.xpi install.rdf chrome.manifest chrome/forward.jar chrome/icons/ defaults/ LICENSE
+zip -r -D mailredirect-${version}.xpi install.rdf chrome.manifest chrome/mailredirect.jar chrome/icons/ defaults/ LICENSE
 cd ..
 read -p "Press any key to continue . . . " -n 1
