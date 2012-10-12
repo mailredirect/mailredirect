@@ -16,11 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
-<!-- ENTITY messengerCmd.modifiers "" -->
-<!ENTITY messengerCmd.accesskey "P">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY messengerCmd.accesskey "m">
 <!ENTITY messengerCmd.label "Poczta i grupy dyskusyjne">
 <!ENTITY addressBookCmd.commandkey "2">
-<!-- ENTITY addressBookCmd.modifiers "" -->
+<!ENTITY addressBookCmd.modifiers "accel, shift">
 <!ENTITY addressBookCmd.accesskey "a">
 <!ENTITY addressBookCmd.label "Książka adresowa">
 <!ENTITY viewMenu.label "Widok">
@@ -33,7 +33,7 @@
 <!ENTITY showStatusbarCmd.accesskey "s">
 <!ENTITY tasksMenu.label "Narzędzia">
 <!ENTITY tasksMenu.accesskey "N">
-<!ENTITY throbberItem.title "">
+<!ENTITY throbberItem.title " ">
 <!ENTITY throbber.tooltip "Przejdź na stronę startową Thunderbirda">
 
 <!ENTITY fromAddr.label "Nadawca:">
