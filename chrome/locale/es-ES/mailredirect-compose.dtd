@@ -18,23 +18,23 @@
 <!ENTITY messengerCmd.commandkey "1">
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY messengerCmd.accesskey "c">
-<!ENTITY messengerCmd.label "Correo &amp; grupos de noticias">
-<!-- ENTITY addressBookCmd.commandkey "" -->
-<!-- ENTITY addressBookCmd.modifiers "" -->
+<!ENTITY messengerCmd.label "Correo y grupos de noticias">
+<!ENTITY addressBookCmd.commandkey "l">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
 <!ENTITY addressBookCmd.accesskey "l">
 <!ENTITY addressBookCmd.label "Libreta de direcciones">
 <!ENTITY viewMenu.label "Ver">
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Barras de herramientas">
 <!ENTITY viewToolbarsMenuNew.accesskey "B">
-<!ENTITY showBounceToolbarCmd.label "Barra de redirigir">
+<!ENTITY showBounceToolbarCmd.label "Barra de redirección">
 <!ENTITY showBounceToolbarCmd.accesskey "r">
 <!ENTITY showStatusbarCmd.label "Barra de estado">
 <!ENTITY showStatusbarCmd.accesskey "s">
 <!ENTITY tasksMenu.label "Herramientas">
 <!ENTITY tasksMenu.accesskey "H">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Ir a la página de inicio de Mozilla Thunderbird">
+<!ENTITY throbberItem.title "Progreso">
+<!ENTITY throbber.tooltip "Ir a la página de Mozilla Thunderbird">
 
 <!ENTITY fromAddr.label "Cuenta">
 <!ENTITY fromAddr.accesskey "c">
