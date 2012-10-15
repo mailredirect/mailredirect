@@ -1,0 +1,4 @@
+<!ENTITY bounceCommand.label "リダイレクト">
+<!ENTITY bounceCommand.accesskey "i">
+<!ENTITY bounceCommand.tooltip "選択したメッセージをリダイレクトします">
+<!ENTITY bounceMsgCmd.key "B">

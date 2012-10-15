@@ -1,0 +1,42 @@
+<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
+<!ENTITY bounceToAddr.label "リダイレクト先:">
+<!ENTITY fileMenu.label "ファイル">
+<!ENTITY fileMenu.accesskey "F">
+<!ENTITY closeCmd.label "閉じる">
+<!ENTITY closeCmd.accesskey "C">
+<!ENTITY forwardBounce.label "リダイレクト">
+<!ENTITY forwardBounce.accesskey "i">
+<!ENTITY bounceButton.label "リダイレクト">
+<!ENTITY bounceButton.tooltip "メッセージをリダイレクトします">
+<!ENTITY addressButton.label "アドレス帳">
+<!ENTITY addressButton.tooltip "アドレス帳に移動します">
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.label "メール &amp; ニュースグループ">
+<!ENTITY addressBookCmd.commandkey "A">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.label "アドレス帳">
+<!ENTITY viewMenu.label "表示">
+<!ENTITY viewMenu.accesskey "V">
+<!ENTITY viewToolbarsMenuNew.label "ツールバー">
+<!ENTITY viewToolbarsMenuNew.accesskey "T">
+<!ENTITY showBounceToolbarCmd.label "リダイレクト ツールバー">
+<!ENTITY showBounceToolbarCmd.accesskey "o">
+<!ENTITY showStatusbarCmd.label "ステータス バー">
+<!ENTITY showStatusbarCmd.accesskey "S">
+<!ENTITY tasksMenu.label "ツール">
+<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Mozilla Thunderbird のホームページに移動します">
+<!ENTITY fromAddr.label "アカウント">
+<!ENTITY fromAddr.accesskey "a">
+<!ENTITY bounceMailsLabel.label "以下のメールがリダイレクトされます:">
+<!ENTITY date.label "日付">
+<!ENTITY sender.label "差出人">
+<!ENTITY subject.label "件名">
+<!ENTITY toAddr.label "Resent-To:">
+<!ENTITY ccAddr.label "Resent-Cc:">
+<!ENTITY bccAddr.label "Resent-Bcc:">
