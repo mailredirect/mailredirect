@@ -16,11 +16,11 @@
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
-<!-- ENTITY messengerCmd.modifiers "" -->
+<!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY messengerCmd.accesskey "H">
 <!ENTITY messengerCmd.label "Hauptfenster">
-<!ENTITY addressBookCmd.commandkey "2">
-<!-- ENTITY addressBookCmd.modifiers "" -->
+<!ENTITY addressBookCmd.commandkey "B">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
 <!ENTITY addressBookCmd.accesskey "A">
 <!ENTITY addressBookCmd.label "Adressbuch">
 <!ENTITY viewMenu.label "Ansicht">
