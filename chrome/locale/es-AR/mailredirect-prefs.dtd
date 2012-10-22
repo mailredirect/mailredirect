@@ -1,11 +1,11 @@
-<!-- ENTITY mailredirectSettings.title "MailRedirect Settings" -->
+<!ENTITY mailredirectSettings.title "Configuración MailRedirect">
 
-<!-- ENTITY prefsGroup.label "Preferences" -->
+<!ENTITY prefsGroup.label "Preferencias">
 
 <!ENTITY copyToSentMails.label "¿Poner una copia del correo reexpedido en la Carpeta de Enviados?">
 <!ENTITY copyToSentMails.accesskey "c">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!-- ENTITY copyToSentMails.tooltip "" -->
+<!ENTITY copyToSentMails.tooltip "Si esta opción está marcada, una copia del mensaje redirigido se coloca en la carpeta Enviados. Si la opción está desactivada,  no se copia el mensaje redirigido en ninguna carpeta \n Nota:. Si esta opción está activada y la configuración de la cuenta utilizada para redireccionar es 'no guardar los mensajes enviados en absoluto&quot;, la copia de los mensajes redireccionados no se pueden guardar.">
 
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
@@ -17,21 +17,21 @@
 <!ENTITY concurrentConnections.label "Numero de connections concurrentes de SMTP :">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!-- ENTITY concurrentConnections.tooltip "" -->
+<!ENTITY concurrentConnections.tooltip "La opción especifica el número de conexiones que se establecerán con su servidor SMTP al enviar mensajes. En general, esto le permite aumentar el rendimiento del proceso de envío cuando usted decide redirigir gran cantidad de mensajes\n Nota: Si establece este parámetro a cero, no se aplicará un límite de conexiones simultáneas - tenga en cuenta que ésto podría tener un impacto en la estabilidad de su servidor SMTP o el envío de algunos mensajes podrían fallar. En caso de cualquier problema, establezca este valor en uno.">
 
-<!-- ENTITY defaultRecipientsGroup.label "" -->
+<!ENTITY defaultRecipientsGroup.label "Destinatarios predeterminados">
 
 <!ENTITY defaultResentTo.label "Reenviado-a:">
 <!ENTITY defaultResentTo.accesskey "a">
-<!-- ENTITY defaultResentTo.tooltip "" -->
+<!ENTITY defaultResentTo.tooltip "Lista separada por comas de direcciones de correo electrónico.">
 
 <!ENTITY defaultResentCc.label "Reenviado-Cc:">
 <!ENTITY defaultResentCc.accesskey "C">
-<!-- ENTITY defaultResentCc.tooltip "" -->
+<!ENTITY defaultResentCc.tooltip "Lista separada por comas de direcciones de correo electrónico.">
 
 <!ENTITY defaultResentBcc.label "Reenviado-Bcc:">
 <!ENTITY defaultResentBcc.accesskey "B">
-<!-- ENTITY defaultResentBcc.tooltip "" -->
+<!ENTITY defaultResentBcc.tooltip "Lista separada por comas de direcciones de correo electrónico.">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Redireccionar Correo">

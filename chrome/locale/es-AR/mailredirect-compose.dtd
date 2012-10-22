@@ -1,5 +1,5 @@
 <!ENTITY msgMailRedirectWindow.title "Correo Reexpedir">
-<!-- ENTITY bounceToAddr.label "" -->
+<!ENTITY bounceToAddr.label "redirigir a:">
 
 <!ENTITY fileMenu.label "Archivo">
 <!ENTITY fileMenu.accesskey "A">
@@ -15,12 +15,12 @@
 <!ENTITY addressButton.tooltip "Ir a la libreta de direcciones">
 
 <!ENTITY closeCmd.key "W">
-<!-- ENTITY messengerCmd.commandkey "" -->
-<!-- ENTITY messengerCmd.modifiers "" -->
-<!-- ENTITY messengerCmd.accesskey "" -->
-<!-- ENTITY messengerCmd.label "" -->
-<!-- ENTITY addressBookCmd.commandkey "" -->
-<!-- ENTITY addressBookCmd.modifiers "" -->
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "aceleración">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.label "Correo y grupos de noticias">
+<!ENTITY addressBookCmd.commandkey "A">
+<!ENTITY addressBookCmd.modifiers "aceleración, desplazamiento">
 <!ENTITY addressBookCmd.accesskey "a">
 <!ENTITY addressBookCmd.label "Direcciones">
 <!ENTITY viewMenu.label "Ver">
