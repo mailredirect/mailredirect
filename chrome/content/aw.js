@@ -333,7 +333,7 @@ function awSetFocus(row, inputElement)
   top.awRow = row;
   top.awInputElement = inputElement;
   top.awFocusRetry = 0;
-  setTimeout("_awSetFocus();", 0);
+  setTimeout(_awSetFocus, 0);
 }
 
 function _awSetFocus()
@@ -773,7 +773,7 @@ AutomatedAutoCompleteHandler.prototype =
     this.numSessionsSearched++; // bump our counter
 
     if (this.numSessionsToSearch <= this.numSessionsSearched)
-      setTimeout('aAutomatedAutoCompleteListener.processAllResults()', 0); // we are all done
+      setTimeout(aAutomatedAutoCompleteListener.processAllResults, 0); // we are all done
   },
 
   processAllResults: function()
