@@ -53,7 +53,6 @@ done
 cd ..
 zip -r -D -0 mailredirect.jar content/ locale/ skin/ skin-moz/
 cd ../..
-grep -v em:unpack ../src-tb3/install.rdf > mozdev/install.rdf
 sed -r "s/chrome\//jar:chrome\/mailredirect.jar!\//" ../src-tb3/chrome.manifest > mozdev/chrome.manifest
 version=`grep em:version ../src-tb3/install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//"`
 cd mozdev
