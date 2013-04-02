@@ -13,7 +13,7 @@
             title="&mailredirectSettings.title;">
 
   <stringbundleset id="stringbundleset">
-    <stringbundle id="bundle_mailredirectPrefs" src="chrome://mailredirect/locale/mailredirect-prefs.properties"/>
+    <stringbundle id="bundle_mailredirect-prefs" src="chrome://mailredirect/locale/mailredirect-prefs.properties"/>
   </stringbundleset>
 
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
@@ -22,10 +22,10 @@
     <preferences>
       <preference id="pref_copyToSentMail" name="extensions.mailredirect.copyToSentMail" type="bool"/>
       <preference id="pref_concurrentConnections" name="extensions.mailredirect.concurrentConnections" type="int"/>
+      <preference id="pref_defaultResendTo" name="extensions.mailredirect.defaultResentTo" type="string"/>
+      <preference id="pref_defaultResendCc" name="extensions.mailredirect.defaultResentCc" type="string"/>
+      <preference id="pref_defaultResendBcc" name="extensions.mailredirect.defaultResentBcc" type="string"/>
       <preference id="pref_debug" name="extensions.mailredirect.debug" type="bool"/>
-      <preference id="pref_defaultResentTo" name="extensions.mailredirect.defaultResentTo" type="string"/>
-      <preference id="pref_defaultResentCc" name="extensions.mailredirect.defaultResentCc" type="string"/>
-      <preference id="pref_defaultResentBcc" name="extensions.mailredirect.defaultResentBcc" type="string"/>
     </preferences>
 
     <groupbox>
@@ -35,9 +35,9 @@
                 label="&copyToSentMails.label;"
                 accesskey="&copyToSentMails.accesskey;"
                 tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"/>
-    
+
       <separator class="thin"/>
-    
+
       <hbox>
         <label control="concurrentConnections"
                value="&concurrentConnections.label;"
@@ -45,9 +45,38 @@
                tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
         <textbox preference="pref_concurrentConnections" id="concurrentConnections" size="3"/>
       </hbox>
-    
+
+      <separator class="thin"/>
+
+      <groupbox>
+        <caption label="&defaultRecipientsGroup.label;"/>
+        <hbox>
+          <spacer flex="1"/>
+          <label control="defaultResendTo" value="&defaultResendTo.label;"
+                 accesskey="&defaultResendTo.accesskey;"
+                 tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
+          <textbox preference="pref_defaultResendTo" id="defaultResendTo" size="48"/>
+        </hbox>
+
+        <hbox>
+          <spacer flex="1"/>
+          <label control="defaultResendCc" value="&defaultResendCc.label;"
+                 accesskey="&defaultResendCc.accesskey;"
+                 tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
+          <textbox preference="pref_defaultResendCc" id="defaultResendCc" size="48"/>
+        </hbox>
+
+        <hbox>
+          <spacer flex="1"/>
+          <label control="defaultResendBcc" value="&defaultResendBcc.label;"
+                 accesskey="&defaultResendBcc.accesskey;"
+                 tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
+          <textbox preference="pref_defaultResendBcc" id="defaultResendBcc" size="48"/>
+        </hbox>
+      </groupbox>
+
       <separator class="thick"/>
-    
+
       <hbox>
         <checkbox preference="pref_debug" id="debug"
                   label="&debug.label;"
@@ -57,37 +86,9 @@
                 id="saveConsoleContent"
                 accesskey="&saveConsoleContent.accesskey;"
                 label="&saveConsoleContent.label;"
-                oncommand="saveConsoleContent();"/>
+                oncommand="MailRedirectPrefs.saveConsoleContent();"/>
       </hbox>
-    
-      <groupbox>
-        <caption label="&defaultRecipientsGroup.label;"/>
-        <hbox>
-          <spacer flex="1"/>
-          <label control="defaultResentTo" value="&defaultResentTo.label;"
-    	     tooltip="xToolTip" xtooltiptext="&defaultResentTo.tooltip;"
-    	     accesskey="&defaultResentTo.accesskey;"/>
-          <textbox preference="pref_defaultResentTo" id="defaultResentTo" size="48"/>
-        </hbox>
-
-        <hbox>
-          <spacer flex="1"/>
-          <label control="defaultResentCc" value="&defaultResentCc.label;"
-    	     tooltip="xToolTip" xtooltiptext="&defaultResentCc.tooltip;"
-    	     accesskey="&defaultResentCc.accesskey;"/>
-          <textbox preference="pref_defaultResentCc" id="defaultResentCc" size="48"/>
-        </hbox>
-
-        <hbox>
-          <spacer flex="1"/>
-          <label control="defaultResentBcc" value="&defaultResentBcc.label;"
-    	     tooltip="xToolTip" xtooltiptext="&defaultResentBcc.tooltip;"
-    	     accesskey="&defaultResentBcc.accesskey;"/>
-          <textbox preference="pref_defaultResentBcc" id="defaultResentBcc" size="48"/>
-        </hbox>
-      </groupbox>
     </groupbox>
-
   </prefpane>
 
   <tooltip id="xToolTip" noautohide="true"
