@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Correo Reexpedir">
-<!ENTITY bounceToAddr.label "redirigir a:">
 
 <!ENTITY fileMenu.label "Archivo">
 <!ENTITY fileMenu.accesskey "A">
+<!ENTITY forwardBounce.label "Reexpedir">
+<!ENTITY forwardBounce.accesskey "i">
 <!ENTITY closeCmd.label "Cerrar">
 <!ENTITY closeCmd.accesskey "C">
 
-<!ENTITY forwardBounce.label "Reexpedir">
-<!ENTITY forwardBounce.accesskey "i">
-<!ENTITY bounceButton.label "Reexpedir">
-<!ENTITY bounceButton.tooltip "Reexpedir mensages">
-
-<!ENTITY addressButton.label "Direcciones">
-<!ENTITY addressButton.tooltip "Ir a la libreta de direcciones">
-
-<!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.modifiers "aceleración">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "Correo y grupos de noticias">
-<!ENTITY addressBookCmd.commandkey "A">
-<!ENTITY addressBookCmd.modifiers "aceleración, desplazamiento">
-<!ENTITY addressBookCmd.accesskey "a">
-<!ENTITY addressBookCmd.label "Direcciones">
 <!ENTITY viewMenu.label "Ver">
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Barras de herramientas">
 <!ENTITY viewToolbarsMenuNew.accesskey "H">
+<!ENTITY menubarCmd.label "Barra de Menú">
+<!ENTITY menubarCmd.accesskey "M">
+
+<!ENTITY tasksMenu.label "Herramientas">
+<!ENTITY tasksMenu.accesskey "t">
+<!ENTITY messengerCmd.label "Correo y grupos de noticias">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY addressBookCmd.label "Direcciones">
+<!ENTITY addressBookCmd.accesskey "a">
+
+<!ENTITY bounceButton.label "Reexpedir">
+<!ENTITY bounceButton.tooltip "Reexpedir mensages">
+<!ENTITY addressButton.label "Direcciones">
+<!ENTITY addressButton.tooltip "Ir a la libreta de direcciones">
+<!ENTITY throbberItem.title "Activity Indicator">
+<!ENTITY throbber.tooltip "Ir a la página web de Mozilla Thunderbird">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.commandkey "A">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!ENTITY customizeToolbar.label "Personalizar…">
+<!ENTITY customizeToolbar.accesskey "C">
 <!ENTITY showBounceToolbarCmd.label "Barra de Reexpedir">
 <!ENTITY showBounceToolbarCmd.accesskey "R">
 <!ENTITY showStatusbarCmd.label "Barra de estado">
 <!ENTITY showStatusbarCmd.accesskey "s">
-<!ENTITY tasksMenu.label "Herramientas">
-<!ENTITY tasksMenu.accesskey "t">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Ir a la página web de Mozilla Thunderbird">
+
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!ENTITY headersSpace.style "width: 11em;">
 
 <!ENTITY fromAddr.label "Cuenta:">
 <!ENTITY fromAddr.accesskey "a">
 
-<!ENTITY bounceMailsLabel.label "Los correos siguientes se reexpedirán:">
-<!ENTITY date.label "Fecha">
-<!ENTITY sender.label "Remitente">
-<!ENTITY subject.label "Asunto">
+<!ENTITY resendToAddr.label "Reenviado-a:">
+<!ENTITY resendCcAddr.label "Reenviado-Cc:">
+<!ENTITY resendBccAddr.label "Reenviado-Bcc:">
 
-<!ENTITY toAddr.label "Reenviado-a:">
-<!ENTITY ccAddr.label "Reenviado-Cc:">
-<!ENTITY bccAddr.label "Reenviado-Bcc:">
+<!ENTITY bounceMailsLabel.label "Los correos siguientes se reexpedirán:">
+
+<!ENTITY subject.label "Asunto">
+<!ENTITY sender.label "Remitente">
+<!ENTITY date.label "Fecha">
