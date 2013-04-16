@@ -7,13 +7,6 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Jeśli ta funkcja zostanie zaznaczona, kopie przekierowanych wiadomości będą umieszczane w folderze Wysłane.\nJeśli w ustawieniach konta nie jest wybrana funkcja zapisywania kopii wysyłanych wiadomości, kopie przekierowanych wiadomości także nie będą zapisywane.">
 
-<!ENTITY debug.label "Debuguj">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Włącza/wyłącza wykrywanie błędów tego rozszerzenia. Wykryte błędy są wyświetlane w konsoli błędów.">
-
-<!ENTITY saveConsoleContent.label "Zapisz zawartość konsoli błędów">
-<!ENTITY saveConsoleContent.accesskey "Z">
-
 <!ENTITY concurrentConnections.label "Liczba jednoczesnych połączeń SMTP:">
 <!ENTITY concurrentConnections.accesskey "L">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -21,19 +14,24 @@
 
 <!ENTITY defaultRecipientsGroup.label "Domyślni odbiorcy przekierowywanych wiadomości">
 
-<!ENTITY defaultResentTo.label "Do:">
-<!ENTITY defaultResentTo.accesskey "D">
-<!ENTITY defaultResentTo.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
+<!ENTITY defaultResendTo.label "Do:">
+<!ENTITY defaultResendTo.accesskey "D">
+<!ENTITY defaultResendTo.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
 
-<!ENTITY defaultResentCc.label "Kopia:">
-<!ENTITY defaultResentCc.accesskey "K">
-<!ENTITY defaultResentCc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
+<!ENTITY defaultResendCc.label "Kopia:">
+<!ENTITY defaultResendCc.accesskey "K">
+<!ENTITY defaultResendCc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
 
-<!ENTITY defaultResentBcc.label "Ukryta kopia:">
-<!ENTITY defaultResentBcc.accesskey "y">
-<!ENTITY defaultResentBcc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
+<!ENTITY defaultResendBcc.label "Ukryta kopia:">
+<!ENTITY defaultResendBcc.accesskey "y">
+<!ENTITY defaultResendBcc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
+
+<!ENTITY debug.label "Debuguj">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Włącza/wyłącza wykrywanie błędów tego rozszerzenia. Wykryte błędy są wyświetlane w konsoli błędów.">
+
+<!ENTITY saveConsoleContent.label "Zapisz zawartość konsoli błędów">
+<!ENTITY saveConsoleContent.accesskey "Z">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
-<!ENTITY uninstallButton.label "Odinstaluj">
-<!ENTITY uninstallButton.accesskey "O">
