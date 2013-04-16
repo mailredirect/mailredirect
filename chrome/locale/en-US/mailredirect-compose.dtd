@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Mail Redirect">
-<!ENTITY bounceToAddr.label "redirect to:">
 
 <!ENTITY fileMenu.label "File">
 <!ENTITY fileMenu.accesskey "F">
+<!ENTITY forwardBounce.label "Redirect">
+<!ENTITY forwardBounce.accesskey "i">
 <!ENTITY closeCmd.label "Close">
 <!ENTITY closeCmd.accesskey "C">
 
-<!ENTITY forwardBounce.label "Redirect">
-<!ENTITY forwardBounce.accesskey "i">
-<!ENTITY bounceButton.label "Redirect">
-<!ENTITY bounceButton.tooltip "Redirect messages">
-
-<!ENTITY addressButton.label "Address Book">
-<!ENTITY addressButton.tooltip "Go to the address book">
-
-<!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "Mail &amp; Newsgroups">
-<!ENTITY addressBookCmd.commandkey "A">
-<!ENTITY addressBookCmd.modifiers "accel, shift">
-<!ENTITY addressBookCmd.accesskey "a">
-<!ENTITY addressBookCmd.label "Address Book">
 <!ENTITY viewMenu.label "View">
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Toolbars">
 <!ENTITY viewToolbarsMenuNew.accesskey "T">
+<!ENTITY menubarCmd.label "Menu Bar">
+<!ENTITY menubarCmd.accesskey "M">
+
+<!ENTITY tasksMenu.label "Tools">
+<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY messengerCmd.label "Mail &amp; Newsgroups">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY addressBookCmd.label "Address Book">
+<!ENTITY addressBookCmd.accesskey "a">
+
+<!ENTITY bounceButton.label "Redirect">
+<!ENTITY bounceButton.tooltip "Redirect messages">
+<!ENTITY addressButton.label "Address Book">
+<!ENTITY addressButton.tooltip "Go to the address book">
+<!ENTITY throbberItem.title "Activity Indicator">
+<!ENTITY throbber.tooltip "Go to the Mozilla Thunderbird home page">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.commandkey "A">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!ENTITY customizeToolbar.label "Customize…">
+<!ENTITY customizeToolbar.accesskey "C">
 <!ENTITY showBounceToolbarCmd.label "Redirect Toolbar">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Status Bar">
 <!ENTITY showStatusbarCmd.accesskey "S">
-<!ENTITY tasksMenu.label "Tools">
-<!ENTITY tasksMenu.accesskey "T">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Go to the Mozilla Thunderbird home page">
 
-<!ENTITY fromAddr.label "Account:">
-<!ENTITY fromAddr.accesskey "a">
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!ENTITY headersSpace.style "width: 9em;">
+
+<!ENTITY fromAddr.label "From:">
+<!ENTITY fromAddr.accesskey "r">
+
+<!ENTITY resendToAddr.label "Resend-To:">
+<!ENTITY resendCcAddr.label "Resend-Cc:">
+<!ENTITY resendBccAddr.label "Resend-Bcc:">
 
 <!ENTITY bounceMailsLabel.label "Following mails will be redirected:">
-<!ENTITY date.label "Date">
-<!ENTITY sender.label "Sender">
-<!ENTITY subject.label "Subject">
 
-<!ENTITY toAddr.label "Resent-To:">
-<!ENTITY ccAddr.label "Resent-Cc:">
-<!ENTITY bccAddr.label "Resent-Bcc:">
+<!ENTITY subject.label "Subject">
+<!ENTITY sender.label "Sender">
+<!ENTITY date.label "Date">

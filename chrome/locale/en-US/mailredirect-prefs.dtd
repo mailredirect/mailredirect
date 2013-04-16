@@ -7,13 +7,6 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "If this option is checked copy of redirected message is placed in Sent folder. If option is unchecked copy of redirected message is not copied to any folder.\nNote: If this option is checked and your settings for account used for redirecting are 'not to save sent messages at all' copy of redirected messages will not be saved either.">
 
-<!ENTITY debug.label "Debug">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Turn on/off debugging for mailredirect extension. Logs are directed to JavaScript Console.">
-
-<!ENTITY saveConsoleContent.label "Save JavaScript Console content...">
-<!ENTITY saveConsoleContent.accesskey "S">
-
 <!ENTITY concurrentConnections.label "Number of concurrent SMTP connections:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -21,19 +14,24 @@
 
 <!ENTITY defaultRecipientsGroup.label "Default Recipients">
 
-<!ENTITY defaultResentTo.label "Resent-To:">
-<!ENTITY defaultResentTo.accesskey "T">
-<!ENTITY defaultResentTo.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResendTo.label "Resend-To:">
+<!ENTITY defaultResendTo.accesskey "T">
+<!ENTITY defaultResendTo.tooltip "Comma separated list of e-mail addresses.">
 
-<!ENTITY defaultResentCc.label "Resent-Cc:">
-<!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResendCc.label "Resend-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Comma separated list of e-mail addresses.">
 
-<!ENTITY defaultResentBcc.label "Resent-Bcc:">
-<!ENTITY defaultResentBcc.accesskey "B">
-<!ENTITY defaultResentBcc.tooltip "Comma separated list of e-mail addresses.">
+<!ENTITY defaultResendBcc.label "Resend-Bcc:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "Comma separated list of e-mail addresses.">
+
+<!ENTITY debug.label "Debug">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Turn on/off debugging for mailredirect extension. Logs are directed to JavaScript Console.">
+
+<!ENTITY saveConsoleContent.label "Save JavaScript Console content...">
+<!ENTITY saveConsoleContent.accesskey "S">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
-<!ENTITY uninstallButton.label "Uninstall...">
-<!ENTITY uninstallButton.accesskey "U">
