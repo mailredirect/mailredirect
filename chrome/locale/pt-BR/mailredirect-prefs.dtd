@@ -7,13 +7,6 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Se esta opção estiver selecionada, uma cópia da mensagem redirecionada será colocada na pasta Itens Enviados. Se esta opção não estiver selecionada, nenhuma cópia será enviada para pasta alguma.\nNota: Se esta opção estiver selecionada e sua configuração para a conta utilizada para o redirecionamento for 'nunca salvar mensagens', nenhuma cópia será também guardada.">
 
-<!ENTITY debug.label "Debugar">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Ligar/desligar extensões de debug do MailRedirect. Logs são enviados para a console do JavaScript.">
-
-<!ENTITY saveConsoleContent.label "Salva conteúdo do console do JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "S">
-
 <!ENTITY concurrentConnections.label "Número de conexões SMTP concorrentes:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -21,19 +14,24 @@
 
 <!ENTITY defaultRecipientsGroup.label "Destinatários Padrão">
 
-<!ENTITY defaultResentTo.label "Reenviar-Para:">
-<!ENTITY defaultResentTo.accesskey "P">
-<!ENTITY defaultResentTo.tooltip "Lista de endereços de e-mail separados por vírgulas.">
+<!ENTITY defaultResendTo.label "Reenviar-Para:">
+<!ENTITY defaultResendTo.accesskey "P">
+<!ENTITY defaultResendTo.tooltip "Lista de endereços de e-mail separados por vírgulas.">
 
-<!ENTITY defaultResentCc.label "Reenviar-Cc:">
-<!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
+<!ENTITY defaultResendCc.label "Reenviar-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
 
-<!ENTITY defaultResentBcc.label "Reenviar-Cco:">
-<!ENTITY defaultResentBcc.accesskey "o">
-<!ENTITY defaultResentBcc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
+<!ENTITY defaultResendBcc.label "Reenviar-Cco:">
+<!ENTITY defaultResendBcc.accesskey "o">
+<!ENTITY defaultResendBcc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
+
+<!ENTITY debug.label "Debugar">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Ligar/desligar extensões de debug do MailRedirect. Logs são enviados para a console do JavaScript.">
+
+<!ENTITY saveConsoleContent.label "Salva conteúdo do console do JavaScript...">
+<!ENTITY saveConsoleContent.accesskey "S">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
-<!ENTITY uninstallButton.label "Desinstalar...">
-<!ENTITY uninstallButton.accesskey "i">
