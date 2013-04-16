@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Mail Redirect">
-<!ENTITY bounceToAddr.label "redirecionar para:">
 
 <!ENTITY fileMenu.label "Arquivo">
 <!ENTITY fileMenu.accesskey "A">
+<!ENTITY forwardBounce.label "Redirecionar">
+<!ENTITY forwardBounce.accesskey "R">
 <!ENTITY closeCmd.label "Fechar">
 <!ENTITY closeCmd.accesskey "F">
 
-<!ENTITY forwardBounce.label "Redirecionar">
-<!ENTITY forwardBounce.accesskey "R">
+<!ENTITY viewMenu.label "Exibir">
+<!ENTITY viewMenu.accesskey "E">
+<!ENTITY viewToolbarsMenuNew.label "Barra de Ferramentas">
+<!ENTITY viewToolbarsMenuNew.accesskey "t">
+<!ENTITY menubarCmd.label "Barra de Menu">
+<!ENTITY menubarCmd.accesskey "M">
+
+<!ENTITY tasksMenu.label "Ferramentas">
+<!ENTITY tasksMenu.accesskey "t">
+<!ENTITY messengerCmd.label "Email &amp; Grupo de Notícias">
+<!ENTITY messengerCmd.accesskey "e">
+<!ENTITY addressBookCmd.label "Catálogo de Endereços">
+<!ENTITY addressBookCmd.accesskey "c">
+
 <!ENTITY bounceButton.label "Redirecionar">
 <!ENTITY bounceButton.tooltip "Redirecionar mensagens">
-
 <!ENTITY addressButton.label "Catálogo de Endereços">
 <!ENTITY addressButton.tooltip "Ir ao catálogo de endereços">
+<!ENTITY throbberItem.title "Processamento">
+<!ENTITY throbber.tooltip "Ir para a página do Mozilla Thunderbird">
 
 <!ENTITY closeCmd.key "X">
 <!ENTITY messengerCmd.commandkey "1">
 <!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "Email &amp; Grupo de Notícias">
-<!ENTITY addressBookCmd.commandkey "n">
+<!ENTITY addressBookCmd.commandkey "C">
 <!ENTITY addressBookCmd.modifiers "accel,shift">
-<!ENTITY addressBookCmd.accesskey "C">
-<!ENTITY addressBookCmd.label "Catálogo de Endereços">
-<!ENTITY viewMenu.label "Exibir">
-<!ENTITY viewMenu.accesskey "E">
-<!ENTITY viewToolbarsMenuNew.label "Barra de Ferramentas">
-<!ENTITY viewToolbarsMenuNew.accesskey "B">
+
+<!ENTITY customizeToolbar.label "Personalizar...">
+<!ENTITY customizeToolbar.accesskey "P">
 <!ENTITY showBounceToolbarCmd.label "Barra do Mail Redirect">
-<!ENTITY showBounceToolbarCmd.accesskey "M">
+<!ENTITY showBounceToolbarCmd.accesskey "i">
 <!ENTITY showStatusbarCmd.label "Barra de Status">
 <!ENTITY showStatusbarCmd.accesskey "S">
-<!ENTITY tasksMenu.label "Ferramentas">
-<!ENTITY tasksMenu.accesskey "T">
-<!ENTITY throbberItem.title "Processamento">
-<!ENTITY throbber.tooltip "Ir para a página do Mozilla Thunderbird">
 
-<!ENTITY fromAddr.label "Conta:">
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!ENTITY headersSpace.style "width: 10em;">
+
+<!ENTITY fromAddr.label "De:">
 <!ENTITY fromAddr.accesskey "D">
 
-<!ENTITY bounceMailsLabel.label "As seguintes mensagens serão redirecionadas:">
-<!ENTITY date.label "Data">
-<!ENTITY sender.label "De">
-<!ENTITY subject.label "Assunto">
+<!ENTITY resendToAddr.label "Reenviar-Para:">
+<!ENTITY resendCcAddr.label "Reenviar-Cc:">
+<!ENTITY resendBccAddr.label "Reenviar-Cco:">
 
-<!ENTITY toAddr.label "Reenviar-Para:">
-<!ENTITY ccAddr.label "Reenviar-Cc:">
-<!ENTITY bccAddr.label "Reenviar-Cco:">
+<!ENTITY bounceMailsLabel.label "As seguintes mensagens serão redirecionadas:">
+
+<!ENTITY subject.label "Assunto">
+<!ENTITY sender.label "De">
+<!ENTITY date.label "Data">
