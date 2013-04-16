@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Heradresseer bericht">
-<!ENTITY bounceToAddr.label "Heradresseer aan:">
 
 <!ENTITY fileMenu.label "Bestand">
 <!ENTITY fileMenu.accesskey "B">
-<!ENTITY closeCmd.label "Sluiten">
-<!ENTITY closeCmd.accesskey "S">
-<!ENTITY closeCmd.key "W">
-
 <!ENTITY forwardBounce.label "Heradresseer">
 <!ENTITY forwardBounce.accesskey "H">
-<!ENTITY bounceButton.label "Heradresseer">
-<!ENTITY bounceButton.tooltip "Heradresseer berichten">
+<!ENTITY closeCmd.label "Sluiten">
+<!ENTITY closeCmd.accesskey "S">
 
-<!ENTITY addressButton.label "Adresboek">
-<!ENTITY addressButton.tooltip "Adresboek openen">
-
-<!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "E-mail &amp; Nieuwsgroepen">
-<!ENTITY addressBookCmd.commandkey "B">
-<!ENTITY addressBookCmd.modifiers "accel, shift">
-<!ENTITY addressBookCmd.accesskey "a">
-<!ENTITY addressBookCmd.label "Adresboek">
 <!ENTITY viewMenu.label "Beeld">
 <!ENTITY viewMenu.accesskey "l">
-<!ENTITY viewToolbarsMenuNew.label "Werkbalken">
-<!ENTITY viewToolbarsMenuNew.accesskey "W">
+<!ENTITY viewToolbarsMenuNew.label "Tonen/verbergen">
+<!ENTITY viewToolbarsMenuNew.accesskey "T">
+<!ENTITY menubarCmd.label "Menu Bar">
+<!ENTITY menubarCmd.accesskey "M">
+
+<!ENTITY tasksMenu.label "Extra">
+<!ENTITY tasksMenu.accesskey "x">
+<!ENTITY messengerCmd.label "E-mail &amp; Nieuwsgroepen">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY addressBookCmd.label "Adresboek">
+<!ENTITY addressBookCmd.accesskey "a">
+
+<!ENTITY bounceButton.label "Heradresseer">
+<!ENTITY bounceButton.tooltip "Heradresseer berichten">
+<!ENTITY addressButton.label "Adresboek">
+<!ENTITY addressButton.tooltip "Adresboek openen">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.commandkey "B">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!ENTITY customizeToolbar.label "Aanpassen…">
+<!ENTITY customizeToolbar.accesskey "A">
 <!ENTITY showBounceToolbarCmd.label "Heradresseerwerkbalk">
 <!ENTITY showBounceToolbarCmd.accesskey "H">
 <!ENTITY showStatusbarCmd.label "Statusbalk">
 <!ENTITY showStatusbarCmd.accesskey "S">
-<!ENTITY tasksMenu.label "Extra">
-<!ENTITY tasksMenu.accesskey "x">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "">
+
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!ENTITY headersSpace.style "width: 10em;">
 
 <!ENTITY fromAddr.label "Van:">
 <!ENTITY fromAddr.accesskey "V">
 
-<!ENTITY bounceMailsLabel.label "De volgende berichten worden geheradresseerd:">
-<!ENTITY date.label "Datum">
-<!ENTITY sender.label "Afzender">
-<!ENTITY subject.label "Onderwerp">
+<!ENTITY resendToAddr.label "Heradresseer-Aan:">
+<!ENTITY resendCcAddr.label "Heradresseer-Cc:">
+<!ENTITY resendBccAddr.label "Heradresseer-Bcc:">
 
-<!ENTITY toAddr.label "Heradresseer-Aan:">
-<!ENTITY ccAddr.label "Heradresseer-Cc:">
-<!ENTITY bccAddr.label "Heradresseer-Bcc:">
+<!ENTITY bounceMailsLabel.label "De volgende berichten worden geheradresseerd:">
+
+<!ENTITY subject.label "Onderwerp">
+<!ENTITY sender.label "Afzender">
+<!ENTITY date.label "Datum">
