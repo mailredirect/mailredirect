@@ -11,7 +11,6 @@
     </content>
 
     <implementation>
-
       <property name="label" onget="return this.getAttribute('label');">
         <setter><![CDATA[
           this.setAttribute('label', val);
@@ -21,14 +20,14 @@
             xtooltipBox.removeChild(xtooltipBox.firstChild);
           }
 
-          if (val == "") {
+          if (val === "") {
             return val;
           }
 
           var labelsArray = val.split("\\n");
           for (var l in labelsArray) {
-            const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-            var xtooltipLabel = document.createElementNS( XUL_NS, "label" );
+            const mailredirect_XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+            var xtooltipLabel = document.createElementNS( mailredirect_XUL_NS, "label" );
             xtooltipLabel.appendChild( document.createTextNode(labelsArray[l]) )
             xtooltipBox.appendChild( xtooltipLabel );
           }
