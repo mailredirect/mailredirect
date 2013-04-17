@@ -7,13 +7,6 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Si marca esta opción una copia de los mensajes redirigidos se guardará en la carpeta de enviados. Si no la marca no se guardará copia en ninguna carpeta.\nNota: Si marca esta opción pero la cuenta están predispuesta para no guardar ningún mensaje enviado, tampoco se guardará copia de los mensajes redirigidos.">
 
-<!ENTITY debug.label "Depuración">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Habilitar la depuración para la extensión. Los registros aparecen en la consola Javascript.">
-
-<!ENTITY saveConsoleContent.label "Guardar contenido de la consola Javascript…">
-<!ENTITY saveConsoleContent.accesskey "G">
-
 <!ENTITY concurrentConnections.label "Número de conexiones SMTP simultáneas:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -21,19 +14,24 @@
 
 <!ENTITY defaultRecipientsGroup.label "Destinatarios predeterminados">
 
-<!ENTITY defaultResentTo.label "Redirigir A:">
-<!ENTITY defaultResentTo.accesskey "A">
-<!ENTITY defaultResentTo.tooltip "Lista de direcciones de correo separadas por comas.">
+<!ENTITY defaultResendTo.label "Redirigir A:">
+<!ENTITY defaultResendTo.accesskey "A">
+<!ENTITY defaultResendTo.tooltip "Lista de direcciones de correo separadas por comas.">
 
-<!ENTITY defaultResentCc.label "Redirigir-Cc:">
-<!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Lista de direcciones de correo separadas por comas.">
+<!ENTITY defaultResendCc.label "Redirigir-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Lista de direcciones de correo separadas por comas.">
 
-<!ENTITY defaultResentBcc.label "Redirigir-Bcc:">
-<!ENTITY defaultResentBcc.accesskey "B">
-<!ENTITY defaultResentBcc.tooltip "Lista de direcciones de correo separadas por comas.">
+<!ENTITY defaultResendBcc.label "Redirigir-Bcc:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "Lista de direcciones de correo separadas por comas.">
+
+<!ENTITY debug.label "Depuración">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Habilitar la depuración para la extensión. Los registros aparecen en la consola Javascript.">
+
+<!ENTITY saveConsoleContent.label "Guardar contenido de la consola Javascript…">
+<!ENTITY saveConsoleContent.accesskey "G">
 
 <!-- ENTITY defaultRecipientsGroup.label "" -->
 <!ENTITY mailredirectSettings.label "Redirigir correo">
-<!ENTITY uninstallButton.label "Desinstalar">
-<!ENTITY uninstallButton.accesskey "D">

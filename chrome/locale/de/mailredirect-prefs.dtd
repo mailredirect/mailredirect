@@ -7,13 +7,6 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Wenn ausgewählt, wird eine Kopie der umgeleiteten Nachricht im Ordner 'Gesendet' abgelegt. Wenn nicht ausgewählt, wird keine Kopie gespeichert.\nHinweis: Wenn in den allgemeinen Konten-Einstellungen gewählt wurde, keine Kopien zu speichern, dann werden trotz der hier aktivierten Option keine Kopien von umgeleiteten Nachrichten gespeichert.">
 
-<!ENTITY debug.label "Fehlersuche aktivieren">
-<!ENTITY debug.accesskey "F">
-<!ENTITY debug.tooltip "An-/Abschalten des Debuggings für die Umleitungserweiterung. Logs werden in die JavaScript-Konsole geschrieben.">
-
-<!ENTITY saveConsoleContent.label "Protokoll speichern...">
-<!ENTITY saveConsoleContent.accesskey "P">
-
 <!ENTITY concurrentConnections.label "Anzahl gleichzeitiger SMTP-Verbindungen:">
 <!ENTITY concurrentConnections.accesskey "g">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -21,19 +14,24 @@
 
 <!ENTITY defaultRecipientsGroup.label "Voreingestellte Empfänger">
 
-<!ENTITY defaultResentTo.label "Umleiten-An:">
-<!ENTITY defaultResentTo.accesskey "A">
-<!ENTITY defaultResentTo.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
+<!ENTITY defaultResendTo.label "Umleiten-An:">
+<!ENTITY defaultResendTo.accesskey "A">
+<!ENTITY defaultResendTo.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
 
-<!ENTITY defaultResentCc.label "Umleiten-CC:">
-<!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
+<!ENTITY defaultResendCc.label "Umleiten-CC:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
 
-<!ENTITY defaultResentBcc.label "Umleiten-BCC:">
-<!ENTITY defaultResentBcc.accesskey "B">
-<!ENTITY defaultResentBcc.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
+<!ENTITY defaultResendBcc.label "Umleiten-BCC:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "Komma-separierte Liste von E-Mail-Adressen.">
+
+<!ENTITY debug.label "Fehlersuche aktivieren">
+<!ENTITY debug.accesskey "F">
+<!ENTITY debug.tooltip "An-/Abschalten des Debuggings für die Umleitungserweiterung. Logs werden in die JavaScript-Konsole geschrieben.">
+
+<!ENTITY saveConsoleContent.label "Protokoll speichern...">
+<!ENTITY saveConsoleContent.accesskey "P">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Nachricht umleiten">
-<!ENTITY uninstallButton.label "Deinstallieren...">
-<!ENTITY uninstallButton.accesskey "D">

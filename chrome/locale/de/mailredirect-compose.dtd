@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Nachricht umleiten">
-<!ENTITY bounceToAddr.label "umleiten zu:">
 
 <!ENTITY fileMenu.label "Datei">
 <!ENTITY fileMenu.accesskey "D">
+<!ENTITY forwardBounce.label "Umleiten">
+<!ENTITY forwardBounce.accesskey "U">
 <!ENTITY closeCmd.label "Schließen">
 <!ENTITY closeCmd.accesskey "c">
 
-<!ENTITY forwardBounce.label "Umleiten">
-<!ENTITY forwardBounce.accesskey "U">
-<!ENTITY bounceButton.label "Umleiten">
-<!ENTITY bounceButton.tooltip "Nachricht umleiten">
-
-<!ENTITY addressButton.label "Adressbuch">
-<!ENTITY addressButton.tooltip "Adressbuch öffnen">
-
-<!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY messengerCmd.accesskey "H">
-<!ENTITY messengerCmd.label "Hauptfenster">
-<!ENTITY addressBookCmd.commandkey "B">
-<!ENTITY addressBookCmd.modifiers "accel, shift">
-<!ENTITY addressBookCmd.accesskey "A">
-<!ENTITY addressBookCmd.label "Adressbuch">
 <!ENTITY viewMenu.label "Ansicht">
 <!ENTITY viewMenu.accesskey "A">
 <!ENTITY viewToolbarsMenuNew.label "Symbolleisten">
 <!ENTITY viewToolbarsMenuNew.accesskey "y">
+<!-- ENTITY menubarCmd.label "" -->
+<!-- ENTITY menubarCmd.accesskey "" -->
+
+<!ENTITY tasksMenu.label "Extras">
+<!ENTITY tasksMenu.accesskey "x">
+<!ENTITY messengerCmd.label "Hauptfenster">
+<!ENTITY messengerCmd.accesskey "H">
+<!ENTITY addressBookCmd.label "Adressbuch">
+<!ENTITY addressBookCmd.accesskey "A">
+
+<!ENTITY bounceButton.label "Umleiten">
+<!ENTITY bounceButton.tooltip "Nachricht umleiten">
+<!ENTITY addressButton.label "Adressbuch">
+<!ENTITY addressButton.tooltip "Adressbuch öffnen">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Mozilla-Thunderbird-Homepage aufrufen">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.commandkey "B">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!-- ENTITY customizeToolbar.label "" -->
+<!-- ENTITY customizeToolbar.accesskey "" -->
 <!ENTITY showBounceToolbarCmd.label "Funktionen">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Statusleiste">
 <!ENTITY showStatusbarCmd.accesskey "S">
-<!ENTITY tasksMenu.label "Extras">
-<!ENTITY tasksMenu.accesskey "x">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Mozilla-Thunderbird-Homepage aufrufen">
+
+<!-- ENTITY dialog.dimensions "" -->
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!-- ENTITY headersSpace.style "" -->
 
 <!ENTITY fromAddr.label "Von:">
 <!ENTITY fromAddr.accesskey "V">
 
-<!ENTITY bounceMailsLabel.label "Folgende Nachrichten werden umgeleitet:">
-<!ENTITY date.label "Datum">
-<!ENTITY sender.label "Absender">
-<!ENTITY subject.label "Betreff">
+<!ENTITY resendToAddr.label "Umleiten-An:">
+<!ENTITY resendCcAddr.label "Umleiten-CC:">
+<!ENTITY resendBccAddr.label "Umleiten-BCC:">
 
-<!ENTITY toAddr.label "Umleiten-An:">
-<!ENTITY ccAddr.label "Umleiten-CC:">
-<!ENTITY bccAddr.label "Umleiten-BCC:">
+<!ENTITY bounceMailsLabel.label "Folgende Nachrichten werden umgeleitet:">
+
+<!ENTITY subject.label "Betreff">
+<!ENTITY sender.label "Absender">
+<!ENTITY date.label "Datum">
