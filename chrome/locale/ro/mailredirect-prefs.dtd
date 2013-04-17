@@ -7,13 +7,6 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Dacă această opțiune este bifată o copie a mesajului este pusă în dosarul de Trimise. Dacă opțiunea este debifată mailul este redirectat fără să fie pus in alt dosar.\nNotă: Deasemenea dacă există bifă dar setările contului sunt de așa natură că &quot;nu se păstrează mesajele trimise&quot; nu va exista copie a mesajului.">
 
-<!ENTITY debug.label "Debug">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Pornește/Oprește debuggingul pentru extensia mailredirect. Logurile vor fi trimise către consola JavaScript.">
-
-<!ENTITY saveConsoleContent.label "Salvează conținutulconsolei JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "S">
-
 <!ENTITY concurrentConnections.label "Numărul de conexiuni concurente SMTP:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -21,19 +14,24 @@
 
 <!ENTITY defaultRecipientsGroup.label "Destinatar(i) implicit(i):">
 
-<!ENTITY defaultResentTo.label "Retrimite către:">
-<!ENTITY defaultResentTo.accesskey "T">
-<!ENTITY defaultResentTo.tooltip "Adrese de mail separate prin virgulă.">
+<!ENTITY defaultResendTo.label "Retrimite către:">
+<!ENTITY defaultResendTo.accesskey "T">
+<!ENTITY defaultResendTo.tooltip "Adrese de mail separate prin virgulă.">
 
-<!ENTITY defaultResentCc.label "Retrimite Cc:">
-<!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "Adrese de mail separate prin virgulă.">
+<!ENTITY defaultResendCc.label "Retrimite Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Adrese de mail separate prin virgulă.">
 
-<!ENTITY defaultResentBcc.label "Retrimite Bcc:">
-<!ENTITY defaultResentBcc.accesskey "V">
-<!ENTITY defaultResentBcc.tooltip "Adrese de mail separate prin virgulă.">
+<!ENTITY defaultResendBcc.label "Retrimite Bcc:">
+<!ENTITY defaultResendBcc.accesskey "V">
+<!ENTITY defaultResendBcc.tooltip "Adrese de mail separate prin virgulă.">
+
+<!ENTITY debug.label "Debug">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Pornește/Oprește debuggingul pentru extensia mailredirect. Logurile vor fi trimise către consola JavaScript.">
+
+<!ENTITY saveConsoleContent.label "Salvează conținutulconsolei JavaScript...">
+<!ENTITY saveConsoleContent.accesskey "S">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Redirectare Mailuri">
-<!ENTITY uninstallButton.label "Dezinstalează...">
-<!ENTITY uninstallButton.accesskey "U">

@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Omdirigera brev">
-<!ENTITY bounceToAddr.label "omdirigera till:">
 
 <!ENTITY fileMenu.label "Arkiv">
 <!ENTITY fileMenu.accesskey "A">
+<!ENTITY forwardBounce.label "Omdirigera">
+<!ENTITY forwardBounce.accesskey "O">
 <!ENTITY closeCmd.label "Stäng">
 <!ENTITY closeCmd.accesskey "S">
 
-<!ENTITY forwardBounce.label "Omdirigera">
-<!ENTITY forwardBounce.accesskey "O">
-<!ENTITY bounceButton.label "Omdirigera">
-<!ENTITY bounceButton.tooltip "Omdirigera meddelanden">
-
-<!ENTITY addressButton.label "Adressboken">
-<!ENTITY addressButton.tooltip "Gå till adressboken">
-
-<!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY messengerCmd.accesskey "d">
-<!ENTITY messengerCmd.label "E-post &amp; Diskussionsgrupper">
-<!ENTITY addressBookCmd.commandkey "2">
-<!ENTITY addressBookCmd.modifiers "accel, shift">
-<!ENTITY addressBookCmd.accesskey "a">
-<!ENTITY addressBookCmd.label "Adressboken">
 <!ENTITY viewMenu.label "Visa">
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Verktygsfält">
 <!ENTITY viewToolbarsMenuNew.accesskey "t">
+<!-- ENTITY menubarCmd.label "" -->
+<!-- ENTITY menubarCmd.accesskey "" -->
+
+<!ENTITY tasksMenu.label "Verktyg">
+<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY messengerCmd.label "E-post &amp; Diskussionsgrupper">
+<!ENTITY messengerCmd.accesskey "d">
+<!ENTITY addressBookCmd.label "Adressboken">
+<!ENTITY addressBookCmd.accesskey "a">
+
+<!ENTITY bounceButton.label "Omdirigera">
+<!ENTITY bounceButton.tooltip "Omdirigera meddelanden">
+<!ENTITY addressButton.label "Adressboken">
+<!ENTITY addressButton.tooltip "Gå till adressboken">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Gå till Mozilla Thunderbirds hemsida">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!-- ENTITY customizeToolbar.label "" -->
+<!-- ENTITY customizeToolbar.accesskey "" -->
 <!ENTITY showBounceToolbarCmd.label "Omdirigera Verktygsfältet">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Statusfält">
 <!ENTITY showStatusbarCmd.accesskey "S">
-<!ENTITY tasksMenu.label "Verktyg">
-<!ENTITY tasksMenu.accesskey "T">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Gå till Mozilla Thunderbirds hemsida">
+
+<!-- ENTITY dialog.dimensions "" -->
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!-- ENTITY headersSpace.style "" -->
 
 <!ENTITY fromAddr.label "Konto:">
 <!ENTITY fromAddr.accesskey "K">
 
-<!ENTITY bounceMailsLabel.label "Följande brev kommer att omdirigeras:">
-<!ENTITY date.label "Datum">
-<!ENTITY sender.label "Avsändare">
-<!ENTITY subject.label "Ämne">
+<!ENTITY resendToAddr.label "Omdirigera-Till:">
+<!ENTITY resendCcAddr.label "Omdirigera-Kopia:">
+<!ENTITY resendBccAddr.label "Omdirigera-Dold kopia:">
 
-<!ENTITY toAddr.label "Omdirigera-Till:">
-<!ENTITY ccAddr.label "Omdirigera-Kopia:">
-<!ENTITY bccAddr.label "Omdirigera-Dold kopia:">
+<!ENTITY bounceMailsLabel.label "Följande brev kommer att omdirigeras:">
+
+<!ENTITY subject.label "Ämne">
+<!ENTITY sender.label "Avsändare">
+<!ENTITY date.label "Datum">

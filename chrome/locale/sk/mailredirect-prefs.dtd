@@ -7,6 +7,25 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Pokiaľ je táto voľba zapnutá, kópia presmerovanej správy sa uloží do priečinku Odoslaná pošta. Pokiaľ je táto voľba vypnutá, presmerované správy sa nikde neukladajú.\nPozn.: Pokiaľ je táto voľba zapnutá, ale zároveň nie je v Nastaveniach účtov / Kópie &amp; priečinky - vyznačená možnosť: Uložiť kópiu do... , kópie presmerovaných správ sa nebudú ukladať.">
 
+<!ENTITY concurrentConnections.label "Počet paralelných SMTP spojení:">
+<!ENTITY concurrentConnections.accesskey "S">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "Táto voľba určuje počet spojení, které budú naraz použité pre komunikáciu z SMTP serverom pri odosielaní správ. Obecne povedané - môžete tým urýchliť odosielanie, hlavne ak sa jedná o presmerovanie väčšieho počtu správ.\nPri nastavení na 0 nebude počet súčasných spojení vôbec obmedzovaný - to môže mať vpliv hlavne na stabilitu SMTP servera a na odosielanie presmerovávaných správ. V prípade problémov nastavte na hodnotu 1.">
+
+<!-- ENTITY defaultRecipientsGroup.label "" -->
+
+<!ENTITY defaultResendTo.label "Znovu odoslať - Komu:">
+<!ENTITY defaultResendTo.accesskey "Z">
+<!-- ENTITY defaultResendTo.tooltip "" -->
+
+<!ENTITY defaultResendCc.label "Znovu odoslať - Kópia:">
+<!ENTITY defaultResendCc.accesskey "p">
+<!-- ENTITY defaultResendCc.tooltip "" -->
+
+<!ENTITY defaultResendBcc.label "Znovu odoslať - Skrytá kópia:">
+<!ENTITY defaultResendBcc.accesskey "y">
+<!-- ENTITY defaultResendBcc.tooltip "" -->
+
 <!ENTITY debug.label "Ladiť">
 <!ENTITY debug.accesskey "L">
 <!ENTITY debug.tooltip "Zapnúť / vypnúť ladenie MailRedirect. Komentáre o ladení sú zapisované do konzoly JavaScript. ">
@@ -14,26 +33,5 @@
 <!ENTITY saveConsoleContent.label "Uložiť obsah ladiacej konzoly JavaScript...">
 <!ENTITY saveConsoleContent.accesskey "U">
 
-<!ENTITY concurrentConnections.label "Počet paralelných SMTP spojení:">
-<!ENTITY concurrentConnections.accesskey "P">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "Táto voľba určuje počet spojení, které budú naraz použité pre komunikáciu z SMTP serverom pri odosielaní správ. Obecne povedané - môžete tým urýchliť odosielanie, hlavne ak sa jedná o presmerovanie väčšieho počtu správ.\nPri nastavení na 0 nebude počet súčasných spojení vôbec obmedzovaný - to môže mať vpliv hlavne na stabilitu SMTP servera a na odosielanie presmerovávaných správ. V prípade problémov nastavte na hodnotu 1.">
-
-<!-- ENTITY defaultRecipientsGroup.label "" -->
-
-<!ENTITY defaultResentTo.label "Znovu odoslať - Komu:">
-<!ENTITY defaultResentTo.accesskey "K">
-<!-- ENTITY defaultResentTo.tooltip "" -->
-
-<!ENTITY defaultResentCc.label "Znovu odoslať - Kópia:">
-<!ENTITY defaultResentCc.accesskey "p">
-<!-- ENTITY defaultResentCc.tooltip "" -->
-
-<!ENTITY defaultResentBcc.label "Znovu odoslať - Skrytá kópia:">
-<!ENTITY defaultResentBcc.accesskey "y">
-<!-- ENTITY defaultResentBcc.tooltip "" -->
-
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
-<!ENTITY uninstallButton.accesskey "O">
-<!ENTITY uninstallButton.label "Odinštalovať...">

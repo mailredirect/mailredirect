@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Mail Redirect">
-<!ENTITY bounceToAddr.label "перенаправить:">
 
 <!ENTITY fileMenu.label "Файл">
 <!ENTITY fileMenu.accesskey "Ф">
+<!ENTITY forwardBounce.label "Перенаправить">
+<!ENTITY forwardBounce.accesskey "П">
 <!ENTITY closeCmd.label "Закрыть">
 <!ENTITY closeCmd.accesskey "З">
 
-<!ENTITY forwardBounce.label "Перенаправить">
-<!ENTITY forwardBounce.accesskey "П">
-<!ENTITY bounceButton.label "Перенаправить">
-<!ENTITY bounceButton.tooltip "Перенаправить сообщения">
-
-<!ENTITY addressButton.label "Адресная книга">
-<!ENTITY addressButton.tooltip "Перейти в адресную книгу">
-
-<!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
-<!-- ENTITY messengerCmd.modifiers "" -->
-<!ENTITY messengerCmd.accesskey "П">
-<!ENTITY messengerCmd.label "Почта и группы новостей">
-<!ENTITY addressBookCmd.commandkey "2">
-<!-- ENTITY addressBookCmd.modifiers "" -->
-<!ENTITY addressBookCmd.accesskey "А">
-<!ENTITY addressBookCmd.label "Адресная книга">
 <!ENTITY viewMenu.label "Вид">
 <!ENTITY viewMenu.accesskey "В">
 <!ENTITY viewToolbarsMenuNew.label "Показать/скрыть">
 <!ENTITY viewToolbarsMenuNew.accesskey "П">
+<!-- ENTITY menubarCmd.label "" -->
+<!-- ENTITY menubarCmd.accesskey "" -->
+
+<!ENTITY tasksMenu.label "Инструменты">
+<!ENTITY tasksMenu.accesskey "И">
+<!ENTITY messengerCmd.label "Почта и группы новостей">
+<!ENTITY messengerCmd.accesskey "П">
+<!ENTITY addressBookCmd.label "Адресная книга">
+<!ENTITY addressBookCmd.accesskey "А">
+
+<!ENTITY bounceButton.label "Перенаправить">
+<!ENTITY bounceButton.tooltip "Перенаправить сообщения">
+<!ENTITY addressButton.label "Адресная книга">
+<!ENTITY addressButton.tooltip "Перейти в адресную книгу">
+<!ENTITY throbberItem.title "">
+<!ENTITY throbber.tooltip "Перейти на страницу Mozilla Thunderbird в интернет">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!-- ENTITY messengerCmd.modifiers "" -->
+<!ENTITY addressBookCmd.commandkey "2">
+<!-- ENTITY addressBookCmd.modifiers "" -->
+
+<!-- ENTITY customizeToolbar.label "" -->
+<!-- ENTITY customizeToolbar.accesskey "" -->
 <!ENTITY showBounceToolbarCmd.label "Панель инструментов">
 <!ENTITY showBounceToolbarCmd.accesskey "П">
 <!ENTITY showStatusbarCmd.label "Строка состояния">
 <!ENTITY showStatusbarCmd.accesskey "С">
-<!ENTITY tasksMenu.label "Инструменты">
-<!ENTITY tasksMenu.accesskey "И">
-<!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Перейти на страницу Mozilla Thunderbird в интернет">
+
+<!-- ENTITY dialog.dimensions "" -->
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!-- ENTITY headersSpace.style "" -->
 
 <!ENTITY fromAddr.label "От:">
 <!ENTITY fromAddr.accesskey "О">
 
-<!ENTITY bounceMailsLabel.label "Следующие сообщения будут перенаправлены:">
-<!ENTITY date.label "Дата">
-<!ENTITY sender.label "Отправитель">
-<!ENTITY subject.label "Тема">
+<!ENTITY resendToAddr.label "Перенаправить:">
+<!ENTITY resendCcAddr.label "Копия:">
+<!ENTITY resendBccAddr.label "Скрытая копия:">
 
-<!ENTITY toAddr.label "Перенаправить:">
-<!ENTITY ccAddr.label "Копия:">
-<!ENTITY bccAddr.label "Скрытая копия:">
+<!ENTITY bounceMailsLabel.label "Следующие сообщения будут перенаправлены:">
+
+<!ENTITY subject.label "Тема">
+<!ENTITY sender.label "Отправитель">
+<!ENTITY date.label "Дата">

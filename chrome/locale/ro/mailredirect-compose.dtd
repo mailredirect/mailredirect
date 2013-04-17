@@ -1,49 +1,62 @@
 <!ENTITY msgMailRedirectWindow.title "Redirectare Mailuri">
-<!ENTITY bounceToAddr.label "redireactează către:">
 
 <!ENTITY fileMenu.label "Fișier">
 <!ENTITY fileMenu.accesskey "F">
+<!ENTITY forwardBounce.label "Redirectează">
+<!ENTITY forwardBounce.accesskey "i">
 <!ENTITY closeCmd.label "Închide">
 <!ENTITY closeCmd.accesskey "C">
 
-<!ENTITY forwardBounce.label "Redirectează">
-<!ENTITY forwardBounce.accesskey "i">
-<!ENTITY bounceButton.label "Redirectează">
-<!ENTITY bounceButton.tooltip "Redirectează mesajele">
-
-<!ENTITY addressButton.label "Agendă">
-<!ENTITY addressButton.tooltip "Către agendă">
-
-<!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
-<!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY messengerCmd.label "Mailuri și Grupuri de Știri">
-<!ENTITY addressBookCmd.commandkey "2">
-<!ENTITY addressBookCmd.modifiers "accel, shift">
-<!ENTITY addressBookCmd.accesskey "a">
-<!ENTITY addressBookCmd.label "Agendă">
 <!ENTITY viewMenu.label "Vizualizează">
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Bară Utilitare">
 <!ENTITY viewToolbarsMenuNew.accesskey "T">
+<!-- ENTITY menubarCmd.label "" -->
+<!-- ENTITY menubarCmd.accesskey "" -->
+
+<!ENTITY tasksMenu.label "Utilitare">
+<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY messengerCmd.label "Mailuri și Grupuri de Știri">
+<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY addressBookCmd.label "Agendă">
+<!ENTITY addressBookCmd.accesskey "a">
+
+<!ENTITY bounceButton.label "Redirectează">
+<!ENTITY bounceButton.tooltip "Redirectează mesajele">
+<!ENTITY addressButton.label "Agendă">
+<!ENTITY addressButton.tooltip "Către agendă">
+<!ENTITY throbberItem.title ".">
+<!ENTITY throbber.tooltip "Către pagina principală Mozilla Thunderbird">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!-- ENTITY customizeToolbar.label "" -->
+<!-- ENTITY customizeToolbar.accesskey "" -->
 <!ENTITY showBounceToolbarCmd.label "Bară Utilitare Rerirect">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Bară Situații">
 <!ENTITY showStatusbarCmd.accesskey "S">
-<!ENTITY tasksMenu.label "Utilitare">
-<!ENTITY tasksMenu.accesskey "T">
-<!ENTITY throbberItem.title ".">
-<!ENTITY throbber.tooltip "Către pagina principală Mozilla Thunderbird">
+
+<!-- ENTITY dialog.dimensions "" -->
+
+<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+    label  -->
+<!-- ENTITY headersSpace.style "" -->
 
 <!ENTITY fromAddr.label "Cont:">
 <!ENTITY fromAddr.accesskey "a">
 
-<!ENTITY bounceMailsLabel.label "Următoarele mailuri vor fi redirectate:">
-<!ENTITY date.label "Dată">
-<!ENTITY sender.label "Expeditor">
-<!ENTITY subject.label "Subiect">
+<!ENTITY resendToAddr.label "Retrimite către:">
+<!ENTITY resendCcAddr.label "Retrimite Cc:">
+<!ENTITY resendBccAddr.label "Retrimite Bcc:">
 
-<!ENTITY toAddr.label "Retrimite către:">
-<!ENTITY ccAddr.label "Retrimite Cc:">
-<!ENTITY bccAddr.label "Retrimite Bcc:">
+<!ENTITY bounceMailsLabel.label "Următoarele mailuri vor fi redirectate:">
+
+<!ENTITY subject.label "Subiect">
+<!ENTITY sender.label "Expeditor">
+<!ENTITY date.label "Dată">

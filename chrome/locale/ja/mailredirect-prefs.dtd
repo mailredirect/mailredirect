@@ -1,29 +1,37 @@
 <!ENTITY mailredirectSettings.title "Mail Redirect の設定">
+
 <!ENTITY prefsGroup.label "設定">
+
 <!ENTITY copyToSentMails.label "送信済みトレイにリダイレクトしたメールのコピーを保存する">
 <!ENTITY copyToSentMails.accesskey "c">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "このオプションにチェックを入れると、リダイレクトしたメッセージを送信済みトレイにコピーします。チェックを入れないと、どのトレイにもコピーされません。\n注意：チェックが入っている場合でも、アカウント設定で「メッセージ送信時に自動的にコピーを作成する」が設定されていない場合はリダイレクトしたメッセージもコピーされません。">
-<!ENTITY debug.label "デバッグ">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Mail Redirect 拡張機能のデバッグのオン/オフを切り替えます。ログはエラーコンソールに表示されます。">
-<!ENTITY saveConsoleContent.label "エラーコンソールの内容を保存…">
-<!ENTITY saveConsoleContent.accesskey "S">
+
 <!ENTITY concurrentConnections.label "同時 SMTP 接続数:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "このオプションでは、メッセージの送信中に確立する SMTP サーバへの接続数を指定します。一般に、大量のメッセージをリダイレクトする際の送信処理能力を向上させることができます。\n注意：この値を 0 に設定すると同時接続数の制限が解除されますが、SMTP サーバの安定性に影響を与え、メッセージの送信に失敗することがあります。失敗する場合にはこの値を 1 に設定してください。">
+
 <!ENTITY defaultRecipientsGroup.label "既定の受信者">
-<!ENTITY defaultResentTo.label "Resent-To:">
-<!ENTITY defaultResentTo.accesskey "T">
-<!ENTITY defaultResentTo.tooltip "メールアドレスはカンマで区切ってください。">
-<!ENTITY defaultResentCc.label "Resent-Cc:">
-<!ENTITY defaultResentCc.accesskey "C">
-<!ENTITY defaultResentCc.tooltip "メールアドレスはカンマで区切ってください。">
-<!ENTITY defaultResentBcc.label "Resent-Bcc:">
-<!ENTITY defaultResentBcc.accesskey "B">
-<!ENTITY defaultResentBcc.tooltip "メールアドレスはカンマで区切ってください。">
+
+<!ENTITY defaultResendTo.label "Resend-To:">
+<!ENTITY defaultResendTo.accesskey "T">
+<!ENTITY defaultResendTo.tooltip "メールアドレスはカンマで区切ってください。">
+
+<!ENTITY defaultResendCc.label "Resend-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "メールアドレスはカンマで区切ってください。">
+
+<!ENTITY defaultResendBcc.label "Resend-Bcc:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "メールアドレスはカンマで区切ってください。">
+
+<!ENTITY debug.label "デバッグ">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Mail Redirect 拡張機能のデバッグのオン/オフを切り替えます。ログはエラーコンソールに表示されます。">
+
+<!ENTITY saveConsoleContent.label "エラーコンソールの内容を保存…">
+<!ENTITY saveConsoleContent.accesskey "S">
+
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
-<!ENTITY uninstallButton.label "アンインストール…">
-<!ENTITY uninstallButton.accesskey "U">

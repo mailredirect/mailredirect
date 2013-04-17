@@ -7,13 +7,6 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!-- ENTITY copyToSentMails.tooltip "" -->
 
-<!ENTITY debug.label "Отладка">
-<!ENTITY debug.accesskey "О">
-<!ENTITY debug.tooltip "Включение/Выключение отладки расширения Mail Redirect. Отладочные сообщения выводятся в консоль JavaScript.">
-
-<!ENTITY saveConsoleContent.label "Сохранить содержимое консоли JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "С">
-
 <!ENTITY concurrentConnections.label "Количество конкурирующих соединений по протоколу SMTP:">
 <!ENTITY concurrentConnections.accesskey "К">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -21,19 +14,24 @@
 
 <!-- ENTITY defaultRecipientsGroup.label "" -->
 
-<!ENTITY defaultResentTo.label "Перенаправить:">
-<!ENTITY defaultResentTo.accesskey "П">
-<!-- ENTITY defaultResentTo.tooltip "" -->
+<!ENTITY defaultResendTo.label "Перенаправить:">
+<!ENTITY defaultResendTo.accesskey "П">
+<!-- ENTITY defaultResendTo.tooltip "" -->
 
-<!ENTITY defaultResentCc.label "Копия:">
-<!ENTITY defaultResentCc.accesskey "п">
-<!-- ENTITY defaultResentCc.tooltip "" -->
+<!ENTITY defaultResendCc.label "Копия:">
+<!ENTITY defaultResendCc.accesskey "п">
+<!-- ENTITY defaultResendCc.tooltip "" -->
 
-<!ENTITY defaultResentBcc.label "Скрытая копия:">
-<!ENTITY defaultResentBcc.accesskey "к">
-<!-- ENTITY defaultResentBcc.tooltip "" -->
+<!ENTITY defaultResendBcc.label "Скрытая копия:">
+<!ENTITY defaultResendBcc.accesskey "к">
+<!-- ENTITY defaultResendBcc.tooltip "" -->
+
+<!ENTITY debug.label "Отладка">
+<!ENTITY debug.accesskey "О">
+<!ENTITY debug.tooltip "Включение/Выключение отладки расширения Mail Redirect. Отладочные сообщения выводятся в консоль JavaScript.">
+
+<!ENTITY saveConsoleContent.label "Сохранить содержимое консоли JavaScript...">
+<!ENTITY saveConsoleContent.accesskey "С">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
-<!ENTITY uninstallButton.label "Удалить...">
-<!ENTITY uninstallButton.accesskey "У">
