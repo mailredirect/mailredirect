@@ -11,8 +11,8 @@
 <!ENTITY viewMenu.accesskey "Z">
 <!ENTITY viewToolbarsMenuNew.label "Panely s nástrojmi">
 <!ENTITY viewToolbarsMenuNew.accesskey "n">
-<!-- ENTITY menubarCmd.label "" -->
-<!-- ENTITY menubarCmd.accesskey "" -->
+<!ENTITY menubarCmd.label "Panel ponuky">
+<!ENTITY menubarCmd.accesskey "e">
 
 <!ENTITY tasksMenu.label "Nástroje">
 <!ENTITY tasksMenu.accesskey "N">
@@ -25,28 +25,28 @@
 <!ENTITY bounceButton.tooltip "Presmerovať správu na niekoho iného">
 <!ENTITY addressButton.label "Adresár">
 <!ENTITY addressButton.tooltip "Prejsť na adresár">
-<!ENTITY throbberItem.title "">
+<!ENTITY throbberItem.title "Kontrolka aktivity">
 <!ENTITY throbber.tooltip "Prejsť na domovskú stránku Mozilla Thunderbird">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
-<!-- ENTITY messengerCmd.modifiers "" -->
+<!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.commandkey "2">
-<!-- ENTITY addressBookCmd.modifiers "" -->
+<!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!-- ENTITY customizeToolbar.label "" -->
-<!-- ENTITY customizeToolbar.accesskey "" -->
+<!ENTITY customizeToolbar.label "Prispôsobenie…">
+<!ENTITY customizeToolbar.accesskey "r">
 <!ENTITY showBounceToolbarCmd.label "Panel nástrojov MailRedirect">
 <!ENTITY showBounceToolbarCmd.accesskey "p">
 <!ENTITY showStatusbarCmd.label "Stavový riadok">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
-<!-- ENTITY dialog.dimensions "" -->
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
-<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
-    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
-    label  -->
-<!-- ENTITY headersSpace.style "" -->
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "width: 12em;">
 
 <!ENTITY fromAddr.label "Od:">
 <!ENTITY fromAddr.accesskey "O">
