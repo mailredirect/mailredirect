@@ -11,8 +11,8 @@
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Barra degli strumenti">
 <!ENTITY viewToolbarsMenuNew.accesskey "B">
-<!-- ENTITY menubarCmd.label "" -->
-<!-- ENTITY menubarCmd.accesskey "" -->
+<!ENTITY menubarCmd.label "Barra dei menu">
+<!ENTITY menubarCmd.accesskey "m">
 
 <!ENTITY tasksMenu.label "Strumenti">
 <!ENTITY tasksMenu.accesskey "S">
@@ -34,26 +34,26 @@
 <!ENTITY addressBookCmd.commandkey "2">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!-- ENTITY customizeToolbar.label "" -->
-<!-- ENTITY customizeToolbar.accesskey "" -->
+<!ENTITY customizeToolbar.label "Personalizza…">
+<!ENTITY customizeToolbar.accesskey "P">
 <!ENTITY showBounceToolbarCmd.label "Reindirizza">
 <!ENTITY showBounceToolbarCmd.accesskey "i">
 <!ENTITY showStatusbarCmd.label "Barra di stato">
 <!ENTITY showStatusbarCmd.accesskey "t">
 
-<!-- ENTITY dialog.dimensions "" -->
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
-<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
-    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
-    label  -->
-<!-- ENTITY headersSpace.style "" -->
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "width: 11em;">
 
 <!ENTITY fromAddr.label "Account:">
 <!ENTITY fromAddr.accesskey "A">
 
-<!ENTITY toAddr.label "Reindirizza a:">
-<!ENTITY ccAddr.label "Reindirizza in Cc a:">
-<!ENTITY bccAddr.label "Reindirizza in Ccn a:">
+<!ENTITY resendToAddr.label "Reindirizza a:">
+<!ENTITY resendCcAddr.label "Reindirizza in Cc a:">
+<!ENTITY resendBccAddr.label "Reindirizza in Ccn a:">
 
 <!ENTITY bounceMailsLabel.label "I seguenti messaggi verranno reindirizzati:">
 
