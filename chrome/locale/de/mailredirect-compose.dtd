@@ -11,8 +11,8 @@
 <!ENTITY viewMenu.accesskey "A">
 <!ENTITY viewToolbarsMenuNew.label "Symbolleisten">
 <!ENTITY viewToolbarsMenuNew.accesskey "y">
-<!-- ENTITY menubarCmd.label "" -->
-<!-- ENTITY menubarCmd.accesskey "" -->
+<!ENTITY menubarCmd.label "Menüleiste">
+<!ENTITY menubarCmd.accesskey "M">
 
 <!ENTITY tasksMenu.label "Extras">
 <!ENTITY tasksMenu.accesskey "x">
@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "Nachricht umleiten">
 <!ENTITY addressButton.label "Adressbuch">
 <!ENTITY addressButton.tooltip "Adressbuch öffnen">
-<!ENTITY throbberItem.title "">
+<!ENTITY throbberItem.title "Aktivitätsindikator">
 <!ENTITY throbber.tooltip "Mozilla-Thunderbird-Homepage aufrufen">
 
 <!ENTITY closeCmd.key "W">
@@ -34,19 +34,20 @@
 <!ENTITY addressBookCmd.commandkey "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!-- ENTITY customizeToolbar.label "" -->
-<!-- ENTITY customizeToolbar.accesskey "" -->
+<!ENTITY customizeToolbar.label "Anpassen…">
+<!ENTITY customizeToolbar.accesskey "A">
 <!ENTITY showBounceToolbarCmd.label "Funktionen">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Statusleiste">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
-<!-- ENTITY dialog.dimensions "" -->
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
-<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
-    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
-    label  -->
-<!-- ENTITY headersSpace.style "" -->
+
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "width: 9em;">
 
 <!ENTITY fromAddr.label "Von:">
 <!ENTITY fromAddr.accesskey "V">
