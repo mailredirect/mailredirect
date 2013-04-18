@@ -1,2 +1,2 @@
-<!-- ENTITY hdrMailredirectButton1.label "" -->
-<!-- ENTITY hdrMailredirectButton1.tooltip "" -->
+<!ENTITY hdrMailredirectButton1.label "Přesměrovat">
+<!ENTITY hdrMailredirectButton1.tooltip "Přesměruje tuto zprávu">

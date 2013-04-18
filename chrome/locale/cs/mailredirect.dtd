@@ -1,4 +1,4 @@
 <!ENTITY bounceCommand.label "Přesměrovat">
 <!ENTITY bounceCommand.accesskey "t">
-<!ENTITY bounceCommand.tooltip "Přesměruje vybránou zprávu na někoho jiného">
+<!ENTITY bounceCommand.tooltip "Přesměruje vybrané zprávy">
 <!ENTITY bounceMsgCmd.key "B">
