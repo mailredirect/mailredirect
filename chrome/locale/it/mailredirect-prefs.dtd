@@ -16,19 +16,19 @@
 
 <!ENTITY defaultResendTo.label "Reindirizza a:">
 <!ENTITY defaultResendTo.accesskey "R">
-<!ENTITY defaultResendTo.tooltip "Lista di indirizzi e-mail separati da virgole ai quali reindirizzare i messaggi di posta">
+<!ENTITY defaultResendTo.tooltip "Lista di indirizzi e-mail predefiniti, separati da virgole, ai quali reindirizzare i messaggi di posta">
 
 <!ENTITY defaultResendCc.label "Reindirizza in Cc a:">
 <!ENTITY defaultResendCc.accesskey "C">
-<!ENTITY defaultResendCc.tooltip "Lista di indirizzi e-mail separati da virgole ai quali reindirizzare in copia carbone i messaggi di posta">
+<!ENTITY defaultResendCc.tooltip "Lista di indirizzi e-mail predefiniti, separati da virgole, ai quali reindirizzare in copia carbone i messaggi di posta">
 
 <!ENTITY defaultResendBcc.label "Reindirizza in Ccn a:">
 <!ENTITY defaultResendBcc.accesskey "a">
-<!ENTITY defaultResendBcc.tooltip "Lista di indirizzi e-mail separati da virgole ai quali reindirizzare in copia carbone nascosta i messaggi di posta">
+<!ENTITY defaultResendBcc.tooltip "Lista di indirizzi e-mail predefiniti, separati da virgole, ai quali reindirizzare in copia carbone nascosta i messaggi di posta">
 
-<!ENTITY debug.label "Registrazione degli errori">
-<!ENTITY debug.accesskey "e">
-<!ENTITY debug.tooltip "Attiva/disattiva la registrazione degli errori per MailRedirect. Le registrazioni verranno salvate nella console JavaScript">
+<!ENTITY debug.label "Attiva/disattiva il debug">
+<!ENTITY debug.accesskey "d">
+<!ENTITY debug.tooltip "Attiva/disattiva il debug degli errori per MailRedirect. La registrazione degli errori verrà salvata nella console JavaScript">
 
 <!ENTITY saveConsoleContent.label "Salva il contenuto della console JavaScript…">
 <!ENTITY saveConsoleContent.accesskey "S">

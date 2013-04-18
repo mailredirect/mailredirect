@@ -1,2 +1,2 @@
-<!-- ENTITY hdrMailredirectButton1.label "" -->
-<!-- ENTITY hdrMailredirectButton1.tooltip "" -->
+<!ENTITY hdrMailredirectButton1.label "Reindirizza…">
+<!ENTITY hdrMailredirectButton1.tooltip "Reindirizza i messaggi selezionati">
