@@ -11,8 +11,8 @@
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Bară Utilitare">
 <!ENTITY viewToolbarsMenuNew.accesskey "T">
-<!-- ENTITY menubarCmd.label "" -->
-<!-- ENTITY menubarCmd.accesskey "" -->
+<!ENTITY menubarCmd.label "Bară Meniu">
+<!ENTITY menubarCmd.accesskey "M">
 
 <!ENTITY tasksMenu.label "Utilitare">
 <!ENTITY tasksMenu.accesskey "T">
@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Agendă">
 <!ENTITY addressButton.tooltip "Către agendă">
 <!ENTITY throbberItem.title ".">
-<!ENTITY throbber.tooltip "Către pagina principală Mozilla Thunderbird">
+<!ENTITY throbber.tooltip "Către pagina principală &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
@@ -34,19 +34,19 @@
 <!ENTITY addressBookCmd.commandkey "2">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!-- ENTITY customizeToolbar.label "" -->
-<!-- ENTITY customizeToolbar.accesskey "" -->
+<!ENTITY customizeToolbar.label "Customizeazză">
+<!ENTITY customizeToolbar.accesskey "C">
 <!ENTITY showBounceToolbarCmd.label "Bară Utilitare Rerirect">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Bară Situații">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
-<!-- ENTITY dialog.dimensions "" -->
+<!ENTITY dialog.dimensions "width: 92 ch; height:36em;">
 
-<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
-    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
-    label  -->
-<!-- ENTITY headersSpace.style "" -->
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "width: 9em;">
 
 <!ENTITY fromAddr.label "Cont:">
 <!ENTITY fromAddr.accesskey "a">
