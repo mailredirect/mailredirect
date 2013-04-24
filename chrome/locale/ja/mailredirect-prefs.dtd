@@ -14,16 +14,16 @@
 
 <!ENTITY defaultRecipientsGroup.label "既定の受信者">
 
-<!ENTITY defaultResendTo.label "Resend-To:">
-<!ENTITY defaultResendTo.accesskey "T">
+<!-- ENTITY defaultResendTo.label "" -->
+<ENTITY defaultResendTo.accesskey "T">
 <!ENTITY defaultResendTo.tooltip "メールアドレスはカンマで区切ってください。">
 
-<!ENTITY defaultResendCc.label "Resend-Cc:">
-<!ENTITY defaultResendCc.accesskey "C">
+<!-- ENTITY defaultResendCc.label "" -->
+<ENTITY defaultResendCc.accesskey "C">
 <!ENTITY defaultResendCc.tooltip "メールアドレスはカンマで区切ってください。">
 
-<!ENTITY defaultResendBcc.label "Resend-Bcc:">
-<!ENTITY defaultResendBcc.accesskey "B">
+<!-- ENTITY defaultResendBcc.label "" -->
+<ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "メールアドレスはカンマで区切ってください。">
 
 <!ENTITY debug.label "デバッグ">
