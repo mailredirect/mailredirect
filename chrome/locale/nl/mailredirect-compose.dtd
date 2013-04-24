@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Adresboek">
 <!ENTITY addressButton.tooltip "Adresboek openen">
 <!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "">
+<!ENTITY throbber.tooltip "Naar de &vendorShortName;-startpagina">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

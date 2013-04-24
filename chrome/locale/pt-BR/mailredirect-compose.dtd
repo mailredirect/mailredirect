@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Catálogo de Endereços">
 <!ENTITY addressButton.tooltip "Ir ao catálogo de endereços">
 <!ENTITY throbberItem.title "Processamento">
-<!ENTITY throbber.tooltip "Ir para a página do Mozilla Thunderbird">
+<!ENTITY throbber.tooltip "Ir para a página do &vendorShortName;">
 
 <!ENTITY closeCmd.key "X">
 <!ENTITY messengerCmd.commandkey "1">

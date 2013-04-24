@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Adresy">
 <!ENTITY addressButton.tooltip "Wyświetl książkę adresową">
 <!ENTITY throbberItem.title "Wskaźnik aktywności">
-<!ENTITY throbber.tooltip "Przejdź na stronę startową Thunderbirda">
+<!ENTITY throbber.tooltip "Przejdź na stronę startową &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

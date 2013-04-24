@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Adresář">
 <!ENTITY addressButton.tooltip "Přejde na adresář">
 <!ENTITY throbberItem.title "Ukazatel aktivity">
-<!ENTITY throbber.tooltip "Přejde na domovskou stránku aplikace Mozilla Thunderbird">
+<!ENTITY throbber.tooltip "Přejde na domovskou stránku aplikace &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

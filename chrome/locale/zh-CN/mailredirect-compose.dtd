@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "通讯录">
 <!ENTITY addressButton.tooltip "转到通讯录">
 <!ENTITY throbberItem.title "Activity Indicator">
-<!ENTITY throbber.tooltip "转到 Mozilla Thunderbird 主页">
+<!ENTITY throbber.tooltip "转到 &vendorShortName; 主页">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Adressbuch">
 <!ENTITY addressButton.tooltip "Adressbuch öffnen">
 <!ENTITY throbberItem.title "Aktivitätsindikator">
-<!ENTITY throbber.tooltip "Mozilla-Thunderbird-Homepage aufrufen">
+<!ENTITY throbber.tooltip "&vendorShortName; Homepage aufrufen">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

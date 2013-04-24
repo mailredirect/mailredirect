@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Rubrica">
 <!ENTITY addressButton.tooltip "Apri la rubrica">
 <!ENTITY throbberItem.title " ">
-<!ENTITY throbber.tooltip "Visita il sito web di Mozilla Thunderbird">
+<!ENTITY throbber.tooltip "Visita il sito web di &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

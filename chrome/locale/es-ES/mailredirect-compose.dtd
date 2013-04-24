@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Libreta de direcciones">
 <!ENTITY addressButton.tooltip "Ver la libreta de direcciones">
 <!ENTITY throbberItem.title "Progreso">
-<!ENTITY throbber.tooltip "Ir a la página de Mozilla Thunderbird">
+<!ENTITY throbber.tooltip "Ir a la página de &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

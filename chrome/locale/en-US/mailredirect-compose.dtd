@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Address Book">
 <!ENTITY addressButton.tooltip "Go to the address book">
 <!ENTITY throbberItem.title "Activity Indicator">
-<!ENTITY throbber.tooltip "Go to the Mozilla Thunderbird home page">
+<!ENTITY throbber.tooltip "Go to the &vendorShortName; home page">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">

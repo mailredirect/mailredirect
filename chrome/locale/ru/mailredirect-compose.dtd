@@ -26,7 +26,7 @@
 <!ENTITY addressButton.label "Адресная книга">
 <!ENTITY addressButton.tooltip "Перейти в адресную книгу">
 <!ENTITY throbberItem.title "">
-<!ENTITY throbber.tooltip "Перейти на страницу Mozilla Thunderbird в интернет">
+<!ENTITY throbber.tooltip "Перейти на страницу &vendorShortName; в интернет">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY messengerCmd.commandkey "1">
