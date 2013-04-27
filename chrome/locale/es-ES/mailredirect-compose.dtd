@@ -1,4 +1,4 @@
-<!ENTITY msgMailRedirectWindow.title "Redirigir correo">
+<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
 
 <!ENTITY fileMenu.label "Archivo">
 <!ENTITY fileMenu.accesskey "A">
@@ -10,9 +10,9 @@
 <!ENTITY viewMenu.label "Ver">
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Barras de herramientas">
-<!ENTITY viewToolbarsMenuNew.accesskey "B">
-<!-- ENTITY menubarCmd.label "" -->
-<!-- ENTITY menubarCmd.accesskey "" -->
+<!ENTITY viewToolbarsMenuNew.accesskey "r">
+<!ENTITY menubarCmd.label "Barra de menú">
+<!ENTITY menubarCmd.accesskey "m">
 
 <!ENTITY tasksMenu.label "Herramientas">
 <!ENTITY tasksMenu.accesskey "H">
@@ -34,22 +34,22 @@
 <!ENTITY addressBookCmd.commandkey "l">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!-- ENTITY customizeToolbar.label "" -->
-<!-- ENTITY customizeToolbar.accesskey "" -->
+<!ENTITY customizeToolbar.label "Personalizar…">
+<!ENTITY customizeToolbar.accesskey "P">
 <!ENTITY showBounceToolbarCmd.label "Barra de redirección">
 <!ENTITY showBounceToolbarCmd.accesskey "r">
 <!ENTITY showStatusbarCmd.label "Barra de estado">
 <!ENTITY showStatusbarCmd.accesskey "s">
 
-<!-- ENTITY dialog.dimensions "" -->
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
-<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
-    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
-    label  -->
-<!-- ENTITY headersSpace.style "" -->
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "width: 12em;">
 
-<!ENTITY fromAddr.label "Cuenta">
-<!ENTITY fromAddr.accesskey "c">
+<!ENTITY fromAddr.label "De:">
+<!ENTITY fromAddr.accesskey "D">
 
 <!ENTITY resendToAddr.label "Redirigir A:">
 <!ENTITY resendCcAddr.label "Redirigir-Cc:">

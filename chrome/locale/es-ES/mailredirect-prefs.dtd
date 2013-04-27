@@ -33,5 +33,5 @@
 <!ENTITY saveConsoleContent.label "Guardar contenido de la consola Javascript…">
 <!ENTITY saveConsoleContent.accesskey "G">
 
-<!-- ENTITY defaultRecipientsGroup.label "" -->
+<!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Redirigir correo">
