@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE overlay [
+  <!ENTITY % msgHdrViewOverlayDTD SYSTEM "chrome://mailredirect/locale/msgHdrViewOverlay.dtd">
+  %msgHdrViewOverlayDTD;
+]>
+
+<?xml-stylesheet href="chrome://mailredirect-os/skin/messageHeader.css" type="text/css"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <toolbarpalette id="header-view-toolbar-palette">
+    <toolbarbutton id="hdrMailredirectButton"
+                   label="&hdrMailredirectButton1.label;"
+                   tooltiptext="&hdrMailredirectButton1.tooltip;"
+                   oncommand="cmd_mailredirect(event);RestoreFocusAfterHdrButton();"
+                   observes="cmd_mailredirect"
+                   class="toolbarbutton-1 msgHeaderView-button hdrMailredirectButton"/>
+  </toolbarpalette>
+
+  <toolbar id="header-view-toolbar"
+           defaultset="hdrReplyToSenderButton,hdrSmartReplyButton,hdrForwardButton,hdrMailredirectButton,hdrArchiveButton,hdrJunkButton,hdrTrashButton"/>
+
+</overlay>
