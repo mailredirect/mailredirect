@@ -1,0 +1,13 @@
+@import url("chrome://messenger/skin/toolbar.css");
+
+#bounceTree treechildren::-moz-tree-row(notsent) {
+  background-color: red;
+}
+
+#bounceTree treechildren::-moz-tree-cell-text(notsent) {
+  color: white;
+}
+
+#bounceToolbar > .toolbar-holder > .toolbar-primary-icon {
+  list-style-image: url("chrome://messenger/skin/icons/mast-mail.gif");
+}
