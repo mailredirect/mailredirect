@@ -1,0 +1,22 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+toolbarpaletteitem[place="palette"] #mailredirect-toolbarbutton {
+  -moz-image-region: rect(0px 24px 24px 0px);
+  list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
+}
+
+toolbarpaletteitem[place="palette"] #hdrMailredirectButton {
+  list-style-image: url("chrome://mailredirect-os/skin/button-redirect.svg");
+}
+
+#mailredirect-toolbarbutton {
+  list-style-image: url("chrome://mailredirect-os/skin/button-redirect.svg");
+}
+
+.hdrMailredirectButton {
+  list-style-image: url("chrome://mailredirect-os/skin/button-redirect.svg");
+}
+
+.hdrMailredirectButton[disabled="true"] {
+  display: -moz-box !important;
+}
