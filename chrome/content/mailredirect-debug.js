@@ -2,6 +2,8 @@
 
 (function() {
 
+const Cc = Components.classes, Ci = Components.interfaces;
+
 const prefString = "extensions.mailredirect.debug";
 
 window.MailRedirectDebug = {
@@ -39,24 +41,24 @@ MailRedirectDebug.Dump.prototype =
   {
     if (!this.prefBranch)
     {
-      var prefService = Components.classes["@mozilla.org/preferences-service;1"].
-                                   getService(Components.interfaces.nsIPrefService);
+      var prefService = Cc["@mozilla.org/preferences-service;1"].
+                        getService(Ci.nsIPrefService);
       this.prefBranch = prefService.getBranch(null);
       if (!("addObserver" in this.prefBranch))
       {
         // Only necessary prior to Gecko 13
         try {
-          this.prefBranch = this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch2);
+          this.prefBranch = this.prefBranch.QueryInterface(Ci.nsIPrefBranch2);
         } catch(ex) {
           // windows doesn't know nsIPrefBranch2 interface
-          this.prefBranch = this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranchInternal);
+          this.prefBranch = this.prefBranch.QueryInterface(Ci.nsIPrefBranchInternal);
         }
       }
     }
 
     if (!this.aConsoleService) {
-      this.aConsoleService = Components.classes["@mozilla.org/consoleservice;1"]
-        .getService(Components.interfaces.nsIConsoleService);
+      this.aConsoleService = Cc["@mozilla.org/consoleservice;1"].
+                             getService(Ci.nsIConsoleService);
     }
 
     if (!this.observerAdded) {
