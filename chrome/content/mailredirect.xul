@@ -1,19 +1,22 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
 
-<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect.css" type="text/css"?>
-<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect-subjectCol.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-os/skin/mailredirect.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-os/skin/mailredirect-subjectCol.css" type="text/css"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
+  %mailredirectDTD;
+]>
 
 <overlay id="mailRedirectOverlay"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
 
-  <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js"/>
-  <script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
-  <script type="application/x-javascript" src="chrome://mailredirect/content/mailredirect.js"/>
+  <script type="application/javascript" src="chrome://global/content/globalOverlay.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/mailredirect.js"/>
 
   <keyset id="mailKeys">
     <key id="key_mailredirect" modifiers="accel" key="&bounceMsgCmd.key;"
@@ -21,28 +24,35 @@
   </keyset>
 
   <commandset id="mailCommands">
-    <command id="cmd_mailredirect_menu" oncommand="goDoCommand('cmd_mailredirect_menu')"
-      commandupdater="true" oncommandupdate="updateMailRedirectMenuCmd()"
-      events="create-menu-message" />
-    <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
+    <commandset id="mailMessageMenuItems">
+      <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')"
+        insertafter="cmd_forwardAttachment" />
+    </commandset>
   </commandset>
 
-  <commandset id="mailToolbarItems">
-      <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
-  </commandset>
+  <menupopup id="messageMenuPopup">
+    <menuitem id="MailRedirectMenuItem"
+      label="&bounceCommand.label;"
+      accesskey="&bounceCommand.accesskey;"
+      insertafter="forwardAsMenu"
+      key="key_mailredirect"
+      observes="cmd_mailredirect"
+      oncommand="cmd_mailredirect(event)"/>
+  </menupopup>
 
   <!-- if (thunderbird) -->
   <toolbarpalette id="MailToolbarPalette">
-    <toolbarbutton class="toolbarbutton-1" id="mailredirect-toolbarbutton" label="&bounceCommand.label;"
-      tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect"/>
+    <toolbarbutton id="mailredirect-toolbarbutton" class="toolbarbutton-1" label="&bounceCommand.label;"
+      tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward" />
   </toolbarpalette>
 
   <!-- elseif (seamonkey) -->
   <toolbox id="mailToolbarToolbox">
     <toolbar id="msgToolbar">
       <hbox id="toolbar_button_box">
-        <toolbarbutton class="toolbarbutton-1" id="mailredirect-toolbarbutton" label="&bounceCommand.label;"
-          tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward" />
+        <toolbarbutton id="mailredirect-toolbarbutton" class="toolbarbutton-1" label="&bounceCommand.label;"
+          tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward"
+          disabled="true" />
       </hbox>
     </toolbar>
   </toolbox>
