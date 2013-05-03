@@ -1,208 +1,193 @@
 // author: Pawel Krzesniak
 
+"use strict";
 
-var mailredirectIsOffline = Components.classes["@mozilla.org/network/io-service;1"]
-  .getService(Components.interfaces.nsIIOService).offline;
+(function() {
 
+const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
+const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
-var dumper = new myDump();
+const Cc = Components.classes, Ci = Components.interfaces;
 
-window.addEventListener("load", SetupMailRedirectController, false);
-window.addEventListener("load", installListeners, false);
-window.addEventListener("load", delayedMailRedirect_updateCommand, false);
-window.addEventListener("load", AddOfflineObserver, false);
+window.MailRedirectExtension = {
 
-window.addEventListener("unload", uninstallListeners, false);
-window.addEventListener("unload", RemoveOfflineObserver, false);
+  isOffline: Cc["@mozilla.org/network/io-service;1"].
+             getService(Ci.nsIIOService).
+             offline,
 
-/* ************* */
-
-
-var MailRedirectOfflineObserver = {
-  observe: function(subject, topic, state) {
-    // sanity checks
-    if (topic != "network:offline-status-changed") return;
-    if (state == "offline") {
-      mailredirectIsOffline = true;
-    } else {
-      mailredirectIsOffline = false;
-    }
-    goUpdateCommand('cmd_mailredirect');
-  }
-}
-
-function AddOfflineObserver()
-{
-  dumper.dump('in AddOfflineObserver()');
-  var observerService = Components.classes["@mozilla.org/observer-service;1"]
-    .getService(Components.interfaces.nsIObserverService);
-  observerService.addObserver(MailRedirectOfflineObserver, "network:offline-status-changed", false);
-}
-
-function RemoveOfflineObserver()
-{
-  dumper.dump('in RemoveOfflineObserver()');
-  var observerService = Components.classes["@mozilla.org/observer-service;1"]
-    .getService(Components.interfaces.nsIObserverService);
-  observerService.removeObserver(MailRedirectOfflineObserver, "network:offline-status-changed");
-}
-
-
-var MailRedirectController = {
-supportsCommand : function(command)
-                  {
-                    //dumper.dump('supportsCommand(' + command + ')');
-                    switch(command) {
-                      case "cmd_mailredirect_menu":
-                      case "cmd_mailredirect":
-                        // return !mailredirectIsOffline;
-                        return true;
-                      default:
-                        return false;
-                    }
-                  },
-isCommandEnabled: function(command)
-                  {
-                    /* dumper.dump('isCommandEnabled(' + command + ')  = ' +
-                        ((!mailredirectIsOffline) && (GetNumSelectedMessages() > 0  && !gFolderDisplay.selectedMessageIsFeed))
-                      ); */
-		      var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService().QueryInterface(Components.interfaces.nsIWindowMediator);
-		      var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
-		      var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
-
-                    switch(command) {
-			case "cmd_mailredirect_menu":
-			case "cmd_mailredirect":
-			    if (!mailredirectIsOffline) {
-				if (currMsgWindow) {
-				    return true;
-				} else if (mail3paneWindow) {
-				    return GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed;
-				}
-			    }
-			    return false;
-			default:
-			    return false;
-                    }
-                  },
-doCommand: function(command)
-           {
-             //dumper.dump('doCommand(' + command + ')');
-
-             // if the user invoked a key short cut then it is possible that we got here for a command which is
-             // really disabled. kick out if the command should be disabled.
-             if (!this.isCommandEnabled(command)) return;
-
-             switch(command) {
-               case "cmd_mailredirect_menu":
-               case "cmd_mailredirect":
-                 openMailRedirectComposeWindow();
-                 break;
-             }
-           },
-onEvent: function(event)
-         {
-           dumper.dump('onEvent(' + event + ')');
-         }
-};
-
-function SetupMailRedirectController()
-{
-  top.controllers.appendController(MailRedirectController);
-}
-
-function installListeners(event)
-{
-  var el = document.getElementById("threadTree");
-  if (el) el.addEventListener("select", mailRedirect_updateCommand, false);
-
-  el = document.getElementById('mailContext');
-  if (el) el.addEventListener("popupshowing", mailRedirect_fillMailContextMenu, false);
-}
-
-function uninstallListeners(event)
-{
-  var el = document.getElementById("threadTree");
-  if (el) el.removeEventListener("select", mailRedirect_updateCommand, false);
-
-  el = document.getElementById('mailContext');
-  if (el) el.removeEventListener("popupshowing", mailRedirect_fillMailContextMenu, false);
-}
-
-function mailRedirect_fillMailContextMenu(event)
-{
-  mailRedirect_updateCommand(event);
-
-  var item = document.getElementById("mailContext-mailredirect");
-  if (item) {
-    item.removeAttribute("hidden");
-  }
-
-  // don't show mail items for links/images
-  var hideMailItems = gContextMenu.onImage || gContextMenu.onLink;
-  if (hideMailItems) {
-    if (item) item.hidden = "true";
-  }
-}
-
-function delayedMailRedirect_updateCommand(event)
-{
-  setTimeout(mailRedirect_updateCommand, 0);
-}
-
-function mailRedirect_updateCommand(event)
-{
-  goUpdateCommand('cmd_mailredirect');
-}
-
-function updateMailRedirectMenuCmd()
-{
-  // dumper.dump('updateMailRedirectMenuCmd');
-
-  var forwardAsMenu = document.getElementById("forwardAsMenu");
-  if (forwardAsMenu) {
-    var MailRedirectMenuItem = document.getElementById("MailRedirectMenuItem");
-    if (! MailRedirectMenuItem) {
-      MailRedirectMenuItem = document.createElement("menuitem");
-      MailRedirectMenuItem.setAttribute("id", "MailRedirectMenuItem");
-      MailRedirectMenuItem.setAttribute("label", "Redirect");
-      MailRedirectMenuItem.setAttribute("accesskey", "i");
-      var mailContext = document.getElementById("mailContext-mailredirect");
-      if (mailContext) {
-        MailRedirectMenuItem.setAttribute("label", mailContext.getAttribute("label"));
-        MailRedirectMenuItem.setAttribute("accesskey", mailContext.getAttribute("accesskey"));
-      }
-      MailRedirectMenuItem.setAttribute("key", "key_mailredirect");
-      MailRedirectMenuItem.setAttribute("acceltext", "Ctrl+B");
-      MailRedirectMenuItem.setAttribute("command", "cmd_mailredirect_menu");
-      forwardAsMenu.parentNode.insertBefore(MailRedirectMenuItem, forwardAsMenu.nextSibling);
-    }
-  }
-  goUpdateCommand('cmd_mailredirect_menu');
-}
-
-function openMailRedirectComposeWindow()
-{
-  var selectedURIs;
-  var server;
-  var folder;
-  if (typeof gFolderDisplay !== "undefined") {
+  OpenMailRedirectComposeWindow: function()
+  {
+    var selectedURIs;
+    var server;
+    var folder;
+    if (typeof gFolderDisplay !== "undefined")
+    {
       selectedURIs = gFolderDisplay.selectedMessageUris;
       folder = gFolderDisplay.displayedFolder;
-  } else {
-      var mailWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService()
-	  .QueryInterface(Components.interfaces.nsIWindowMediator).getMostRecentWindow("");
+    }
+    else
+    {
+      var mailWindow = Cc["@mozilla.org/appshell/window-mediator;1"].
+                       getService(Ci.nsIWindowMediator).getMostRecentWindow("");
       selectedURIs = mailWindow.GetSelectedMessages();
       folder = GetLoadedMsgFolder();
-  }
-  if (folder) server = folder.server;
-  var currentIdentity = {key : null};
+    }
+    if (folder)
+      server = folder.server;
 
-  if (server && (server.type == "imap" || server.type == "pop3")) {
-    currentIdentity = getIdentityForServer(server);
-  }
+    var currentIdentity = {key: null};
+    if (server && (server.type === "imap" || server.type === "pop3"))
+      currentIdentity = getIdentityForServer(server);
+//    else
+//      alert("unsupported server type: " + server.type);
 
-  window.openDialog('chrome://mailredirect/content/mailredirect-compose.xul','_blank',
-      'chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no',
-      selectedURIs, currentIdentity.key);
-}
+    var appInfo = Cc["@mozilla.org/xre/app-info;1"].
+                  getService(Ci.nsIXULAppInfo);
+
+    if (appInfo.ID === THUNDERBIRD_ID)
+      window.openDialog("chrome://mailredirect/content/mailredirect-compose-thunderbird.xul", "_blank",
+          "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
+          selectedURIs, currentIdentity.key);
+    else if (appInfo.ID === SEAMONKEY_ID)
+      window.openDialog("chrome://mailredirect/content/mailredirect-compose-seamonkey.xul", "_blank",
+          "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
+          selectedURIs, currentIdentity.key);
+  },
+
+  MailRedirectController : {
+    supportsCommand : function(command)
+    {
+      switch(command)
+      {
+        case "cmd_mailredirect":
+          return true;
+        default:
+          return false;
+      }
+    },
+    isCommandEnabled: function(command)
+    {
+      switch(command)
+      {
+        case "cmd_mailredirect":
+          if (!MailRedirectExtension.isOffline)
+          {
+            var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].
+                                 getService(Ci.nsIWindowMediator);
+            var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
+            var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
+            if (currMsgWindow !== null)
+              return true;
+            else if (mail3paneWindow !== null)
+              return (GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed);
+          }
+          return false;
+        default:
+          return false;
+      }
+    },
+    doCommand: function(command)
+    {
+      // if the user invoked a key short cut then it is possible that we got here for a command which is
+      // really disabled. kick out if the command should be disabled.
+      if (!this.isCommandEnabled(command))
+        return;
+
+      switch(command)
+      {
+        case "cmd_mailredirect":
+          MailRedirectExtension.OpenMailRedirectComposeWindow();
+          break;
+      }
+    }
+  },
+
+  SetupController: function()
+  {
+    top.controllers.appendController(MailRedirectExtension.MailRedirectController);
+    goUpdateCommand("cmd_mailredirect");
+  },
+
+  OfflineObserver: {
+    observe: function(subject, topic, state)
+    {
+      // Sanity check
+      if (topic !== "network:offline-status-changed")
+        return;
+      MailRedirectExtension.isOffline = (state === "offline");
+      goUpdateCommand("cmd_mailredirect");
+    }
+  },
+
+  UpdateCommand: function(event)
+  {
+    goUpdateCommand("cmd_mailredirect");
+  },
+
+  DelayedUpdateCommand: function(event)
+  {
+    setTimeout(MailRedirectExtension.UpdateCommand, 0);
+  },
+
+  FillMailContextMenu: function(event)
+  {
+    MailRedirectExtension.UpdateCommand(event);
+
+    var item = document.getElementById("mailContext-mailredirect");
+    if (item !== null)
+    {
+      item.removeAttribute("hidden");
+
+      // don't show mail items for links/images
+      var hideMailItems = gContextMenu.onImage || gContextMenu.onLink;
+      if (hideMailItems)
+        item.hidden = "true";
+    }
+  },
+
+  InstallListeners: function(event)
+  {
+    var el = document.getElementById("threadTree");
+    if (el !== null)
+      el.addEventListener("select", MailRedirectExtension.UpdateCommand, false);
+
+    el = document.getElementById("mailContext");
+    if (el !== null)
+      el.addEventListener("popupshowing", MailRedirectExtension.FillMailContextMenu, false);
+  },
+
+  UninstallListeners: function(event)
+  {
+    var el = document.getElementById("threadTree");
+    if (el !== null)
+      el.removeEventListener("select", MailRedirectExtension.UpdateCommand, false);
+
+    el = document.getElementById("mailContext");
+    if (el !== null)
+      el.removeEventListener("popupshowing", MailRedirectExtension.FillMailContextMenu, false);
+  },
+
+  AddOfflineObserver: function()
+  {
+    var observerService = Cc["@mozilla.org/observer-service;1"].
+                          getService(Ci.nsIObserverService);
+    observerService.addObserver(MailRedirectExtension.OfflineObserver, "network:offline-status-changed", false);
+  },
+
+  RemoveOfflineObserver: function()
+  {
+    var observerService = Cc["@mozilla.org/observer-service;1"].
+                          getService(Ci.nsIObserverService);
+    observerService.removeObserver(MailRedirectExtension.OfflineObserver, "network:offline-status-changed");
+  },
+};
+
+window.addEventListener("load", MailRedirectExtension.SetupController, false);
+window.addEventListener("load", MailRedirectExtension.DelayedUpdateCommand, false);
+window.addEventListener("load", MailRedirectExtension.InstallListeners, false);
+window.addEventListener("load", MailRedirectExtension.AddOfflineObserver, false);
+
+window.addEventListener("unload", MailRedirectExtension.UninstallListeners, false);
+window.addEventListener("unload", MailRedirectExtension.RemoveOfflineObserver, false);
+
+})();
