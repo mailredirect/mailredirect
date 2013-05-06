@@ -288,16 +288,21 @@
           <separator class="thin"/>
             <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
           <separator class="thin"/>
-          <tree id="bounceTree" flex="1" hidecolumnpicker="true" seltype="single"
-                class="plain" disableKeyNavigation="true" disabled="true">
+          <tree id="bounceTree" flex="1" hidecolumnpicker="true" seltype="multiple"
+                class="plain" disableKeyNavigation="true">
             <treecols>
               <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />
               <splitter class="tree-splitter"/>
               <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
               <splitter class="tree-splitter"/>
-              <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"/>
+              <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
+                       type="progressmeter" />
             </treecols>
-            <treechildren id="topTreeChildren" flex="1"/>
+            <treechildren id="topTreeChildren" flex="1"
+               ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
+               ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
+               ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
+            />
           </tree>
         </vbox>
       </toolbar>

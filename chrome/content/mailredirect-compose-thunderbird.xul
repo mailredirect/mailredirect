@@ -50,8 +50,8 @@
   <script type="application/javascript" src="chrome://messenger/content/mailCore.js"/>
 
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
-  <script type="application/javascript" src="chrome://mailredirect/content/aw.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-compose.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/aw.js"/>
 
   <!-- drag and drop -->
   <script type="application/javascript" src="chrome://global/content/nsDragAndDrop.js"/>
@@ -278,7 +278,8 @@
               <splitter class="tree-splitter"/>
               <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
               <splitter class="tree-splitter"/>
-              <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"/>
+              <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
+                       type="progressmeter" />
             </treecols>
             <treechildren id="topTreeChildren" flex="1"
                ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
