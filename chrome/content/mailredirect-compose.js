@@ -35,13 +35,13 @@ var aSender = null;
 
 // redirected mail states..
 var mstate = {
-  selectedURIs : null,
-  selectedURIsProgress : null,
-  successfulSent : null,
-  statusStrings : null,
-  sendOperationInProgress : null,
-  msgSendObj : null,
-  size : 0
+  selectedURIs: null,
+  selectedURIsProgress: null,
+  successfulSent: null,
+  statusStrings: null,
+  sendOperationInProgress: null,
+  msgSendObj: null,
+  size: 0
 };
 
 var msgWindow = Cc["@mozilla.org/messenger/msgwindow;1"].
@@ -717,7 +717,10 @@ function BounceLoad()
     var identities = gAccountManager.defaultAccount.identities;
     if (identities.length === 0)
       identities = gAccountManager.allIdentities;
-    preSelectedIdentityKey = identities.queryElementAt(0, Ci.nsIMsgIdentity).key;
+    if (identities.queryElementAt)
+      preSelectedIdentityKey = identities.queryElementAt(0, Ci.nsIMsgIdentity).key;
+    else
+      preSelectedIdentityKey = identities.QueryElementAt(0, Ci.nsIMsgIdentity).key;
   }
 
   identityList.value = preSelectedIdentityKey;
@@ -1527,13 +1530,13 @@ function nsMsgStatusFeedback(idx)
 nsMsgStatusFeedback.prototype =
 {
   // global variables for status / feedback information....
-  statusTextFld : null,
-  statusBar     : null,
-  throbber      : null,
-  mailredirectTreeCell : null,
-  URIidx : -1,
+  statusTextFld: null,
+  statusBar: null,
+  throbber: null,
+  mailredirectTreeCell: null,
+  URIidx: -1,
 
-  ensureStatusFields : function()
+  ensureStatusFields: function()
   {
     //dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
@@ -1550,7 +1553,7 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  updateStatusText : function()
+  updateStatusText: function()
   {
     // if all StatusStrings are equal show this string
     // else don't change currently showing statusstrign
@@ -1563,7 +1566,7 @@ nsMsgStatusFeedback.prototype =
     this.statusTextFld.label = str;
   },
 
-  QueryInterface : function(iid)
+  QueryInterface: function(iid)
   {
     // dumper.dump("nsMsgStatusFeedback.QueryInterface " + iid);
     if (iid.equals(Ci.nsIMsgStatusFeedback) ||
@@ -1576,14 +1579,14 @@ nsMsgStatusFeedback.prototype =
   },
 
   // nsIMsgStatusFeedback implementation.
-  showStatusString : function(statusText)
+  showStatusString: function(statusText)
   {
     // dumper.dump(this.URIidx + ". showStatusString(" + statusText + ")");
     mstate.statusStrings[this.URIidx] = statusText;
     this.updateStatusText();
   },
 
-  startMeteors : function()
+  startMeteors: function()
   {
     dumper.dump("startMeteors");
     mstate.statusStrings[this.URIidx] = "";
@@ -1605,7 +1608,7 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  stopMeteors : function()
+  stopMeteors: function()
   {
     dumper.dump("stopMeteors");
     if (mstate) mstate.sendOperationInProgress[this.URIidx] = false;
@@ -1629,7 +1632,7 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  showProgress : function(percentage)
+  showProgress: function(percentage)
   {
     // dumper.dump("showProgress(" + percentage +")");
     this.ensureStatusFields();
@@ -1641,18 +1644,18 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  closeWindow : function(percent)
+  closeWindow: function(percent)
   {
     // dumper.dump("closeWindow(" + percent +")");
   },
 
   // nsIProgressEventSink implementation
   /*
-  onProgress : function(aRequest, aContext, aProgress, aProgressMax)
+  onProgress: function(aRequest, aContext, aProgress, aProgressMax)
   {
     dumper.dump("statusFeedback.onProgress(" + aRequest + ", " + aContext + ", " + aProgress + ", " + aProgressMax);
   },
-  onStatus : function(aRequest, aContext, aStatus, aStatusArg)
+  onStatus: function(aRequest, aContext, aStatus, aStatusArg)
   {
     dumper.dump("statusFeedback.onStatus(" + aRequest + ", " + aContext + ", " + aStatus + ", " + aStatusArg);
   }
@@ -1724,14 +1727,14 @@ nsMsgStatusFeedback.prototype =
   onSecurityChange: function(aWebProgress, aRequest, state)
   { },
 
-  updateStatusBar : function()
+  updateStatusBar: function()
   {
     var sum = 0;
     for (var i = 0; i < mstate.size; sum += mstate.selectedURIsProgress[i++]) {}
     var percent = Math.round(sum / mstate.size);
     if (percent > 100) percent = 100;
 
-    this.statusBar.setAttribute( "value", percent);
+    this.statusBar.setAttribute("value", percent);
     // dumper.dump("updateStatusBar = " + percent);
   }
 };
@@ -1741,15 +1744,15 @@ function nsMeteorsStatus()
 }
 
 nsMeteorsStatus.prototype = {
-  pendingStartRequests : 0,
-  startTimeoutID : null,
-  stopTimeoutID  : null,
-  meteorsSpinning : false,
-  statusTextFld : null,
-  statusBar     : null,
-  throbber      : null,
+  pendingStartRequests: 0,
+  startTimeoutID: null,
+  stopTimeoutID: null,
+  meteorsSpinning: false,
+  statusTextFld: null,
+  statusBar: null,
+  throbber: null,
 
-  ensureStatusFields : function()
+  ensureStatusFields: function()
   {
     // dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
@@ -1757,7 +1760,7 @@ nsMeteorsStatus.prototype = {
     if (!this.throbber)   this.throbber = document.getElementById("navigator-throbber");
   },
 
-  _startMeteors : function()
+  _startMeteors: function()
   {
     dumper.dump("_startMeteors");
 
@@ -1773,7 +1776,7 @@ nsMeteorsStatus.prototype = {
     if (this.throbber) this.throbber.setAttribute("busy", true);
   },
 
-   _stopMeteors : function()
+  _stopMeteors: function()
   {
     dumper.dump("_stopMeteors");
 
@@ -1834,173 +1837,194 @@ function nsMsgSendListener(idx)
 
 nsMsgSendListener.prototype =
 {
-  URIidx : -1,
-  mailredirectTreeRow : null,
-  mailredirectTreeCell : null,
+  URIidx: -1,
+  mailredirectTreeRow: null,
+  mailredirectTreeCell: null,
 
-  ensureStatusFields : function() {
-      dumper.dump("msgsendlistener.ensureStatusFields");
-      if (!this.mailredirectTreeRow || !this.mailredirectTreeCell) {
-        var treeChildren = document.getElementById("topTreeChildren");
-        if (treeChildren) {
-          var el = treeChildren.getElementsByAttribute("URIidx", this.URIidx);
-          if (el) {
-            if (!this.mailredirectTreeRow) this.mailredirectTreeRow = el[0];
-            if (!this.mailredirectTreeCell) this.mailredirectTreeCell = el[0].lastChild;
-          }
+  ensureStatusFields: function()
+  {
+    dumper.dump("msgsendlistener.ensureStatusFields");
+    if (!this.mailredirectTreeRow || !this.mailredirectTreeCell) {
+      var treeChildren = document.getElementById("topTreeChildren");
+      if (treeChildren) {
+        var el = treeChildren.getElementsByAttribute("URIidx", this.URIidx);
+        if (el) {
+          if (!this.mailredirectTreeRow) this.mailredirectTreeRow = el[0];
+          if (!this.mailredirectTreeCell) this.mailredirectTreeCell = el[0].lastChild;
         }
       }
-    },
-  QueryInterface : function(iid) {
-     // dumper.dump("nsMsgSendListener.QueryInterface " + iid);
-     if (iid.equals(Ci.nsIMsgSendListener) ||
-         iid.equals(Ci.nsIMsgCopyServiceListener) ||
-         iid.equals(Ci.nsISupports))
-       return this;
-     throw Components.results.NS_NOINTERFACE;
-       },
+    }
+  },
 
-       // nsIMsgSendListener
-  onStartSending : function(aMsgID, aMsgSize) {
-     // dumper.dump("onStartSending(" + aMsgID + ", " + aMsgSize + ")");
-       },
-  onProgress : function(aMsgID, aProgress, aProgressMax) {
-     // dumper.dump("msgSendListener.onProgress(" + aMsgID + ", " + aProgress + ", " + aProgressMax + ")");
-       },
-  onStatus : function(aMsgID, aMsg) {
-     // dumper.dump("msgSendListener.onStatus("+aMsgID+", "+aMsg + ")");
-       },
-  onStopSending : function(aMsgID, aStatus, aMsg, returnFileSpec) {
-     // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +", "+aMsg+", "+returnFileSpec + ")");
+  QueryInterface: function(iid)
+  {
+    // dumper.dump("nsMsgSendListener.QueryInterface " + iid);
+    if (iid.equals(Ci.nsIMsgSendListener) ||
+        iid.equals(Ci.nsIMsgCopyServiceListener) ||
+        iid.equals(Ci.nsISupports))
+      return this;
+    throw Components.results.NS_NOINTERFACE;
+  },
 
-     this.ensureStatusFields();
-     mstate.selectedURIsProgress[this.URIidx] = 100;
-     if (aStatus) {
-       this.mailredirectTreeCell.removeAttribute("mode");
-       // mstate.successfulSent[this.URIidx] = false;
-       this.mailredirectTreeRow.setAttribute("properties", "notsent");
-       for (var i = 0; i < this.mailredirectTreeRow.childNodes.length; ++i) {
-         var child = this.mailredirectTreeRow.childNodes[i];
-         if (child.hasAttribute("properties")) {
-           var prop = child.getAttribute("properties");
-           child.setAttribute("properties", prop + " notsent");
-         } else {
-           child.setAttribute("properties", "notsent");
-         }
-       }
-     } else {
-       this.mailredirectTreeCell.setAttribute("value", "100");
-       mstate.successfulSent[this.URIidx] = true;
+  // nsIMsgSendListener
+  onStartSending: function(aMsgID, aMsgSize)
+  {
+    // dumper.dump("onStartSending(" + aMsgID + ", " + aMsgSize + ")");
+  },
 
-       // mark message as 'redirected'
-       var messenger = Cc["@mozilla.org/messenger;1"].
-                       createInstance().
-                       QueryInterface(Ci.nsIMessenger);
-       var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[this.URIidx]);
-       var msgHdr = msgService.messageURIToMsgHdr(mstate.selectedURIs[this.URIidx]);
-       /*
-        * redirected status bug
-        *
-        * var keywords = msgHdr.getStringProperty("keywords");
-       if (keywords.length !== 0) {
-         if (! /(?:^| )redirected(?: |$)/.test(keywords)) {
-           keywords += " redirected";
-         }
-       } else {
-         keywords = "redirected";
-       }
-       msgHdr.setStringProperty("keywords", keywords);
-       var msgDb = msgHdr.folder.msgDatabase;
-       msgDb.Commit(1); // msgDb.Commit(MSG_DB_LARGE_COMMIT);
+  onProgress: function(aMsgID, aProgress, aProgressMax)
+  {
+    // dumper.dump("msgSendListener.onProgress(" + aMsgID + ", " + aProgress + ", " + aProgressMax + ")");
+  },
+
+  onStatus: function(aMsgID, aMsg)
+  {
+    // dumper.dump("msgSendListener.onStatus("+aMsgID+", "+aMsg + ")");
+  },
+
+  onStopSending: function(aMsgID, aStatus, aMsg, returnFileSpec)
+  {
+    // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +", "+aMsg+", "+returnFileSpec + ")");
+    this.ensureStatusFields();
+    mstate.selectedURIsProgress[this.URIidx] = 100;
+    if (aStatus) {
+      this.mailredirectTreeCell.removeAttribute("mode");
+      // mstate.successfulSent[this.URIidx] = false;
+      this.mailredirectTreeRow.setAttribute("properties", "notsent");
+      for (var i = 0; i < this.mailredirectTreeRow.childNodes.length; ++i) {
+        var child = this.mailredirectTreeRow.childNodes[i];
+        if (child.hasAttribute("properties")) {
+          var prop = child.getAttribute("properties");
+          child.setAttribute("properties", prop + " notsent");
+        } else {
+          child.setAttribute("properties", "notsent");
+        }
+      }
+    } else {
+      this.mailredirectTreeCell.setAttribute("value", "100");
+      mstate.successfulSent[this.URIidx] = true;
+
+      // mark message as 'redirected'
+      var messenger = Cc["@mozilla.org/messenger;1"].
+                      createInstance(Ci.nsIMessenger);
+      var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[this.URIidx]);
+      var msgHdr = msgService.messageURIToMsgHdr(mstate.selectedURIs[this.URIidx]);
+      /*
+       * redirected status bug
+       *
+       * var keywords = msgHdr.getStringProperty("keywords");
+      if (keywords.length !== 0) {
+        if (! /(?:^| )redirected(?: |$)/.test(keywords)) {
+          keywords += " redirected";
+        }
+      } else {
+        keywords = "redirected";
+      }
+      msgHdr.setStringProperty("keywords", keywords);
+      var msgDb = msgHdr.folder.msgDatabase;
+      msgDb.Commit(1); // msgDb.Commit(MSG_DB_LARGE_COMMIT);
        */
 
-       var msg = Cc["@mozilla.org/array;1"].
-                 createInstance(Ci.nsIMutableArray);
-       msg.appendElement(msgHdr, false);
-       try {
-         msgHdr.folder.addKeywordsToMessages(msg, "redirected");
-       } catch(e) {
-         dumper.dump(e);
-       }
-       /* End of bugfix */
+      var msg = Cc["@mozilla.org/array;1"].
+                createInstance(Ci.nsIMutableArray);
+      msg.appendElement(msgHdr, false);
+      try {
+        msgHdr.folder.addKeywordsToMessages(msg, "redirected");
+      } catch(e) {
+        dumper.dump(e);
+      }
+      /* End of bugfix */
 
-     }
-       },
-  onSendNotPerformed : function(aMsgID, aStatus) {
-     // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +")");
-       },
-  onGetDraftFolderURI : function(aFolderURI) {
-     // dumper.dump("onGetDraftFolderURI("+aFolderURI +")");
-       },
-       // nsIMsgCopyServiceListener
-  OnStartCopy : function() {
-     // dumper.dump("OnStartCopy()");
-       },
-  OnProgress : function(aProgress, aProgressMax) {
-     // dumper.dump("OnProgress(" + aProgress + ", " + aProgressMax + ")");
-       },
-  OnStopCopy : function(aStatus) {
-     // dumper.dump("OnStopCopy(" + aStatus + ")");
-     /*
-     if (aStatus) {
-       // mstate.successfulSent[this.URIidx] = false;
-     } else {
-       mstate.selectedURIsProgress[this.URIidx] = 100;
-     }
-     */
-       }
+    }
+  },
+
+  onSendNotPerformed: function(aMsgID, aStatus)
+  {
+    // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +")");
+  },
+
+  onGetDraftFolderURI: function(aFolderURI)
+  {
+    // dumper.dump("onGetDraftFolderURI("+aFolderURI +")");
+  },
+
+  // nsIMsgCopyServiceListener
+  OnStartCopy: function()
+  {
+    // dumper.dump("OnStartCopy()");
+  },
+
+  OnProgress: function(aProgress, aProgressMax)
+  {
+    // dumper.dump("OnProgress(" + aProgress + ", " + aProgressMax + ")");
+  },
+
+  OnStopCopy: function(aStatus)
+  {
+    // dumper.dump("OnStopCopy(" + aStatus + ")");
+    /*
+    if (aStatus) {
+      // mstate.successfulSent[this.URIidx] = false;
+    } else {
+      mstate.selectedURIsProgress[this.URIidx] = 100;
+    }
+    */
+  }
 };
 
 var MailRedirectWindowController = {
-supportsCommand : function(command)
-                  {
-                    //dumper.dump("supportsCommand(" + command + ")");
-                    switch(command) {
-                      case "cmd_mailredirect_now":
-                      case "cmd_mailredirect_withcheck":
-                      case "cmd_mailredirect_close":
-                        return true;
-                      default:
-                        return false;
-                    }
-                  },
-isCommandEnabled: function(command)
-                  {
-                    //dumper.dump("isCommandEnabled(" + command + ") = " + ((!Services.io.offline) && (mstate.selectedURIs !== null)));
-                    switch(command) {
-                      case "cmd_mailredirect_now":
-                      case "cmd_mailredirect_withcheck":
-                        return ((!Services.io.offline) && (mstate.selectedURIs !== null));
-                      case "cmd_mailredirect_close":
-                        return true;
-                      default:
-                        return false;
-                    }
-                  },
-doCommand: function(command)
-           {
-             //dumper.dump("doCommand(" + command + ")");
+  supportsCommand: function(command)
+  {
+    //dumper.dump("supportsCommand(" + command + ")");
+    switch(command) {
+      case "cmd_mailredirect_now":
+      case "cmd_mailredirect_withcheck":
+      case "cmd_mailredirect_close":
+        return true;
+      default:
+        return false;
+    }
+  },
 
-             // if the user invoked a key short cut then it is possible that we got here for a command which is
-             // really disabled. kick out if the command should be disabled.
-             if (!this.isCommandEnabled(command)) return;
+  isCommandEnabled: function(command)
+  {
+    //dumper.dump("isCommandEnabled(" + command + ") = " + ((!Services.io.offline) && (mstate.selectedURIs !== null)));
+    switch(command) {
+      case "cmd_mailredirect_now":
+      case "cmd_mailredirect_withcheck":
+        return ((!Services.io.offline) && (mstate.selectedURIs !== null));
+      case "cmd_mailredirect_close":
+        return true;
+      default:
+        return false;
+    }
+  },
 
-             switch(command) {
-               case "cmd_mailredirect_now":
-                 DoForwardBounce();
-                 break;
-               case "cmd_mailredirect_withcheck":
-                 DoForwardBounceWithCheck();
-                 break;
-               case "cmd_mailredirect_close":
-                 DoCommandClose();
-                 break;
-             }
-           },
-onEvent: function(event)
-         {
-           //dumper.dump("onEvent(" + event + ")");
-         }
+  doCommand: function(command)
+  {
+    //dumper.dump("doCommand(" + command + ")");
+
+    // if the user invoked a key short cut then it is possible that we got here for a command which is
+    // really disabled. kick out if the command should be disabled.
+    if (!this.isCommandEnabled(command)) return;
+
+    switch(command) {
+      case "cmd_mailredirect_now":
+        DoForwardBounce();
+        break;
+      case "cmd_mailredirect_withcheck":
+        DoForwardBounceWithCheck();
+        break;
+      case "cmd_mailredirect_close":
+        DoCommandClose();
+        break;
+    }
+  },
+
+  onEvent: function(event)
+  {
+    //dumper.dump("onEvent(" + event + ")");
+  }
 };
 
 function RemoveDupAddresses()
