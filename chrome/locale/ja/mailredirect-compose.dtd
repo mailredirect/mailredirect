@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "メッセージをリダイレクトします">
 <!ENTITY addressButton.label "アドレス帳">
 <!ENTITY addressButton.tooltip "アドレス帳に移動します">
-<!ENTITY throbberItem.title "">
+<!-- ENTITY throbberItem.title "" -->
 <!ENTITY throbber.tooltip "&vendorShortName; のホームページに移動します">
 
 <!ENTITY closeCmd.key "W">
