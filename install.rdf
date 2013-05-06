@@ -5,7 +5,7 @@
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
-    <em:version>0.7.6.13</em:version>
+    <em:version>0.7.6.13a6</em:version>
     <em:unpack>true</em:unpack>
     <em:description>Allow to redirect (a.k.a. &quot;bounce&quot;) mail messages to other recipients.</em:description>
     <em:creator>Paweł Krześniak</em:creator>
@@ -13,10 +13,10 @@
     <em:developer>Onno Ekker</em:developer>
     <em:translator>Tomáš Drbohlav &amp; strepon (cs)</em:translator>
     <em:translator>Lars Roth, Alexander Ihrig &amp; Archaeopteryx (de)</em:translator>
-    <em:translator>Thad McGinnis (es-AR)</em:translator>
+    <em:translator>Thad McGinnis &amp; acushnir (es-AR)</em:translator>
     <em:translator>Antonio Pardo &amp; urko (es-ES)</em:translator>
     <em:translator>Laurent Malgras &amp; Goofy (fr)</em:translator>
-    <em:translator>Neo (it)</em:translator>
+    <em:translator>Neo &amp; Luana (it)</em:translator>
     <em:translator>matsumoto (ja)</em:translator>
     <em:translator>Onno Ekker (nl)</em:translator>
     <em:translator>Lukasz Stelmach &amp; Leszek(teo)Życzkowsk (pl)</em:translator>
@@ -36,22 +36,15 @@
     <em:targetApplication>
       <rdf:Description rdf:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-        <em:minVersion>3.0a1</em:minVersion>
-        <em:maxVersion>17.*</em:maxVersion>
+        <em:minVersion>5.0</em:minVersion>
+        <em:maxVersion>22.*</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
     <em:targetApplication>
       <rdf:Description rdf:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
-        <em:minVersion>2.0a1</em:minVersion>
-        <em:maxVersion>2.14.*</em:maxVersion>
-      </rdf:Description>
-    </em:targetApplication>
-    <em:targetApplication>
-      <rdf:Description rdf:about="rdf:#postbox">
-        <em:id>postbox@postbox-inc.com</em:id>
-        <em:minVersion>1.0b1</em:minVersion>
-        <em:maxVersion>1.1.*</em:maxVersion>
+        <em:minVersion>2.1</em:minVersion>
+        <em:maxVersion>2.19.*</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
   </rdf:Description>
