@@ -50,7 +50,7 @@ var msgWindow = Cc["@mozilla.org/messenger/msgwindow;1"].
 var gMessenger = Cc["@mozilla.org/messenger;1"].
                  createInstance(Ci.nsIMessenger)
 
-var dumper = new MailRedirectDebug.Dump();
+var dumper = new MailredirectDebug.Dump();
 
 function RemoveValueFromAttribute(el, atr, val)
 {
@@ -795,7 +795,7 @@ function BounceLoad()
     }
   }
 
-  window.controllers.appendController(MailRedirectWindowController);
+  window.controllers.appendController(MailredirectWindowController);
 
   enableEditableFields();
   AdjustFocus();
@@ -810,7 +810,7 @@ function BounceLoad()
   var toolbox = document.getElementById("bounce-toolbox");
   var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
   if (appInfo.ID === THUNDERBIRD_ID) {
-    toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailRedirectToolbar"); };
+    toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
   }
   else if (appInfo.ID === SEAMONKEY_ID) {
     toolbox.customizeInit = BounceToolboxCustomizeInit;
@@ -1972,7 +1972,7 @@ nsMsgSendListener.prototype =
   }
 };
 
-var MailRedirectWindowController = {
+var MailredirectWindowController = {
   supportsCommand: function(command)
   {
     //dumper.dump("supportsCommand(" + command + ")");

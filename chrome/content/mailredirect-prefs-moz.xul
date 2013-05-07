@@ -86,7 +86,7 @@
                 id="saveConsoleContent"
                 accesskey="&saveConsoleContent.accesskey;"
                 label="&saveConsoleContent.label;"
-                oncommand="MailRedirectPrefs.saveConsoleContent();"/>
+                oncommand="MailredirectPrefs.saveConsoleContent();"/>
       </hbox>
     </groupbox>
   </prefpane>

@@ -6,7 +6,7 @@ const mailredirect_MODE_WRONLY   = 0x02;
 const mailredirect_MODE_CREATE   = 0x08;
 const mailredirect_MODE_TRUNCATE = 0x20;
 
-window.MailRedirectPrefs = {
+window.MailredirectPrefs = {
 
   saveConsoleContent: function()
   {

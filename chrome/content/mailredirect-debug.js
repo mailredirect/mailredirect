@@ -6,14 +6,14 @@ const Cc = Components.classes, Ci = Components.interfaces;
 
 const prefString = "extensions.mailredirect.debug";
 
-window.MailRedirectDebug = {
+window.MailredirectDebug = {
   Dump: function()
   {
     this.init();
   }
 }
 
-MailRedirectDebug.Dump.prototype =
+MailredirectDebug.Dump.prototype =
 {
   aConsoleService: null,
   prefBranch: null,
