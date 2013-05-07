@@ -31,7 +31,7 @@
   </commandset>
 
   <menupopup id="messageMenuPopup">
-    <menuitem id="MailRedirectMenuItem"
+    <menuitem id="MailredirectMenuItem"
       label="&bounceCommand.label;"
       accesskey="&bounceCommand.accesskey;"
       insertafter="forwardAsMenu"

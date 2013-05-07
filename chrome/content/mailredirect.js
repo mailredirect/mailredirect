@@ -9,13 +9,13 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
-window.MailRedirectExtension = {
+window.MailredirectExtension = {
 
   isOffline: Cc["@mozilla.org/network/io-service;1"].
              getService(Ci.nsIIOService).
              offline,
 
-  OpenMailRedirectComposeWindow: function()
+  OpenMailredirectComposeWindow: function()
   {
     var selectedURIs;
     var server;
@@ -54,7 +54,7 @@ window.MailRedirectExtension = {
           selectedURIs, currentIdentity.key);
   },
 
-  MailRedirectController : {
+  MailredirectController : {
     supportsCommand : function(command)
     {
       switch(command)
@@ -70,7 +70,7 @@ window.MailRedirectExtension = {
       switch(command)
       {
         case "cmd_mailredirect":
-          if (!MailRedirectExtension.isOffline)
+          if (!MailredirectExtension.isOffline)
           {
             var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].
                                  getService(Ci.nsIWindowMediator);
@@ -96,7 +96,7 @@ window.MailRedirectExtension = {
       switch(command)
       {
         case "cmd_mailredirect":
-          MailRedirectExtension.OpenMailRedirectComposeWindow();
+          MailredirectExtension.OpenMailredirectComposeWindow();
           break;
       }
     }
@@ -104,7 +104,7 @@ window.MailRedirectExtension = {
 
   SetupController: function()
   {
-    top.controllers.appendController(MailRedirectExtension.MailRedirectController);
+    top.controllers.appendController(MailredirectExtension.MailredirectController);
     goUpdateCommand("cmd_mailredirect");
   },
 
@@ -114,7 +114,7 @@ window.MailRedirectExtension = {
       // Sanity check
       if (topic !== "network:offline-status-changed")
         return;
-      MailRedirectExtension.isOffline = (state === "offline");
+      MailredirectExtension.isOffline = (state === "offline");
       goUpdateCommand("cmd_mailredirect");
     }
   },
@@ -126,12 +126,12 @@ window.MailRedirectExtension = {
 
   DelayedUpdateCommand: function(event)
   {
-    setTimeout(MailRedirectExtension.UpdateCommand, 0);
+    setTimeout(MailredirectExtension.UpdateCommand, 0);
   },
 
   FillMailContextMenu: function(event)
   {
-    MailRedirectExtension.UpdateCommand(event);
+    MailredirectExtension.UpdateCommand(event);
 
     var item = document.getElementById("mailContext-mailredirect");
     if (item !== null)
@@ -149,45 +149,45 @@ window.MailRedirectExtension = {
   {
     var el = document.getElementById("threadTree");
     if (el !== null)
-      el.addEventListener("select", MailRedirectExtension.UpdateCommand, false);
+      el.addEventListener("select", MailredirectExtension.UpdateCommand, false);
 
     el = document.getElementById("mailContext");
     if (el !== null)
-      el.addEventListener("popupshowing", MailRedirectExtension.FillMailContextMenu, false);
+      el.addEventListener("popupshowing", MailredirectExtension.FillMailContextMenu, false);
   },
 
   UninstallListeners: function(event)
   {
     var el = document.getElementById("threadTree");
     if (el !== null)
-      el.removeEventListener("select", MailRedirectExtension.UpdateCommand, false);
+      el.removeEventListener("select", MailredirectExtension.UpdateCommand, false);
 
     el = document.getElementById("mailContext");
     if (el !== null)
-      el.removeEventListener("popupshowing", MailRedirectExtension.FillMailContextMenu, false);
+      el.removeEventListener("popupshowing", MailredirectExtension.FillMailContextMenu, false);
   },
 
   AddOfflineObserver: function()
   {
     var observerService = Cc["@mozilla.org/observer-service;1"].
                           getService(Ci.nsIObserverService);
-    observerService.addObserver(MailRedirectExtension.OfflineObserver, "network:offline-status-changed", false);
+    observerService.addObserver(MailredirectExtension.OfflineObserver, "network:offline-status-changed", false);
   },
 
   RemoveOfflineObserver: function()
   {
     var observerService = Cc["@mozilla.org/observer-service;1"].
                           getService(Ci.nsIObserverService);
-    observerService.removeObserver(MailRedirectExtension.OfflineObserver, "network:offline-status-changed");
+    observerService.removeObserver(MailredirectExtension.OfflineObserver, "network:offline-status-changed");
   },
 };
 
-window.addEventListener("load", MailRedirectExtension.SetupController, false);
-window.addEventListener("load", MailRedirectExtension.DelayedUpdateCommand, false);
-window.addEventListener("load", MailRedirectExtension.InstallListeners, false);
-window.addEventListener("load", MailRedirectExtension.AddOfflineObserver, false);
+window.addEventListener("load", MailredirectExtension.SetupController, false);
+window.addEventListener("load", MailredirectExtension.DelayedUpdateCommand, false);
+window.addEventListener("load", MailredirectExtension.InstallListeners, false);
+window.addEventListener("load", MailredirectExtension.AddOfflineObserver, false);
 
-window.addEventListener("unload", MailRedirectExtension.UninstallListeners, false);
-window.addEventListener("unload", MailRedirectExtension.RemoveOfflineObserver, false);
+window.addEventListener("unload", MailredirectExtension.UninstallListeners, false);
+window.addEventListener("unload", MailredirectExtension.RemoveOfflineObserver, false);
 
 })();

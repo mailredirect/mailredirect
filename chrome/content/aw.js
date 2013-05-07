@@ -15,7 +15,7 @@ var gNumberOfCols = 0;
 var gDragService = Cc["@mozilla.org/widget/dragservice;1"].
                    getService(Ci.nsIDragService);
 
-var dumper = new MailRedirectDebug.Dump();
+var dumper = new MailredirectDebug.Dump();
 
 function awGetMaxRecipients()
 {
