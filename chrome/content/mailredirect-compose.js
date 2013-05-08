@@ -7,6 +7,7 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 Components.utils.import("resource:///modules/folderUtils.jsm"); // Gecko 19+
 Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
+Components.utils.import("resource://gre/modules/PluralForm.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
@@ -582,8 +583,7 @@ function LoadIdentity(startup)
 function GetMsgHdrForUri(msg_uri)
 {
   var messenger = Cc["@mozilla.org/messenger;1"].
-                  createInstance().
-                  QueryInterface(Ci.nsIMessenger);
+                  createInstance(Ci.nsIMessenger);
   var mms = messenger.messageServiceFromURI(msg_uri).
             QueryInterface(Ci.nsIMsgMessageService);
   var hdr = null;
@@ -732,7 +732,7 @@ function BounceLoad()
     var aTree = document.getElementById("topTreeChildren");
 
     var messenger = Cc["@mozilla.org/messenger;1"].
-                    createInstance().QueryInterface(Ci.nsIMessenger);
+                    createInstance(Ci.nsIMessenger);
 
     var dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
                             getService(Ci.nsIScriptableDateFormat);
@@ -801,7 +801,8 @@ function BounceLoad()
   AdjustFocus();
   setTimeout(awFitDummyRows, 0);
 
-  window.onresize = function() {
+  window.onresize = function()
+  {
     // dumper.dump("window.onresize func");
     awFitDummyRows();
   }
@@ -891,13 +892,15 @@ function DoForwardBounceWithCheck()
   var warn = getPref("mail.warn_on_send_accel_key");
 
   if (warn) {
-    var checkValue = {value:false};
-    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-    var buttonPressed = Services.prompt.confirmEx(window,
-      ((mstate.size > 1) ? BounceMsgsBundle.getString("sendMessagesCheckWindowTitle") :
-                           BounceMsgsBundle.getString("sendMessageCheckWindowTitle")),
-      ((mstate.size > 1) ? BounceMsgsBundle.getString("sendMessagesCheckLabel") :
-                           BounceMsgsBundle.getString("sendMessageCheckLabel")),
+    var checkValue = {value: false};
+    let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+    let selectedCount = mstate.size;
+    let textValue = BounceMsgsBundle.getString("sendMessageCheckWindowTitleMsgs");
+    let windowTitle = PluralForm.get(selectedCount, textValue);
+    textValue = BounceMsgsBundle.getString("sendMessageCheckLabelMsgs");
+    let label = PluralForm.get(selectedCount, textValue);
+    
+    var buttonPressed = Services.prompt.confirmEx(window, windowTitle, label,
       (Services.prompt.BUTTON_TITLE_IS_STRING * Services.prompt.BUTTON_POS_0) +
       (Services.prompt.BUTTON_TITLE_CANCEL * Services.prompt.BUTTON_POS_1),
       BounceMsgsBundle.getString("sendMessageCheckSendButtonLabel"),
@@ -939,7 +942,8 @@ var mailredirectDragObserver = {
 
   canHandleMultipleItems: true,
 
-  onDrop: function (aEvent, aData, aDragSession) {
+  onDrop: function (aEvent, aData, aDragSession)
+  {
     var dataList = aData.dataList;
     var dataListLength = dataList.length;
     var errorTitle;
@@ -1026,13 +1030,14 @@ var mailredirectDragObserver = {
     }
   },
 
-  onDragOver: function (aEvent, aFlavour, aDragSession) {
-  },
+  onDragOver: function (aEvent, aFlavour, aDragSession)
+  { },
 
-  onDragExit: function (aEvent, aDragSession) {
-  },
+  onDragExit: function (aEvent, aDragSession)
+  { },
 
-  getSupportedFlavours: function () {
+  getSupportedFlavours: function ()
+  {
     var flavourSet = new FlavourSet();
     flavourSet.appendFlavour("text/x-moz-message");
     flavourSet.appendFlavour("text/x-moz-address");
@@ -1056,7 +1061,9 @@ function createTempFile()
 
   try {
     localfile.createUnique(localfile.NORMAL_FILE_TYPE, parseInt("0600", 8));
-  } catch(ex) { return null; }
+  } catch(ex) {
+    return null;
+  }
 
   return localfile;
 }
@@ -1089,7 +1096,7 @@ function QPencode(str)
 
 function getSender()
 {
-  if (! aSender) {
+  if (!aSender) {
     aSender = mimeHeaderParser.
               makeFullAddress(QPencode(gCurrentIdentity.fullName),
                               gCurrentIdentity.email);
@@ -1115,7 +1122,9 @@ function getRecipients(onlyemails)
 
         try {
           recipient = mimeHeaderParser.reformatUnquotedAddresses(fieldValue);
-        } catch (ex) {recipient = fieldValue;}
+        } catch (ex) {
+          recipient = fieldValue;
+        }
         var recipientType2;
         switch (recipientType) {
           case "addr_resendTo"  : recipientType2 = "resendTo";  break;
@@ -1257,7 +1266,7 @@ function RealBounceMessages()
     copyToSentMail = Services.prefs.getBoolPref("extensions.mailredirect.copyToSentMail");
   } catch(ex) { }
 
-  if ( ! copyToSentMail ) {
+  if (!copyToSentMail) {
     msgCompFields.fcc = "nocopy://";
     msgCompFields.fcc2 = "nocopy://";
   }
@@ -1373,13 +1382,15 @@ function RealBounceMessage(idx)
 
     onDataAvailable: function(aRequest, aContext, aInputStream, aOffset, aCount)
     {
-      // dumper.dump("ondataavail req=" + aRequest + ",contxt=" + aContext + ",input="+aInputStream + ",off=" + aOffset + ",cnt=" + aCount);
+      // dumper.dump("ondataavail req=" + aRequest + ",contxt=" + aContext + ",input="+aInputStream + ",off=" + aOffset + "1nt=" + aCount);
       aScriptableInputStream.init(aInputStream);
       var available = 0;
       while (true) {
         try {
           available = aScriptableInputStream.available();
-        } catch (ex) {available = 0;}
+        } catch (ex) {
+          available = 0;
+        }
 
         if (available === 0 || !inHeader) {
           break;
@@ -1518,7 +1529,6 @@ function RealBounceMessage(idx)
   newURI = null;
 }
 
-
 // We're going to implement our status feedback for the mail window in JS now.
 // the following contains the implementation of our status feedback object
 
@@ -1556,7 +1566,7 @@ nsMsgStatusFeedback.prototype =
   updateStatusText: function()
   {
     // if all StatusStrings are equal show this string
-    // else don't change currently showing statusstrign
+    // else don't change currently showing statusstring
     var str = mstate.statusStrings[0];
     for (var i = 1; i < mstate.size; ++i) {
       if (str !== mstate.statusStrings[i]) return;
@@ -1617,7 +1627,6 @@ nsMsgStatusFeedback.prototype =
 
     if (window.MeteorsStatus.pendingStartRequests > 0)
       window.MeteorsStatus.pendingStartRequests--;
-
     // if we are going to be starting the meteors, cancel the start
     if (window.MeteorsStatus.pendingStartRequests === 0 && window.MeteorsStatus.startTimeoutID) {
       clearTimeout(window.MeteorsStatus.startTimeoutID);
@@ -1670,15 +1679,15 @@ nsMsgStatusFeedback.prototype =
       mstate.sendOperationInProgress[this.URIidx] = true;
       this.ensureStatusFields();
       this.mailredirectTreeCell.setAttribute("mode", "undetermined");
-      this.statusBar.setAttribute( "mode", "undetermined" );
+      this.statusBar.setAttribute("mode", "undetermined");
     }
 
     if (aStateFlags & Ci.nsIWebProgressListener.STATE_STOP) {
       // dumper.dump("onStateChange STATE_STOP");
       mstate.sendOperationInProgress[this.URIidx] = false;
       this.ensureStatusFields();
-      this.statusBar.setAttribute( "mode", "normal" );
-      this.statusBar.setAttribute( "value", 0 );
+      this.statusBar.setAttribute("mode", "normal");
+      this.statusBar.setAttribute("value", 0);
       this.mailredirectTreeCell.removeAttribute("mode");
       this.mailredirectTreeCell.removeAttribute("value");
       this.statusTextFld.setAttribute("label", "");
@@ -1690,9 +1699,9 @@ nsMsgStatusFeedback.prototype =
     // dumper.dump(this.URIidx + ". onProgressChange(" + aWebProgress + ", " + aRequest.name + ", " + aCurSelfProgress + ", " + aMaxSelfProgress + ", " + aCurTotalProgress + ", " + aMaxTotalProgress + ")");
 
     this.ensureStatusFields();
-    if ( aMaxTotalProgress > 0 ) {
+    if (aMaxTotalProgress > 0) {
       var percent = (aCurTotalProgress*100)/aMaxTotalProgress;
-      if ( percent > 100 ) percent = 100;
+      if (percent > 100) percent = 100;
       mstate.selectedURIsProgress[this.URIidx] = percent;
 
       // dumper.dump(this.URIidx + ". onProgressChange = " + percent);
@@ -1705,7 +1714,7 @@ nsMsgStatusFeedback.prototype =
       this.updateStatusBar();
     } else {
       // Progress meter should be barber-pole in this case.
-      this.statusBar.setAttribute( "mode", "undetermined" );
+      this.statusBar.setAttribute("mode", "undetermined");
       this.mailredirectTreeCell.removeAttribute("mode");
     }
   },
@@ -1721,7 +1730,7 @@ nsMsgStatusFeedback.prototype =
     try {
       this.ensureStatusFields();
       this.showStatusString(aMessage);
-    } catch (ex) {};
+    } catch (ex) { };
   },
 
   onSecurityChange: function(aWebProgress, aRequest, state)
@@ -1730,7 +1739,7 @@ nsMsgStatusFeedback.prototype =
   updateStatusBar: function()
   {
     var sum = 0;
-    for (var i = 0; i < mstate.size; sum += mstate.selectedURIsProgress[i++]) {}
+    for (var i = 0; i < mstate.size; sum += mstate.selectedURIsProgress[i++]) { }
     var percent = Math.round(sum / mstate.size);
     if (percent > 100) percent = 100;
 
@@ -1757,7 +1766,7 @@ nsMeteorsStatus.prototype = {
     // dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
-    if (!this.throbber)   this.throbber = document.getElementById("navigator-throbber");
+    if (!this.throbber) this.throbber = document.getElementById("navigator-throbber");
   },
 
   _startMeteors: function()
@@ -1790,16 +1799,13 @@ nsMeteorsStatus.prototype = {
 
     dumper.dump("_stopMeteors: successfuly sent all messages? " + success);
 
+    let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+    let numMessages = mstate.size;
     var msg;
-    if (success) {
-      (mstate.size > 1 ) ?
-        msg = BounceMsgsBundle.getString("sendMessagesSuccessful") :
-        msg = BounceMsgsBundle.getString("sendMessageSuccessful");
-    } else {
-      (mstate.size > 1) ?
-        msg = BounceMsgsBundle.getString("sendMessagesFailed") :
-        msg = BounceMsgsBundle.getString("sendMessageFailed");
-    }
+    if (success)
+      msg = PluralForm.get(numMessages, BounceMsgsBundle.getString("sendMessageSuccessfulMsgs"));
+    else
+      msg = PluralForm.get(numMessages, BounceMsgsBundle.getString("sendMessageFailedMsgs"));
     this.ensureStatusFields();
     this.statusTextFld.label = msg;
 
@@ -1807,7 +1813,8 @@ nsMeteorsStatus.prototype = {
     if (this.throbber) this.throbber.setAttribute("busy", false);
 
     // Turn progress meter off.
-    this.statusBar.setAttribute("mode","normal");
+    this.statusBar.setAttribute("collapsed", true);
+    this.statusBar.setAttribute("mode", "normal");
     this.statusBar.value = 0;  // be sure to clear the progress bar
     this.statusBar.label = "";
 
@@ -1843,7 +1850,7 @@ nsMsgSendListener.prototype =
 
   ensureStatusFields: function()
   {
-    dumper.dump("msgsendlistener.ensureStatusFields");
+    dumper.dump("msgSendListener.ensureStatusFields");
     if (!this.mailredirectTreeRow || !this.mailredirectTreeCell) {
       var treeChildren = document.getElementById("topTreeChildren");
       if (treeChildren) {
