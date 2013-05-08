@@ -101,16 +101,6 @@
                 accesskey="&customizeToolbar.accesskey;"/>
     </menupopup>
 
-    <menupopup id="message-context-menu">
-      <menuitem label="&openMessage.label;"
-                accesskey="&openMessage.accesskey;"
-                command="cmd_openMessage"/>
-      <menuitem accesskey="&deleteMessage.accesskey;"
-                command="cmd_delete"/>
-      <menuitem accesskey="&selectAllMessages.accesskey;"
-                command="cmd_selectAll"/>
-    </menupopup>
-
     <panel id="customizeToolbarSheetPopup" noautohide="true">
       <iframe id="customizeToolbarSheetIFrame"
               style="&dialog.dimensions;"
