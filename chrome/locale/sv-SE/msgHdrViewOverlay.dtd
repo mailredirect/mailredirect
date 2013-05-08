@@ -1,2 +1,2 @@
-<!-- ENTITY hdrMailredirectButton1.label "" -->
-<!-- ENTITY hdrMailredirectButton1.tooltip "" -->
+<!ENTITY hdrMailredirectButton1.label "Omdirigera">
+<!ENTITY hdrMailredirectButton1.tooltip "Omdirigera detta meddelande">
