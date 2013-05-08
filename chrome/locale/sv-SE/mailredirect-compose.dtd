@@ -11,8 +11,8 @@
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Verktygsfält">
 <!ENTITY viewToolbarsMenuNew.accesskey "t">
-<!-- ENTITY menubarCmd.label "" -->
-<!-- ENTITY menubarCmd.accesskey "" -->
+<!ENTITY menubarCmd.label "Menyrad">
+<!ENTITY menubarCmd.accesskey "M">
 
 <!ENTITY tasksMenu.label "Verktyg">
 <!ENTITY tasksMenu.accesskey "T">
@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "Omdirigera meddelanden">
 <!ENTITY addressButton.label "Adressboken">
 <!ENTITY addressButton.tooltip "Gå till adressboken">
-<!ENTITY throbberItem.title "">
+<!ENTITY throbberItem.title "Activity Indicator">
 <!ENTITY throbber.tooltip "Gå till &vendorShortName; hemsida">
 
 <!ENTITY closeCmd.key "W">
@@ -34,19 +34,19 @@
 <!ENTITY addressBookCmd.commandkey "2">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!-- ENTITY customizeToolbar.label "" -->
-<!-- ENTITY customizeToolbar.accesskey "" -->
+<!ENTITY customizeToolbar.label "Anpassa…">
+<!ENTITY customizeToolbar.accesskey "A">
 <!ENTITY showBounceToolbarCmd.label "Omdirigera Verktygsfältet">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Statusfält">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
-<!-- ENTITY dialog.dimensions "" -->
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
-<!--LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
-    Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
-    label  -->
-<!-- ENTITY headersSpace.style "" -->
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "width: 20em;">
 
 <!ENTITY fromAddr.label "Konto:">
 <!ENTITY fromAddr.accesskey "K">
