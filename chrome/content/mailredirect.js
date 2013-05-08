@@ -38,8 +38,6 @@ window.MailredirectExtension = {
     var currentIdentity = {key: null};
     if (server && (server.type === "imap" || server.type === "pop3"))
       currentIdentity = getIdentityForServer(server);
-//    else
-//      alert("unsupported server type: " + server.type);
 
     var appInfo = Cc["@mozilla.org/xre/app-info;1"].
                   getService(Ci.nsIXULAppInfo);
