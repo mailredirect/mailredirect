@@ -76,11 +76,11 @@
     <command id="cmd_mailredirect_now" oncommand="goDoCommand('cmd_mailredirect_now')"/>
     <command id="cmd_mailredirect_withcheck" oncommand="goDoCommand('cmd_mailredirect_withcheck')"/>
     <command id="cmd_mailredirect_close" oncommand="goDoCommand('cmd_mailredirect_close')"/>
-    <command id="cmd_CustomizeMailRedirectToolbar" oncommand="SuiteCustomizeToolbar(this);"/>
+    <command id="cmd_CustomizeMailredirectToolbar" oncommand="SuiteCustomizeToolbar(this);"/>
   </commandset>
 
   <broadcasterset id="mainBroadcasterSet">
-    <broadcaster id="cmd_CustomizeMailRedirectToolbar"/>
+    <broadcaster id="cmd_CustomizeMailredirectToolbar"/>
   </broadcasterset>
 
   <keyset id="mailKeys">
@@ -103,7 +103,7 @@
     <key keycode="VK_F6" oncommand="SwitchElementFocus(event);"/>
   </keyset>
 
-  <popupset id="msgMailRedirectPopupSet">
+  <popupset id="msgMailredirectPopupSet">
     <menupopup id="toolbar-context-menu"/>
     <panel id="customizeToolbarSheetPopup"/>
   </popupset>
@@ -189,7 +189,7 @@
       </toolbaritem>
     </toolbar>
 
-    <toolbarpalette id="MsgMailRedirectToolbarPalette">
+    <toolbarpalette id="MsgMailredirectToolbarPalette">
       <toolbarbutton class="toolbarbutton-1"
         id="button-send"
         observes="cmd_mailredirect_now"
