@@ -67,7 +67,7 @@
     <command id="cmd_mailredirect_now" oncommand="goDoCommand('cmd_mailredirect_now')"/>
     <command id="cmd_mailredirect_withcheck" oncommand="goDoCommand('cmd_mailredirect_withcheck')"/>
     <command id="cmd_mailredirect_close" oncommand="goDoCommand('cmd_mailredirect_close')"/>
-    <command id="cmd_CustomizeMailRedirectToolbar" oncommand="CustomizeMailToolbar('bounce-toolbox', 'CustomizeMailRedirectToolbar')"/>
+    <command id="cmd_CustomizeMailredirectToolbar" oncommand="CustomizeMailToolbar('bounce-toolbox', 'CustomizeMailredirectToolbar')"/>
   </commandset>
 
   <keyset id="mailKeys">
@@ -90,24 +90,34 @@
     <key keycode="VK_F6" oncommand="SwitchElementFocus(event);"/>
   </keyset>
 
-  <menupopup id="toolbar-context-menu"
-             onpopupshowing="onViewToolbarsPopupShowing(event, 'bounce-toolbox');">
-    <menuseparator id="customizeMailRedirectToolbarMenuSeparator"/>
-    <menuitem id="CustomizeMailRedirectToolbar"
-              command="cmd_CustomizeMailRedirectToolbar"
-              label="&customizeToolbar.label;"
-              accesskey="&customizeToolbar.accesskey;"/>
-  </menupopup>
 
-  <popupset id="msgMailRedirectPopupSet">
-    <menupopup id="toolbar-context-menu"/>
+  <popupset id="msgMailredirectPopupSet">
+    <menupopup id="toolbar-context-menu"
+               onpopupshowing="onViewToolbarsPopupShowing(event, 'bounce-toolbox');">
+      <menuseparator id="customizeMailredirectToolbarMenuSeparator"/>
+      <menuitem id="CustomizeMailredirectToolbar"
+                command="cmd_CustomizeMailredirectToolbar"
+                label="&customizeToolbar.label;"
+                accesskey="&customizeToolbar.accesskey;"/>
+    </menupopup>
+
+    <menupopup id="message-context-menu">
+      <menuitem label="&openMessage.label;"
+                accesskey="&openMessage.accesskey;"
+                command="cmd_openMessage"/>
+      <menuitem accesskey="&deleteMessage.accesskey;"
+                command="cmd_delete"/>
+      <menuitem accesskey="&selectAllMessages.accesskey;"
+                command="cmd_selectAll"/>
+    </menupopup>
+
     <panel id="customizeToolbarSheetPopup" noautohide="true">
       <iframe id="customizeToolbarSheetIFrame"
               style="&dialog.dimensions;"
               hidden="true"/>
     </panel>
   </popupset>
-
+  
   <toolbox id="bounce-toolbox"
            class="toolbox-top"
            mode="full"
@@ -157,11 +167,11 @@
                     accesskey="&showStatusbarCmd.accesskey;"
                     oncommand="goToggleToolbar('status-bar', 'menu_showTaskbar')"
                     checked="true"/>
-                    <menuseparator id="viewMenuBeforeCustomizeMailRedirectToolbarsSeparator"/>
-                    <menuitem id="customizeMailRedirectToolbars"
+                    <menuseparator id="viewMenuBeforeCustomizeMailredirectToolbarsSeparator"/>
+                    <menuitem id="customizeMailredirectToolbars"
                               label="&customizeToolbar.label;"
                               accesskey="&customizeToolbar.accesskey;"
-                              command="cmd_CustomizeMailRedirectToolbar"/>
+                              command="cmd_CustomizeMailredirectToolbar"/>
                 </menupopup>
               </menu>
             </menupopup>
@@ -181,7 +191,7 @@
       </toolbaritem>
     </toolbar>
 
-    <toolbarpalette id="MsgMailRedirectToolbarPalette">
+    <toolbarpalette id="MsgMailredirectToolbarPalette">
       <toolbarbutton class="toolbarbutton-1"
         id="button-send"
         observes="cmd_mailredirect_now"
