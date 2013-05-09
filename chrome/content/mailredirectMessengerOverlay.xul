@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
+  %mailredirectDTD;
+]>
 
 <overlay id="mailredirectMessengerOverlay"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
