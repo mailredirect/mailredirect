@@ -3,7 +3,7 @@
 <!ENTITY prefsGroup.label "Preferințe">
 
 <!ENTITY copyToSentMails.label "Păstrați o copie în dosarul de Trimise?">
-<!ENTITY copyToSentMails.accesskey "c">
+<!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Dacă această opțiune este bifată o copie a mesajului este pusă în dosarul de Trimise. Dacă opțiunea este debifată mailul este redirectat fără să fie pus in alt dosar.\nNotă: Deasemenea dacă există bifă dar setările contului sunt de așa natură că &quot;nu se păstrează mesajele trimise&quot; nu va exista copie a mesajului.">
 
@@ -15,7 +15,7 @@
 <!ENTITY defaultRecipientsGroup.label "Destinatar(i) implicit(i):">
 
 <!ENTITY defaultResendTo.label "Retrimite către:">
-<!ENTITY defaultResendTo.accesskey "T">
+<!ENTITY defaultResendTo.accesskey "R">
 <!ENTITY defaultResendTo.tooltip "Adrese de mail separate prin virgulă.">
 
 <!ENTITY defaultResendCc.label "Retrimite Cc:">
@@ -23,7 +23,7 @@
 <!ENTITY defaultResendCc.tooltip "Adrese de mail separate prin virgulă.">
 
 <!ENTITY defaultResendBcc.label "Retrimite Bcc:">
-<!ENTITY defaultResendBcc.accesskey "V">
+<!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "Adrese de mail separate prin virgulă.">
 
 <!ENTITY debug.label "Debug">
