@@ -1,4 +1,4 @@
-<!ENTITY msgMailRedirectWindow.title "Redirectare Mailuri">
+<!ENTITY msgMailRedirectWindow.title  "Redirectare Mailuri">
 
 <!ENTITY fileMenu.label "Fișier">
 <!ENTITY fileMenu.accesskey "F">
@@ -41,7 +41,7 @@
 <!ENTITY showStatusbarCmd.label "Bară Situații">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
-<!ENTITY dialog.dimensions "width: 92ch; height:36em;">
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
