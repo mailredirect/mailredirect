@@ -46,7 +46,7 @@
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
-<!ENTITY headersSpace.style "width: 9em;">
+<!ENTITY headersSpace.style "width: 11em;">
 
 <!ENTITY fromAddr.label "От:">
 <!ENTITY fromAddr.accesskey "О">
