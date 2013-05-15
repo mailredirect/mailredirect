@@ -9,7 +9,7 @@
 
 <!ENTITY viewMenu.label "Zobrazit">
 <!ENTITY viewMenu.accesskey "Z">
-<!ENTITY viewToolbarsMenuNew.label "Lišty nástrojů">
+<!ENTITY viewToolbarsMenuNew.label "Nástrojové lišty">
 <!ENTITY viewToolbarsMenuNew.accesskey "n">
 <!ENTITY menubarCmd.label "Lišta nabídky">
 <!ENTITY menubarCmd.accesskey "b">
@@ -38,7 +38,7 @@
 <!ENTITY customizeToolbar.accesskey "z">
 <!ENTITY showBounceToolbarCmd.label "Lišta přesměrování">
 <!ENTITY showBounceToolbarCmd.accesskey "p">
-<!ENTITY showStatusbarCmd.label "Stavová lišta">
+<!ENTITY showStatusbarCmd.label "Stavový řádek">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
@@ -55,7 +55,7 @@
 <!ENTITY resendCcAddr.label "Kopie:">
 <!ENTITY resendBccAddr.label "Skrytá kopie:">
 
-<!ENTITY bounceMailsLabel.label "Následující zprávu budou přesměrovány:">
+<!ENTITY bounceMailsLabel.label "Následující zprávy budou přesměrovány:">
 
 <!ENTITY subject.label "Předmět">
 <!ENTITY sender.label "Odesílatel">
