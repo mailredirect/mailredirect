@@ -894,11 +894,13 @@ function DoForwardBounceWithCheck()
   if (warn) {
     var checkValue = {value: false};
     let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+    let pluralRule = BounceMsgsBundle.getString("pluralRule");
+    let [get, numForms] = PluralForm.makeGetter(pluralRule);
     let selectedCount = mstate.size;
     let textValue = BounceMsgsBundle.getString("sendMessageCheckWindowTitleMsgs");
     let windowTitle = PluralForm.get(selectedCount, textValue);
     textValue = BounceMsgsBundle.getString("sendMessageCheckLabelMsgs");
-    let label = PluralForm.get(selectedCount, textValue);
+    let label = get(selectedCount, textValue);
     
     var buttonPressed = Services.prompt.confirmEx(window, windowTitle, label,
       (Services.prompt.BUTTON_TITLE_IS_STRING * Services.prompt.BUTTON_POS_0) +
@@ -1551,7 +1553,15 @@ nsMsgStatusFeedback.prototype =
     //dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
-    if (!this.throbber)   this.throbber = document.getElementById("throbber-box");
+    if (!this.throbber) {
+      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      if (appInfo.ID === THUNDERBIRD_ID) {
+        this.throbber = document.getElementById("throbber-box");
+      }
+      else if (appInfo.ID === SEAMONKEY_ID) {
+        this.throbber = document.getElementById("navigator-throbber");
+      }
+    }
     if (!this.mailredirectTreeCell) {
       var treeChildren = document.getElementById("topTreeChildren");
       if (treeChildren) {
@@ -1766,7 +1776,15 @@ nsMeteorsStatus.prototype = {
     // dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
-    if (!this.throbber) this.throbber = document.getElementById("navigator-throbber");
+    if (!this.throbber) {
+      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      if (appInfo.ID === THUNDERBIRD_ID) {
+        this.throbber = document.getElementById("throbber-box");
+      }
+      else if (appInfo.ID === SEAMONKEY_ID) {
+        this.throbber = document.getElementById("navigator-throbber");
+      }
+    }
   },
 
   _startMeteors: function()
@@ -1801,11 +1819,13 @@ nsMeteorsStatus.prototype = {
 
     let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
     let numMessages = mstate.size;
+    let pluralRule = BounceMsgsBundle.getString("pluralRule");
+    let [get, numForms] = PluralForm.makeGetter(pluralRule);
     var msg;
     if (success)
-      msg = PluralForm.get(numMessages, BounceMsgsBundle.getString("sendMessageSuccessfulMsgs"));
+      msg = get(numMessages, BounceMsgsBundle.getString("sendMessageSuccessfulMsgs"));
     else
-      msg = PluralForm.get(numMessages, BounceMsgsBundle.getString("sendMessageFailedMsgs"));
+      msg = get(numMessages, BounceMsgsBundle.getString("sendMessageFailedMsgs"));
     this.ensureStatusFields();
     this.statusTextFld.label = msg;
 
