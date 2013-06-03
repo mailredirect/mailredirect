@@ -5,7 +5,7 @@
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
-    <em:version>0.7.6.13a8</em:version>
+    <em:version>0.7.7</em:version>
     <em:unpack>true</em:unpack>
     <em:description>Allow to redirect (a.k.a. &quot;bounce&quot;) mail messages to other recipients.</em:description>
     <em:creator>Paweł Krześniak</em:creator>
@@ -26,8 +26,8 @@
     <em:translator>Branislav Rozbora (sk)</em:translator>
     <em:translator>Niklas Bjärholm (sv-SE)</em:translator>
     <em:translator>Wang.H.K (zh-CN)</em:translator>
-    <em:homepageURL>http://mailredirect.mozdev.org</em:homepageURL>
-    <em:updateURL>http://downloads.mozdev.org/mailredirect/update.rdf</em:updateURL>
+    <em:homepageURL>http://mailredirect.sourceforge.net</em:homepageURL>
+    <em:updateURL>http://mailredirect.sourceforge.net/update.rdf</em:updateURL>
     <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeCTk1UeuneGxy0g3bJcUoSfF+CNTfNrnmsSKYGtLv
                   wgfcecW2i0tuV52U8EcQ1nfGuDZtvuHJiu1rdn57G3BsVfTwwyfxY35w7Kjk4/J7HtB/+3EPyV81PT+f
                   lO5YT/F4yeO+k5MiAWsIb6Re2RF1ildra4lqxY+va4uDQuXJ3wIDAQAB</em:updateKey>
@@ -37,14 +37,14 @@
       <rdf:Description rdf:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>5.0</em:minVersion>
-        <em:maxVersion>22.*</em:maxVersion>
+        <em:maxVersion>24.*</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
     <em:targetApplication>
       <rdf:Description rdf:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1</em:minVersion>
-        <em:maxVersion>2.19.*</em:maxVersion>
+        <em:maxVersion>2.20.*</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
   </rdf:Description>
