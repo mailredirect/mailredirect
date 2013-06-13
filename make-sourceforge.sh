@@ -54,9 +54,9 @@ cd ..
 zip -r -D -0 mailredirect.jar content/ locale/ skin/
 cd ../..
 sed -r "s/chrome\//jar:chrome\/mailredirect.jar!\//" ../code/chrome.manifest > sourceforge/chrome.manifest
-version=`grep em:version ../code/install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//"`
+version=$(grep em:version ../code/install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
 cd sourceforge
-rm mailredirect-${version}.xpi 2> /dev/null
+rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
 zip -r -D mailredirect-${version}-sm+tb.xpi install.rdf chrome.manifest chrome/mailredirect.jar chrome/icons/ defaults/ LICENSE
 cd ..
 read -p "Press any key to continue . . . " -n 1
