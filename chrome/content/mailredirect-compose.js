@@ -715,7 +715,8 @@ function BounceLoad()
   if (!preSelectedIdentityKey) {
     // no pre selected identity, so use the default account
     var identities = gAccountManager.defaultAccount.identities;
-    if (identities.length === 0)
+    if ((typeof identities.length !== "undefined" && identities.length === 0) ||
+        (typeof identities.Count !== "undefined" && identities.Count() === 0))
       identities = gAccountManager.allIdentities;
     if (identities.queryElementAt)
       preSelectedIdentityKey = identities.queryElementAt(0, Ci.nsIMsgIdentity).key;
@@ -1149,8 +1150,12 @@ function getRecipients(onlyemails)
       //dumper.dump("numAddresses[" + recipType + "]= " + numAddresses);
 
       for (var i = 0; i < numAddresses; ++i) {
-        mailredirectRecipients[recipType][i] = { email : emails.value[i],
-          name : names.value[i], fullname : fullnames.value[i] };
+        mailredirectRecipients[recipType][i] =
+        {
+          email: emails.value[i],
+          name: names.value[i],
+          fullname: fullnames.value[i]
+        };
       }
     }
     ResolveMailLists();
@@ -2123,86 +2128,104 @@ function SwitchElementFocus(event)
 /*
  * maillists
  *
- * ported from nsMsgCompose.cpp:4691 (nsMsgCompose::CheckAndPopulateRecipients)
+ * ported from http://mxr.mozilla.org/comm-central/source/mailnews/compose/src/nsMsgCompose.cpp#4679
+ * (nsMsgCompose::CheckAndPopulateRecipients)
  */
 
-var mailListArray;
+// var mailListArray;
 var processedMailLists;
-var stillNeedToSearch;
 
 function ResolveMailLists()
 {
-  stillNeedToSearch = true;
-
+  var stillNeedToSearch = true;
+  var abDirectory;
+  var existingCard;
+  var mailListAddresses;
+  var mailListArray;
   var addrbookDirArray = GetABDirectories();
   var nbrAddressbook = addrbookDirArray.length;
+
   for (var k = 0; k < nbrAddressbook && stillNeedToSearch; ++k) {
-    processedMailLists = [];
-    var item = addrbookDirArray[k];
-    var abDirectory = item.QueryInterface(Ci.nsIAbDirectory);
-    if (!abDirectory.supportsMailingLists) continue;
+    // Avoid recursive mailing lists
+    if (abDirectory && (addrbookDirArray[k] === abDirectory)) {
+      stillNeedToSearch = false;
+      break;
+    }
+    abDirectory = addrbookDirArray[k].QueryInterface(Ci.nsIAbDirectory);
+    if (!abDirectory.supportsMailingLists)
+      continue;
+
+    // Collect all mailing lists defined in this address book
     mailListArray = BuildMailListArray(abDirectory);
+    
     stillNeedToSearch = false;
     for (var recipType in mailredirectRecipients) {
-      var nbrRecipients = mailredirectRecipients[recipType].length;
-      var tmpRecipients = [];
-      for (var m = 0; m < nbrRecipients; ++m) {
-        tmpRecipients = tmpRecipients.concat(ResolveMailListAddress(mailredirectRecipients[recipType][m]));
-      }
-      mailredirectRecipients[recipType] = tmpRecipients;
-    }
-  }
-}
+      // Note: We check this each time to allow for length changes.
+      for (var j = 0; j < mailredirectRecipients[recipType].length; ++j) {
+        var recipient = mailredirectRecipients[recipType][j];
+        // First check if it's a mailing list
+        var mailListAddresses = GetMailListAddresses(recipient.fullname, mailListArray);
+        if (mailListAddresses)
+        {
+          for (var nbrAddresses = mailListAddresses.length; nbrAddresses > 0; nbrAddresses--)
+          {
+            existingCard = mailListAddresses.queryElementAt(nbrAddresses - 1, Ci.nsIAbCard);
+            
+            var newRecipient;
+            var pDisplayName = existingCard.displayName;
+            var bIsMailList = existingCard.isMailList;
+            
+            var email;
+            if (bIsMailList)
+              email = existingCard.notes;
+            else
+              email = existingCard.primaryEmail;
+            var fullNameStr = mimeHeaderParser.makeFullAddress(existingCard.displayName, email);
+            if (!fullNameStr)
+            {
+              // Oops, parser problem! I will try to do my best...
+              fullNameStr = pDisplayName + " <";
+              if (bIsMailList)
+                if (email)
+                  fullNameStr += email;
+                else
+                  fullNameStr += pDisplayName;
+              else
+                fullNameStr += email;
+              fullNameStr += ">";
+            }
 
-function ResolveMailListAddress(item)
-{
-  var result = [];
-  result.push(item);
+            dumper.dump(fullNameStr);
+            if (!fullNameStr)
+              continue;
 
-  for (var j = result.length-1; j < result.length; ++j) {
-    var recipient = result[j];
-    var mailListAddresses = GetMailListAddresses(recipient.fullname, mailListArray);
-    var existingCards;
-    if (typeof mailListAddresses.length !== "undefined") {
-      existingCards = new Array(mailListAddresses.length);
-      for (var cardIdx = 0; cardIdx < existingCards.length; ++cardIdx) {
-        existingCards[cardIdx] = mailListAddresses.queryElementAt(cardIdx, Ci.nsIAbCard);
-      }
-    } else {
-      existingCards = queryIArray(mailListAddresses, Ci.nsIAbCard);
-    }
-
-    /* check if it's a mailing list */
-    if (existingCards[0]) {
-      // pop maillist address
-      result.pop();
-      // mark this maillist as processed to avoid possible infinitive loop
-      processedMailLists[recipient.fullname] = 1;
-      for (var nbrAddresses = 0; nbrAddresses < existingCards.length; ++nbrAddresses) {
-        var existingCard = existingCards[nbrAddresses];
-        var email;
-        if (existingCard.isMailList) {
-          email = existingCard.notes;
-        } else {
-          email = existingCard.primaryEmail;
-        }
-        var fullNameStr = mimeHeaderParser.makeFullAddress(existingCard.displayName, email);
-        if (!fullNameStr) continue;
-
-        /* Now we need to insert the new address into the list of recipient */
-        var newRecipient = { email : email, name : existingCard.displayName, fullname : fullNameStr };
-        if (existingCard.isMailList) {
-          stillNeedToSearch = true;
-        } else {
-          // if address wasn't already processed resolve it
-          if (!processedMailLists[fullNameStr]) {
-            result = result.concat(ResolveMailListAddress(newRecipient));
+            // Now we need to insert the new address into the list of recipient
+            if (bIsMailList)
+              stillNeedToSearch = true;
+            else
+            {
+              var newRecipient = { email : email, name : pDisplayName, fullname : fullNameStr };
+              mailredirectRecipients[recipType].splice(j + 1, 0, newRecipient);
+            }
+            mailredirectRecipients[recipType].splice(j, 1);
+            --j;
           }
+
+          continue;
         }
+
+        if (!abDirectory)
+        {
+          stillNeedToSearch = true;
+          continue;
+        }
+        
+        existingCard = abDirectory.cardForEmailAddress(recipient.email);
+        if (!existingCard)
+          stillNeedToSearch = true;
       }
     }
   }
-  return result;
 }
 
 function GetABDirectories()
@@ -2258,11 +2281,10 @@ function GetMailListAddresses(name, mailListArray)
 {
   for (var i = 0; i < mailListArray.length; ++i) {
     if (name.toLowerCase() === mailListArray[i].fullName.toLowerCase()) {
-      var addressesArray = mailListArray[i].directory.addressLists;
-      return addressesArray;
+      return mailListArray[i].directory.addressLists;
     }
   }
-  return new Array();
+  return undefined;
 }
 
 function BounceToolboxCustomizeInit()
