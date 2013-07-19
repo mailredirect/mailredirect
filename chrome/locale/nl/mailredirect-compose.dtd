@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "Heradresseer berichten">
 <!ENTITY addressButton.label "Adresboek">
 <!ENTITY addressButton.tooltip "Adresboek openen">
-<!ENTITY throbberItem.title "">
+<!ENTITY throbberItem.title "Activiteitsindicator">
 <!ENTITY throbber.tooltip "Naar de &vendorShortName;-startpagina">
 
 <!ENTITY closeCmd.key "W">
