@@ -25,9 +25,8 @@ locale  mailredirect  zh-CN  chrome/locale/zh-CN/
 
 skin  mailredirect     classic/1.0  chrome/skin/all/
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/unix/     os=Linux application={3550f703-e582-4d05-9a08-453d09bdfdc6}
-skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/windows/  os=WINNT application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion<3.3a2
-skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/windows/  os=WINNT osversion<6.1 application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion>=3.3a2
-skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/aero/     os=WINNT osversion>=6.1 application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion>=3.3a2
+skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/windows/  os=WINNT osversion<6.1 application={3550f703-e582-4d05-9a08-453d09bdfdc6}
+skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/aero/     os=WINNT osversion>=6.1 application={3550f703-e582-4d05-9a08-453d09bdfdc6}
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/mac/      os=Darwin application={3550f703-e582-4d05-9a08-453d09bdfdc6}
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/seamonkey/            application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
 
