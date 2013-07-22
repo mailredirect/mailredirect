@@ -48,8 +48,8 @@
      label -->
 <!ENTITY headersSpace.style "width: 11em;">
 
-<!ENTITY resendFromAddr.label "Reenviado-Cuenta:">
-<!ENTITY resendFromAddr.accesskey "a">
+<!ENTITY resendFromAddr.label "Reenviar-Desde:">
+<!ENTITY resendFromAddr.accesskey "r">
 
 <!ENTITY resendToAddr.label "Reenviado-a:">
 <!ENTITY resendCcAddr.label "Reenviado-Cc:">
