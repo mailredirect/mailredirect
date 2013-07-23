@@ -58,8 +58,8 @@
   <!-- <script type="application/javascript" src="chrome://messenger/content/mailCore.js"/> -->
 
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
-  <script type="application/javascript" src="chrome://mailredirect/content/aw.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-compose.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/aw.js"/>
 
   <!-- drag and drop -->
   <script type="application/javascript" src="chrome://global/content/nsDragAndDrop.js"/>
@@ -156,14 +156,6 @@
                 <menupopup id="view_toolbars_popup"
                            onpopupshowing="onViewToolbarsPopupShowing(event);"
                            oncommand="onViewToolbarCommand(event);">
-<!--
-                  <menuitem id="menu_showBounceToolbar"
-                            type="checkbox"
-                            label="&showBounceToolbarCmd.label;"
-                            accesskey="&showBounceToolbarCmd.accesskey;"
-                            oncommand="goToggleToolbar('bounceToolbar', 'menu_showBounceToolbar')"
-                            checked="true"/>
--->
                   <menuitem id="menu_showTaskbar"
                             type="checkbox"
                             label="&showStatusbarCmd.label;"
@@ -283,29 +275,32 @@
 
       <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" collapse="after"/>
 
-      <toolbar id="mailListToolbar" persist="collapsed" flex="1" class="chromeclass-toolbar">
-        <vbox flex="1">
-          <separator class="thin"/>
-            <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
-          <separator class="thin"/>
-          <tree id="bounceTree" flex="1" hidecolumnpicker="true" seltype="multiple"
-                class="plain" disableKeyNavigation="true">
-            <treecols>
-              <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />
-              <splitter class="tree-splitter"/>
-              <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
-              <splitter class="tree-splitter"/>
-              <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
-                       type="progressmeter" />
-            </treecols>
-            <treechildren id="topTreeChildren" flex="1"
-               ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
-               ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
-               ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
-            />
-          </tree>
-        </vbox>
-      </toolbar>
+      <vbox id="bounceContentArea" flex="1">
+        <separator class="thin"/>
+          <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
+        <separator class="thin"/>
+        <tree id="bounceTree"
+              treelines="true"
+              flex="2"
+              hidecolumnpicker="true"
+              seltype="multiple"
+              class="plain"
+              disableKeyNavigation="true">
+          <treecols>
+            <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />
+            <splitter class="tree-splitter"/>
+            <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
+            <splitter class="tree-splitter"/>
+            <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
+                     type="progressmeter" />
+          </treecols>
+          <treechildren id="topTreeChildren" flex="1"
+             ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
+             ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
+             ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
+          />
+        </tree>
+      </vbox>
     </toolbox>
   </vbox>
 

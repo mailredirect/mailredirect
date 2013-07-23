@@ -32,9 +32,8 @@
         onload="BounceLoad();"
         onunload="BounceUnload();"
         onclose="return DoCommandClose()"
-        width="600" height="350"
-        screenX="100" screenY="100"
         windowtype="mail:mailredirectWindow"
+        width="600" height="350" screenX="100" screenY="100"
         persist="screenX screenY width height sizemode">
 
   <stringbundleset id="stringbundleset">
@@ -134,17 +133,27 @@
                     class="menubar-items"
                     align="center">
         <menubar id="mail-menubar">
-          <menu id="menu_File" label="&fileMenu.label;" accesskey="&fileMenu.accesskey;">
+          <menu id="menu_File"
+                label="&fileMenu.label;"
+                accesskey="&fileMenu.accesskey;">
             <menupopup id="menu_FilePopup">
-              <menuitem label="&forwardBounce.label;" accesskey="&forwardBounce.accesskey;"
-                key="key_bounce" observes="cmd_mailredirect_now" id="menu-item-bounce-now"/>
+              <menuitem label="&forwardBounce.label;"
+                        accesskey="&forwardBounce.accesskey;"
+                        key="key_bounce"
+                        observes="cmd_mailredirect_now"
+                        id="menu-item-bounce-now"/>
               <menuseparator id="menu_FileCloseSeparator"/>
-              <menuitem id="menu_close" label="&closeCmd.label;" key="key_close"
-                accesskey="&closeCmd.accesskey;" command="cmd_mailredirect_close"/>
+              <menuitem id="menu_close"
+                        label="&closeCmd.label;"
+                        key="key_close"
+                        accesskey="&closeCmd.accesskey;"
+                        command="cmd_mailredirect_close"/>
             </menupopup>
           </menu>
 
-          <menu id="menu_View" label="&viewMenu.label;" accesskey="&viewMenu.accesskey;">
+          <menu id="menu_View"
+                label="&viewMenu.label;"
+                accesskey="&viewMenu.accesskey;">
             <menupopup id="menu_View_Popup">
                 <menu id="menu_ToolbarsNew"
                       label="&viewToolbarsMenuNew.label;"
@@ -152,16 +161,16 @@
                       onpopupshowing="onViewToolbarsPopupShowing(event, 'bounce-toolbox');">
                 <menupopup id="view_toolbars_popup">
                   <menuitem id="menu_showTaskbar"
-                    type="checkbox"
-                    label="&showStatusbarCmd.label;"
-                    accesskey="&showStatusbarCmd.accesskey;"
-                    oncommand="goToggleToolbar('status-bar', 'menu_showTaskbar')"
-                    checked="true"/>
-                    <menuseparator id="viewMenuBeforeCustomizeMailredirectToolbarsSeparator"/>
-                    <menuitem id="customizeMailredirectToolbars"
-                              label="&customizeToolbar.label;"
-                              accesskey="&customizeToolbar.accesskey;"
-                              command="cmd_CustomizeMailredirectToolbar"/>
+                           type="checkbox"
+                           label="&showStatusbarCmd.label;"
+                           accesskey="&showStatusbarCmd.accesskey;"
+                           oncommand="goToggleToolbar('status-bar', 'menu_showTaskbar')"
+                           checked="true"/>
+                  <menuseparator id="viewMenuBeforeCustomizeMailredirectToolbarsSeparator"/>
+                  <menuitem id="customizeMailredirectToolbars"
+                            label="&customizeToolbar.label;"
+                            accesskey="&customizeToolbar.accesskey;"
+                            command="cmd_CustomizeMailredirectToolbar"/>
                 </menupopup>
               </menu>
             </menupopup>
@@ -197,11 +206,15 @@
       </toolbaritem>
     </toolbarpalette>
 
-    <toolbar id="bounceToolbar" class="toolbar-primary chromeclass-toolbar"
-             toolbarname="&showBounceToolbarCmd.label;" accesskey="&showBounceToolbarCmd.accesskey;"
-             fullscreentoolbar="true" mode="full"
+    <toolbar id="bounceToolbar"
+             class="toolbar-primary chromeclass-toolbar"
+             toolbarname="&showBounceToolbarCmd.label;"
+             accesskey="&showBounceToolbarCmd.accesskey;"
+             fullscreentoolbar="true"
+             mode="full"
              defaultset="button-send,separator,button-address,spring"
-             customizable="true" context="toolbar-context-menu">
+             customizable="true"
+             context="toolbar-context-menu">
     </toolbar>
 
     <toolbarset id="customToolbars" context="toolbar-context-menu"/>
@@ -266,29 +279,32 @@
 
       <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" collapse="after"/>
 
-      <toolbar id="mailListToolbar" persist="collapsed" flex="1" class="chromeclass-toolbar">
-        <vbox flex="1">
-          <separator class="thin"/>
-            <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
-          <separator class="thin"/>
-          <tree id="bounceTree" flex="1" hidecolumnpicker="true" seltype="multiple"
-                class="plain" disableKeyNavigation="true">
-            <treecols>
-              <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />
-              <splitter class="tree-splitter"/>
-              <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
-              <splitter class="tree-splitter"/>
-              <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
-                       type="progressmeter" />
-            </treecols>
-            <treechildren id="topTreeChildren" flex="1"
-               ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
-               ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
-               ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
-            />
-          </tree>
-        </vbox>
-      </toolbar>
+      <vbox id="bounceContentArea" flex="1">
+        <separator class="thin"/>
+          <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
+        <separator class="thin"/>
+        <tree id="bounceTree"
+              treelines="true"
+              flex="2"
+              hidecolumnpicker="true"
+              seltype="multiple"
+              class="plain"
+              disableKeyNavigation="true">
+          <treecols>
+            <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />
+            <splitter class="tree-splitter"/>
+            <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
+            <splitter class="tree-splitter"/>
+            <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
+                     type="progressmeter" />
+          </treecols>
+          <treechildren id="topTreeChildren" flex="1"
+             ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
+             ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
+             ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
+          />
+        </tree>
+      </vbox>
     </toolbox>
   </vbox>
 
