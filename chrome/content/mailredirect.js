@@ -152,6 +152,52 @@ window.MailredirectExtension = {
     el = document.getElementById("mailContext");
     if (el !== null)
       el.addEventListener("popupshowing", MailredirectExtension.FillMailContextMenu, false);
+
+    // I've got to perform some tricks for multimessage redirect button, because it is in an iframe 
+    el = document.getElementById("multimessage");
+    if (el !== null)
+    {
+      var head = el.contentDocument.getElementsByTagName("head").item(0);
+      var newEl = document.createElement("link");
+      newEl.setAttribute("rel", "stylesheet");
+      newEl.setAttribute("media", "screen");
+      newEl.setAttribute("type", "text/css");
+      newEl.setAttribute("href", "chrome://mailredirect-os/skin/messageheader.css");
+      head.appendChild(newEl);
+
+      var label = document.getElementById("hdrMailredirectButton").getAttribute("label");
+      el = el.contentDocument.getElementById("headingwrapper");
+      var parentEl = el.getElementsByTagName("toolbar").item(0); // header-view-toolbar
+      var oldEl = el.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
+      if (parentEl !== null && oldEl !== null)
+      {
+        // Thunderbird 10+
+        var newEl = document.createElement("toolbarbutton");
+        newEl.setAttribute("id", "hdrMailredirectButton");
+        newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
+        newEl.setAttribute("style", "list-style-image: url('chrome://mailredirect-os/skin/mailredirect.png')");
+        newEl.setAttribute("label", label);
+        newEl.addEventListener("click", function(event) { if (event.button === 0) goDoCommand('cmd_mailredirect') }, false);
+        parentEl.insertBefore(newEl, oldEl);
+      }
+      else
+      {
+        // Thunderbird 10-
+        var parentEl = el.getElementsByTagName("hbox").item(0); // buttonhbox
+        var oldEl = el.getElementsByTagName("button").item(0); // archive
+        if (parentEl !== null && oldEl !== null)
+        {
+          var newEl = document.createElement("button");
+          newEl.setAttribute("id", "hdrMailredirectButton");
+          newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
+          newEl.setAttribute("style", "list-style-image: url('chrome://mailredirect-os/skin/mailredirect.png')");
+          newEl.setAttribute("label", label);
+          newEl.addEventListener("click", function(event) { if (event.button === 0) goDoCommand('cmd_mailredirect') }, false);
+          parentEl.insertBefore(newEl, oldEl);
+        }
+      }
+    }
+
   },
 
   UninstallListeners: function(event)
