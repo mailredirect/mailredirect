@@ -287,10 +287,10 @@ function awGetListItem(row)
 {
   var listbox = document.getElementById("addressingWidget");
 
-  if ( listbox && row > 0)
+  if (listbox && row > 0)
   {
     var listitems = listbox.getElementsByTagName("listitem");
-    if ( listitems && listitems.length >= row )
+    if (listitems && listitems.length >= row)
       return listitems[row-1];
   }
   return 0;
@@ -402,16 +402,16 @@ function DropOnAddressingWidget(event)
   trans.init(getLoadContext());
   trans.addDataFlavor("text/x-moz-address");
 
-  for ( var i = 0; i < dragSession.numDropItems; ++i )
+  for (var i = 0; i < dragSession.numDropItems; ++i)
   {
-    dragSession.getData ( trans, i );
+    dragSession.getData(trans, i);
     var dataObj = new Object();
     var bestFlavor = new Object();
     var len = new Object();
-    trans.getAnyTransferData ( bestFlavor, dataObj, len );
-    if ( dataObj )
+    trans.getAnyTransferData(bestFlavor, dataObj, len);
+    if (dataObj)
       dataObj = dataObj.value.QueryInterface(Ci.nsISupportsString);
-    if ( !dataObj )
+    if (!dataObj)
       continue;
 
     // pull the address out of the data object
