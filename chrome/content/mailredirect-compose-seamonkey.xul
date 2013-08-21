@@ -192,7 +192,13 @@
         id="button-address" label="&addressButton.label;"
         tooltiptext="&addressButton.tooltip;"
         oncommand="toAddressBook();"/>
-      <toolbaritem id="throbber-box" title="&throbberItem.title;" align="center" pack="center" mousethrough="always">
+      <toolbaritem id="throbber-box"
+                   class="toolbaritem-noline"
+                   removable="true"
+                   title="&throbberItem.title;"
+                   align="center"
+                   pack="center"
+                   mousethrough="always">
         <button id="navigator-throbber"
                 oncommand="goClickThrobber('messenger.throbber.url', event)"
                 onclick="checkForMiddleClick(this, event);"
