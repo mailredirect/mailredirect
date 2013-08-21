@@ -234,15 +234,22 @@ function awAppendNewRow(setFocus)
     var input = newNode.getElementsByTagName(awInputElementName());
     if (input && input.length === 1)
     {
+      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
+
       input[0].setAttribute("value", "");
 
-      //this copies the autocomplete sessions list from recipient#1
-      input[0].syncSessions(document.getElementById("addressCol2#1"));
+      if ((appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "26.0a1") < 0) ||
+          (appInfo.ID === SEAMONKEY_ID && versionChecker.compare(appInfo.version, "2.23a1") < 0))
+      {      
+        //this copies the autocomplete sessions list from recipient#1
+        input[0].syncSessions(document.getElementById("addressCol2#1"));
 
-  	  // also clone the showCommentColumn setting
-  	  //
-  	  input[0].showCommentColumn =
-	      document.getElementById("addressCol2#1").showCommentColumn;
+    	  // also clone the showCommentColumn setting
+    	  //
+  	   input[0].showCommentColumn =
+	        document.getElementById("addressCol2#1").showCommentColumn;
+      }
 
       // We always clone the first row.  The problem is that the first row
       // could be focused.  When we clone that row, we end up with a cloned
