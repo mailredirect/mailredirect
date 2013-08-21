@@ -2128,7 +2128,7 @@ function SwitchElementFocus(event)
 /*
  * maillists
  *
- * ported from http://mxr.mozilla.org/comm-central/source/mailnews/compose/src/nsMsgCompose.cpp#4679
+ * ported from http://mxr.mozilla.org/comm-central/source/mailnews/compose/src/nsMsgCompose.cpp#4671
  * (nsMsgCompose::CheckAndPopulateRecipients)
  */
 
@@ -2157,72 +2157,112 @@ function ResolveMailLists()
 
     // Collect all mailing lists defined in this address book
     mailListArray = BuildMailListArray(abDirectory);
+
+    for (var recipType in mailredirectRecipients) {
+      for (var j = 0; j < mailredirectRecipients[recipType].length; ++j) {
+        var recipient = mailredirectRecipients[recipType][j];
+        recipient.mProcessed = false;
+      }
+    }
     
     stillNeedToSearch = false;
     for (var recipType in mailredirectRecipients) {
       // Note: We check this each time to allow for length changes.
       for (var j = 0; j < mailredirectRecipients[recipType].length; ++j) {
         var recipient = mailredirectRecipients[recipType][j];
-        // First check if it's a mailing list
-        var mailListAddresses = GetMailListAddresses(recipient.fullname, mailListArray);
-        if (mailListAddresses)
+        if (!recipient.mProcessed)
         {
-          for (var nbrAddresses = mailListAddresses.length; nbrAddresses > 0; nbrAddresses--)
+          // First check if it's a mailing list
+          var mailListAddresses = GetMailListAddresses(recipient.fullname, mailListArray);
+          if (mailListAddresses)
           {
-            existingCard = mailListAddresses.queryElementAt(nbrAddresses - 1, Ci.nsIAbCard);
-            
-            var newRecipient;
-            var pDisplayName = existingCard.displayName;
-            var bIsMailList = existingCard.isMailList;
-            
-            var email;
-            if (bIsMailList)
-              email = existingCard.notes;
-            else
-              email = existingCard.primaryEmail;
-            var fullNameStr = mimeHeaderParser.makeFullAddress(existingCard.displayName, email);
-            if (!fullNameStr)
+            // Always populate
+            for (var nbrAddresses = mailListAddresses.length; nbrAddresses > 0; nbrAddresses--)
             {
-              // Oops, parser problem! I will try to do my best...
-              fullNameStr = pDisplayName + " <";
+              existingCard = mailListAddresses.queryElementAt(nbrAddresses - 1, Ci.nsIAbCard);
+              
+              var newRecipient;
+              var bIsMailList = existingCard.isMailList;
+              var pDisplayName = existingCard.displayName;
+              
+              var email;
               if (bIsMailList)
-                if (email)
-                  fullNameStr += email;
-                else
-                  fullNameStr += pDisplayName;
+                email = existingCard.notes;
               else
-                fullNameStr += email;
-              fullNameStr += ">";
-            }
-
-            dumper.dump(fullNameStr);
-            if (!fullNameStr)
-              continue;
-
-            // Now we need to insert the new address into the list of recipient
-            if (bIsMailList)
-              stillNeedToSearch = true;
-            else
-            {
-              var newRecipient = { email : email, name : pDisplayName, fullname : fullNameStr };
+                email = existingCard.primaryEmail;
+              var mAddress = mimeHeaderParser.makeFullAddress(existingCard.displayName, email);
+              if (!mAddress)
+              {
+                // Oops, parser problem! I will try to do my best...
+                mAddress = pDisplayName + " <";
+                if (bIsMailList)
+                  if (email)
+                    mAddress += email;
+                  else
+                    mAddress += pDisplayName;
+                else
+                  mAddress += email;
+                mAddress += ">";
+              }
+  
+              if (!mAddress)
+                continue;
+  
+              // Now we need to insert the new address into the list of recipient
+              if (bIsMailList)
+                stillNeedToSearch = true;
+              else
+              {
+                var newRecipient = { email : email, name : pDisplayName, fullname : mAddress };
+                newRecipient.mProcessed = true;
+              }
               mailredirectRecipients[recipType].splice(j + 1, 0, newRecipient);
             }
             mailredirectRecipients[recipType].splice(j, 1);
             --j;
+            continue;
           }
 
-          continue;
-        }
+          if (!abDirectory)
+          {
+            stillNeedToSearch = true;
+            continue;
+          }
+          
+          // find a card that contains this e-mail address
+          existingCard = abDirectory.cardForEmailAddress(recipient.email);
+          if (existingCard)
+          {
+            recipient.mProcessed = true;
+            if (!abDirectory.readOnly)
+            {
+              var popularityValue = existingCard.getProperty("PopularityIndex", "0");
+              var popularityIndex = parseInt(popularityValue);
+              
+              if (isNaN(popularityIndex))
+              {
+                // TB 2 wrote the popularity value as hex, so if we get here,
+                // then we've probably got a hex value. We'll convert it back
+                // to decimal, as that's the best we can do.
+                popularityIndex = parseInt(popularityValue, 16);
+                
+                // If its still NaN, just give up, we shouldn't ever get here.
+                if (isNaN(popularityIndex))
+                  popularityIndex = 0;
+              }
 
-        if (!abDirectory)
-        {
-          stillNeedToSearch = true;
-          continue;
+              existingCard.setProperty("PopularityIndex", ++popularityIndex);
+              try {
+                abDirectory.modifyCard(existingCard);
+              }
+              catch(ex) {
+                Components.utils.reportError(ex);
+              }
+            }
+          }
+          else
+            stillNeedToSearch = true;
         }
-        
-        existingCard = abDirectory.cardForEmailAddress(recipient.email);
-        if (!existingCard)
-          stillNeedToSearch = true;
       }
     }
   }
