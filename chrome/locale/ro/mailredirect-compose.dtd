@@ -43,13 +43,13 @@
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
-<!-- LOCALIZATION NOTE headersSpace.style is for aligning  the From:, Resend-To:,
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
 <!ENTITY headersSpace.style "width: 10em;">
 
-<!ENTITY fromAddr.label "De la:">
-<!ENTITY fromAddr.accesskey "a">
+<!ENTITY resendFromAddr.label "Retrimite de la:">
+<!ENTITY resendFromAddr.accesskey "a">
 
 <!ENTITY resendToAddr.label "Retrimite către:">
 <!ENTITY resendCcAddr.label "Retrimite Cc:">
