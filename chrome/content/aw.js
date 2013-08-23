@@ -338,7 +338,7 @@ function awSetFocus(row, inputElement)
 {
   top.awRow = row;
   top.awInputElement = inputElement;
-  setTimeout(_awSetFocus, 0);
+  setTimeout(function() { _awSetFocus() }, 0);
 }
 
 function _awSetFocus()
@@ -361,10 +361,6 @@ function _awSetFocus()
 
 function awTabFromRecipient(element, event)
 {
-  // If we are the last element in the listbox, we don't want to create a new row.
-  if (element === awGetInputElement(top.MAX_RECIPIENTS))
-    top.doNotCreateANewRow = true;
-
   var row = awGetRowByInputElement(element);
   if (!event.shiftKey && row < top.MAX_RECIPIENTS) {
     var listBoxRow = row - 1; // listbox row indices are 0-based, ours are 1-based.
@@ -756,7 +752,7 @@ AutomatedAutoCompleteHandler.prototype =
     this.numSessionsSearched++; // bump our counter
 
     if (this.numSessionsToSearch <= this.numSessionsSearched)
-      setTimeout(aAutomatedAutoCompleteListener.processAllResults, 0); // we are all done
+      setTimeout(function() { aAutomatedAutoCompleteListener.processAllResults() } , 0); // we are all done
   },
 
   processAllResults: function()

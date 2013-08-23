@@ -124,7 +124,7 @@ window.MailredirectExtension = {
 
   DelayedUpdateCommand: function(event)
   {
-    setTimeout(MailredirectExtension.UpdateCommand, 0);
+    setTimeout(function() { MailredirectExtension.UpdateCommand() }, 0);
   },
 
   FillMailContextMenu: function(event)

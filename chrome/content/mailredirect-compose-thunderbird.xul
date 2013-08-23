@@ -102,6 +102,7 @@
 
     <panel id="customizeToolbarSheetPopup" noautohide="true">
       <iframe id="customizeToolbarSheetIFrame"
+              type="chrome"
               style="&dialog.dimensions;"
               hidden="true"/>
     </panel>

@@ -798,9 +798,9 @@ function BounceLoad()
 
   window.controllers.appendController(MailredirectWindowController);
 
-  enableEditableFields();
+  updateEditableFields(false);
   AdjustFocus();
-  setTimeout(awFitDummyRows, 0);
+  setTimeout(function() { awFitDummyRows() }, 0);
 
   window.onresize = function()
   {
@@ -856,20 +856,19 @@ function BounceUnload()
     RemoveDirectorySettingsObserver(gCurrentAutocompleteDirectory);
 }
 
-function disableEditableFields()
+/**
+ * Disables or enables editable elements in the window.
+ * The elements to operate on are marked with the "disableonsend" attribute.
+ * This includes elements like the address list, attachment list, subject
+ * and message body.
+ *
+ * @param aDisable  true = disable items. false = enable items.
+ */
+function updateEditableFields(aDisable)
 {
-  var disableElements = document.getElementsByAttribute("disableonsend", "true");
-  for (var i = 0; i < disableElements.length; i++) {
-    disableElements[i].setAttribute("disabled", "true");
-  }
-}
-
-function enableEditableFields()
-{
-  var enableElements = document.getElementsByAttribute("disableonsend", "true");
-  for (var i = 0; i < enableElements.length; i++) {
-    enableElements[i].removeAttribute("disabled");
-  }
+  let elements = document.querySelectorAll('[disableonsend="true"]');
+  for (let i = 0; i < elements.length; i++)
+    elements[i].disabled = aDisable;
 }
 
 function DoCommandClose()
@@ -1057,6 +1056,7 @@ function createTempFile()
                     getService(Ci.nsIProperties)
   var tmpDir = dirService.get("TmpD", Ci.nsIFile)
 
+  // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
   var localfile = Cc["@mozilla.org/file/local;1"].
                   createInstance(Ci.nsILocalFile);
   localfile.initWithPath(tmpDir.path);
@@ -1278,7 +1278,7 @@ function RealBounceMessages()
     msgCompFields.fcc2 = "nocopy://";
   }
 
-  disableEditableFields();
+  updateEditableFields(true);
 
   window.MsgStatusFeedback = [];
   window.msgSendListener = [];
@@ -1296,7 +1296,7 @@ function RealBounceMessages()
   for (var i = 0; i < concurrentConnections; ++i) {
     RealBounceMessage(i)
   }
-  enableEditableFields();
+  updateEditableFields(false);
 }
 
 function RealBounceMessage(idx)
@@ -2331,7 +2331,7 @@ function BounceToolboxCustomizeInit()
 {
   if (document.commandDispatcher.focusedWindow === content)
     window.focus();
-  disableEditableFields();
+  updateEditableFields(true);
   GetMsgHeadersToolbarElement().setAttribute("moz-collapsed", true);
   document.getElementById("compose-toolbar-sizer").setAttribute("moz-collapsed", true);
   document.getElementById("content-frame").setAttribute("moz-collapsed", true);
@@ -2344,7 +2344,7 @@ function BounceToolboxCustomizeDone(aToolboxChanged)
   GetMsgHeadersToolbarElement().removeAttribute("moz-collapsed");
   document.getElementById("compose-toolbar-sizer").removeAttribute("moz-collapsed");
   document.getElementById("content-frame").removeAttribute("moz-collapsed");
-  enableEditableFields();
+  updateEditableFields(false);
   SetMsgBodyFrameFocus();
 }
 
