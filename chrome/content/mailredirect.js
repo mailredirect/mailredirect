@@ -160,12 +160,14 @@ window.MailredirectExtension = {
       var head = el.contentDocument.getElementsByTagName("head").item(0);
       var newEl = document.createElement("link");
       newEl.setAttribute("rel", "stylesheet");
-      newEl.setAttribute("media", "screen");
       newEl.setAttribute("type", "text/css");
-      newEl.setAttribute("href", "chrome://mailredirect-os/skin/messageheader.css");
+      newEl.setAttribute("href", "chrome://mailredirect-os/skin/messageHeader.css");
       head.appendChild(newEl);
 
-      var label = document.getElementById("hdrMailredirectButton").getAttribute("label");
+      var hdrMailredirectButton = document.getElementById("hdrMailredirectButton");
+      var label = hdrMailredirectButton.getAttribute("label");
+      var image = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("list-style-image");
+      var region = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("-moz-image-region");
       el = el.contentDocument.getElementById("headingwrapper");
       var parentEl = el.getElementsByTagName("toolbar").item(0); // header-view-toolbar
       var oldEl = el.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
@@ -175,7 +177,7 @@ window.MailredirectExtension = {
         var newEl = document.createElement("toolbarbutton");
         newEl.setAttribute("id", "hdrMailredirectButton");
         newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
-        newEl.setAttribute("style", "list-style-image: url('chrome://mailredirect-os/skin/mailredirect.png')");
+        newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
         newEl.setAttribute("label", label);
         newEl.addEventListener("click", function(event) { if (event.button === 0) goDoCommand('cmd_mailredirect') }, false);
         parentEl.insertBefore(newEl, oldEl);
@@ -190,7 +192,7 @@ window.MailredirectExtension = {
           var newEl = document.createElement("button");
           newEl.setAttribute("id", "hdrMailredirectButton");
           newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
-          newEl.setAttribute("style", "list-style-image: url('chrome://mailredirect-os/skin/mailredirect.png')");
+          newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
           newEl.setAttribute("label", label);
           newEl.addEventListener("click", function(event) { if (event.button === 0) goDoCommand('cmd_mailredirect') }, false);
           parentEl.insertBefore(newEl, oldEl);
