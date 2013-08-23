@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE overlay [
   <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
@@ -6,7 +6,7 @@
 ]>
 
 <overlay id="mailredirectMessengerOverlay"
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <menupopup id="appmenu_messageMenuPopup">
     <menuitem id="appmenu_mailredirect"
