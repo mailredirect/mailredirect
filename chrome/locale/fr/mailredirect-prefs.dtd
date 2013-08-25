@@ -5,7 +5,7 @@
 <!ENTITY copyToSentMails.label "Placer une copie du message redirigé dans le dossier Envoyés ?">
 <!ENTITY copyToSentMails.accesskey "a">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Si cette option est cochée, une copie du message redirigé est placée dans le dossier Envoyés. Si cette option n'est pas cochée, le message redirigé n'est pas copié.\nRemarque : Si cette option est cochée et que le compte utilisé pour la redirection a pour paramètre de 'ne pas faire de copie des messages envoyés', aucune copie du message redirigé ne sera enregistrée.">
+<!ENTITY copyToSentMails.tooltip "Si cette option est cochée, une copie du message redirigé est placée dans le dossier Envoyés. Si cette option n'est pas cochée, le message redirigé n'est pas copié.\nRemarque : Si cette option est cochée et que le compte utilisé pour la redirection a pour paramètre 'ne pas faire de copie des messages envoyés', aucune copie du message redirigé ne sera enregistrée.">
 
 <!ENTITY concurrentConnections.label "Nombre de connexions SMTP simultanées :">
 <!ENTITY concurrentConnections.accesskey "N">

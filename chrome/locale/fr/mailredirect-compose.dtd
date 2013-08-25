@@ -11,7 +11,7 @@
 <!ENTITY viewMenu.accesskey "c">
 <!ENTITY viewToolbarsMenuNew.label "Barres d'outils">
 <!ENTITY viewToolbarsMenuNew.accesskey "t">
-<!ENTITY menubarCmd.label "Menu Bar">
+<!ENTITY menubarCmd.label "Barre de menu">
 <!ENTITY menubarCmd.accesskey "M">
 
 <!ENTITY tasksMenu.label "Outils">
@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "Rediriger les messages">
 <!ENTITY addressButton.label "Adresses">
 <!ENTITY addressButton.tooltip "Ouvrir le carnet d'adresses">
-<!ENTITY throbberItem.title "Activity Indicator">
+<!ENTITY throbberItem.title "Indicateur d'activité">
 <!ENTITY throbber.tooltip "Aller à la page de &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
@@ -48,8 +48,8 @@
      label -->
 <!ENTITY headersSpace.style "width: 11em;">
 
-<!ENTITY resendFromAddr.label "Rediriger-Compte :">
-<!ENTITY resendFromAddr.accesskey "C">
+<!ENTITY resendFromAddr.label "Rediriger-De :">
+<!ENTITY resendFromAddr.accesskey "D">
 
 <!ENTITY resendToAddr.label "Rediriger-Pour :">
 <!ENTITY resendCcAddr.label "Rediriger-Cc :">
