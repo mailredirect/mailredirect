@@ -1,4 +1,4 @@
-<!ENTITY msgMailRedirectWindow.title  "Redirectare Mailuri">
+<!ENTITY msgMailRedirectWindow.title "Redirectare Mailuri">
 
 <!ENTITY fileMenu.label "Fișier">
 <!ENTITY fileMenu.accesskey "F">
@@ -49,7 +49,7 @@
 <!ENTITY headersSpace.style "width: 10em;">
 
 <!ENTITY resendFromAddr.label "Retrimite de la:">
-<!ENTITY resendFromAddr.accesskey "a">
+<!ENTITY resendFromAddr.accesskey "R">
 
 <!ENTITY resendToAddr.label "Retrimite către:">
 <!ENTITY resendCcAddr.label "Retrimite Cc:">
