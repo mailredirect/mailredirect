@@ -2,7 +2,7 @@
 
 "use strict";
 
-Components.utils.import("resource:///modules/mailServices.js");  // Gecko 5+ (TB5)
+Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
 
 top.MAX_RECIPIENTS = 1;
 
