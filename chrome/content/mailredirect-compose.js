@@ -7,6 +7,7 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 Components.utils.import("resource:///modules/folderUtils.jsm"); // Gecko 19+
 Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
+Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
 Components.utils.import("resource://gre/modules/PluralForm.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
@@ -1078,23 +1079,30 @@ function FileSpecFromLocalFile(localfile)
   return filespec;
 }
 
+function encodeMimeHeader(header)
+{
+  let fieldNameLen = (header.indexOf(": ") + 2);
+  return MailServices.mimeConverter.
+                      encodeMimePartIIStr_UTF8(header,
+                                               false,
+                                               "UTF-8",
+                                               fieldNameLen,
+                                               Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+}
+
 // quoted-printable encoding
 function QPencode(str)
 {
-  var mimeEncoder = Cc["@mozilla.org/messenger/mimeconverter;1"].
-                    getService(Ci.nsIMimeConverter);
-
   var uConv = Cc["@mozilla.org/intl/scriptableunicodeconverter"].
               getService(Ci.nsIScriptableUnicodeConverter);
   uConv.charset = "UTF-8";
 
-  var msgCompFields = Cc["@mozilla.org/messengercompose/composefields;1"].
-                      createInstance(Ci.nsIMsgCompFields);
-
-  var out = mimeEncoder.encodeMimePartIIStr_UTF8(uConv.ConvertFromUnicode(str),
-                                                 false, msgCompFields.characterSet, 0, 72);
-
-  return out;
+  return MailServices.mimeConverter.
+                      encodeMimePartIIStr_UTF8(uConv.ConvertFromUnicode(str),
+                                               false,
+                                               "UTF-8",
+                                               0,
+                                               72);
 }
 
 function getSender()
@@ -1240,9 +1248,9 @@ function getResentHeaders()
 {
   var resenthdrs = "Resent-From: " + getSender() + "\r\n";
   var recipientsStrings = getRecipients(false);
-  if (recipientsStrings.resendTo) resenthdrs += "Resent-To: " + recipientsStrings.resendTo + "\r\n";
-  if (recipientsStrings.resendCc) resenthdrs += "Resent-Cc: " + recipientsStrings.resendCc + "\r\n";
-  // if (recipientsStrings.resendBcc) resenthdrs += "Resent-Bcc: " + recipientsStrings.resendBcc + "\r\n";
+  if (recipientsStrings.resendTo) resenthdrs += encodeMimeHeader("Resent-To: " + recipientsStrings.resendTo + "\r\n");
+  if (recipientsStrings.resendCc) resenthdrs += encodeMimeHeader("Resent-CC: " + recipientsStrings.resendCc + "\r\n");
+  // if (recipientsStrings.resendBcc) resenthdrs += encodeMimeHeader("Resent-BCC: " + recipientsStrings.resendBcc + "\r\n");
   resenthdrs += "Resent-Date: " + getResentDate() + "\r\n";
   var msgID = Cc["@mozilla.org/messengercompose/computils;1"].
               createInstance(Ci.nsIMsgCompUtils).
@@ -1360,7 +1368,7 @@ function RealBounceMessage(idx)
           gCurrentIdentity,                // in nsIMsgIdentity       aUserIdentity,
           getCurrentAccountKey(),          // char* accountKey,
           msgCompFields,                   // in nsIMsgCompFields     fields,
-          localfile,                        // in nsIFile          sendIFile,
+          localfile,                       // in nsIFile              sendIFile,
           true,                            // in PRBool               deleteSendFileOnCompletion,
           false,                           // in PRBool               digest_p,
           msgSend.nsMsgDeliverNow,         // in nsMsgDeliverMode     mode,
@@ -1465,6 +1473,7 @@ function RealBounceMessage(idx)
             if (inHeader &&
                 (/^[>]*From \S+ /.test(line) ||
                  /^bcc: /i.test(line) ||
+                 /^resent-bcc: /i.test(line) ||
                  /^fcc: /i.test(line) ||
                  /^content-length: /i.test(line) ||
                  /^lines: /i.test(line) ||
