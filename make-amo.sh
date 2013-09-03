@@ -32,9 +32,9 @@ done
 cd ..
 zip -r -D -0 mailredirect.jar content/ locale/ skin/
 cd ../..
-grep em:update -A 2 ../code/install.rdf > make-grep.txt
+grep \<em:update -A 2 ../code/install.rdf > make-grep.txt
 grep -v -f make-grep.txt ../code/install.rdf > amo/install.rdf
-rm make-grep.txt
+#rm make-grep.txt
 sed -r "s/chrome\//jar:chrome\/mailredirect.jar!\//" ../code/chrome.manifest > amo/chrome.manifest
 version=$(grep em:version ../code/install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
 cd amo
