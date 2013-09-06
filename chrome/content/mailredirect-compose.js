@@ -1082,12 +1082,52 @@ function FileSpecFromLocalFile(localfile)
 function encodeMimeHeader(header)
 {
   let fieldNameLen = (header.indexOf(": ") + 2);
-  return MailServices.mimeConverter.
-                      encodeMimePartIIStr_UTF8(header,
-                                               false,
-                                               "UTF-8",
-                                               fieldNameLen,
-                                               Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+  if (header.length <= 1000) {
+    return MailServices.mimeConverter.
+                        encodeMimePartIIStr_UTF8(header,
+                                                 false,
+                                                 "UTF-8",
+                                                 fieldNameLen,
+                                                 Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+  }
+  else
+  {
+    let fieldName = header.substr(0, fieldNameLen);
+    let splitHeader = "";
+    let currentLine = "";
+    while (header.length > 998)
+    {
+      let splitPos = header.substr(0, 998).lastIndexOf(","); // Try to split before column 998
+      if (splitPos === -1)
+        splitPos = header.indexOf(","); // If that fails, split at first possible position
+      if (splitPos === -1)
+      {
+        currentLine = header;
+        header = "";
+      } 
+      else
+      {
+        currentLine = header.substr(0, splitPos - 1) + "\r\n";
+        if (header.charAt(splitPos + 1) === " ")
+          header = fieldName + header.substr(splitPos + 2);
+        else
+          header = fieldName + header.substr(splitPos + 1);
+      }
+      splitHeader += MailServices.mimeConverter.
+                                  encodeMimePartIIStr_UTF8(currentLine,
+                                                           false,
+                                                           "UTF-8",
+                                                           fieldNameLen,
+                                                           Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+    }
+    splitHeader += MailServices.mimeConverter.
+                                encodeMimePartIIStr_UTF8(header,
+                                                         false,
+                                                         "UTF-8",
+                                                         fieldNameLen,
+                                                         Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+    return(splitHeader);
+  }
 }
 
 // quoted-printable encoding
