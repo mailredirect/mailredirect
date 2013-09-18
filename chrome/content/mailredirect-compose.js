@@ -1291,6 +1291,11 @@ function getResentHeaders()
   if (recipientsStrings.resendTo) resenthdrs += encodeMimeHeader("Resent-To: " + recipientsStrings.resendTo + "\r\n");
   if (recipientsStrings.resendCc) resenthdrs += encodeMimeHeader("Resent-CC: " + recipientsStrings.resendCc + "\r\n");
   // if (recipientsStrings.resendBcc) resenthdrs += encodeMimeHeader("Resent-BCC: " + recipientsStrings.resendBcc + "\r\n");
+  if (!recipientsStrings.resendTo && !recipientsStrings.resendCc) {
+    var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
+    var undisclosedRecipients = composeMsgsBundle.getString("12566");
+    resenthdrs += encodeMimeHeader("Resent-To: " + undisclosedRecipients + ":;" + "\r\n");
+  }
   resenthdrs += "Resent-Date: " + getResentDate() + "\r\n";
   var msgID = Cc["@mozilla.org/messengercompose/computils;1"].
               createInstance(Ci.nsIMsgCompUtils).
