@@ -4,7 +4,7 @@
 
 Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
 
-top.MAX_RECIPIENTS = 1;
+top.MAX_RECIPIENTS = 1; /* for the initial listitem created in the XUL */
 
 var inputElementType = "";
 var selectElementType = "";
@@ -58,11 +58,11 @@ function awGetSelectItemIndex(itemData)
   {
     selectElementIndexTable = new Object();
     var selectElem = document.getElementById("addressCol1#1");
-      for (var i = 0; i < selectElem.childNodes[0].childNodes.length; i++)
-      {
-          var aData = selectElem.childNodes[0].childNodes[i].getAttribute("value");
-          selectElementIndexTable[aData] = i;
-      }
+    for (var i = 0; i < selectElem.childNodes[0].childNodes.length; i++)
+    {
+      var aData = selectElem.childNodes[0].childNodes[i].getAttribute("value");
+      selectElementIndexTable[aData] = i;
+    }
   }
 
   return selectElementIndexTable[itemData];
@@ -92,16 +92,16 @@ function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, r
 
 function _awSetInputAndPopup(inputValue, popupValue, parentNode, templateNode)
 {
-    top.MAX_RECIPIENTS++;
+  top.MAX_RECIPIENTS++;
 
-    var newNode = templateNode.cloneNode(true);
-    parentNode.appendChild(newNode); // we need to insert the new node before we set the value of the select element!
+  var newNode = templateNode.cloneNode(true);
+  parentNode.appendChild(newNode); // we need to insert the new node before we set the value of the select element!
 
-    var input = newNode.getElementsByTagName(awInputElementName());
-    var select = newNode.getElementsByTagName(awSelectElementName());
+  var input = newNode.getElementsByTagName(awInputElementName());
+  var select = newNode.getElementsByTagName(awSelectElementName());
 
-    if (input && input.length === 1 && select && select.length === 1)
-      awSetInputAndPopupValue(input[0], inputValue, select[0], popupValue, top.MAX_RECIPIENTS)
+  if (input && input.length === 1 && select && select.length === 1)
+    awSetInputAndPopupValue(input[0], inputValue, select[0], popupValue, top.MAX_RECIPIENTS)
 }
 
 // this was broken out of awAddRecipients so it can be re-used...adds a new row matching recipientType and
@@ -123,7 +123,7 @@ function awAddRecipient(recipientType, address)
   if (row === top.MAX_RECIPIENTS)
   {
     awAppendNewRow(true);
-    awSetInputAndPopupValue(awGetInputElement(top.MAX_RECIPIENTS), "", awGetPopupElement(top.MAX_RECIPIENTS), "addr_resendTo", top.MAX_RECIPIENTS);
+    awSetInputAndPopupValue(awGetInputElement(top.MAX_RECIPIENTS), "", awGetPopupElement(top.MAX_RECIPIENTS), recipientType, top.MAX_RECIPIENTS);
   }
 }
 
@@ -326,7 +326,7 @@ function awRemoveRow(row)
   awRemoveNodeAndChildren(listbox, awGetListItem(row));
   awFitDummyRows();
 
-  top.MAX_RECIPIENTS --;
+  top.MAX_RECIPIENTS--;
 }
 
 function awRemoveNodeAndChildren(parent, nodeToRemove)
@@ -381,7 +381,7 @@ function awTabFromMenulist(element, event)
 
 function awGetNumberOfRecipients()
 {
-    return top.MAX_RECIPIENTS;
+  return top.MAX_RECIPIENTS;
 }
 
 function DragOverAddressingWidget(event)
@@ -632,6 +632,15 @@ function awSizerMouseUp()
   document.removeEventListener("mouseup", awSizerMouseUp, false);
 }
 
+function awDocumentKeyPress(event)
+{
+  try {
+    var id = event.target.id;
+    if (id.startsWith('addressCol1'))
+      awMenulistKeyPress(event, event.target);
+  } catch (e) { }
+}
+
 // Given an arbitrary block of text like a comma delimited list of names or a names separated by spaces,
 // we will try to autocomplete each of the names and then take the FIRST match for each name, adding it the
 // addressing widget on the compose window.
@@ -681,7 +690,7 @@ AutomatedAutoCompleteHandler.prototype =
   recipientType: null,
   searchResults: null,
 
-  init:function(namesToComplete, numNamesToComplete, recipientType)
+  init: function(namesToComplete, numNamesToComplete, recipientType)
   {
     this.indexIntoNames = 0;
     this.numNamesToComplete = numNamesToComplete;
@@ -694,7 +703,7 @@ AutomatedAutoCompleteHandler.prototype =
     this.autoCompleteNextAddress();
   },
 
-  autoCompleteNextAddress:function()
+  autoCompleteNextAddress: function()
   {
     this.numSessionsToSearch = 0;
     this.numSessionsSearched = 0;
@@ -704,7 +713,7 @@ AutomatedAutoCompleteHandler.prototype =
     {
     	/* XXX This is used to work, until switching to the new toolkit broke it
          We should fix it see bug 456550.
-      if (this.namesToComplete[this.indexIntoNames].search("@") === -1) // don't autocomplete if address has an @ sign in it
+      if (!this.namesToComplete[this.indexIntoNames].contains("@")) // don't autocomplete if address has an @ sign in it
       {
         // make sure total session count is updated before we kick off ANY actual searches
         if (gAutocompleteSession)
@@ -738,7 +747,7 @@ AutomatedAutoCompleteHandler.prototype =
     }
   },
 
-  onStatus:function(aStatus)
+  onStatus: function(aStatus)
   {
     return;
   },
@@ -752,7 +761,7 @@ AutomatedAutoCompleteHandler.prototype =
     this.numSessionsSearched++; // bump our counter
 
     if (this.numSessionsToSearch <= this.numSessionsSearched)
-      setTimeout(function() { aAutomatedAutoCompleteListener.processAllResults() } , 0); // we are all done
+      setTimeout(function() { gAutomatedAutoCompleteListener.processAllResults() } , 0); // we are all done
   },
 
   processAllResults: function()

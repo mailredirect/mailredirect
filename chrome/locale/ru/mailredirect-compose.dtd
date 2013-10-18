@@ -29,9 +29,10 @@
 <!ENTITY throbber.tooltip "Перейти на страницу &vendorShortName; в интернет">
 
 <!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY closeCmd.modifiers "accel">
+<!ENTITY messengerCmd.key "1">
 <!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY addressBookCmd.commandkey "B">
+<!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
 <!ENTITY customizeToolbar.label "Настроить…">

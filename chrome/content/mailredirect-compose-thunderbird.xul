@@ -67,19 +67,21 @@
     <command id="cmd_mailredirect_now" oncommand="goDoCommand('cmd_mailredirect_now')"/>
     <command id="cmd_mailredirect_withcheck" oncommand="goDoCommand('cmd_mailredirect_withcheck')"/>
     <command id="cmd_mailredirect_close" oncommand="goDoCommand('cmd_mailredirect_close')"/>
+    <command id="cmd_mailredirect_delete" oncommand="goDoCommand('cmd_mailredirect_delete')"/>
     <command id="cmd_CustomizeMailredirectToolbar" oncommand="CustomizeMailToolbar('bounce-toolbox', 'CustomizeMailredirectToolbar')"/>
   </commandset>
 
   <keyset id="mailKeys">
     <key keycode="VK_ESCAPE" command="cmd_mailredirect_close"/>
+    <key keycode="VK_DELETE" command="cmd_mailredirect_delete"/>
 
     <!-- File Menu -->
-    <key id="key_bounce" keycode="VK_RETURN" observes="cmd_mailredirect_withcheck" modifiers="accel"/>
-    <key id="key_close" key="&closeCmd.key;" modifiers="accel" command="cmd_mailredirect_close"/>
+    <key id="key_bounce" keycode="VK_RETURN" modifiers="accel" observes="cmd_mailredirect_withcheck"/>
+    <key id="key_close" key="&closeCmd.key;" modifiers="&closeCmd.modifiers;" command="cmd_mailredirect_close"/>
 
     <!-- Tools Menu -->
-    <key id="key_mail" key="&messengerCmd.commandkey;" modifiers="&messengerCmd.modifiers;" oncommand="toMessengerWindow();"/>
-    <key id="key_addressbook" key="&addressBookCmd.commandkey;" modifiers="&addressBookCmd.modifiers;" oncommand="toAddressBook();"/>
+    <key id="key_mail" key="&messengerCmd.key;" modifiers="&messengerCmd.modifiers;" oncommand="toMessengerWindow();"/>
+    <key id="key_addressbook" key="&addressBookCmd.key;" modifiers="&addressBookCmd.modifiers;" oncommand="toAddressBook();"/>
 
     <!-- Tab/F6 Keys -->
     <key keycode="VK_TAB" oncommand="SwitchElementFocus(event);" modifiers="control"/>
@@ -223,7 +225,7 @@
   </toolbox>
 
   <vbox flex="1">
-    <toolbox id="addressing-toolbox" class="toolbox-top" mode="icons" flex="1">
+    <toolbox class="toolbox-top" mode="icons" flex="1">
       <toolbar id="addressingToolbar" persist="collapsed" flex="0"
                customizable="true" nowindowdrag="true"
                class="chromeclass-toolbar"
@@ -235,7 +237,8 @@
             <hbox align="center" pack="end" style="&headersSpace.style;">
               <label value="&resendFromAddr.label;" accesskey="&resendFromAddr.accesskey;" control="msgIdentity"/>
             </hbox>
-            <menulist id="msgIdentity" type="description" flex="1" oncommand="LoadIdentity(false);">
+            <menulist id="msgIdentity" type="description" flex="1"
+                      oncommand="LoadIdentity(false);" disableonsend="true">
               <menupopup id="msgIdentityPopup"/>
             </menulist>
           </hbox>

@@ -12,6 +12,8 @@ Components.utils.import("resource://gre/modules/PluralForm.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
+const MAX_HEADER_LENGTH = 32678;
+
 const MODE_RDONLY   = 0x01;
 const MODE_WRONLY   = 0x02;
 const MODE_RDWR     = 0x04;
@@ -648,27 +650,39 @@ function BounceLoad()
   }
 
   // set defaults for Resent-To, Resent-Cc and Resent-Bcc in the bounce dialog
-  var addr;
-  if (defaultResentToString !== "") {
-    var defaultResentToArray = defaultResentToString.split(",");
-    for (var idx in defaultResentToArray) {
-      addr = defaultResentToArray[idx].replace(/^\s+|\s+$/g, "");
-      if (addr !== "") awAddRecipient("addr_resendTo", addr);
+  if (!(defaultResentToString.match(/^\s*$/) &&
+        defaultResentCcString.match(/^\s*$/) &&
+        defaultResentBccString.match(/^\s*$/)))
+  {
+    var addr;
+    if (defaultResentToString !== "") {
+      var defaultResentToArray = defaultResentToString.split(",");
+      for (var idx in defaultResentToArray) {
+        addr = defaultResentToArray[idx].replace(/^\s+|\s+$/g, "");
+        if (addr !== "") awAddRecipient("addr_resendTo", addr);
+      }
+    }
+    if (defaultResentCcString !== "") {
+      var defaultResentCcArray = defaultResentCcString.split(",");
+      for (var idx in defaultResentCcArray) {
+        addr = defaultResentCcArray[idx].replace(/^\s+|\s+$/g, "");
+        if (addr !== "") awAddRecipient("addr_resendCc", addr);
+      }
+    }
+    if (defaultResentBccString !== "") {
+      var defaultResentBccArray = defaultResentBccString.split(",");
+      for (var idx in defaultResentBccArray) {
+        addr = defaultResentBccArray[idx].replace(/^\s+|\s+$/g, "");
+        if (addr !== "") awAddRecipient("addr_resendBcc", addr);
+      }
     }
   }
-  if (defaultResentCcString !== "") {
-    var defaultResentCcArray = defaultResentCcString.split(",");
-    for (var idx in defaultResentCcArray) {
-      addr = defaultResentCcArray[idx].replace(/^\s+|\s+$/g, "");
-      if (addr !== "") awAddRecipient("addr_resendCc", addr);
-    }
-  }
-  if (defaultResentBccString !== "") {
-    var defaultResentBccArray = defaultResentBccString.split(",");
-    for (var idx in defaultResentBccArray) {
-      addr = defaultResentBccArray[idx].replace(/^\s+|\s+$/g, "");
-      if (addr !== "") awAddRecipient("addr_resendBcc", addr);
-    }
+  else
+  {
+    var menulist = document.getElementById("addressCol1#1");
+    var defaultMode = getPref("extensions.mailredirect.defaultMode");
+    menulist.value = defaultMode;
+    
   }
 
   AddDirectoryServerObserver(true);
@@ -700,6 +714,8 @@ function BounceLoad()
 
   var identityList = document.getElementById("msgIdentity");
 
+  document.addEventListener("keypress", awDocumentKeyPress, true);
+
   if (identityList)
     FillIdentityList(identityList);
 
@@ -709,6 +725,14 @@ function BounceLoad()
     if (mstate.selectedURIs) {
       mstate.size = mstate.selectedURIs.length;
       clearMState();
+      var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[0]);
+      if (msgHdr) {
+        msgSubject = msgHdr.mime2DecodedSubject;
+        if (msgSubject) {
+          let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+          document.title = BounceMsgsBundle.getString("mailredirectWindowTitlePrefix") + " " + msgSubject;
+        }
+      }
     }
     preSelectedIdentityKey = window.arguments[1];
   }
@@ -932,6 +956,12 @@ function DoForwardBounce()
     var errorMsg = BounceMsgsBundle.getFormattedString("noRecipientsMessage", [""]);
     Services.prompt.alert(window, errorTitle, errorMsg);
     return;
+  } else if (mstate.size === 0) {
+    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+    var errorTitle = BounceMsgsBundle.getString("noMessagesTitle");
+    var errorMsg = BounceMsgsBundle.getFormattedString("noMessagesMessage", [""]);
+    Services.prompt.alert(window, errorTitle, errorMsg);
+    return;
   } else {
     // clear some variables
     aSender = null;
@@ -1082,7 +1112,7 @@ function FileSpecFromLocalFile(localfile)
 function encodeMimeHeader(header)
 {
   let fieldNameLen = (header.indexOf(": ") + 2);
-  if (header.length <= 1000) {
+  if (header.length <= MAX_HEADER_LENGTH) {
     return MailServices.mimeConverter.
                         encodeMimePartIIStr_UTF8(header,
                                                  false,
@@ -1092,12 +1122,13 @@ function encodeMimeHeader(header)
   }
   else
   {
+    header = header.replace(/\r\n$/, '');
     let fieldName = header.substr(0, fieldNameLen);
     let splitHeader = "";
     let currentLine = "";
-    while (header.length > 998)
+    while (header.length > MAX_HEADER_LENGTH - 2)
     {
-      let splitPos = header.substr(0, 998).lastIndexOf(","); // Try to split before column 998
+      let splitPos = header.substr(0, MAX_HEADER_LENGTH - 2).lastIndexOf(","); // Try to split before MAX_HEADER_LENGTH
       if (splitPos === -1)
         splitPos = header.indexOf(","); // If that fails, split at first possible position
       if (splitPos === -1)
@@ -1121,7 +1152,7 @@ function encodeMimeHeader(header)
                                                            Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
     }
     splitHeader += MailServices.mimeConverter.
-                                encodeMimePartIIStr_UTF8(header,
+                                encodeMimePartIIStr_UTF8(header + "\r\n",
                                                          false,
                                                          "UTF-8",
                                                          fieldNameLen,
@@ -1195,7 +1226,7 @@ function getRecipients(onlyemails)
       var fullnames = {};
       var numAddresses = mimeHeaderParser.parseHeadersWithArray(recipients[recipType], emails, names, fullnames);
 
-      //dumper.dump("numAddresses[" + recipType + "]= " + numAddresses);
+      // dumper.dump("numAddresses[" + recipType + "]= " + numAddresses);
 
       for (var i = 0; i < numAddresses; ++i) {
         mailredirectRecipients[recipType][i] =
@@ -1303,7 +1334,7 @@ function getResentHeaders()
   if (msgID) resenthdrs += "Resent-Message-ID: " + msgID + "\r\n";
   var useragent = getUserAgent();
   if (useragent) resenthdrs += "Resent-User-Agent: " + useragent + "\r\n";
-  //dumper.dump('resent-headers\n' + resenthdrs);
+  // dumper.dump('resent-headers\n' + resenthdrs);
   return resenthdrs;
 }
 
@@ -1379,6 +1410,7 @@ function RealBounceMessage(idx)
                           createInstance(Ci.nsIFileOutputStream);
 
   var inHeader = true;
+  var skipping = false;
   var leftovers = "";
   var buf = "";
   var line = "";
@@ -1479,31 +1511,31 @@ function RealBounceMessage(idx)
               // no end of line character in buffer
               // remember this part for the next time
               leftovers = buf;
-              //dumper.dump("leftovers="+leftovers);
+              // dumper.dump("leftovers="+leftovers);
               break;
             } else {
               // eol character found. find optional pair (\r\n) (\n\r)
               eol_length = 1;
 
               // try a pair of eol chars
-              //dumper.dump("trying pair. eol="+eol);
+              // dumper.dump("trying pair. eol="+eol);
               if (eol + 1 < buf.length) {
                 if ((buf[eol] === "\r" && buf[eol+1] === "\n") ||
                     (buf[eol] === "\n" && buf[eol+1] === "\r")) {
                   ++eol;
                   ++eol_length;
-                  //dumper.dump("pair found. eol="+eol);
+                  // dumper.dump("pair found. eol="+eol);
                 }
               } else {
                 // pair couldn't be found because of end of buffer
-                //dumper.dump("pair couldnt be found. end of buf. eol="+eol+"   buf.length="+buf.length);
+                // dumper.dump("pair couldnt be found. end of buf. eol="+eol+"   buf.length="+buf.length);
                 leftovers = buf;
                 break;
               }
               // terminate the line with CRLF sign, not native line-endings
               line = buf.substr(0, eol+1-eol_length) + "\r\n";
               buf = buf.substr(eol+1);
-              //dumper.dump("line=>>"+line+"<<line_end.\nline.length=" + line.length);
+              // dumper.dump("line=>>"+line+"<<line_end.\nline.length=" + line.length);
 
               if (line === "\r\n") {
                 aFileOutputStream.write(line, line.length);
@@ -1513,34 +1545,43 @@ function RealBounceMessage(idx)
               }
             }
 
+            if (skipping) {
+              if (line[0] === " " || line[0] === "\t") {
+                continue;
+              }
+              else
+              {
+                skipping = false;
+              }
+            }
+
             // remove sensitive headers (vide: nsMsgSendPart.cpp)
             // From_ line format - http://www.qmail.org/man/man5/mbox.html
-            if (inHeader &&
-                (/^[>]*From \S+ /.test(line) ||
-                 /^bcc: /i.test(line) ||
-                 /^resent-bcc: /i.test(line) ||
-                 /^fcc: /i.test(line) ||
-                 /^content-length: /i.test(line) ||
-                 /^lines: /i.test(line) ||
-                 /^status: /i.test(line) ||
-                 /^x-mozilla-status(?:2)?: /i.test(line) ||
-                 /^x-mozilla-draft-info: /i.test(line) ||
-                 /^x-mozilla-newshost: /i.test(line) ||
-                 /^x-uidl: /i.test(line) ||
-                 /^x-vm-\S+: /i.test(line) ||
-                 /^return-path: /i.test(line) ||
-                 /^delivered-to: /i.test(line) ||
+            if (/^[>]*From \S+ /.test(line) ||
+                /^bcc: /i.test(line) ||
+                /^resent-bcc: /i.test(line) ||
+                /^fcc: /i.test(line) ||
+                /^content-length: /i.test(line) ||
+                /^lines: /i.test(line) ||
+                /^status: /i.test(line) ||
+                /^x-mozilla-status(?:2)?: /i.test(line) ||
+                /^x-mozilla-draft-info: /i.test(line) ||
+                /^x-mozilla-newshost: /i.test(line) ||
+                /^x-uidl: /i.test(line) ||
+                /^x-vm-\S+: /i.test(line) ||
+                /^return-path: /i.test(line) ||
+                /^delivered-to: /i.test(line) ||
 
-                 // for drafts
-                 /^FCC: /i.test(line) ||
-                 /^x-identity-key: /i.test(line) ||
-                 /^x-account-key: /i.test(line) ||
-                 0)) {
+                // for drafts
+                /^FCC: /i.test(line) ||
+                /^x-identity-key: /i.test(line) ||
+                /^x-account-key: /i.test(line)) {
+              skipping = true;
               // discard line
-              //dumper.dump("forbidden line:" + line+"<<");
+              // dumper.dump("forbidden line:" + line+"<<");
             } else {
               var ret = aFileOutputStream.write(line, line.length);
-              //dumper.dump("write ret = " + ret);
+              // dumper.dump("write ret = " + ret);
             }
           }
         }
@@ -1551,14 +1592,14 @@ function RealBounceMessage(idx)
         // convert all possible line terminations to CRLF (required by RFC822)
         leftovers = leftovers.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
         var ret = aFileOutputStream.write(leftovers, leftovers.length);
-        //dumper.dump("leftlovers=" + leftovers+"<<end\nret=" + ret);
+        // dumper.dump("leftovers=" + leftovers+"<<end\nret=" + ret);
         leftovers = "";
         if (available) {
           var str = aScriptableInputStream.read(available);
           // convert all possible line terminations to CRLF (required by RFC822)
           str = str.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
           ret = aFileOutputStream.write(str, str.length);
-          //dumper.dump("rest write ret = " + ret);
+          // dumper.dump("rest write ret = " + ret);
         }
       }
     }
@@ -1609,7 +1650,7 @@ nsMsgStatusFeedback.prototype =
 
   ensureStatusFields: function()
   {
-    //dumper.dump("ensureStatusFields");
+    // dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
     if (!this.throbber) {
@@ -2061,11 +2102,12 @@ nsMsgSendListener.prototype =
 var MailredirectWindowController = {
   supportsCommand: function(command)
   {
-    //dumper.dump("supportsCommand(" + command + ")");
+    // dumper.dump("supportsCommand(" + command + ")");
     switch(command) {
       case "cmd_mailredirect_now":
       case "cmd_mailredirect_withcheck":
       case "cmd_mailredirect_close":
+      case "cmd_mailredirect_delete":
         return true;
       default:
         return false;
@@ -2074,13 +2116,15 @@ var MailredirectWindowController = {
 
   isCommandEnabled: function(command)
   {
-    //dumper.dump("isCommandEnabled(" + command + ") = " + ((!Services.io.offline) && (mstate.selectedURIs !== null)));
     switch(command) {
       case "cmd_mailredirect_now":
       case "cmd_mailredirect_withcheck":
-        return ((!Services.io.offline) && (mstate.selectedURIs !== null));
+        return ((!Services.io.offline) && (mstate.selectedURIs !== null)); 
       case "cmd_mailredirect_close":
         return true;
+      case "cmd_mailredirect_delete":
+        var tree = document.getElementById("bounceTree");
+        return (tree) ? tree.view.selection.getRangeCount() : 0;
       default:
         return false;
     }
@@ -2088,7 +2132,7 @@ var MailredirectWindowController = {
 
   doCommand: function(command)
   {
-    //dumper.dump("doCommand(" + command + ")");
+    // dumper.dump("doCommand(" + command + ")");
 
     // if the user invoked a key short cut then it is possible that we got here for a command which is
     // really disabled. kick out if the command should be disabled.
@@ -2104,12 +2148,37 @@ var MailredirectWindowController = {
       case "cmd_mailredirect_close":
         DoCommandClose();
         break;
+      case "cmd_mailredirect_delete":
+        var start = {}, end = {};
+        var tree = document.getElementById("bounceTree");
+        var treeChildren = document.getElementById("topTreeChildren");
+        var numRanges = tree.view.selection.getRangeCount();
+        for (var t = numRanges; t > 0; t--)
+        {
+          tree.view.selection.getRangeAt(t-1, start, end);
+          for (var v = end.value; v >= start.value; v--)
+          {
+            mstate.selectedURIs.splice(v, 1);
+            mstate.size--;
+            var treerows = treeChildren.getElementsByAttribute("URIidx", v);
+            var treeitem = treerows[0].parentNode;
+            treeitem.parentNode.removeChild(treeitem);
+          }
+        }
+        if (treeChildren.hasChildNodes)
+        {
+          var treerows = treeChildren.childNodes;
+          for (var i = 0; i < treerows.length; i++)
+          {
+            treerows[i].firstChild.setAttribute("URIidx", i);
+          }
+        }
     }
   },
 
   onEvent: function(event)
   {
-    //dumper.dump("onEvent(" + event + ")");
+    // dumper.dump("onEvent(" + event + ")");
   }
 };
 
@@ -2209,6 +2278,10 @@ function ResolveMailLists()
     if (!abDirectory.supportsMailingLists)
       continue;
 
+    // Skip unopened Ubuntuone Address Books
+    if (Ci.nsIAbEDSDirectory && (abDirectory instanceof Ci.nsIAbEDSDirectory) && abDirectory.QueryInterface(Ci.nsIAbEDSDirectory) && !abDirectory._open)
+      continue;
+
     // Collect all mailing lists defined in this address book
     mailListArray = BuildMailListArray(abDirectory);
 
@@ -2284,7 +2357,13 @@ function ResolveMailLists()
           }
           
           // find a card that contains this e-mail address
-          existingCard = abDirectory.cardForEmailAddress(recipient.email);
+          existingCard = null
+          // Try/catch because cardForEmailAddress will throw if not implemented.
+          try
+          {
+            existingCard = abDirectory.cardForEmailAddress(recipient.email);
+          } catch (e) {}
+
           if (existingCard)
           {
             recipient.mProcessed = true;
@@ -2331,10 +2410,9 @@ function GetABDirectories()
 
   var directories = abManager.directories;
   while (directories.hasMoreElements()) {
-    var item = directories.getNext();
-    var directory = item.QueryInterface(Ci.nsIAbDirectory);
+    var directory = directories.getNext().QueryInterface(Ci.nsIAbDirectory);
     if (directory.isMailList) continue;
-    var uri = item.URI;
+    var uri = directory.URI;
     if (uri === kPersonalAddressbookUri) {
       directoriesArray.unshift(directory);
     } else {
@@ -2354,8 +2432,7 @@ function BuildMailListArray(parentDir)
   var array = [];
   var subDirectories = parentDir.childNodes;
   while (subDirectories.hasMoreElements()) {
-    var item = subDirectories.getNext();
-    var directory = item.QueryInterface(Ci.nsIAbDirectory);
+    var directory = subDirectories.getNext().QueryInterface(Ci.nsIAbDirectory);
     if (directory.isMailList) {
       var listName = directory.dirName;
       var listDescription = directory.description;

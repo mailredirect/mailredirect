@@ -16,7 +16,7 @@
 
 <!ENTITY tasksMenu.label "Verktyg">
 <!ENTITY tasksMenu.accesskey "T">
-<!ENTITY messengerCmd.label "E-post &amp; Diskussionsgrupper">
+<!ENTITY messengerCmd.label "E-post &amp; diskussionsgrupper">
 <!ENTITY messengerCmd.accesskey "d">
 <!ENTITY addressBookCmd.label "Adressboken">
 <!ENTITY addressBookCmd.accesskey "a">
@@ -25,18 +25,19 @@
 <!ENTITY bounceButton.tooltip "Omdirigera meddelanden">
 <!ENTITY addressButton.label "Adressboken">
 <!ENTITY addressButton.tooltip "Gå till adressboken">
-<!ENTITY throbberItem.title "Activity Indicator">
+<!ENTITY throbberItem.title "Aktivitetsindikator">
 <!ENTITY throbber.tooltip "Gå till &vendorShortName; hemsida">
 
 <!ENTITY closeCmd.key "W">
-<!ENTITY messengerCmd.commandkey "1">
+<!ENTITY closeCmd.modifiers "accel">
+<!ENTITY messengerCmd.key "1">
 <!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY addressBookCmd.commandkey "2">
+<!ENTITY addressBookCmd.key "2">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
 <!ENTITY customizeToolbar.label "Anpassa…">
 <!ENTITY customizeToolbar.accesskey "A">
-<!ENTITY showBounceToolbarCmd.label "Omdirigera Verktygsfältet">
+<!ENTITY showBounceToolbarCmd.label "Omdirigeringsfältet">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Statusfält">
 <!ENTITY showStatusbarCmd.accesskey "S">
@@ -48,8 +49,8 @@
      label -->
 <!ENTITY headersSpace.style "width: 14em;">
 
-<!ENTITY resendFromAddr.label "Omdirigera-Konto:">
-<!ENTITY resendFromAddr.accesskey "K">
+<!ENTITY resendFromAddr.label "Omdirigeringskonto:">
+<!ENTITY resendFromAddr.accesskey "k">
 
 <!ENTITY resendToAddr.label "Omdirigera-Till:">
 <!ENTITY resendCcAddr.label "Omdirigera-Kopia:">
