@@ -2,3 +2,4 @@
 <!ENTITY bounceCommand.accesskey "H">
 <!ENTITY bounceCommand.tooltip "Heradresseer geselecteerde bericht">
 <!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">

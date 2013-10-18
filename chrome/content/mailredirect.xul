@@ -19,7 +19,7 @@
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect.js"/>
 
   <keyset id="mailKeys">
-    <key id="key_mailredirect" modifiers="accel" key="&bounceMsgCmd.key;"
+    <key id="key_mailredirect" key="&bounceMsgCmd.key;" modifiers="&bounceMsgCmd.modifiers;"
       oncommand="goDoCommand('cmd_mailredirect')"/>
   </keyset>
 

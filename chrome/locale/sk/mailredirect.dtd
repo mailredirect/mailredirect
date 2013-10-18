@@ -2,3 +2,4 @@
 <!ENTITY bounceCommand.accesskey "P">
 <!ENTITY bounceCommand.tooltip "Presmeruje vybranú správu na niekoho iného">
 <!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">

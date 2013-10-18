@@ -2,3 +2,4 @@
 <!ENTITY bounceCommand.accesskey "j">
 <!ENTITY bounceCommand.tooltip "Przekieruj wybrane wiadomości">
 <!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">

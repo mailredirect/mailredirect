@@ -2,3 +2,4 @@
 <!ENTITY bounceCommand.accesskey "П">
 <!ENTITY bounceCommand.tooltip "Перенаправить выбранные сообщения">
 <!ENTITY bounceMsgCmd.key "П">
+<!ENTITY bounceMsgCmd.modifiers "accel">

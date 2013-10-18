@@ -2,3 +2,4 @@
 <!ENTITY bounceCommand.accesskey "t">
 <!ENTITY bounceCommand.tooltip "Přesměruje vybrané zprávy">
 <!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">
