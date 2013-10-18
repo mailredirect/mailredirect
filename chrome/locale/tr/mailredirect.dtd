@@ -1,0 +1,5 @@
+<!ENTITY bounceCommand.label "Yönlendir">
+<!ENTITY bounceCommand.accesskey "y">
+<!ENTITY bounceCommand.tooltip "Seçili mesajları yönlendir">
+<!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">
