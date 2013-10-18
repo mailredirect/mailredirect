@@ -5,33 +5,41 @@
 <!ENTITY copyToSentMails.label "Lägg till en kopia av omdirigerade brev i mappen Skickat?">
 <!ENTITY copyToSentMails.accesskey "L">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Om detta alternativ är valt, kommer en kopia av omdirigerade brev att sparas i mappen Skickat. Om detta alternativ inte är valt, sparas ingen kopia i någon mapp. \nNotera: Om alternativet är valt och din kontoinställning som använts för omdirigering är &quot;spara inga kopior för skickade brev&quot;, kommer inga omdirigerade brev att sparas ändå.">
+<!ENTITY copyToSentMails.tooltip "Om alternativet aktiveras kommer en kopia av omdirigerade brev att sparas i mappen Skickat. Om det inte är aktiverat, sparas ingen kopia i någon mapp. \nObs: Om alternativet är aktiverat men inställningen för kontot som används för omdirigering är &quot;spara inga kopior för skickade brev&quot;, så kommer inga omdirigerade brev att sparas.">
 
-<!ENTITY concurrentConnections.label "Antal samtidiga SMTP anslutningar:">
+<!ENTITY concurrentConnections.label "Antal samtidiga SMTP-anslutningar:">
 <!ENTITY concurrentConnections.accesskey "n">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "Detta värde bestämmer antalet anslutningar som kommer att etableras till din SMTP server när meddelanden skickas. I allmänhet låter detta dig öka prestandan när du väljer att skicka stora mängder brev.\nNotera: Om du sätter detta värde till 0(noll) kommer inga begränsningar att gälla. Tänk på att detta kan påverka stabiliteten på din SMTP server eller att sändningen av vissa brev misslyckas. Om du stöter på några problem så sätt detta värde till 1.">
+<!ENTITY concurrentConnections.tooltip "Detta värde bestämmer antalet anslutningar som tillåts upprättas till din SMTP-server när meddelanden skickas. I allmänhet låter detta dig öka prestandan när du väljer att skicka stora mängder brev.\nObs: Om värdet anges till 0 (noll) kan ett obegränsat antal anslutningar upprättas. Det kan påverka stabiliteten hos din SMTP-server och leda till att sändningen av vissa brev misslyckas. Om du stöter på problem, ange detta värde till 1.">
 
 <!ENTITY defaultRecipientsGroup.label "Standardmottagare">
 
 <!ENTITY defaultResendTo.label "Omdirigera-Till:">
 <!ENTITY defaultResendTo.accesskey "T">
-<!ENTITY defaultResendTo.tooltip "Kommaseparerad lista över e-postadresser.">
+<!ENTITY defaultResendTo.tooltip "Kommaavgränsad lista över e-postadresser.">
 
 <!ENTITY defaultResendCc.label "Omdirigera-Kopia:">
 <!ENTITY defaultResendCc.accesskey "K">
-<!ENTITY defaultResendCc.tooltip "Kommaseparerad lista över e-postadresser.">
+<!ENTITY defaultResendCc.tooltip "Kommaavgränsad lista över e-postadresser.">
 
 <!ENTITY defaultResendBcc.label "Omdirigera-Dold kopia:">
 <!ENTITY defaultResendBcc.accesskey "D">
-<!ENTITY defaultResendBcc.tooltip "Kommaseparerad lista över e-postadresser.">
+<!ENTITY defaultResendBcc.tooltip "Kommaavgränsad lista över e-postadresser.">
+
+<!ENTITY defaultMode.label "Standardläge:">
+<!ENTITY defaultMode.accesskey "l">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Välj hur meddelanden skall omdirigeras som standard.\nDetta alternativ har endast effekt när du inte har angivit någon standardmottagare.">
+<!ENTITY defaultModeResendTo.label "Skicka igen-Till">
+<!ENTITY defaultModeResendCc.label "Skicka igen-Kopia">
+<!ENTITY defaultModeResendBcc.label "Skicka igen-Dold kopia">
 
 <!ENTITY debug.label "Felsökning">
 <!ENTITY debug.accesskey "F">
-<!ENTITY debug.tooltip "Slå på/av felsökning av omdirigerings tillägget. Loggar skickas till JavaScript-konsolen.">
+<!ENTITY debug.tooltip "Aktivera/inaktivera felsökning av tillägget. Loggar skickas till JavaScript-konsolen.">
 
 <!ENTITY saveConsoleContent.label "Spara innehållet i JavaScript-konsolen…">
 <!ENTITY saveConsoleContent.accesskey "S">
 
 <!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Omdirigera Brev">
+<!ENTITY mailredirectSettings.label "Mail Redirect">

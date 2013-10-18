@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "y">
 <!ENTITY defaultResendBcc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
 
+<!ENTITY defaultMode.label "Domyślny tryb:">
+<!ENTITY defaultMode.accesskey "M">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Wybierz domyślny sposób przekierowywania wiadomości.\nTo ustawienie ma tylko zastosowanie, gdy nie jest określony żaden domyślny odbiorca.">
+<!ENTITY defaultModeResendTo.label "Wyślij ponownie – Do">
+<!ENTITY defaultModeResendCc.label "Wyślij ponownie – Kopia">
+<!ENTITY defaultModeResendBcc.label "Wyślij ponownie – Ukryta kopia">
+
 <!ENTITY debug.label "Debuguj">
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Włącza/wyłącza wykrywanie błędów tego rozszerzenia. Wykryte błędy są wyświetlane w konsoli błędów.">

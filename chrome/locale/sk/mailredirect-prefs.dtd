@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "y">
 <!ENTITY defaultResendBcc.tooltip "Čiarkami oddelený zoznam e-mailových adries.">
 
+<!-- ENTITY defaultMode.label "" -->
+<!-- ENTITY defaultMode.accesskey "" -->
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- ENTITY defaultMode.tooltip "" -->
+<!-- ENTITY defaultModeResendTo.label "" -->
+<!-- ENTITY defaultModeResendCc.label "" -->
+<!-- ENTITY defaultModeResendBcc.label "" -->
+
 <!ENTITY debug.label "Ladiť">
 <!ENTITY debug.accesskey "L">
 <!ENTITY debug.tooltip "Zapnúť / vypnúť ladenie MailRedirect. Komentáre o ladení sú zapisované do konzoly JavaScript.">

@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "Komma-separierte Liste von E-Mail-Adressen">
 
+<!ENTITY defaultMode.label "Standardmodus:">
+<!ENTITY defaultMode.accesskey "S">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Wählen Sie, wie die Nachrichten standardmäßig umgeleitet werden sollen.\nDiese Einstellung ist nur aktiv, wenn keine voreingestellten Empfänger festgelegt sind.">
+<!ENTITY defaultModeResendTo.label "Umleiten-An">
+<!ENTITY defaultModeResendCc.label "Umleiten-CC">
+<!ENTITY defaultModeResendBcc.label "Umleiten-BCC">
+
 <!ENTITY debug.label "Fehlersuche aktivieren">
 <!ENTITY debug.accesskey "F">
 <!ENTITY debug.tooltip "An-/Abschalten des Debuggings für die Umleitungserweiterung. Logs werden in die Fehlerkonsole geschrieben.">

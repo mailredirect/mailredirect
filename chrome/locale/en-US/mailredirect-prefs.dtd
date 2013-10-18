@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "Comma separated list of e-mail addresses.">
 
+<!ENTITY defaultMode.label "Default mode:">
+<!ENTITY defaultMode.accesskey "m">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Choose how you want to redirect messages by default\nThis setting only has effect when you have not specified any default recipients.">
+<!ENTITY defaultModeResendTo.label "Resend-To">
+<!ENTITY defaultModeResendCc.label "Resend-Cc">
+<!ENTITY defaultModeResendBcc.label "Resend-Bcc">
+
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Turn on/off debugging for mailredirect extension. Logs are directed to JavaScript Console.">

@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "メールアドレスはカンマで区切ってください。">
 
+<!ENTITY defaultMode.label "既定モード:">
+<!ENTITY defaultMode.accesskey "m">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "メッセージをリダイレクトするときの既定の動作を選択してください\nこの設定は指定された既定の受信者が存在しないときに有効になります。">
+<!ENTITY defaultModeResendTo.label "再送信先">
+<!ENTITY defaultModeResendCc.label "再送信先(CC)">
+<!ENTITY defaultModeResendBcc.label "再送信先(BCC)">
+
 <!ENTITY debug.label "デバッグ">
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Mail Redirect 拡張機能のデバッグのオン/オフを切り替えます。ログはエラーコンソールに表示されます。">

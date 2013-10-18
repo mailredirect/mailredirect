@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "a">
 <!ENTITY defaultResendBcc.tooltip "Lista di indirizzi e-mail predefiniti, separati da virgole, ai quali reindirizzare in copia carbone nascosta i messaggi di posta">
 
+<!ENTITY defaultMode.label "Metodo predefinito:">
+<!ENTITY defaultMode.accesskey "M">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Selezionare quale metodo utilizzare per reindirizzare i messaggi\nNota: questa opzione ha effetto solo quando non viene specificato alcun destinatario">
+<!ENTITY defaultModeResendTo.label "Reindirizza a:">
+<!ENTITY defaultModeResendCc.label "Reindirizza in Cc a:">
+<!ENTITY defaultModeResendBcc.label "Reindirizza in Ccn a:">
+
 <!ENTITY debug.label "Attiva/disattiva il debug">
 <!ENTITY debug.accesskey "d">
 <!ENTITY debug.tooltip "Attiva/disattiva il debug degli errori per MailRedirect. La registrazione degli errori verrà salvata nella console JavaScript">

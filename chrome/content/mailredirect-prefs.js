@@ -8,6 +8,17 @@ const mailredirect_MODE_TRUNCATE = 0x20;
 
 window.MailredirectPrefs = {
 
+  updateDefaultMode: function()
+  {
+    var defaultResendTo = document.getElementById("defaultResendTo");
+    var defaultResendCc = document.getElementById("defaultResendCc");
+    var defaultResendBcc = document.getElementById("defaultResendBcc");
+    var defaultMode = document.getElementById("defaultMode");
+    defaultMode.disabled = !(defaultResendTo.value.match(/^\s*$/) &&
+                             defaultResendCc.value.match(/^\s*$/) &&
+                             defaultResendBcc.value.match(/^\s*$/));
+  },
+
   saveConsoleContent: function()
   {
     const nsIFilePicker = Components.interfaces.nsIFilePicker;

@@ -14,17 +14,25 @@
 
 <!ENTITY defaultRecipientsGroup.label "Výchozí příjemci">
 
-<!ENTITY defaultResendTo.label "Komu:">
+<!ENTITY defaultResendTo.label "Přeposlat-Komu:">
 <!ENTITY defaultResendTo.accesskey "K">
 <!ENTITY defaultResendTo.tooltip "Seznam e-mailových adres oddělených čárkami.">
 
-<!ENTITY defaultResendCc.label "Kopie:">
+<!ENTITY defaultResendCc.label "Přeposlat-Kopie:">
 <!ENTITY defaultResendCc.accesskey "p">
 <!ENTITY defaultResendCc.tooltip "Seznam e-mailových adres oddělených čárkami.">
 
-<!ENTITY defaultResendBcc.label "Skrytá kopie:">
+<!ENTITY defaultResendBcc.label "Přeposlat-Skrytá kopie:">
 <!ENTITY defaultResendBcc.accesskey "y">
 <!ENTITY defaultResendBcc.tooltip "Seznam e-mailových adres oddělených čárkami.">
+
+<!ENTITY defaultMode.label "Výchozí režim:">
+<!ENTITY defaultMode.accesskey "r">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Zvolte výchozí přesměrování zpráv.\nNastavení se uplatní pouze tehdy, nebudou-li uvedeni výchozí příjemci.">
+<!ENTITY defaultModeResendTo.label "Přeposlat-Komu">
+<!ENTITY defaultModeResendCc.label "Přeposlat-Kopie">
+<!ENTITY defaultModeResendBcc.label "Přeposlat-Skrytá kopie">
 
 <!ENTITY debug.label "Ladit">
 <!ENTITY debug.accesskey "d">

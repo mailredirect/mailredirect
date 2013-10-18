@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "o">
 <!ENTITY defaultResendBcc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
 
+<!-- ENTITY defaultMode.label "" -->
+<!-- ENTITY defaultMode.accesskey "" -->
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- ENTITY defaultMode.tooltip "" -->
+<!-- ENTITY defaultModeResendTo.label "" -->
+<!-- ENTITY defaultModeResendCc.label "" -->
+<!-- ENTITY defaultModeResendBcc.label "" -->
+
 <!ENTITY debug.label "Debugar">
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Ligar/desligar extensões de debug do MailRedirect. Logs são enviados para a console do JavaScript.">

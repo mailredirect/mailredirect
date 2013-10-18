@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "Lista de direcciones de correo separadas por comas.">
 
+<!ENTITY defaultMode.label "Modo por defecto:">
+<!ENTITY defaultMode.accesskey "M">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Escoja la opción predeterminada para redirigir sus mensajes.\nEsta opción sólo tendrá efecto cuando no haya especificado ningún receptor por defecto.">
+<!ENTITY defaultModeResendTo.label "Redirigir-A">
+<!ENTITY defaultModeResendCc.label "Redirigir-Cc">
+<!ENTITY defaultModeResendBcc.label "Redirigir-Bcc">
+
 <!ENTITY debug.label "Depuración">
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Habilitar la depuración para la extensión. Los registros aparecen en la consola Javascript.">

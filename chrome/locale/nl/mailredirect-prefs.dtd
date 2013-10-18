@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "Comma-gescheiden lijst van e-mailadressen.">
 
+<!ENTITY defaultMode.label "Standaard manier:">
+<!ENTITY defaultMode.accesskey "m">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Kies hoe je berichten standaard wilt heradresseren\nDeze instelling heeft alleen effect als je geen standaard ontvanngers hebt ingesteld.">
+<!ENTITY defaultModeResendTo.label "Heradresseer-Aan">
+<!ENTITY defaultModeResendCc.label "Heradresseer-Cc">
+<!ENTITY defaultModeResendBcc.label "Heradresseer-Bcc">
+
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Debuggen van Heradresseer extensie aan/uit zetten. Meldingen komen op de JavaScript Foutconsole.">

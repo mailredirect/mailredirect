@@ -26,6 +26,14 @@
 <!ENTITY defaultResendBcc.accesskey "р">
 <!ENTITY defaultResendBcc.tooltip "Список адресов, разделенных запятыми.">
 
+<!ENTITY defaultMode.label "Стандартный режим:">
+<!ENTITY defaultMode.accesskey "С">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Укажите стандартный способ перенаправления\nНастройка действует только если не указаны получатели по умолчанию.">
+<!ENTITY defaultModeResendTo.label "Перенаправить">
+<!ENTITY defaultModeResendCc.label "Копия">
+<!ENTITY defaultModeResendBcc.label "Скрытая копия">
+
 <!ENTITY debug.label "Отладка">
 <!ENTITY debug.accesskey "т">
 <!ENTITY debug.tooltip "Включение/Выключение отладки расширения Mail Redirect. Отладочные сообщения выводятся в консоль JavaScript.">
