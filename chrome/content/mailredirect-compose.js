@@ -2207,9 +2207,6 @@ function WhichElementHasFocus()
   var msgIdentityElement             = document.getElementById("msgIdentity");
   var msgAddressingWidgetTreeElement = document.getElementById("addressingWidget");
 
-  if (top.document.commandDispatcher.focusedWindow === content)
-    return content;
-
   var currentNode = top.document.commandDispatcher.focusedElement;
   while (currentNode)
   {
@@ -2237,14 +2234,29 @@ function SwitchElementFocus(event)
   if (!event) return;
 
   var focusedElement = WhichElementHasFocus();
+  var msgIdentityElement = document.getElementById("msgIdentity");
   var addressingWidget = document.getElementById("addressingWidget");
+  var bounceTree = document.getElementById("bounceTree");
 
-  if (focusedElement === addressingWidget) {
-    document.getElementById("msgIdentity").focus();
+  if (event.shiftKey)
+  {
+    if (focusedElement === msgIdentityElement) {
+      bounceTree.focus();
+    } else if (focusedElement === addressingWidget) {
+      msgIdentityElement.focus();
+    } else {
+      var element = document.getElementById("addressCol2#" + awGetNumberOfRecipients());
+      awSetFocus(awGetNumberOfRecipients(), element);
+    }
   } else {
-    // addressingWidget.focus();
-    var element = document.getElementById("addressCol2#" + awGetNumberOfRecipients());
-    awSetFocus(awGetNumberOfRecipients(), element);
+    if (focusedElement === msgIdentityElement) {
+      var element = document.getElementById("addressCol2#" + awGetNumberOfRecipients());
+      awSetFocus(awGetNumberOfRecipients(), element);
+    } else if (focusedElement === addressingWidget) {
+      bounceTree.focus();
+    } else {
+      msgIdentityElement.focus();
+    }
   }
 }
 
