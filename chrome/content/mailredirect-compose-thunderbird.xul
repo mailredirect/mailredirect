@@ -84,12 +84,12 @@
     <key id="key_addressbook" key="&addressBookCmd.key;" modifiers="&addressBookCmd.modifiers;" oncommand="toAddressBook();"/>
 
     <!-- Tab/F6 Keys -->
-    <key keycode="VK_TAB" oncommand="SwitchElementFocus(event);" modifiers="control"/>
-    <key keycode="VK_TAB" oncommand="SwitchElementFocus(event);" modifiers="control,shift"/>
-    <key keycode="VK_F6" oncommand="SwitchElementFocus(event);" modifiers="control"/>
-    <key keycode="VK_F6" oncommand="SwitchElementFocus(event);" modifiers="control,shift"/>
-    <key keycode="VK_F6" oncommand="SwitchElementFocus(event);" modifiers="shift"/>
-    <key keycode="VK_F6" oncommand="SwitchElementFocus(event);"/>
+    <key id="key_tab"           keycode="VK_TAB" modifiers="control"       oncommand="SwitchElementFocus(event);"/>
+    <key id="key_shift_tab"     keycode="VK_TAB" modifiers="control,shift" oncommand="SwitchElementFocus(event);"/>
+    <key id="key_f6"            keycode="VK_F6"                            oncommand="SwitchElementFocus(event);"/>
+    <key id="key_shift_f6"      keycode="VK_F6"  modifiers="shift"         oncommand="SwitchElementFocus(event);"/>
+    <key id="key_ctrl_f6"       keycode="VK_F6"  modifiers="control"       oncommand="SwitchElementFocus(event);"/>
+    <key id="key_ctrl_shift_f6" keycode="VK_F6"  modifiers="control,shift" oncommand="SwitchElementFocus(event);"/>
   </keyset>
 
 
