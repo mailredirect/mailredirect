@@ -429,7 +429,7 @@ function DropOnAddressingWidget(event)
 function DropRecipient(target, recipient)
 {
   // break down and add each address
-  return parseAndAddAddresses(recipient, awGetPopupElement(top.MAX_RECIPIENTS).selectedItem.getAttribute("value"));
+  return parseAndAddAddresses(recipient, awGetInputElement(top.MAX_RECIPIENTS).selectedItem.getAttribute("value"));
 }
 
 function _awSetAutoComplete(selectElem, inputElem)
