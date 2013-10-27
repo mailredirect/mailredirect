@@ -42,6 +42,12 @@
 <!ENTITY showStatusbarCmd.label "Statusfält">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
+<!ENTITY addressSidebar.label "Kontaktsidopanelen">
+<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressesSidebarTitle.label "Kontakter">
+<!ENTITY addressSidebarButton.label "Kontakter">
+<!ENTITY addressSidebarButton.tooltip "Välj en mottagare från adressboken">
+
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,

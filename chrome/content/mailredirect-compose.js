@@ -505,6 +505,11 @@ function getCurrentAccountKey()
   return identityList.selectedItem.getAttribute("accountkey");
 }
 
+function onRecipientsInput()
+{
+  setupAutocomplete();
+}
+
 function setupAutocomplete()
 {
   var autoCompleteWidget = document.getElementById("addressCol2#1");
@@ -845,8 +850,6 @@ function BounceLoad()
     toolbox.customizeChange = BounceToolboxCustomizeChange;
   }
 
-  var appInfo = Cc["@mozilla.org/xre/app-info;1"].
-                getService(Ci.nsIXULAppInfo);
   if (appInfo.ID === SEAMONKEY_ID) {
     toolbox.customizeInit = MailToolboxCustomizeInit;
     // toolbox.customizeDone = MailToolboxCustomizeDone;
@@ -859,6 +862,15 @@ function BounceLoad()
   // Prevent resizing the subject and format toolbar over the addressswidget.
   var headerToolbar = document.getElementById("addressingToolbar");
   headerToolbar.minHeight = headerToolbar.boxObject.height;
+
+  // finally, see if we need to auto open the address sidebar.
+  var sideBarBox = document.getElementById('sidebar-box');
+  if (sideBarBox.getAttribute("sidebarVisible") === "true")
+  {
+    // if we aren't supposed to have the side bar hidden, make sure it is visible
+    if (document.getElementById("sidebar").getAttribute("src") === "")
+      setTimeout(function() { toggleAddressPicker() }, 0); // do this on a delay so we don't hurt perf. on bringing up a new compose window
+  }
 }
 
 function AdjustFocus()
@@ -2256,6 +2268,133 @@ function SwitchElementFocus(event)
       bounceTree.focus();
     } else {
       msgIdentityElement.focus();
+    }
+  }
+}
+
+function toggleAddressPicker()
+{
+  var sidebarBox = document.getElementById("sidebar-box");
+  var sidebarSplitter = document.getElementById("sidebar-splitter");
+  var el = document.getElementById("viewAddressPicker");
+  if (sidebarBox.hidden)
+  {
+    sidebarBox.hidden = false;
+    sidebarSplitter.hidden = false;
+    el.setAttribute("checked","true");
+
+    var sidebar = document.getElementById("sidebar");
+    var sidebarUrl = sidebar.getAttribute("src");
+    // if we have yet to initialize the src url on the sidebar than go ahead and do so now...
+    // we do this lazily here, so we don't spend time when bringing up the compose window loading the address book
+    // data sources. Only when the user opens the address picker do we set the src url for the sidebar...
+    if (sidebarUrl === "") {
+      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      if (appInfo.ID === THUNDERBIRD_ID) {
+        sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
+      }
+      else if (appInfo.ID === SEAMONKEY_ID) {
+        sidebar.setAttribute("src", "chrome://messenger/content/addressbook/addressbook-panel.xul");
+      }
+      setTimeout(function() { renameToToResendTo() }, 100);
+    }
+
+    sidebarBox.setAttribute("sidebarVisible", "true");
+  }
+  else
+  {
+    sidebarBox.hidden = true;
+    sidebarSplitter.hidden = true;
+    sidebarBox.setAttribute("sidebarVisible", "false");
+    el.removeAttribute("checked");
+  }
+}
+
+// public method called by the address picker sidebar
+function AddRecipient(recipientType, address)
+{
+  awAddRecipient(recipientType, address);
+  onRecipientsInput();
+}
+
+function renameToToResendTo()
+{
+  var el = document.getElementById("sidebar");
+  if (el === null)
+  {
+    setTimeout(function() { renameToToResendTo() }, 100);
+  }
+  else
+  {
+    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+    if (appInfo.ID === THUNDERBIRD_ID) {
+      var cardProperties = el.contentDocument.getElementById("cardProperties");
+      if (cardProperties === null)
+      {
+        setTimeout(function() { renameToToResendTo() }, 100);
+      } else {
+        var menuitems = cardProperties.getElementsByTagName("menuitem");
+        menuitems.item(2).setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelTB"));
+        menuitems.item(2).setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeyTB"));
+        menuitems.item(2).setAttribute("oncommand", "addSelectedAddresses('addr_resendTo');");
+        menuitems.item(3).setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelTB"));
+        menuitems.item(3).setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeyTB"));
+        menuitems.item(3).setAttribute("oncommand", "addSelectedAddresses('addr_resendCc');");
+        menuitems.item(4).setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelTB"));
+        menuitems.item(4).setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeyTB"));
+        menuitems.item(4).setAttribute("oncommand", "addSelectedAddresses('addr_resendBcc');");
+
+        var button = el.contentDocument.getElementById("toButton");
+        button.setAttribute("label", BounceMsgsBundle.getString("resendToButtonLabel"));
+        button.setAttribute("accesskey", BounceMsgsBundle.getString("resendToButtonAccesskey"));
+        button.setAttribute("oncommand", "addSelectedAddresses('addr_resendTo');");
+        button = el.contentDocument.getElementById("ccButton");
+        button.setAttribute("label", BounceMsgsBundle.getString("resendCcButtonLabel"));
+        button.setAttribute("accesskey", BounceMsgsBundle.getString("resendCcButtonAccesskey"));
+        button.setAttribute("oncommand", "addSelectedAddresses('addr_resendCc');");
+        button = el.contentDocument.getElementById("bccButton");
+        button.setAttribute("label", BounceMsgsBundle.getString("resendBccButtonLabel"));
+        button.setAttribute("crop", "center");
+        button.setAttribute("accesskey", BounceMsgsBundle.getString("resendBccButtonAccesskey"));
+        button.setAttribute("oncommand", "addSelectedAddresses('addr_resendBcc');");
+
+        // Move bccButton down
+        if (false)
+        {
+          var spacer = button.previousSibling;
+          spacer.parentNode.removeChild(spacer);
+          var hboxCc = button.parentNode;
+          var hboxBcc = document.createElement("hbox");
+          hboxBcc.appendChild(document.createElement("spring"));
+          hboxBcc.childNodes[0].setAttribute("flex", 1);
+          hboxBcc.appendChild(button);
+          hboxBcc.appendChild(document.createElement("spring"));
+          hboxBcc.childNodes[2].setAttribute("flex", 1);
+          hboxCc.parentNode.insertBefore(hboxBcc, hboxCc.nextSibling);
+        }
+      }
+    }
+    else if (appInfo.ID === SEAMONKEY_ID) {
+      var popup = el.contentDocument.getElementById("composeMail");
+      if (popup === null)
+      {
+        setTimeout(function() { renameToToResendTo() }, 100);
+      } else {
+        parent.document.documentElement.setAttribute("windowtype", "msgcompose"); // Make AbPanelLoad believe this is a msgcompose window so it displays the right menuitems
+        popup.childNodes[0].setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelSM"));
+        popup.childNodes[0].setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeySM"));
+        popup.childNodes[0].setAttribute("oncommand", "AbPanelAdd('addr_resendTo');");
+        popup.childNodes[1].setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelSM"));
+        popup.childNodes[1].setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeySM"));
+        popup.childNodes[1].setAttribute("oncommand", "AbPanelAdd('addr_resendCc');");
+        popup.childNodes[2].setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelSM"));
+        popup.childNodes[2].setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeySM"));
+        popup.childNodes[2].setAttribute("oncommand", "AbPanelAdd('addr_resendBcc');");
+        for (var i = 0; i < 4; i++)
+          popup.childNodes[i].hidden = false;
+        popup.childNodes[4].hidden = true;
+      }
     }
   }
 }

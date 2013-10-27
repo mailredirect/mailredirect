@@ -42,6 +42,12 @@
 <!ENTITY showStatusbarCmd.label "状态栏">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
+<!ENTITY addressSidebar.label "联系人侧边拦">
+<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressesSidebarTitle.label "联系人">
+<!ENTITY addressSidebarButton.label "联系人">
+<!ENTITY addressSidebarButton.tooltip "从通讯录中选择收件人">
+
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,

@@ -1,8 +1,8 @@
-<!ENTITY msgMailRedirectWindow.title "Correo Reexpedir">
+<!ENTITY msgMailRedirectWindow.title "Redirigir Correo">
 
 <!ENTITY fileMenu.label "Archivo">
 <!ENTITY fileMenu.accesskey "A">
-<!ENTITY forwardBounce.label "Reexpedir">
+<!ENTITY forwardBounce.label "Redirigir Correo">
 <!ENTITY forwardBounce.accesskey "i">
 <!ENTITY closeCmd.label "Cerrar">
 <!ENTITY closeCmd.accesskey "C">
@@ -41,6 +41,12 @@
 <!ENTITY showBounceToolbarCmd.accesskey "R">
 <!ENTITY showStatusbarCmd.label "Barra de estado">
 <!ENTITY showStatusbarCmd.accesskey "s">
+
+<!ENTITY addressSidebar.label "Barra Lateral de Contactos">
+<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressesSidebarTitle.label "Contactos">
+<!ENTITY addressSidebarButton.label "Contactos">
+<!ENTITY addressSidebarButton.tooltip "Seleccione un destinatario de una libreta de direcciones">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 

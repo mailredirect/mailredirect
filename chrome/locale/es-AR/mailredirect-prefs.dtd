@@ -14,8 +14,8 @@
 
 <!ENTITY defaultRecipientsGroup.label "Destinatarios predeterminados">
 
-<!ENTITY defaultResendTo.label "Reenviado-a:">
-<!ENTITY defaultResendTo.accesskey "a">
+<!ENTITY defaultResendTo.label "Reenviado-A:">
+<!ENTITY defaultResendTo.accesskey "A">
 <!ENTITY defaultResendTo.tooltip "Lista separada por comas de direcciones de correo electrónico.">
 
 <!ENTITY defaultResendCc.label "Reenviado-Cc:">

@@ -42,6 +42,12 @@
 <!ENTITY showStatusbarCmd.label "Status Bar">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
+<!ENTITY addressSidebar.label "Contacts Sidebar">
+<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressesSidebarTitle.label "Contacts">
+<!ENTITY addressSidebarButton.label "Contacts">
+<!ENTITY addressSidebarButton.tooltip "Select a recipient from an Address Book">
+
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,

@@ -15,7 +15,7 @@
 <!ENTITY defaultRecipientsGroup.label "Varsayılan Alıcılar">
 
 <!ENTITY defaultResendTo.label "YineGönder-Kime:">
-<!ENTITY defaultResendTo.accesskey "A">
+<!ENTITY defaultResendTo.accesskey "K">
 <!ENTITY defaultResendTo.tooltip "Virgülle ayrılmış e-posta adresleri.">
 
 <!ENTITY defaultResendCc.label "YineGönder-Çoklu:">

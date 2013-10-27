@@ -11,3 +11,33 @@
 #bounceToolbar > .toolbar-holder > .toolbar-primary-icon {
   list-style-image: url("chrome://messenger/skin/icons/mast-mail.gif");
 }
+
+/* ..... close button ..... */
+
+#sidebar-close-button {
+  margin: 0px 1px;
+  -moz-binding: url("chrome://global/content/bindings/toolbarbutton.xml#toolbarbutton-image");
+  padding: 0px;
+  list-style-image: url("chrome://global/skin/icons/closebox.gif");
+}
+
+#sidebar-close-button > .toolbarbutton-icon {
+  margin: 0px;
+}
+
+#button-contacts {
+  list-style-image: url("chrome://messenger/skin/icons/btn1.gif");
+  -moz-image-region: rect(476px 49px 509px 0);
+}
+
+#button-contacts:hover {
+  -moz-image-region: rect(476px 99px 509px 50px);
+}
+
+#button-contacts:hover:active {
+  -moz-image-region: rect(476px 149px 509px 100px);
+}
+
+#button-contacts[disabled="true"] {
+  -moz-image-region: rect(476px 199px 509px 150px) !important;
+}

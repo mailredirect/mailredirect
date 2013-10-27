@@ -42,6 +42,12 @@
 <!ENTITY showStatusbarCmd.label "Statuslinje">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
+<!ENTITY addressSidebar.label "Kontakter">
+<!ENTITY addressSidebar.accesskey "K">
+<!ENTITY addressesSidebarTitle.label "Kontakter">
+<!ENTITY addressSidebarButton.label "Kontakter">
+<!ENTITY addressSidebarButton.tooltip "Vælg en modtager fra en adressebog">
+
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,

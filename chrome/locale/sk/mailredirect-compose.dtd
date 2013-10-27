@@ -42,6 +42,12 @@
 <!ENTITY showStatusbarCmd.label "Stavový riadok">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
+<!-- ENTITY addressSidebar.label "" -->
+<!-- ENTITY addressSidebar.accesskey "" -->
+<!-- ENTITY addressesSidebarTitle.label "" -->
+<!-- ENTITY addressSidebarButton.label "" -->
+<!-- ENTITY addressSidebarButton.tooltip "" -->
+
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,

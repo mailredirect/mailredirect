@@ -3,7 +3,7 @@
 <!ENTITY prefsGroup.label "首选项">
 
 <!ENTITY copyToSentMails.label "在已发送文件夹保存重定向邮件副本？">
-<!ENTITY copyToSentMails.accesskey "c">
+<!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "选中此项，将会在已发送文件夹下保存重定向消息的副本。不选此项，不会保存重定向消息的副本到任何文件夹。\n注意：如果选中此项但是重定向消息所在账户的设置是“不保存已发送消息”，那么重定向消息也不会被保存。">
 
@@ -29,10 +29,10 @@
 <!ENTITY defaultMode.label "默认模式：">
 <!ENTITY defaultMode.accesskey "m">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "选择默认的重定向消息方式\n此设置仅在未指定任何默认收件人时生效。">
+<!ENTITY defaultMode.tooltip "选择你希望的邮件重定向默认方式\n此设置仅在你未设置默认联系人时有效。">
 <!ENTITY defaultModeResendTo.label "重定向收件人">
 <!ENTITY defaultModeResendCc.label "重定向抄送">
-<!ENTITY defaultModeResendBcc.label "重定向密件抄送">
+<!ENTITY defaultModeResendBcc.label "重定向密送">
 
 <!ENTITY debug.label "调试">
 <!ENTITY debug.accesskey "D">

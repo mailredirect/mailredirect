@@ -83,6 +83,7 @@
 
   <broadcasterset id="mainBroadcasterSet">
     <broadcaster id="cmd_CustomizeMailredirectToolbar"/>
+    <broadcaster id="viewAddressPicker" autoCheck="false" type="checkbox" oncommand="toggleAddressPicker();"/>
   </broadcasterset>
 
   <keyset id="mailKeys">
@@ -92,6 +93,9 @@
     <!-- File Menu -->
     <key id="key_bounce" keycode="VK_RETURN" modifiers="accel" observes="cmd_mailredirect_withcheck"/>
     <key id="key_close" key="&closeCmd.key;" modifiers="&closeCmd.modifiers;" command="cmd_mailredirect_close"/>
+
+    <!-- View Menu -->
+    <key id="key_addressSidebar" keycode="VK_F9" oncommand="toggleAddressPicker();"/>
 
     <!-- Tools Menu -->
     <key id="key_mail" key="&messengerCmd.key;" modifiers="&messengerCmd.modifiers;" oncommand="toMessengerWindow();"/>
@@ -167,6 +171,9 @@
                             checked="true"/>
                 </menupopup>
               </menu>
+              <menuitem id="menu_AddressSidebar"
+                        label="&addressSidebar.label;" accesskey="&addressSidebar.accesskey;"
+                        key="key_addressSidebar" observes="viewAddressPicker"/>
             </menupopup>
           </menu>
 
@@ -186,15 +193,20 @@
 
     <toolbarpalette id="MsgMailredirectToolbarPalette">
       <toolbarbutton class="toolbarbutton-1"
-        id="button-send"
-        observes="cmd_mailredirect_now"
-        label="&bounceButton.label;"
-        tooltiptext="&bounceButton.tooltip;">
-      </toolbarbutton>
+                     id="button-send"
+                     observes="cmd_mailredirect_now"
+                     label="&bounceButton.label;"
+                     tooltiptext="&bounceButton.tooltip;"/>
       <toolbarbutton class="toolbarbutton-1"
-        id="button-address" label="&addressButton.label;"
-        tooltiptext="&addressButton.tooltip;"
-        oncommand="toAddressBook();"/>
+                     id="button-address"
+                     label="&addressButton.label;"
+                     tooltiptext="&addressButton.tooltip;"
+                     oncommand="toAddressBook();"/>
+      <toolbarbutton class="toolbarbutton-1"
+                     id="button-contacts"
+                     label="&addressSidebarButton.label;"
+                     tooltiptext="&addressSidebarButton.tooltip;"
+                     observes="viewAddressPicker"/>
       <toolbaritem id="throbber-box"
                    class="toolbaritem-noline"
                    removable="true"
@@ -225,94 +237,108 @@
     <toolbarset id="customToolbars" context="toolbar-context-menu"/>
   </toolbox>
 
-  <vbox flex="1">
-    <toolbox class="toolbox-top" mode="icons" flex="1">
-      <toolbar id="addressingToolbar" persist="collapsed" flex="0"
-               customizable="true" nowindowdrag="true"
-               class="chromeclass-toolbar"
-               ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
-               ondragdrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
-               ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);">
-        <vbox flex="1" id="addresses-box">
-          <hbox id="top-gradient-box">
-            <hbox align="center" pack="end" style="&headersSpace.style;">
-              <label value="&resendFromAddr.label;" accesskey="&resendFromAddr.accesskey;" control="msgIdentity"/>
+  <hbox flex="1">
+    <vbox id="sidebar-box" persist="sidebarVisible width" hidden="true">
+      <sidebarheader id="sidebarHeader" align="center">
+        <label id="sidebar-title" value="&addressesSidebarTitle.label;"/>
+        <spacer flex="1"/>
+        <toolbarbutton id="sidebar-close-button" class="ab-closebutton" oncommand="toggleAddressPicker();"/>
+      </sidebarheader>
+      <browser id="sidebar" flex="1" src="" disablehistory="true"
+               style="min-width: 150px; width: 200px; max-width: 400px;"/>
+    </vbox>
+
+    <splitter id="sidebar-splitter" hidden="true"/>
+
+    <vbox flex="1">
+      <toolbox class="toolbox-top" mode="icons" flex="1">
+        <toolbar id="addressingToolbar" persist="collapsed" flex="0"
+                 customizable="true" nowindowdrag="true"
+                 class="chromeclass-toolbar"
+                 ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
+                 ondragdrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
+                 ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);">
+          <vbox flex="1" id="addresses-box">
+            <hbox id="top-gradient-box">
+              <hbox align="center" pack="end" style="&headersSpace.style;">
+                <label value="&resendFromAddr.label;" accesskey="&resendFromAddr.accesskey;" control="msgIdentity"/>
+              </hbox>
+              <menulist id="msgIdentity" type="description" flex="1"
+                        oncommand="LoadIdentity(false);" disableonsend="true">
+                <menupopup id="msgIdentityPopup"/>
+              </menulist>
             </hbox>
-            <menulist id="msgIdentity" type="description" flex="1"
-                      oncommand="LoadIdentity(false);" disableonsend="true">
-              <menupopup id="msgIdentityPopup"/>
-            </menulist>
-          </hbox>
-          <listbox id="addressingWidget" flex="1" seltype="multiple" rows="4"
-                   onkeydown="awKeyDown(event, this)"
-                   onclick="awClickEmptySpace(event.originalTarget, true)">
-            <listcols>
-              <listcol id="typecol-addressingWidget" style="&headersSpace.style;"/>
-              <listcol id="textcol-addressingWidget" flex="1"/>
-            </listcols>
-            <listitem class="addressingWidgetItem" allowevents="true">
-              <listcell class="addressingWidgetCell" align="stretch">
-                <menulist id="addressCol1#1" disableonsend="true"
-                          class="aw-menulist menulist-compact" flex="1"
-                          oncommand="awSetAutoComplete(this.id.slice(this.id.lastIndexOf('#') + 1));">
-                  <menupopup>
-                    <menuitem value="addr_resendTo" label="&resendToAddr.label;"/>
-                    <menuitem value="addr_resendCc" label="&resendCcAddr.label;"/>
-                    <menuitem value="addr_resendBcc" label="&resendBccAddr.label;"/>
-                  </menupopup>
-                </menulist>
-              </listcell>
-              <listcell class="addressingWidgetCell">
-                <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"
-                         aria-labelledby="addressCol1#1"
-                         type="autocomplete" flex="1"
-                         autocompletesearch="mydomain addrbook"
-                         timeout="300" maxrows="4"
-                         completedefaultindex="true" forcecomplete="true"
-                         minresultsforpopup="3" ignoreblurwhilesearching="true"
-                         ontextentered="awRecipientTextCommand(eventParam, this)"
-                         onerrorcommand="awRecipientErrorCommand(eventParam, this)"
-                         oninput="setupAutocomplete();" disableonsend="true"
-                         onkeypress="awRecipientKeyPress(event, this)"
-                         onkeydown="awRecipientKeyDown(event, this)">
-                  <image class="person-icon" onclick="this.parentNode.select();"/>
-                </textbox>
-              </listcell>
-            </listitem>
-          </listbox>
+            <listbox id="addressingWidget" flex="1" seltype="multiple" rows="4"
+                     onkeydown="awKeyDown(event, this)"
+                     onclick="awClickEmptySpace(event.originalTarget, true)">
+              <listcols>
+                <listcol id="typecol-addressingWidget" style="&headersSpace.style;"/>
+                <listcol id="textcol-addressingWidget" flex="1"/>
+              </listcols>
+              <listitem class="addressingWidgetItem" allowevents="true">
+                <listcell class="addressingWidgetCell" align="stretch">
+                  <menulist id="addressCol1#1" disableonsend="true"
+                            class="aw-menulist menulist-compact" flex="1"
+                            oncommand="awSetAutoComplete(this.id.slice(this.id.lastIndexOf('#') + 1));">
+                    <menupopup>
+                      <menuitem value="addr_resendTo" label="&resendToAddr.label;"/>
+                      <menuitem value="addr_resendCc" label="&resendCcAddr.label;"/>
+                      <menuitem value="addr_resendBcc" label="&resendBccAddr.label;"/>
+                    </menupopup>
+                  </menulist>
+                </listcell>
+                <listcell class="addressingWidgetCell">
+                  <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"
+                           aria-labelledby="addressCol1#1"
+                           type="autocomplete" flex="1"
+                           autocompletesearch="mydomain addrbook"
+                           timeout="300" maxrows="4"
+                           completedefaultindex="true" forcecomplete="true"
+                           minresultsforpopup="3" ignoreblurwhilesearching="true"
+                           ontextentered="awRecipientTextCommand(eventParam, this)"
+                           onerrorcommand="awRecipientErrorCommand(eventParam, this)"
+                           oninput="setupAutocomplete();" disableonsend="true"
+                           onkeypress="awRecipientKeyPress(event, this)"
+                           onkeydown="awRecipientKeyDown(event, this)">
+                    <image class="person-icon" onclick="this.parentNode.select();"/>
+                  </textbox>
+                </listcell>
+              </listitem>
+            </listbox>
+          </vbox>
+        </toolbar>
+
+        <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" collapse="after"/>
+
+        <vbox id="bounceContentArea" flex="1">
+          <separator class="thin"/>
+            <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
+          <separator class="thin"/>
+          <tree id="bounceTree"
+                treelines="true"
+                flex="2"
+                hidecolumnpicker="true"
+                seltype="multiple"
+                class="plain"
+                disableKeyNavigation="true">
+            <treecols>
+              <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />
+              <splitter class="tree-splitter"/>
+              <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
+                       type="progressmeter" />
+            </treecols>
+            <treechildren id="topTreeChildren" flex="1"
+               ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
+               ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
+               ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
+            />
+          </tree>
         </vbox>
-      </toolbar>
-
-      <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" collapse="after"/>
-
-      <vbox id="bounceContentArea" flex="1">
-        <separator class="thin"/>
-          <label id="bounceMailsLabel" value="&bounceMailsLabel.label;"/>
-        <separator class="thin"/>
-        <tree id="bounceTree"
-              treelines="true"
-              flex="2"
-              hidecolumnpicker="true"
-              seltype="multiple"
-              class="plain"
-              disableKeyNavigation="true">
-          <treecols>
-            <treecol id="subjectCol" label="&subject.label;" flex="7" ignorecolumnpicker="true" persist="width" />
-            <splitter class="tree-splitter"/>
-            <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
-            <splitter class="tree-splitter"/>
-            <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
-                     type="progressmeter" />
-          </treecols>
-          <treechildren id="topTreeChildren" flex="1"
-             ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
-             ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
-             ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
-          />
-        </tree>
-      </vbox>
-    </toolbox>
-  </vbox>
+      </toolbox>
+    </vbox>
+  </hbox>
 
   <statusbar id="status-bar" class="chromeclass-status">
     <statusbarpanel id="statusText" flex="1"/>

@@ -42,6 +42,12 @@
 <!ENTITY showStatusbarCmd.label "Stavový řádek">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
+<!ENTITY addressSidebar.label "Postranní lišta s kontakty">
+<!ENTITY addressSidebar.accesskey "k">
+<!ENTITY addressesSidebarTitle.label "Kontakty">
+<!ENTITY addressSidebarButton.label "Kontakty">
+<!ENTITY addressSidebarButton.tooltip "Vyberte příjemce z adresáře">
+
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,

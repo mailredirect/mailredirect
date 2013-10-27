@@ -42,6 +42,12 @@
 <!ENTITY showStatusbarCmd.label "Statusbalk">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
+<!ENTITY addressSidebar.label "Adressenzijbalk">
+<!ENTITY addressSidebar.accesskey "A">
+<!ENTITY addressesSidebarTitle.label "Adresboek">
+<!ENTITY addressSidebarButton.label "Adresboek">
+<!ENTITY addressSidebarButton.tooltip "Een ontvanger uit een adresboek selecteren">
+
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
