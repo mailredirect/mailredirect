@@ -5,7 +5,7 @@
 const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
 const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
-Components.utils.import("resource:///modules/folderUtils.jsm"); // Gecko 19+
+Components.utils.import("resource:///modules/folderUtils.jsm"); // Gecko 2+ (TB3.3)
 Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
 Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
 Components.utils.import("resource://gre/modules/PluralForm.jsm");
