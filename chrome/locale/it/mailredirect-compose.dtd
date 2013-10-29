@@ -42,11 +42,11 @@
 <!ENTITY showStatusbarCmd.label "Barra di stato">
 <!ENTITY showStatusbarCmd.accesskey "t">
 
-<!-- ENTITY addressSidebar.label "" -->
-<!-- ENTITY addressSidebar.accesskey "" -->
-<!-- ENTITY addressesSidebarTitle.label "" -->
-<!-- ENTITY addressSidebarButton.label "" -->
-<!-- ENTITY addressSidebarButton.tooltip "" -->
+<!ENTITY addressSidebar.label "Barra laterale dei contatti">
+<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressesSidebarTitle.label "Contatti">
+<!ENTITY addressSidebarButton.label "Contatti">
+<!ENTITY addressSidebarButton.tooltip "Selezionare il destinatario da una delle rubriche">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
