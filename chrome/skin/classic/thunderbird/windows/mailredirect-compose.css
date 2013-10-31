@@ -1,3 +1,9 @@
+#bounceTree treechildren::-moz-tree-row(odd) {
+  background-image: url("chrome://messenger/skin/icons/row.png");
+  background-position: bottom;
+  background-repeat: repeat-x;
+}
+
 #bounceTree treechildren::-moz-tree-row(notsent) {
   background-color: red;
 }
