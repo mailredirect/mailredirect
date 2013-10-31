@@ -23,11 +23,9 @@
       oncommand="goDoCommand('cmd_mailredirect')"/>
   </keyset>
 
-  <commandset id="mailCommands">
-    <commandset id="mailMessageMenuItems">
-      <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')"
-        insertafter="cmd_forwardAttachment" />
-    </commandset>
+  <commandset id="mailToolbarItems">
+    <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')"
+      insertafter="button_forward"/>
   </commandset>
 
   <menupopup id="messageMenuPopup">

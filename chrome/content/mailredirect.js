@@ -9,6 +9,8 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
+var dumper = new MailredirectDebug.Dump();
+
 window.MailredirectExtension = {
 
   isOffline: Cc["@mozilla.org/network/io-service;1"].
@@ -72,11 +74,11 @@ window.MailredirectExtension = {
           {
             var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].
                                  getService(Ci.nsIWindowMediator);
-            var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
-            var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
-            if (currMsgWindow !== null)
+            var currWindow = windowMediator.getMostRecentWindow(null);
+            var currWindowType = currWindow.document.documentElement.getAttribute("windowtype");
+            if (currWindowType === "mail:messageWindow")
               return true;
-            else if (mail3paneWindow !== null)
+            else if (currWindowType === "mail:3pane")
               return (GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed);
           }
           return false;
