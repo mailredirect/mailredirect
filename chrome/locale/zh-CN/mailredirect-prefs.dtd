@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "默认模式：">
 <!ENTITY defaultMode.accesskey "m">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "选择你希望的邮件重定向默认方式\n此设置仅在你未设置默认联系人时有效。">
 <!ENTITY defaultModeResendTo.label "重定向收件人">
 <!ENTITY defaultModeResendCc.label "重定向抄送">

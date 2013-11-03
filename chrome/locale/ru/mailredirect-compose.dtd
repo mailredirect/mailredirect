@@ -42,11 +42,11 @@
 <!ENTITY showStatusbarCmd.label "Строка состояния">
 <!ENTITY showStatusbarCmd.accesskey "С">
 
-<!-- ENTITY addressSidebar.label "" -->
-<!-- ENTITY addressSidebar.accesskey "" -->
-<!-- ENTITY addressesSidebarTitle.label "" -->
-<!-- ENTITY addressSidebarButton.label "" -->
-<!-- ENTITY addressSidebarButton.tooltip "" -->
+<!ENTITY addressSidebar.label "Панель контактов">
+<!ENTITY addressSidebar.accesskey "а">
+<!ENTITY addressesSidebarTitle.label "Контакты">
+<!ENTITY addressSidebarButton.label "Контакты">
+<!ENTITY addressSidebarButton.tooltip "Выбрать получателя из адресной книги">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 

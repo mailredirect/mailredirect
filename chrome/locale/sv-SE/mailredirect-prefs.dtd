@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Standardläge:">
 <!ENTITY defaultMode.accesskey "l">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Välj hur meddelanden skall omdirigeras som standard.\nDetta alternativ har endast effekt när du inte har angivit någon standardmottagare.">
 <!ENTITY defaultModeResendTo.label "Skicka igen-Till">
 <!ENTITY defaultModeResendCc.label "Skicka igen-Kopia">

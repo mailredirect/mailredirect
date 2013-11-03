@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Standaard manier:">
 <!ENTITY defaultMode.accesskey "m">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Kies hoe je berichten standaard wilt heradresseren\nDeze instelling heeft alleen effect als je geen standaard ontvanngers hebt ingesteld.">
 <!ENTITY defaultModeResendTo.label "Heradresseer-Aan">
 <!ENTITY defaultModeResendCc.label "Heradresseer-Cc">

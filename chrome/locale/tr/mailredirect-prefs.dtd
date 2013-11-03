@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Varsayılan kip:">
 <!ENTITY defaultMode.accesskey "k">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Choose how you want to redirect messages by default\nThis setting only has effect when you have not specified any default recipients.">
 <!ENTITY defaultModeResendTo.label "YineGönder-Kime">
 <!ENTITY defaultModeResendCc.label "YineGönder-Çoklu">

@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Standardmodus:">
 <!ENTITY defaultMode.accesskey "S">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Wählen Sie, wie die Nachrichten standardmäßig umgeleitet werden sollen.\nDiese Einstellung ist nur aktiv, wenn keine voreingestellten Empfänger festgelegt sind.">
 <!ENTITY defaultModeResendTo.label "Umleiten-An">
 <!ENTITY defaultModeResendCc.label "Umleiten-CC">

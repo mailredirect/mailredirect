@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Výchozí režim:">
 <!ENTITY defaultMode.accesskey "r">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Zvolte výchozí přesměrování zpráv.\nNastavení se uplatní pouze tehdy, nebudou-li uvedeni výchozí příjemci.">
 <!ENTITY defaultModeResendTo.label "Přeposlat-Komu">
 <!ENTITY defaultModeResendCc.label "Přeposlat-Kopie">

@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Standardtilstand:">
 <!ENTITY defaultMode.accesskey "S">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Vælg, hvordan du vil omdirigere meddelelser som standard\nDenne indstilling virker kun, når du ikke har angivet nogle standardmodtagere.">
 <!ENTITY defaultModeResendTo.label "Gensend til">
 <!ENTITY defaultModeResendCc.label "Gensend kopi til (Cc)">

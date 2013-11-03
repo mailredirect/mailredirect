@@ -28,7 +28,7 @@
 
 <!-- ENTITY defaultMode.label "" -->
 <!-- ENTITY defaultMode.accesskey "" -->
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!-- ENTITY defaultMode.tooltip "" -->
 <!-- ENTITY defaultModeResendTo.label "" -->
 <!-- ENTITY defaultModeResendCc.label "" -->

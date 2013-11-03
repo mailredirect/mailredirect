@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Metodo predefinito:">
 <!ENTITY defaultMode.accesskey "M">
-<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Selezionare quale metodo utilizzare per reindirizzare i messaggi\nNota: questa opzione ha effetto solo quando non viene specificato alcun destinatario">
 <!ENTITY defaultModeResendTo.label "Reindirizza a:">
 <!ENTITY defaultModeResendCc.label "Reindirizza in Cc a:">

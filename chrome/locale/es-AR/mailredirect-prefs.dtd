@@ -28,7 +28,7 @@
 
 <!ENTITY defaultMode.label "Modo por defecto:">
 <!ENTITY defaultMode.accesskey "m">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Elija cómo quiere redirigir los mensajes de forma predeterminada \nEste ajuste sólo tiene efecto cuando no se ha especificado ningún destinatario por defecto.">
 <!ENTITY defaultModeResendTo.label "Reenviar-A">
 <!ENTITY defaultModeResendCc.label "Reenviar-Cc">
