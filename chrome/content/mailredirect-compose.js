@@ -12,7 +12,9 @@ Components.utils.import("resource://gre/modules/PluralForm.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
-const MAX_HEADER_LENGTH = 32678;
+// Max header length is 32768, but UTF-8 encoded e-mail addresses can be twice
+// as long as normal e-mail addresses
+const MAX_HEADER_LENGTH = 16384;
 
 const MODE_RDONLY   = 0x01;
 const MODE_WRONLY   = 0x02;
@@ -558,13 +560,17 @@ function LoadIdentity(startup)
     var idKey = identityElement.value;
     gCurrentIdentity = gAccountManager.getIdentity(idKey);
 
-    // set the  account name on the menu list value.
-    if (identityElement.selectedItem)
-      identityElement.setAttribute("accountname", identityElement.selectedItem.getAttribute("accountname"));
+    // Set the account key value on the menu list.
+    if (identityElement.selectedItem) {
+      let accountKey = identityElement.selectedItem.getAttribute("accountkey");
+      identityElement.setAttribute("accountkey", accountKey);
+    }
 
     let maxRecipients = awGetMaxRecipients();
     for (let i = 1; i <= maxRecipients; i++)
+    {
       awGetInputElement(i).setAttribute("autocompletesearchparam", idKey);
+    }
 
     if (!startup && prevIdentity && idKey !== prevIdentity.key)
     {
@@ -1125,16 +1131,15 @@ function encodeMimeHeader(header)
 {
   let fieldNameLen = (header.indexOf(": ") + 2);
   if (header.length <= MAX_HEADER_LENGTH) {
-    return MailServices.mimeConverter.
-                        encodeMimePartIIStr_UTF8(header,
-                                                 false,
-                                                 "UTF-8",
-                                                 fieldNameLen,
-                                                 Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+    header = header.replace(/\r\n$/, ""); // Don't encode closing end of line
+    return header.substr(0, fieldNameLen) + // and don't encode field name
+           MailServices.mimeConverter.
+                        encodeMimePartIIStr_UTF8(header.substr(fieldNameLen), true, "UTF-8", fieldNameLen,
+                                                 Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE) + "\r\n"; 
   }
   else
   {
-    header = header.replace(/\r\n$/, '');
+    header = header.replace(/\r\n$/, "");
     let fieldName = header.substr(0, fieldNameLen);
     let splitHeader = "";
     let currentLine = "";
@@ -1150,50 +1155,30 @@ function encodeMimeHeader(header)
       } 
       else
       {
-        currentLine = header.substr(0, splitPos - 1) + "\r\n";
+        currentLine = header.substr(0, splitPos);
         if (header.charAt(splitPos + 1) === " ")
           header = fieldName + header.substr(splitPos + 2);
         else
           header = fieldName + header.substr(splitPos + 1);
       }
-      splitHeader += MailServices.mimeConverter.
-                                  encodeMimePartIIStr_UTF8(currentLine,
-                                                           false,
-                                                           "UTF-8",
-                                                           fieldNameLen,
-                                                           Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+      splitHeader += currentLine.substr(0, fieldNameLen) + // Don't encode field name
+                     MailServices.mimeConverter.
+                                  encodeMimePartIIStr_UTF8(currentLine.substr(fieldNameLen), true, "UTF-8", fieldNameLen,
+                                                           Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE) + "\r\n";
     }
-    splitHeader += MailServices.mimeConverter.
-                                encodeMimePartIIStr_UTF8(header + "\r\n",
-                                                         false,
-                                                         "UTF-8",
-                                                         fieldNameLen,
-                                                         Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
+    splitHeader += header.substr(0, fieldNameLen) + // Don't encode field name
+                   MailServices.mimeConverter.
+                                encodeMimePartIIStr_UTF8(header.substr(fieldNameLen), true, "UTF-8", fieldNameLen,
+                                                         Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE) + "\r\n";
     return(splitHeader);
   }
-}
-
-// quoted-printable encoding
-function QPencode(str)
-{
-  var uConv = Cc["@mozilla.org/intl/scriptableunicodeconverter"].
-              getService(Ci.nsIScriptableUnicodeConverter);
-  uConv.charset = "UTF-8";
-
-  return MailServices.mimeConverter.
-                      encodeMimePartIIStr_UTF8(uConv.ConvertFromUnicode(str),
-                                               false,
-                                               "UTF-8",
-                                               0,
-                                               72);
 }
 
 function getSender()
 {
   if (!aSender) {
-    aSender = mimeHeaderParser.
-              makeFullAddress(QPencode(gCurrentIdentity.fullName),
-                              gCurrentIdentity.email);
+    aSender = mimeHeaderParser.makeFullAddress(gCurrentIdentity.fullName,
+                                               gCurrentIdentity.email);
   }
   return aSender;
 }
@@ -1253,7 +1238,7 @@ function getRecipients(onlyemails)
     RemoveDupAddresses();
     for (var recipType in mailredirectRecipients) {
       for (var i in mailredirectRecipients[recipType]) {
-        mailredirectRecipients[recipType][i].encname = QPencode(mailredirectRecipients[recipType][i].name);
+        mailredirectRecipients[recipType][i].encname = mailredirectRecipients[recipType][i].name;
       }
     }
   }
@@ -1329,7 +1314,7 @@ function getUserAgent()
 
 function getResentHeaders()
 {
-  var resenthdrs = "Resent-From: " + getSender() + "\r\n";
+  var resenthdrs = encodeMimeHeader("Resent-From: " + getSender() + "\r\n");
   var recipientsStrings = getRecipients(false);
   if (recipientsStrings.resendTo) resenthdrs += encodeMimeHeader("Resent-To: " + recipientsStrings.resendTo + "\r\n");
   if (recipientsStrings.resendCc) resenthdrs += encodeMimeHeader("Resent-CC: " + recipientsStrings.resendCc + "\r\n");

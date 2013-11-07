@@ -111,9 +111,9 @@
 
     <panel id="customizeToolbarSheetPopup" noautohide="true">
       <iframe id="customizeToolbarSheetIFrame"
-              type="chrome"
               style="&dialog.dimensions;"
-              hidden="true"/>
+              hidden="true"
+              src=""/>
     </panel>
   </popupset>
   
@@ -292,7 +292,7 @@
                   <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"
                            aria-labelledby="addressCol1#1"
                            type="autocomplete" flex="1"
-                           autocompletesearch="mydomain addrbook"
+                           autocompletesearch="mydomain addrbook ldap"
                            timeout="300" maxrows="4"
                            completedefaultindex="true" forcecomplete="true"
                            minresultsforpopup="3" ignoreblurwhilesearching="true"
