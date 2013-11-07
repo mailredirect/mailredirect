@@ -42,11 +42,11 @@
 <!ENTITY showStatusbarCmd.label "Pasek stanu">
 <!ENTITY showStatusbarCmd.accesskey "s">
 
-<!-- ENTITY addressSidebar.label "" -->
-<!-- ENTITY addressSidebar.accesskey "" -->
-<!-- ENTITY addressesSidebarTitle.label "" -->
-<!-- ENTITY addressSidebarButton.label "" -->
-<!-- ENTITY addressSidebarButton.tooltip "" -->
+<!ENTITY addressSidebar.label "Panel boczny kontaktów">
+<!ENTITY addressSidebar.accesskey "b">
+<!ENTITY addressesSidebarTitle.label "Kontakty">
+<!ENTITY addressSidebarButton.label "Kontakty">
+<!ENTITY addressSidebarButton.tooltip "Wybierz odbiorcę z książki adresowej">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
