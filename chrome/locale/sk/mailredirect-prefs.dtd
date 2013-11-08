@@ -26,13 +26,13 @@
 <!ENTITY defaultResendBcc.accesskey "y">
 <!ENTITY defaultResendBcc.tooltip "Čiarkami oddelený zoznam e-mailových adries.">
 
-<!-- ENTITY defaultMode.label "" -->
-<!-- ENTITY defaultMode.accesskey "" -->
+<!ENTITY defaultMode.label "Predvolený režim:">
+<!ENTITY defaultMode.accesskey "r">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!-- ENTITY defaultMode.tooltip "" -->
-<!-- ENTITY defaultModeResendTo.label "" -->
-<!-- ENTITY defaultModeResendCc.label "" -->
-<!-- ENTITY defaultModeResendBcc.label "" -->
+<!ENTITY defaultMode.tooltip "Vyberte si, ako chcete presmerovať správy v predvolenom nastavení.\n Toto nastavenie má vplyv iba vtedy, ak ste predvolených príjemcov nešpecifikovali inak.">
+<!ENTITY defaultModeResendTo.label "Preposlať - Komu">
+<!ENTITY defaultModeResendCc.label "Preposlať - Kópia">
+<!ENTITY defaultModeResendBcc.label "Preposlať - Skrytá kópia">
 
 <!ENTITY debug.label "Ladiť">
 <!ENTITY debug.accesskey "L">

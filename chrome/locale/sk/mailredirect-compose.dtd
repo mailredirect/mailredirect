@@ -42,11 +42,11 @@
 <!ENTITY showStatusbarCmd.label "Stavový riadok">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
-<!-- ENTITY addressSidebar.label "" -->
-<!-- ENTITY addressSidebar.accesskey "" -->
-<!-- ENTITY addressesSidebarTitle.label "" -->
-<!-- ENTITY addressSidebarButton.label "" -->
-<!-- ENTITY addressSidebarButton.tooltip "" -->
+<!ENTITY addressSidebar.label "Panel kontaktov">
+<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressesSidebarTitle.label "Kontakty">
+<!ENTITY addressSidebarButton.label "Kontakty">
+<!ENTITY addressSidebarButton.tooltip "Výber adresátov z adresára">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
