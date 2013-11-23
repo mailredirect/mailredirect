@@ -26,13 +26,13 @@
 <!ENTITY defaultResendBcc.accesskey "o">
 <!ENTITY defaultResendBcc.tooltip "Lista de endereços de e-mail separados por vírgulas.">
 
-<!-- ENTITY defaultMode.label "" -->
-<!-- ENTITY defaultMode.accesskey "" -->
+<!ENTITY defaultMode.label "Modo padrão:">
+<!ENTITY defaultMode.accesskey "m">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!-- ENTITY defaultMode.tooltip "" -->
-<!-- ENTITY defaultModeResendTo.label "" -->
-<!-- ENTITY defaultModeResendCc.label "" -->
-<!-- ENTITY defaultModeResendBcc.label "" -->
+<!ENTITY defaultMode.tooltip "Escolha como você quer redirecionar mensagens por padrão\nEsta opção somente tem efeito se você não tiver especificado nenhum destinatário padrão.">
+<!ENTITY defaultModeResendTo.label "Reenviar-Para">
+<!ENTITY defaultModeResendCc.label "Reenviar-CC">
+<!ENTITY defaultModeResendBcc.label "Reenviar-CCO">
 
 <!ENTITY debug.label "Debugar">
 <!ENTITY debug.accesskey "D">
