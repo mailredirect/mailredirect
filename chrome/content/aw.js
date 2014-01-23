@@ -2,6 +2,7 @@
 
 "use strict";
 
+Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
 Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
 
 top.MAX_RECIPIENTS = 1; /* for the initial listitem created in the XUL */
@@ -34,6 +35,32 @@ function awGetNumberOfCols()
   }
 
   return gNumberOfCols;
+}
+
+/**
+ * Adjust the default and minimum number of visible recipient rows for addressingWidget
+ */
+function awInitializeNumberOfRowsShown()
+{
+  let headerToolbar = document.getElementById("addressingToolbar");
+  let addressingWidget = document.getElementById("addressingWidget");
+  let awNumRowsShownDefault =
+    Services.prefs.getIntPref("extensions.mailredirect.addresswidget.numRowsShownDefault");
+
+  // Set minimum number of rows shown for address widget, per hardwired
+  // rows="1" attribute of addressingWidget, to prevent resizing the
+  // subject and format toolbar over the address widget.
+  // This lets users shrink the address widget to one row (with delicate UX)
+  // and thus maximize the space available for composition body,
+  // especially on small screens.
+  headerToolbar.minHeight = headerToolbar.boxObject.height;
+
+  // Set default number of rows shown for address widget.
+  addressingWidget.setAttribute("rows", awNumRowsShownDefault);
+  headerToolbar.height = headerToolbar.boxObject.height;
+
+  // Update addressingWidget internals.
+  awCreateOrRemoveDummyRows();
 }
 
 function awInputElementName()
@@ -434,14 +461,16 @@ function DropRecipient(target, recipient)
 
 function _awSetAutoComplete(selectElem, inputElem)
 {
-  inputElem.disableAutocomplete = false;
+  let params = JSON.parse(inputElem.getAttribute('autocompletesearchparam'));
+  params.type = selectElem.value;
+  inputElem.setAttribute('autocompletesearchparam', JSON.stringify(params));
 }
 
 function awSetAutoComplete(rowNumber)
 {
-    var inputElem = awGetInputElement(rowNumber);
-    var selectElem = awGetPopupElement(rowNumber);
-    _awSetAutoComplete(selectElem, inputElem)
+  var inputElem = awGetInputElement(rowNumber);
+  var selectElem = awGetPopupElement(rowNumber);
+  _awSetAutoComplete(selectElem, inputElem)
 }
 
 function awRecipientTextCommand(userAction, element)
@@ -557,7 +586,7 @@ function awCreateOrRemoveDummyRows()
 
   // add rows to fill space
   if (gAWRowHeight) {
-    while (gAWContentHeight+gAWRowHeight < listboxHeight) {
+    while (gAWContentHeight + gAWRowHeight < listboxHeight) {
       awCreateDummyItem(listbox);
       gAWContentHeight += gAWRowHeight;
     }
@@ -803,7 +832,7 @@ AutomatedAutoCompleteHandler.prototype =
       addressToAdd = this.namesToComplete[this.indexIntoNames];
 
     // that will automatically set the focus on a new available row, and make sure it is visible
-    awAddRecipient(this.recipientType ? this.recipientType : "addr_resendTo", addressToAdd);
+    awAddRecipient(this.recipientType ? this.recipientType : "addr_to", addressToAdd);
 
     this.indexIntoNames++;
     this.autoCompleteNextAddress();

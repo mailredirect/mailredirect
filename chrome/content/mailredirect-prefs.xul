@@ -106,9 +106,9 @@
                   preference="pref_defaultMode"
                   tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;">
           <menupopup>
-            <menuitem value="addr_resendTo" label="&defaultModeResendTo.label;"/>
-            <menuitem value="addr_resendCc" label="&defaultModeResendCc.label;"/>
-            <menuitem value="addr_resendBcc" label="&defaultModeResendBcc.label;"/>
+            <menuitem value="addr_to" label="&defaultModeResendTo.label;"/>
+            <menuitem value="addr_cc" label="&defaultModeResendCc.label;"/>
+            <menuitem value="addr_bcc" label="&defaultModeResendBcc.label;"/>
           </menupopup>
         </menulist>
       </hbox>

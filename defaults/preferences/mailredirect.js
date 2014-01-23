@@ -4,5 +4,6 @@ pref("extensions.mailredirect.concurrentConnections", 5);
 pref("extensions.mailredirect.defaultResentTo", "");
 pref("extensions.mailredirect.defaultResentCc", "");
 pref("extensions.mailredirect.defaultResentBcc", "");
-pref("extensions.mailredirect.defaultMode", "addr_resendTo");
+pref("extensions.mailredirect.defaultMode", "addr_to");
 pref("extensions.mailredirect.debug", false);
+pref("extensions.mailredirect.addresswidget.numRowsShownDefault", 4);

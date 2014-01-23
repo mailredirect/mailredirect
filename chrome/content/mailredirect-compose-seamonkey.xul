@@ -251,10 +251,9 @@
     <splitter id="sidebar-splitter" hidden="true"/>
 
     <vbox flex="1">
-      <toolbox class="toolbox-top" mode="icons" flex="1">
+      <toolbox id="headers-box" class="toolbox-top" mode="icons" flex="1">
         <toolbar id="addressingToolbar" persist="collapsed" flex="0"
                  customizable="true" nowindowdrag="true"
-                 class="chromeclass-toolbar"
                  ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
                  ondragdrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
                  ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);">
@@ -268,9 +267,10 @@
                 <menupopup id="msgIdentityPopup"/>
               </menulist>
             </hbox>
-            <listbox id="addressingWidget" flex="1" seltype="multiple" rows="4"
+            <listbox id="addressingWidget" flex="1" seltype="multiple" rows="1"
                      onkeydown="awKeyDown(event, this)"
-                     onclick="awClickEmptySpace(event.originalTarget, true)">
+                     onclick="awClickEmptySpace(event.originalTarget, true)"
+                     disableonsend="true">
               <listcols>
                 <listcol id="typecol-addressingWidget" style="&headersSpace.style;"/>
                 <listcol id="textcol-addressingWidget" flex="1"/>
@@ -279,11 +279,11 @@
                 <listcell class="addressingWidgetCell" align="stretch">
                   <menulist id="addressCol1#1" disableonsend="true"
                             class="aw-menulist menulist-compact" flex="1"
-                            oncommand="awSetAutoComplete(this.id.slice(this.id.lastIndexOf('#') + 1));">
+                            oncommand="onAddressColCommand(this.id);">
                     <menupopup>
-                      <menuitem value="addr_resendTo" label="&resendToAddr.label;"/>
-                      <menuitem value="addr_resendCc" label="&resendCcAddr.label;"/>
-                      <menuitem value="addr_resendBcc" label="&resendBccAddr.label;"/>
+                      <menuitem value="addr_to" label="&resendToAddr.label;"/>
+                      <menuitem value="addr_cc" label="&resendCcAddr.label;"/>
+                      <menuitem value="addr_bcc" label="&resendBccAddr.label;"/>
                     </menupopup>
                   </menulist>
                 </listcell>
@@ -292,14 +292,17 @@
                            aria-labelledby="addressCol1#1"
                            type="autocomplete" flex="1"
                            autocompletesearch="mydomain addrbook ldap"
+                           autocompletesearchparam="{}"
                            timeout="300" maxrows="4"
                            completedefaultindex="true" forcecomplete="true"
-                           minresultsforpopup="3" ignoreblurwhilesearching="true"
+                           minresultsforpopup="2" ignoreblurwhilesearching="true"
                            ontextentered="awRecipientTextCommand(eventParam, this)"
                            onerrorcommand="awRecipientErrorCommand(eventParam, this)"
-                           oninput="setupAutocomplete();" disableonsend="true"
+                           onchange="onRecipientsChanged();"
+                           oninput="setupAutocomplete();"
                            onkeypress="awRecipientKeyPress(event, this)"
-                           onkeydown="awRecipientKeyDown(event, this)">
+                           onkeydown="awRecipientKeyDown(event, this)"
+                           disableonsend="true">
                     <image class="person-icon" onclick="this.parentNode.select();"/>
                   </textbox>
                 </listcell>
@@ -329,7 +332,7 @@
               <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
                        type="progressmeter" />
             </treecols>
-            <treechildren id="topTreeChildren" flex="1"
+            <treechildren id="topTreeChildren" flex="1" disableonsend="true"
                ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
                ondrop="nsDragAndDrop.drop(event, mailredirectDragObserver);"
                ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);"
