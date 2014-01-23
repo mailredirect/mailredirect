@@ -42,25 +42,25 @@
 <!ENTITY showStatusbarCmd.label "Barre d'état">
 <!ENTITY showStatusbarCmd.accesskey "B">
 
-<!-- ENTITY addressSidebar.label "" -->
-<!-- ENTITY addressSidebar.accesskey "" -->
-<!-- ENTITY addressesSidebarTitle.label "" -->
-<!-- ENTITY addressSidebarButton.label "" -->
-<!-- ENTITY addressSidebarButton.tooltip "" -->
+<!ENTITY addressSidebar.label "Panneau latéral des contacts">
+<!ENTITY addressSidebar.accesskey "P">
+<!ENTITY addressesSidebarTitle.label "Contacts">
+<!ENTITY addressSidebarButton.label "Contacts">
+<!ENTITY addressSidebarButton.tooltip "Choisissez un destinataire dans le carnet d'adresses">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
-<!ENTITY headersSpace.style "width: 11em;">
+<!ENTITY headersSpace.style "width: 12em;">
 
 <!ENTITY resendFromAddr.label "Rediriger-De :">
 <!ENTITY resendFromAddr.accesskey "D">
 
 <!ENTITY resendToAddr.label "Rediriger-Pour :">
-<!ENTITY resendCcAddr.label "Rediriger-Cc :">
-<!ENTITY resendBccAddr.label "Rediriger-Bcc :">
+<!ENTITY resendCcAddr.label "Rediriger-Copie :">
+<!ENTITY resendBccAddr.label "Rediriger-Copie cachée :">
 
 <!ENTITY bounceMailsLabel.label "Les messages suivants seront redirigés :">
 
