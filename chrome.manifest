@@ -24,6 +24,7 @@ locale  mailredirect  sk     chrome/locale/sk/
 locale  mailredirect  sv-SE  chrome/locale/sv-SE/
 locale  mailredirect  tr     chrome/locale/tr/
 locale  mailredirect  zh-CN  chrome/locale/zh-CN/
+locale  mailredirect  zh-TW  chrome/locale/zh-TW/
 
 skin  mailredirect     classic/1.0  chrome/skin/all/
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/unix/     os=Linux application={3550f703-e582-4d05-9a08-453d09bdfdc6}

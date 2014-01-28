@@ -1,0 +1,5 @@
+<!ENTITY bounceCommand.label "重新導向">
+<!ENTITY bounceCommand.accesskey "i">
+<!ENTITY bounceCommand.tooltip "重新導向已選取的訊息">
+<!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">

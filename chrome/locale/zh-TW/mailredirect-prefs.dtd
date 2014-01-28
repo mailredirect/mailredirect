@@ -1,0 +1,45 @@
+<!ENTITY mailredirectSettings.title "MailRedirect 設定">
+
+<!ENTITY prefsGroup.label "偏好設定">
+
+<!ENTITY copyToSentMails.label "將已重新導向的郵件的副本放在已寄送資料夾裡？">
+<!ENTITY copyToSentMails.accesskey "P">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "當此選項被選取時，已重新導向的訊息的副本會被放在已寄送資料夾。當此選項未被選取時，已重新導向的訊息的副本將不會被複製至任何資料夾。\n附註：如果此選項被選取時，你用作重新導向的帳戶的設定是「不儲存任何已傳送訊息」，那麼已重新導向的訊息的副本亦不會被儲存。">
+
+<!ENTITY concurrentConnections.label "SMTP 並行連接數目：">
+<!ENTITY concurrentConnections.accesskey "N">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "此選項會指定傳送訊息時建立到你的 SMTP 伺服器的連接數目。一般來說，當你選擇去重新導向大量訊息，這允許你提升傳送的效能。\n附註：如果你設定此參數為零，那麼並行連接數目將套用為無限制 - 請注意，這會影響你 SMTP 伺服器的穩定性或者導致部分訊息傳送失敗。如有任何問題，請設定此值為一。">
+
+<!ENTITY defaultRecipientsGroup.label "預設收件者">
+
+<!ENTITY defaultResendTo.label "重寄收件者：">
+<!ENTITY defaultResendTo.accesskey "T">
+<!ENTITY defaultResendTo.tooltip "以逗號分隔電子郵件地址。">
+
+<!ENTITY defaultResendCc.label "重寄副本：">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "以逗號分隔電子郵件地址。">
+
+<!ENTITY defaultResendBcc.label "重寄密件副本：">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "以逗號分隔電子郵件地址。">
+
+<!ENTITY defaultMode.label "預設模式：">
+<!ENTITY defaultMode.accesskey "m">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "選擇你希望如何重新導向訊息的預設方式\n此設定僅在你未指定任何預設收件者時有效。">
+<!ENTITY defaultModeResendTo.label "重寄收件者">
+<!ENTITY defaultModeResendCc.label "重寄副本">
+<!ENTITY defaultModeResendBcc.label "重寄密件副本">
+
+<!ENTITY debug.label "除錯">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "開啟/關閉 Mail Redirect 擴充套件的除錯功能。日誌記錄會被導向至 JavaScript 主控台。">
+
+<!ENTITY saveConsoleContent.label "儲存 JavaScript 主控台內容 ...">
+<!ENTITY saveConsoleContent.accesskey "S">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Mail Redirect">
