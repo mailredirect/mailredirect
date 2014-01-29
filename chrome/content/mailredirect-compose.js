@@ -832,18 +832,7 @@ function BounceLoad()
   {
     var menulist = document.getElementById("addressCol1#1");
     var defaultMode = getPref("extensions.mailredirect.defaultMode");
-    // In version 0.7.9a5 this pref was added with values addr_resendTo, ... instead of addr_to
-    // Reset it back now, for the current alpha users
-    switch(defaultMode) {
-    case("addr_resendTo"):
-      defaultMode = "addr_to"; Services.prefs.setCharPref("extensions.mailredirect.defaultMode", defaultMode); break;
-    case("addr_resendCc"):
-      defaultMode = "addr_cc"; Services.prefs.setCharPref("extensions.mailredirect.defaultMode", defaultMode); break;
-    case("addr_resendBcc"):
-      defaultMode = "addr_bcc"; Services.prefs.setCharPref("extensions.mailredirect.defaultMode", defaultMode); break;
-    }
     menulist.value = defaultMode;
-    
   }
 
   AddDirectoryServerObserver(true);
