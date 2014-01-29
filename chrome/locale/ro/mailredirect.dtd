@@ -1,5 +1,5 @@
-<!ENTITY bounceCommand.label "Redirectează">
+<!ENTITY bounceCommand.label "Retrimite">
 <!ENTITY bounceCommand.accesskey "i">
-<!ENTITY bounceCommand.tooltip "Redirectează mesajele selectate">
+<!ENTITY bounceCommand.tooltip "Retrimite mesajele selectate">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
