@@ -35,7 +35,7 @@
 <!ENTITY addressBookCmd.key "C">
 <!ENTITY addressBookCmd.modifiers "accel,shift">
 
-<!ENTITY customizeToolbar.label "Personalizar...">
+<!ENTITY customizeToolbar.label "Personalizar…">
 <!ENTITY customizeToolbar.accesskey "P">
 <!ENTITY showBounceToolbarCmd.label "Barra do Mail Redirect">
 <!ENTITY showBounceToolbarCmd.accesskey "i">

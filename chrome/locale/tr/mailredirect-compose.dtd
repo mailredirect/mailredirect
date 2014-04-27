@@ -35,7 +35,7 @@
 <!ENTITY addressBookCmd.key "A">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!ENTITY customizeToolbar.label "Özelleştir...">
+<!ENTITY customizeToolbar.label "Özelleştir…">
 <!ENTITY customizeToolbar.accesskey "Ö">
 <!ENTITY showBounceToolbarCmd.label "Yönlendirme Çubuğu">
 <!ENTITY showBounceToolbarCmd.accesskey "m">
