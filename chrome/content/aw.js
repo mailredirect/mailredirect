@@ -95,6 +95,68 @@ function awGetSelectItemIndex(itemData)
   return selectElementIndexTable[itemData];
 }
 
+function Recipients2CompFields(msgCompFields)
+{
+  if (msgCompFields)
+  {
+    var i = 1;
+    var addrTo = "";
+    var addrCc = "";
+    var addrBcc = "";
+    var to_Sep = "";
+    var cc_Sep = "";
+    var bcc_Sep = "";
+
+    var recipientType;
+    var inputField;
+    var fieldValue;
+    var recipient;
+    while ((inputField = awGetInputElement(i)))
+    {
+      fieldValue = inputField.value;
+
+      if (fieldValue === null)
+        fieldValue = inputField.getAttribute("value");
+
+      if (fieldValue !== "")
+      {
+        recipientType = awGetPopupElement(i).selectedItem.getAttribute("value");
+        recipient = null;
+
+        switch (recipientType)
+        {
+          case "addr_to"    :
+          case "addr_cc"    :
+          case "addr_bcc"   :
+            try {
+              let headerParser = MailServices.headerParser;
+              recipient = [headerParser.makeMimeAddress(fullValue.name,
+                                                        fullValue.email) for
+                  (fullValue of
+                    headerParser.makeFromDisplayAddress(fieldValue, {}))].
+                join(", ");
+            } catch (ex) {recipient = fieldValue;}
+            break;
+        }
+
+        switch (recipientType)
+        {
+          case "addr_to"          : addrTo += to_Sep + recipient; to_Sep = ",";    break;
+          case "addr_cc"          : addrCc += cc_Sep + recipient; cc_Sep = ",";    break;
+          case "addr_bcc"         : addrBcc += bcc_Sep + recipient; bcc_Sep = ","; break;
+        }
+      }
+      i ++;
+    }
+
+    msgCompFields.to = addrTo;
+    msgCompFields.cc = addrCc;
+    msgCompFields.bcc = addrBcc;
+  }
+  else
+    dump("Message Compose Error: msgCompFields is null (ExtractRecipients)");
+}
+
 function awSetInputAndPopupId(inputElem, popupElem, rowNumber)
 {
   popupElem.id = "addressCol1#" + rowNumber;
@@ -464,6 +526,8 @@ function _awSetAutoComplete(selectElem, inputElem)
   let params = JSON.parse(inputElem.getAttribute('autocompletesearchparam'));
   params.type = selectElem.value;
   inputElem.setAttribute('autocompletesearchparam', JSON.stringify(params));
+
+  inputElem.disableAutoComplete = false;
 }
 
 function awSetAutoComplete(rowNumber)

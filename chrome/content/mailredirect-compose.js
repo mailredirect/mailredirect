@@ -34,6 +34,8 @@ var msgWindow;
 var gMessenger;
 
 // Global variables
+
+var gMsgCompose;
 var gWindowLocked;
 var gSendLocked;
 var gAccountManager;
@@ -58,7 +60,10 @@ var mstate = {
 
 function InitializeGlobalVariables()
 {
-  gMessenger = Cc["@mozilla.org/messenger;1"].createInstance(Ci.nsIMessenger);
+  gMessenger = Cc["@mozilla.org/messenger;1"].
+               createInstance(Ci.nsIMessenger);
+
+  gMsgCompose = null;
   gWindowLocked = false;
   gSetupLdapAutocomplete = false;
   mailredirectRecipients = null;
@@ -71,6 +76,7 @@ InitializeGlobalVariables();
 function ReleaseGlobalVariables()
 {
   gMessenger = null;
+  gMsgCompose = null;
   mailredirectRecipients = null;
   msgWindow = null;
   mstate = null;
@@ -237,13 +243,56 @@ function updateSendCommands(aHaveController)
 function updateSendLock()
 {
   gSendLocked = true;
-  var rec = getRecipients(true);
-  if (!rec.resendTo.match(/^\s*$/) ||
-      !rec.resendCc.match(/^\s*$/) ||
-      !rec.resendBcc.match(/^\s*$/)) {
-    gSendLocked = false;
+  if (!gMsgCompose)
+    return;
+
+  let msgCompFields = gMsgCompose.compFields;
+  Recipients2CompFields(msgCompFields);
+  // Enabled send buttons if anything was entered into the recipient fields.
+  // A more thorough check will be performed when a send button is actually clicked.
+  gSendLocked = !msgCompFields.hasRecipients;
+}
+
+/**
+ * Check if the entered addresses are valid and alert the user if they are not.
+ *
+ * @param aMsgCompFields  A nsIMsgCompFields object containing the fields to check.
+ */
+const NS_MSG_NO_RECIPIENTS = "12511"; // from composeMsgs.properties
+function CheckValidEmailAddress(aMsgCompFields)
+{
+  if (!aMsgCompFields.hasRecipients) {
+    var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
+    Services.prompt.alert(window, composeMsgsBundle.getString("addressInvalidTitle"),
+                          composeMsgsBundle.getString(NS_MSG_NO_RECIPIENTS));
+
+    return false;
   }
-  dumper.dump("updateSendLock: gSendLocked=" + gSendLocked + " >" + rec.resendTo + "<"); 
+
+  let invalidStr;
+  // Crude check that the to, cc, and bcc fields contain at least one '@'.
+  // We could parse each address, but that might be overkill.
+  function isInvalidAddress(aAddress) {
+    return (aAddress.length > 0 &&
+            ((!aAddress.contains("@", 1) && aAddress.toLowerCase() != "postmaster") ||
+              aAddress.endsWith("@")));
+  }
+  if (isInvalidAddress(aMsgCompFields.to))
+    invalidStr = aMsgCompFields.to;
+  else if (isInvalidAddress(aMsgCompFields.cc))
+    invalidStr = aMsgCompFields.cc;
+  else if (isInvalidAddress(aMsgCompFields.bcc))
+    invalidStr = aMsgCompFields.bcc;
+  if (invalidStr)
+  {
+    var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
+    Services.prompt.alert(window, composeMsgsBundle.getString("addressInvalidTitle"),
+                          composeMsgsBundle.getFormattedString("addressInvalid",
+                          [invalidStr], 1));
+    return false;
+  }
+
+  return true;
 }
 
 /**
@@ -766,6 +815,247 @@ function GetMsgHdrForUri(msg_uri)
   return hdr;
 }
 
+function BounceStartup(aParams)
+{
+  var params = null; // New way to pass parameters to the compose window as a nsIMsgComposeParameters object
+  var args = null;   // old way, parameters are passed as a string
+
+  if (aParams)
+    params = aParams;
+  else if (window.arguments && window.arguments[0]) {
+    try {
+      if (window.arguments[0] instanceof Ci.nsIMsgComposeParams)
+        params = window.arguments[0];
+    }
+    catch(ex) { dump("ERROR with parameters: " + ex + "\n"); }
+
+/*
+    // if still no dice, try and see if the params is an old fashioned list of string attributes
+    // XXX can we get rid of this yet?
+    if (!params)
+    {
+      args = GetArgs(window.arguments[0]);
+    }
+*/
+  }
+
+  // Set a sane starting width/height for all resolutions on new profiles.
+  // Do this before the window loads.
+  if (!document.documentElement.hasAttribute("width"))
+  {
+    // Prefer 600x350.
+    let defaultHeight = Math.min(screen.availHeight, 350);
+    let defaultWidth = Math.min(screen.availWidth, 600);
+
+    // On small screens, default to maximized state.
+    if (defaultHeight < 350)
+      document.documentElement.setAttribute("sizemode", "maximized");
+
+    document.documentElement.setAttribute("width", defaultWidth);
+    document.documentElement.setAttribute("height", defaultHeight);
+    // Make sure we're safe at the left/top edge of screen
+    document.documentElement.setAttribute("screenX", screen.availLeft);
+    document.documentElement.setAttribute("screenY", screen.availTop);
+  }
+
+  var identityList = document.getElementById("msgIdentity");
+
+  document.addEventListener("keypress", awDocumentKeyPress, true);
+
+  if (identityList)
+    FillIdentityList(identityList);
+
+  if (!params) {
+    // This code will go away soon as now arguments are passed to the window using a object of type nsMsgComposeParams instead of a string
+
+    params = Cc["@mozilla.org/messengercompose/composeparams;1"].
+             createInstance(Ci.nsIMsgComposeParams);
+    params.composeFields = Cc["@mozilla.org/messengercompose/composefields;1"].
+                           createInstance(Ci.nsIMsgCompFields);
+
+    if (args) { //Convert old fashion arguments into params
+      var composeFields = params.composeFields;
+      if (args.preselectid)
+        params.identity = getIdentityForKey(args.preselectid);
+      if (args.to)
+        composeFields.to = args.to;
+      if (args.cc)
+        composeFields.cc = args.cc;
+      if (args.bcc)
+        composeFields.bcc = args.bcc;
+    }
+  }
+
+  // " <>" is an empty identity, and most likely not valid
+  if (!params.identity || params.identity.identityName == " <>") {
+    // no pre selected identity, so use the default account
+    let identities = MailServices.accounts.defaultAccount.identities;
+    if (identities.length == 0)
+      identities = MailServices.accounts.allIdentities;
+    if (identities.queryElementAt)
+      params.identity = identities.queryElementAt(0, Ci.nsIMsgIdentity);
+    else
+      params.identity = identities.QueryElementAt(0, Ci.nsIMsgIdentity);
+  }
+
+  identityList.value = params.identity.key;
+  LoadIdentity(true);
+
+  gMsgCompose = MailServices.compose.initCompose(params, window);
+
+  var identityList = document.getElementById("msgIdentity");
+
+  document.addEventListener("keypress", awDocumentKeyPress, true);
+
+  if (identityList)
+    FillIdentityList(identityList);
+
+  var preSelectedIdentityKey = null;
+  if (window.arguments) {
+    mstate.selectedURIs = window.arguments[0];
+    if (mstate.selectedURIs) {
+      mstate.size = mstate.selectedURIs.length;
+      clearMState();
+      var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[0]);
+      if (msgHdr) {
+        msgSubject = msgHdr.mime2DecodedSubject;
+        if (msgSubject) {
+          let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+          document.title = BounceMsgsBundle.getString("mailredirectWindowTitlePrefix") + " " + msgSubject;
+        }
+      }
+    }
+    preSelectedIdentityKey = window.arguments[1];
+  }
+
+  if (!preSelectedIdentityKey) {
+    // no pre selected identity, so use the default account
+    var identities = gAccountManager.defaultAccount.identities;
+    if ((typeof identities.length !== "undefined" && identities.length === 0) ||
+        (typeof identities.Count !== "undefined" && identities.Count() === 0))
+      identities = gAccountManager.allIdentities;
+    if (identities.queryElementAt)
+      preSelectedIdentityKey = identities.queryElementAt(0, Ci.nsIMsgIdentity).key;
+    else
+      preSelectedIdentityKey = identities.QueryElementAt(0, Ci.nsIMsgIdentity).key;
+  }
+
+  identityList.value = preSelectedIdentityKey;
+  LoadIdentity(true);
+
+  gMsgCompose = MailServices.compose.initCompose(params, window);
+
+  // fill bounceTree with information about bounced mails
+
+  if (mstate.selectedURIs) {
+    var aTree = document.getElementById("topTreeChildren");
+
+    var messenger = Cc["@mozilla.org/messenger;1"].
+                    createInstance(Ci.nsIMessenger);
+
+    var dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
+                            getService(Ci.nsIScriptableDateFormat);
+
+    for (let i = 0; i < mstate.size; ++i) {
+      var aRow = document.createElement("treerow");
+      aRow.setAttribute("messageURI", mstate.selectedURIs[i]);
+      aRow.setAttribute("URIidx", i);
+      aRow.setAttribute("disableonsend", true);
+
+      dumper.dump(mstate.selectedURIs[i]);
+      var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[i]);
+      var msgSubject = "";
+      var msgAuthor = "";
+      var msgDate = null;
+      var propertiesString = "";
+      var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
+      if (msgHdr) {
+        msgSubject = msgHdr.mime2DecodedSubject;
+        msgAuthor = msgHdr.mime2DecodedAuthor;
+        msgDate = msgHdr.date;
+        if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
+        if (msgHdr.flags & 0x0001)  propertiesString += " read";
+        if (msgHdr.flags & 0x0002)  propertiesString += " replied";
+        if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
+        if (msgHdr.flags & 0x10000) propertiesString += " new";
+        if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
+      } else if (currMsgWindow && currMsgWindow.messageHeaderSink) {
+        msgHdr = currMsgWindow.messageHeaderSink.dummyMsgHeader;
+        if (msgHdr) {
+          msgSubject = msgHdr.subject;
+          msgAuthor = msgHdr.author;
+        }
+      }
+
+      var aCell = document.createElement("treecell");
+      aCell.setAttribute("label", msgSubject);
+      aCell.setAttribute("properties", propertiesString);
+      aRow.appendChild(aCell);
+
+      var aCell = document.createElement("treecell");
+      aCell.setAttribute("label", msgAuthor);
+      aRow.appendChild(aCell);
+
+      var aCell = document.createElement("treecell");
+      var dateString = "";
+      if (msgDate) {
+        var date = new Date();
+        date.setTime(msgDate / 1000);
+        dateString = dateFormatService.FormatDateTime("",
+          dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
+          date.getFullYear(), date.getMonth()+1, date.getDate(),
+          date.getHours(), date.getMinutes(), date.getSeconds());
+      }
+      aCell.setAttribute("label", dateString);
+      aRow.appendChild(aCell);
+
+      var aItem = document.createElement("treeitem");
+      aItem.appendChild(aRow);
+      aTree.appendChild(aItem);
+    }
+  }
+
+  window.controllers.appendController(MailredirectWindowController);
+
+  updateEditableFields(false);
+  AdjustFocus();
+  setTimeout(function() { awFitDummyRows() }, 0);
+
+  window.onresize = function()
+  {
+    // dumper.dump("window.onresize func");
+    awFitDummyRows();
+  }
+}
+
+function WizCallback(state)
+{
+  if (state){
+    BounceStartup(null);
+  }
+  else
+  {
+    // The account wizard is still closing so we can't close just yet
+    setTimeout(MsgComposeCloseWindow, 0, false); // Don't recycle a bogus window
+  }
+}
+
+function MsgComposeCloseWindow(recycleIt)
+{
+  if (gMsgCompose)
+    gMsgCompose.CloseWindow(recycleIt);
+  else
+    window.close();
+}
+
+/**
+ * Expands mailinglists found in the recipient fields.
+ */
+function expandRecipients()
+{
+  gMsgCompose.expandMailingLists();
+}
+
 function BounceLoad()
 {
   gAccountManager = Cc["@mozilla.org/messenger/account-manager;1"].
@@ -849,139 +1139,20 @@ function BounceLoad()
   }
 
   try {
-    var wizardcallback = true;
-    var state = verifyAccounts(wizardcallback); // this will do migration, or create a new account if we need to.
+    // This will do migration, or create a new account if we need to.
+    // We also want to open the account wizard if no identities are found
+    var state = verifyAccounts(WizCallback, true);
+    if (state)
+      BounceStartup(null);
   }
   catch (ex) {
-    dumper.dump("EX: = " + ex + "\n");
+    Components.utils.reportError(ex);
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
     var errorTitle = BounceMsgsBundle.getString("initErrorDlogTitle");
-    var errorMsg = BounceMsgsBundle.getFormattedString("initErrorDlogMessage", [""]);
+    var errorMsg = BounceMsgsBundle.getString("initErrorDlogMessage");
     Services.prompt.alert(window, errorTitle, errorMsg);
     DoCommandClose();
     return;
-  }
-
-  var identityList = document.getElementById("msgIdentity");
-
-  document.addEventListener("keypress", awDocumentKeyPress, true);
-
-  if (identityList)
-    FillIdentityList(identityList);
-
-  var preSelectedIdentityKey = null;
-  if (window.arguments) {
-    mstate.selectedURIs = window.arguments[0];
-    if (mstate.selectedURIs) {
-      mstate.size = mstate.selectedURIs.length;
-      clearMState();
-      var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[0]);
-      if (msgHdr) {
-        msgSubject = msgHdr.mime2DecodedSubject;
-        if (msgSubject) {
-          let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-          document.title = BounceMsgsBundle.getString("mailredirectWindowTitlePrefix") + " " + msgSubject;
-        }
-      }
-    }
-    preSelectedIdentityKey = window.arguments[1];
-  }
-
-  if (!preSelectedIdentityKey) {
-    // no pre selected identity, so use the default account
-    var identities = gAccountManager.defaultAccount.identities;
-    if ((typeof identities.length !== "undefined" && identities.length === 0) ||
-        (typeof identities.Count !== "undefined" && identities.Count() === 0))
-      identities = gAccountManager.allIdentities;
-    if (identities.queryElementAt)
-      preSelectedIdentityKey = identities.queryElementAt(0, Ci.nsIMsgIdentity).key;
-    else
-      preSelectedIdentityKey = identities.QueryElementAt(0, Ci.nsIMsgIdentity).key;
-  }
-
-  identityList.value = preSelectedIdentityKey;
-  LoadIdentity(true);
-
-  // fill bounceTree with information about bounced mails
-
-  if (mstate.selectedURIs) {
-    var aTree = document.getElementById("topTreeChildren");
-
-    var messenger = Cc["@mozilla.org/messenger;1"].
-                    createInstance(Ci.nsIMessenger);
-
-    var dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
-                            getService(Ci.nsIScriptableDateFormat);
-
-    for (let i = 0; i < mstate.size; ++i) {
-      var aRow = document.createElement("treerow");
-      aRow.setAttribute("messageURI", mstate.selectedURIs[i]);
-      aRow.setAttribute("URIidx", i);
-      aRow.setAttribute("disableonsend", true);
-
-      dumper.dump(mstate.selectedURIs[i]);
-      var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[i]);
-      var msgSubject = "";
-      var msgAuthor = "";
-      var msgDate = null;
-      var propertiesString = "";
-      var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
-      if (msgHdr) {
-        msgSubject = msgHdr.mime2DecodedSubject;
-        msgAuthor = msgHdr.mime2DecodedAuthor;
-        msgDate = msgHdr.date;
-        if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
-        if (msgHdr.flags & 0x0001)  propertiesString += " read";
-        if (msgHdr.flags & 0x0002)  propertiesString += " replied";
-        if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
-        if (msgHdr.flags & 0x10000) propertiesString += " new";
-        if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
-      } else if (currMsgWindow && currMsgWindow.messageHeaderSink) {
-        msgHdr = currMsgWindow.messageHeaderSink.dummyMsgHeader;
-        if (msgHdr) {
-          msgSubject = msgHdr.subject;
-          msgAuthor = msgHdr.author;
-        }
-      }
-
-      var aCell = document.createElement("treecell");
-      aCell.setAttribute("label", msgSubject);
-      aCell.setAttribute("properties", propertiesString);
-      aRow.appendChild(aCell);
-
-      var aCell = document.createElement("treecell");
-      aCell.setAttribute("label", msgAuthor);
-      aRow.appendChild(aCell);
-
-      var aCell = document.createElement("treecell");
-      var dateString = "";
-      if (msgDate) {
-        var date = new Date();
-        date.setTime(msgDate / 1000);
-        dateString = dateFormatService.FormatDateTime("",
-          dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
-          date.getFullYear(), date.getMonth()+1, date.getDate(),
-          date.getHours(), date.getMinutes(), date.getSeconds());
-      }
-      aCell.setAttribute("label", dateString);
-      aRow.appendChild(aCell);
-
-      var aItem = document.createElement("treeitem");
-      aItem.appendChild(aRow);
-      aTree.appendChild(aItem);
-    }
-  }
-
-  window.controllers.appendController(MailredirectWindowController);
-
-  updateEditableFields(false);
-  AdjustFocus();
-  setTimeout(function() { awFitDummyRows() }, 0);
-
-  window.onresize = function()
-  {
-    // dumper.dump("window.onresize func");
-    awFitDummyRows();
   }
 
   // Before and after callbacks for the customizeToolbar code
@@ -1016,6 +1187,19 @@ function BounceLoad()
 
   awSetAutoComplete(1); // somehow this doesn't get set otherwise 
   awInitializeNumberOfRowsShown();
+
+  var event = document.createEvent("Events");
+  event.initEvent("compose-window-init", false, true);
+  document.getElementById("msgMailRedirectWindow").dispatchEvent(event);
+
+  // finally, see if we need to auto open the address sidebar.
+  var sideBarBox = document.getElementById('sidebar-box');
+  if (sideBarBox.getAttribute("sidebarVisible") === "true")
+  {
+    // if we aren't supposed to have the side bar hidden, make sure it is visible
+    if (document.getElementById("sidebar").getAttribute("src") === "")
+      setTimeout(toggleAddressPicker, 0);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
+  }
 }
 
 function AdjustFocus()
@@ -1070,6 +1254,7 @@ function DoCommandClose()
   }
   clearMState();
   window.close();
+  return false;
 }
 
 function DoForwardBounceWithCheck()
@@ -1107,10 +1292,10 @@ function DoForwardBounceWithCheck()
 function DoForwardBounce()
 {
   mailredirectRecipients = null;
-  var rec = getRecipients(true);
-  if (rec.resendTo.match(/^\s*$/) &&
-      rec.resendCc.match(/^\s*$/) &&
-      rec.resendBcc.match(/^\s*$/)) {
+
+  let msgCompFields = gMsgCompose.compFields;
+  Recipients2CompFields(msgCompFields);
+  if (!msgCompFields.hasRecipients) {
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
     var errorTitle = BounceMsgsBundle.getString("noRecipientsTitle");
     var errorMsg = BounceMsgsBundle.getFormattedString("noRecipientsMessage", [""]);
@@ -1323,10 +1508,9 @@ function encodeMimeHeader(header)
 function getSender()
 {
   if (!aSender) {
-    // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
-    if (typeof MailServices.headerParser.makeMimeAddress === 'function')
-      aSender = MailServices.headerParser.makeMimeAddress(gCurrentIdentity.fullName,
-                                                          gCurrentIdentity.email);
+    // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
+    if (typeof MailServices.headerParser.makeMimeHeader === 'function')
+      aSender = MailServices.headerParser.makeMimeHeader([{name: gCurrentIdentity.fullName, email: gCurrentIdentity.email}], 1);
     else
       aSender = MailServices.headerParser.makeFullAddress(gCurrentIdentity.fullName,
                                                           gCurrentIdentity.email);
@@ -1404,12 +1588,6 @@ function getRecipients(onlyemails)
       }
     } else {
       for (var i = 0; i < count; ++i) {
-        // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
-        if (typeof MailServices.headerParser.makeMimeAddress === 'function')
-          tmp[i] = MailServices.headerParser.
-                   makeMimeAddress(mailredirectRecipients[recipType][i].encname,
-                                   mailredirectRecipients[recipType][i].email);
-        else
           tmp[i] = MailServices.headerParser.
                    makeFullAddress(mailredirectRecipients[recipType][i].encname,
                                    mailredirectRecipients[recipType][i].email);
@@ -1471,14 +1649,19 @@ function getUserAgent()
 
 function getResentHeaders()
 {
+  let msgCompFields = gMsgCompose.compFields;
   var resenthdrs = encodeMimeHeader("Resent-From: " + getSender() + "\r\n");
-  var recipientsStrings = getRecipients(false);
-  if (recipientsStrings.resendTo) resenthdrs += encodeMimeHeader("Resent-To: " + recipientsStrings.resendTo + "\r\n");
-  if (recipientsStrings.resendCc) resenthdrs += encodeMimeHeader("Resent-CC: " + recipientsStrings.resendCc + "\r\n");
-  // if (recipientsStrings.resendBcc) resenthdrs += encodeMimeHeader("Resent-BCC: " + recipientsStrings.resendBcc + "\r\n");
-  if (!recipientsStrings.resendTo && !recipientsStrings.resendCc) {
+  if (msgCompFields.to) resenthdrs += encodeMimeHeader("Resent-To: " + msgCompFields.to + "\r\n");
+  if (msgCompFields.cc) resenthdrs += encodeMimeHeader("Resent-CC: " + msgCompFields.cc + "\r\n");
+  if (!msgCompFields.to && !msgCompFields.cc) {
     var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
-    var undisclosedRecipients = composeMsgsBundle.getString("12566");
+    var undisclosedRecipients;
+    try {
+      undisclosedRecipients = composeMsgsBundle.getString("undisclosedRecipients");
+    } catch(ex) {
+      // Entity 12566 was renamed to undisclosedRecipients in TB30
+      undisclosedRecipients = composeMsgsBundle.getString("12566");
+    }
     resenthdrs += encodeMimeHeader("Resent-To: " + undisclosedRecipients + ":;" + "\r\n");
   }
   resenthdrs += "Resent-Date: " + getResentDate() + "\r\n";
@@ -1497,14 +1680,22 @@ var concurrentConnections;
 
 function RealBounceMessages()
 {
-  msgCompFields = Cc["@mozilla.org/messengercompose/composefields;1"].
-                  createInstance(Ci.nsIMsgCompFields);
-
+  msgCompFields = gMsgCompose.compFields;
   msgCompFields.from = getSender();
-  var recipientsStrings = getRecipients(true);
-  msgCompFields.to = recipientsStrings.resendTo;
-  msgCompFields.cc = recipientsStrings.resendCc;
-  msgCompFields.bcc = recipientsStrings.resendBcc;
+  Recipients2CompFields(msgCompFields);
+
+  if (typeof gMsgCompose.expandMailingLists === 'function')
+    expandRecipients();
+  else {
+    var recipientsStrings = getRecipients(true);
+    msgCompFields.to = recipientsStrings.resendTo;
+    msgCompFields.cc = recipientsStrings.resendCc;
+    msgCompFields.bcc = recipientsStrings.resendBcc;
+  }
+  // Check if e-mail addresses are complete, in case user turned off
+  // autocomplete to local domain.
+  if (!CheckValidEmailAddress(msgCompFields))
+    return;
 
   var copyToSentMail = true;
   try {
@@ -2551,9 +2742,20 @@ function renameToToResendTo()
  * (nsMsgCompose::CheckAndPopulateRecipients)
  */
 
-// var mailListArray;
 var processedMailLists;
 
+function ExtractAllAddresses(header, names, emails)
+{
+  var count = header.length;
+  names.length = count;
+  emails.length = count;
+  for (var i = 0; i < count; i++) {
+    names[i] = header[i].name;
+    emails[i] = header[i].email;
+  }
+}
+
+/* Only called in TB < 29 */
 function ResolveMailLists()
 {
   var stillNeedToSearch = true;
@@ -2564,6 +2766,8 @@ function ResolveMailLists()
   var addrbookDirArray = GetABDirectories();
   var nbrAddressbook = addrbookDirArray.length;
 
+  let msgCompFields = gMsgCompose.compFields;
+  
   for (var k = 0; k < nbrAddressbook && stillNeedToSearch; ++k) {
     // Avoid recursive mailing lists
     if (abDirectory && (addrbookDirArray[k] === abDirectory)) {
@@ -2613,12 +2817,7 @@ function ResolveMailLists()
                 email = existingCard.notes;
               else
                 email = existingCard.primaryEmail;
-              var mAddress;
-              // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
-              if (typeof MailServices.headerParser.makeMimeAddress === 'function')
-                mAddress = MailServices.headerParser.makeMimeAddress(existingCard.displayName, email);
-              else
-                mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
+              var mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
               if (!mAddress)
               {
                 // Oops, parser problem! I will try to do my best...
@@ -2728,6 +2927,7 @@ function GetABDirectories()
   return directoriesArray;
 }
 
+/* Only called in TB < 29 */
 function BuildMailListArray(parentDir)
 {
   var array = [];
@@ -2740,14 +2940,8 @@ function BuildMailListArray(parentDir)
 
       // from nsMsgMailList constructor
       var email = !listDescription ? listName : listDescription;
-      var fullAddress;
-      // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
-      if (typeof MailServices.headerParser.makeMimeAddress === 'function')
-        fullAddress = MailServices.headerParser.makeMimeAddress(listName, email);
-      else
-        fullAddress = MailServices.headerParser.makeFullAddress(listName, email);
-
-      var list = { fullName : fullAddress, directory : directory };
+      var fullAddress = MailServices.headerParser.makeFullAddress(listName, email);
+      var list = { email: email, fullName : fullAddress, directory : directory };
       array.push(list);
     }
   }
@@ -2757,7 +2951,8 @@ function BuildMailListArray(parentDir)
 function GetMailListAddresses(name, mailListArray)
 {
   for (var i = 0; i < mailListArray.length; ++i) {
-    if (name.toLowerCase() === mailListArray[i].fullName.toLowerCase()) {
+    if (name.toLowerCase() === mailListArray[i].fullName.toLowerCase() ||
+        name.toLowerCase() === mailListArray[i].email.toLowerCase()) {
       return mailListArray[i].directory.addressLists;
     }
   }
