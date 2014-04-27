@@ -1,3 +1,2 @@
-CVS
 make-
 make-*
