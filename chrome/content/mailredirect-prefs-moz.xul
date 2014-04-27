@@ -122,9 +122,14 @@
                   tooltip="xToolTip" xtooltiptext="&debug.tooltip;"/>
         <button id="saveConsoleContent"
                 class="dialog"
-                accesskey="&saveConsoleContent.accesskey;"
-                label="&saveConsoleContent.label;"
+                accesskey="&saveConsoleContent.accesskey2;"
+                label="&saveConsoleContent.label2;"
                 oncommand="MailredirectPrefs.saveConsoleContent();"/>
+        <button id="sendViaEmail"
+                class="dialog"
+                accesskey="&sendViaEmail.accesskey;"
+                label="&sendViaEmail.label;"
+                oncommand="MailredirectPrefs.sendViaEmail();"/>
       </hbox>
     </groupbox>
 
