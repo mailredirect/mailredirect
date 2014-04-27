@@ -5,7 +5,7 @@
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
-    <em:version>0.7.9a8</em:version>
+    <em:version>0.7.9a9</em:version>
     <em:unpack>true</em:unpack>
     <em:description>Allow to redirect (a.k.a. &quot;bounce&quot;) mail messages to other recipients.</em:description>
     <em:creator>Paweł Krześniak</em:creator>
@@ -25,6 +25,7 @@
     <em:translator>Lari Tanase &amp; Gabriel Tudor (ro)</em:translator>
     <em:translator>Evgeny Lavrov &amp; Anton Pinsky (ru)</em:translator>
     <em:translator>Branislav Rozbora (sk)</em:translator>
+    <em:translator>besnik (sq)</em:translator>
     <em:translator>Niklas Bjärholm &amp; Mikael Hiort af Ornäs (sv-SE)</em:translator>
     <em:translator>Sinan Kaan Yerli (skyerli.org) (tr)</em:translator>
     <em:translator>Wang.H.K (zh-CN)</em:translator>
@@ -40,14 +41,14 @@
       <rdf:Description rdf:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>6.0</em:minVersion>
-        <em:maxVersion>29.0a1</em:maxVersion>
+        <em:maxVersion>30.0a1</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
     <em:targetApplication>
       <rdf:Description rdf:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1</em:minVersion>
-        <em:maxVersion>2.26a1</em:maxVersion>
+        <em:maxVersion>2.27a1</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
   </rdf:Description>

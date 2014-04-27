@@ -21,6 +21,7 @@ locale  mailredirect  pt-BR  chrome/locale/pt-BR/
 locale  mailredirect  ro     chrome/locale/ro/
 locale  mailredirect  ru     chrome/locale/ru/
 locale  mailredirect  sk     chrome/locale/sk/
+locale  mailredirect  sq     chrome/locale/sq/
 locale  mailredirect  sv-SE  chrome/locale/sv-SE/
 locale  mailredirect  tr     chrome/locale/tr/
 locale  mailredirect  zh-CN  chrome/locale/zh-CN/
