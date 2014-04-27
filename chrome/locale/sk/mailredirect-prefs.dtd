@@ -5,7 +5,7 @@
 <!ENTITY copyToSentMails.label "Uložiť kópiu presmerovanej pošty do priečinka Odoslaná pošta?">
 <!ENTITY copyToSentMails.accesskey "k">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Pokiaľ je táto voľba zapnutá, kópia presmerovanej správy sa uloží do priečinku Odoslaná pošta. Pokiaľ je táto voľba vypnutá, presmerované správy sa nikde neukladajú.\nPozn.: Pokiaľ je táto voľba zapnutá, ale zároveň nie je v Nastaveniach účtov / Kópie &amp; priečinky - vyznačená možnosť: Uložiť kópiu do... , kópie presmerovaných správ sa nebudú ukladať.">
+<!ENTITY copyToSentMails.tooltip "Pokiaľ je táto voľba zapnutá, kópia presmerovanej správy sa uloží do priečinku Odoslaná pošta. Pokiaľ je táto voľba vypnutá, presmerované správy sa nikde neukladajú.\nPozn.: Pokiaľ je táto voľba zapnutá, ale zároveň nie je v Nastaveniach účtov / Kópie &amp; priečinky - vyznačená možnosť: Uložiť kópiu do… , kópie presmerovaných správ sa nebudú ukladať.">
 
 <!ENTITY concurrentConnections.label "Počet paralelných SMTP spojení:">
 <!ENTITY concurrentConnections.accesskey "S">

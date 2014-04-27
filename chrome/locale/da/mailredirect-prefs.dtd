@@ -1,4 +1,4 @@
-<!ENTITY mailredirectSettings.title "MailRedirect indstillinger">
+<!ENTITY mailredirectSettings.title "MailRedirect - Indstillinger">
 
 <!ENTITY prefsGroup.label "Præferencer">
 
@@ -38,8 +38,15 @@
 <!ENTITY debug.accesskey "F">
 <!ENTITY debug.tooltip "Slå fejlfinding til/fra for udvidelsen MailRedirect. Log sendes til JavaScript-konsollen.">
 
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
 <!ENTITY saveConsoleContent.label "Gem indholdet af fejlkonsollen…">
 <!ENTITY saveConsoleContent.accesskey "G">
+<!ENTITY saveConsoleContent.label2 "Gem indholdet af fejlkonsollen…">
+<!ENTITY saveConsoleContent.accesskey2 "G">
+<!ENTITY sendViaEmail.label "Send som mail">
+<!ENTITY sendViaEmail.accesskey "m">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">

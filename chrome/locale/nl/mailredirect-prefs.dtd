@@ -38,8 +38,15 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Debuggen van Heradresseer extensie aan/uit zetten. Meldingen komen op de JavaScript Foutconsole.">
 
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
 <!ENTITY saveConsoleContent.label "Bewaar inhoud van de JavaScript Foutconsole...">
 <!ENTITY saveConsoleContent.accesskey "J">
+<!ENTITY saveConsoleContent.label2 "Bewaar inhoud van de Foutconsole…">
+<!ENTITY saveConsoleContent.accesskey2 "B">
+<!ENTITY sendViaEmail.label "Via e-mail versturen">
+<!ENTITY sendViaEmail.accesskey "v">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Heradresseer bericht">

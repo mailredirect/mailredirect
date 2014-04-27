@@ -38,8 +38,15 @@
 <!ENTITY debug.accesskey "H">
 <!ENTITY debug.tooltip "E-postaYönlendirme eklentisi için hata ayıklamayı aç/kapa. Hata mesajları JavaScript Ekranına yönlendirilir.">
 
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
 <!ENTITY saveConsoleContent.label "JavaScript Ekran içeriğini kaydet...">
 <!ENTITY saveConsoleContent.accesskey "K">
+<!ENTITY saveConsoleContent.label2 "Hata Paneli içeriğini Kaydet…">
+<!ENTITY saveConsoleContent.accesskey2 "K">
+<!ENTITY sendViaEmail.label "E-posta ile gönder">
+<!ENTITY sendViaEmail.accesskey "e">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "E-posta Yönlendir">

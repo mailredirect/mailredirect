@@ -38,8 +38,15 @@
 <!ENTITY debug.accesskey "d">
 <!ENTITY debug.tooltip "Zapnout/vypnout ladění rozšíření MailRedirect. Ladící hlášky jsou zapisovány do konzole JavaScriptu.">
 
-<!ENTITY saveConsoleContent.label "Uložit obsah ladící konzole JavaScriptu...">
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
+<!ENTITY saveConsoleContent.label "Uložit obsah ladící konzole JavaScriptu…">
 <!ENTITY saveConsoleContent.accesskey "U">
+<!ENTITY saveConsoleContent.label2 "Uložit obsah chybové konzole…">
+<!ENTITY saveConsoleContent.accesskey2 "U">
+<!ENTITY sendViaEmail.label "Odeslat e-mailem">
+<!ENTITY sendViaEmail.accesskey "e">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">

@@ -38,8 +38,15 @@
 <!ENTITY debug.accesskey "F">
 <!ENTITY debug.tooltip "Aktivera/inaktivera felsökning av tillägget. Loggar skickas till JavaScript-konsolen.">
 
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
 <!ENTITY saveConsoleContent.label "Spara innehållet i JavaScript-konsolen…">
 <!ENTITY saveConsoleContent.accesskey "S">
+<!ENTITY saveConsoleContent.label2 "Spara innehållet i Felkonsolen">
+<!ENTITY saveConsoleContent.accesskey2 "S">
+<!ENTITY sendViaEmail.label "Skicka via e-post">
+<!ENTITY sendViaEmail.accesskey "e">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">

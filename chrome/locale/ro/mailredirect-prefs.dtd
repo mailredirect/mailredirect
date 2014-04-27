@@ -38,8 +38,15 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Pornește/oprește depanarea pentru această extensie. Istoricul va fi trimis către consola JavaScript.">
 
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
 <!ENTITY saveConsoleContent.label "Salvează conținutul consolei JavaScript...">
 <!ENTITY saveConsoleContent.accesskey "S">
+<!ENTITY saveConsoleContent.label2 "Salvează conținutul consolei de erori">
+<!ENTITY saveConsoleContent.accesskey2 "S">
+<!ENTITY sendViaEmail.label "Trimite prin e-mail">
+<!ENTITY sendViaEmail.accesskey "e">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Retrimite mesaje">

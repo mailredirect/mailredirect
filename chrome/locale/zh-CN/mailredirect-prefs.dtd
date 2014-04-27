@@ -38,8 +38,15 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "打开/关闭 Mail Redirect 扩展的调试。记录会被发送到 Javascript 控制台。">
 
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
 <!ENTITY saveConsoleContent.label "保存 JavaScript 控制台内容...">
 <!ENTITY saveConsoleContent.accesskey "S">
+<!ENTITY saveConsoleContent.label2 "保存错误控制台内容...">
+<!ENTITY saveConsoleContent.accesskey2 "S">
+<!ENTITY sendViaEmail.label "通过邮件发送">
+<!ENTITY sendViaEmail.accesskey "e">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">
