@@ -44,7 +44,7 @@
 <!ENTITY saveConsoleContent.label "JavaScript Ekran içeriğini kaydet...">
 <!ENTITY saveConsoleContent.accesskey "K">
 <!ENTITY saveConsoleContent.label2 "Hata Paneli içeriğini Kaydet…">
-<!ENTITY saveConsoleContent.accesskey2 "K">
+<!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "E-posta ile gönder">
 <!ENTITY sendViaEmail.accesskey "e">
 

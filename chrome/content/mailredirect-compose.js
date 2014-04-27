@@ -2817,7 +2817,12 @@ function ResolveMailLists()
                 email = existingCard.notes;
               else
                 email = existingCard.primaryEmail;
-              var mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
+              var mAddress;
+              // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
+              if (typeof MailServices.headerParser.makeMimeAddress === 'function')
+                mAddress = MailServices.headerParser.makeMimeAddress(existingCard.displayName, email);
+              else
+                mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
               if (!mAddress)
               {
                 // Oops, parser problem! I will try to do my best...
@@ -2940,7 +2945,13 @@ function BuildMailListArray(parentDir)
 
       // from nsMsgMailList constructor
       var email = !listDescription ? listName : listDescription;
-      var fullAddress = MailServices.headerParser.makeFullAddress(listName, email);
+      var fullAddress;
+      // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
+      if (typeof MailServices.headerParser.makeMimeAddress === 'function')
+        fullAddress = MailServices.headerParser.makeMimeAddress(listName, email);
+      else
+        fullAddress = MailServices.headerParser.makeFullAddress(listName, email);
+
       var list = { email: email, fullName : fullAddress, directory : directory };
       array.push(list);
     }

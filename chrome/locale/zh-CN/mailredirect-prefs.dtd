@@ -43,7 +43,7 @@
      left in here to ease translation of the new strings -->
 <!ENTITY saveConsoleContent.label "保存 JavaScript 控制台内容...">
 <!ENTITY saveConsoleContent.accesskey "S">
-<!ENTITY saveConsoleContent.label2 "保存错误控制台内容...">
+<!ENTITY saveConsoleContent.label2 "保存错误控制台内容…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "通过邮件发送">
 <!ENTITY sendViaEmail.accesskey "e">
