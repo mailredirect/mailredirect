@@ -130,11 +130,17 @@ function Recipients2CompFields(msgCompFields)
           case "addr_bcc"   :
             try {
               let headerParser = MailServices.headerParser;
+              // for..of is new to ECMAScript 6 and cannot be used because it breaks
+              // compatibility with Thunderbird < 13
+/*
               recipient = [headerParser.makeMimeAddress(fullValue.name,
                                                         fullValue.email) for
                   (fullValue of
-                    headerParser.makeFromDisplayAddress(fieldValue, {}))].
-                join(", ");
+                    headerParser.makeFromDisplayAddress(fieldValue, {}))]
+                .join(", ");
+*/
+//              var recipients = headerParser.makeFromDisplayAddress(fieldValue);
+              recipient = headerParser.makeHeader(headerParser.makeFromDisplayAddress(fieldValue).join(", "));
             } catch (ex) {recipient = fieldValue;}
             break;
         }

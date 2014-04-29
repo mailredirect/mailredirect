@@ -250,7 +250,12 @@ function updateSendLock()
   Recipients2CompFields(msgCompFields);
   // Enabled send buttons if anything was entered into the recipient fields.
   // A more thorough check will be performed when a send button is actually clicked.
-  gSendLocked = !msgCompFields.hasRecipients;
+  // hasRecipients is new to Thunderbird 23
+  gSendLocked = (typeof msgCompFields.hasRecipients !== "undefined"
+    ? !msgCompFields.hasRecipients
+    : (msgCompFields.to.match(/^\s*$/) &&
+       msgCompFields.cc.match(/^\s*$/) &&
+       msgCompFields.bcc.match(/^\s*$/)));
 }
 
 /**
@@ -261,7 +266,12 @@ function updateSendLock()
 const NS_MSG_NO_RECIPIENTS = "12511"; // from composeMsgs.properties
 function CheckValidEmailAddress(aMsgCompFields)
 {
-  if (!aMsgCompFields.hasRecipients) {
+  // hasRecipients is new to Thunderbird 23
+  if (typeof aMsgCompFields.hasRecipients !== "undefined"
+        ? !aMsgCompFields.hasRecipients
+        : (aMsgCompFields.to.match(/^\s*$/) &&
+           aMsgCompFields.cc.match(/^\s*$/) &&
+           aMsgCompFields.bcc.match(/^\s*$/))) {
     var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
     Services.prompt.alert(window, composeMsgsBundle.getString("addressInvalidTitle"),
                           composeMsgsBundle.getString(NS_MSG_NO_RECIPIENTS));
@@ -273,6 +283,12 @@ function CheckValidEmailAddress(aMsgCompFields)
   // Crude check that the to, cc, and bcc fields contain at least one '@'.
   // We could parse each address, but that might be overkill.
   function isInvalidAddress(aAddress) {
+    // str.contains is new to ECMAScript 6  
+    if (typeof String.contains === "undefined")
+      String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
+    // str.endsWith is new to ECMAScript 6  
+    if (typeof String.endsWith === "undefined")
+      String.prototype.endsWith = function(suffix) { return this.indexOf(suffix, this.length - suffix.length) != -1; };
     return (aAddress.length > 0 &&
             ((!aAddress.contains("@", 1) && aAddress.toLowerCase() != "postmaster") ||
               aAddress.endsWith("@")));
@@ -1295,7 +1311,12 @@ function DoForwardBounce()
 
   let msgCompFields = gMsgCompose.compFields;
   Recipients2CompFields(msgCompFields);
-  if (!msgCompFields.hasRecipients) {
+  // hasRecipients is new to Thunderbird 23
+  if (typeof msgCompFields.hasRecipients !== "undefined"
+        ? !msgCompFields.hasRecipients
+        : (msgCompFields.to.match(/^\s*$/) &&
+           msgCompFields.cc.match(/^\s*$/) &&
+           msgCompFields.bcc.match(/^\s*$/))) {
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
     var errorTitle = BounceMsgsBundle.getString("noRecipientsTitle");
     var errorMsg = BounceMsgsBundle.getFormattedString("noRecipientsMessage", [""]);
@@ -2818,9 +2839,9 @@ function ResolveMailLists()
               else
                 email = existingCard.primaryEmail;
               var mAddress;
-              // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
-              if (typeof MailServices.headerParser.makeMimeAddress === 'function')
-                mAddress = MailServices.headerParser.makeMimeAddress(existingCard.displayName, email);
+              // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
+              if (typeof MailServices.headerParser.makeMimeHeader === 'function')
+                mAddress = MailServices.headerParser.makeMimeHeader([{name: existingCard.displayName, email: email}], 1);
               else
                 mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
               if (!mAddress)
@@ -2946,9 +2967,9 @@ function BuildMailListArray(parentDir)
       // from nsMsgMailList constructor
       var email = !listDescription ? listName : listDescription;
       var fullAddress;
-      // makeFullAddress was renamed to makeMimeAddress in Thunderbird 29 (bug 842632)
-      if (typeof MailServices.headerParser.makeMimeAddress === 'function')
-        fullAddress = MailServices.headerParser.makeMimeAddress(listName, email);
+      // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
+      if (typeof MailServices.headerParser.makeMimeHeader === 'function')
+        fullAddress = MailServices.headerParser.makeMimeHeader([{name: listName, email: email}], 1);
       else
         fullAddress = MailServices.headerParser.makeFullAddress(listName, email);
 
