@@ -1,0 +1,69 @@
+<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
+
+<!ENTITY fileMenu.label "Датотека">
+<!ENTITY fileMenu.accesskey "Д">
+<!ENTITY forwardBounce.label "Преусмери">
+<!ENTITY forwardBounce.accesskey "П">
+<!ENTITY closeCmd.label "Затвори">
+<!ENTITY closeCmd.accesskey "З">
+
+<!ENTITY viewMenu.label "Приказ">
+<!ENTITY viewMenu.accesskey "р">
+<!ENTITY viewToolbarsMenuNew.label "Траке са алаткама">
+<!ENTITY viewToolbarsMenuNew.accesskey "Т">
+<!ENTITY menubarCmd.label "Трака са менијем">
+<!ENTITY menubarCmd.accesskey "м">
+
+<!ENTITY tasksMenu.label "Алатке">
+<!ENTITY tasksMenu.accesskey "А">
+<!ENTITY messengerCmd.label "Е-пошта и дописне листе">
+<!ENTITY messengerCmd.accesskey "Е">
+<!ENTITY addressBookCmd.label "Адресар">
+<!ENTITY addressBookCmd.accesskey "д">
+
+<!ENTITY bounceButton.label "Преусмери">
+<!ENTITY bounceButton.tooltip "Преусмерите поруке">
+<!ENTITY addressButton.label "Адресар">
+<!ENTITY addressButton.tooltip "Отворите адресар">
+<!ENTITY throbberItem.title "Показатељ активности">
+<!ENTITY throbber.tooltip "Идите на почетну страницу &vendorShortName;">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY closeCmd.modifiers "accel">
+<!ENTITY messengerCmd.key "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.key "А">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!ENTITY customizeToolbar.label "Прилагоди…">
+<!ENTITY customizeToolbar.accesskey "П">
+<!ENTITY showBounceToolbarCmd.label "Трака за преусмеравање">
+<!ENTITY showBounceToolbarCmd.accesskey "Т">
+<!ENTITY showStatusbarCmd.label "Статусна трака">
+<!ENTITY showStatusbarCmd.accesskey "С">
+
+<!ENTITY addressSidebar.label "Трака са контактима">
+<!ENTITY addressSidebar.accesskey "к">
+<!ENTITY addressesSidebarTitle.label "Контакти">
+<!ENTITY addressSidebarButton.label "Контакти">
+<!ENTITY addressSidebarButton.tooltip "Изаберите примаоца из адресара">
+
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
+
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "width: 9em;">
+
+<!ENTITY resendFromAddr.label "Resend-From:">
+<!ENTITY resendFromAddr.accesskey "R">
+
+<!ENTITY resendToAddr.label "Resend-To:">
+<!ENTITY resendCcAddr.label "Resend-Cc:">
+<!ENTITY resendBccAddr.label "Resend-Bcc:">
+
+<!ENTITY bounceMailsLabel.label "Следеће е-поруке ће бити преусмерене:">
+
+<!ENTITY subject.label "Наслов">
+<!ENTITY sender.label "Пошиљалац">
+<!ENTITY date.label "Датум">

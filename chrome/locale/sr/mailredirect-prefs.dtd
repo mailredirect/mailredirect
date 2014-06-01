@@ -1,0 +1,52 @@
+<!ENTITY mailredirectSettings.title "Поставке Mail Redirect-а">
+
+<!ENTITY prefsGroup.label "Поставке">
+
+<!ENTITY copyToSentMails.label "Смести копију преусмерене е-поруке у послате поруке">
+<!ENTITY copyToSentMails.accesskey "С">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "Уколико означите ову опцију, копија преусмерене е-поруке ће бити смештена у послате поруке. \nНапомена: Ова опција неће радити ако сте у подешавањима наместили да се послате поруке уопште не чувају.">
+
+<!ENTITY concurrentConnections.label "Број истовремених SMTP веза:">
+<!ENTITY concurrentConnections.accesskey "Б">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "Овом опцијом одређујете број веза које ће бити успостављене са SMTP сервером при слању порука. Њоме можете убрзати слање приликом преусмеравања великог броја порука.\nНапомена: Нула означава да нема ограничења по питању истовремених веза. Будите опрезни јер тиме можете да угрозите стабилност SMTP сервера, а може доћи и до неуспешног слања појединих порука. У случају да буде проблема, поставите ову вредност на један.">
+
+<!ENTITY defaultRecipientsGroup.label "Подразумевани примаоци">
+
+<!ENTITY defaultResendTo.label "Resend-To:">
+<!ENTITY defaultResendTo.accesskey "T">
+<!ENTITY defaultResendTo.tooltip "Списак е-адреса одвојених запетама.">
+
+<!ENTITY defaultResendCc.label "Resend-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Списак е-адреса одвојених запетама.">
+
+<!ENTITY defaultResendBcc.label "Resend-Bcc:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "Списак е-адреса одвојених запетама.">
+
+<!ENTITY defaultMode.label "Подразумевани режим:">
+<!ENTITY defaultMode.accesskey "д">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Изаберите подразумевани начин преусмеравања порука\nОва поставка ступа на снагу само ако нисте навели подразумеване примаоце.">
+<!ENTITY defaultModeResendTo.label "Resend-To">
+<!ENTITY defaultModeResendCc.label "Resend-Cc">
+<!ENTITY defaultModeResendBcc.label "Resend-Bcc">
+
+<!ENTITY debug.label "Отклањање грешака">
+<!ENTITY debug.accesskey "г">
+<!ENTITY debug.tooltip "Омогућите или онемогућите отклањање грешака из додатка Mail Redirect. Евиденције ће бити пренете JavaScript конзоли.">
+
+<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
+     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
+     left in here to ease translation of the new strings -->
+<!ENTITY saveConsoleContent.label "Сачувај садржај из JavaScript конзоле…">
+<!ENTITY saveConsoleContent.accesskey "С">
+<!ENTITY saveConsoleContent.label2 "Чување садржаја из Конзола са грешкама…">
+<!ENTITY saveConsoleContent.accesskey2 "S">
+<!ENTITY sendViaEmail.label "Пошаљи електронском поштом">
+<!ENTITY sendViaEmail.accesskey "e">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Mail Redirect">
