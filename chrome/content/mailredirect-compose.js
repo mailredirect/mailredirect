@@ -47,6 +47,8 @@ var gLDAPSession;
 var mailredirectRecipients;
 var aSender;
 
+var gAbResultsTree = null;
+
 // redirected mail states..
 var mstate = {
   selectedURIs: null,
@@ -1042,6 +1044,37 @@ function BounceStartup(aParams)
     // dumper.dump("window.onresize func");
     awFitDummyRows();
   }
+
+  // Before and after callbacks for the customizeToolbar code
+  var toolbox = document.getElementById("bounce-toolbox");
+  var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+  if (appInfo.ID === THUNDERBIRD_ID) {
+    toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
+  }
+  else if (appInfo.ID === SEAMONKEY_ID) {
+    toolbox.customizeInit = BounceToolboxCustomizeInit;
+    toolbox.customizeDone = BounceToolboxCustomizeDone;
+    toolbox.customizeChange = BounceToolboxCustomizeChange;
+  }
+
+  var toolbarset = document.getElementById("customToolbars");
+  toolbox.toolbarset = toolbarset;
+
+  awSetAutoComplete(1); // somehow this doesn't get set otherwise
+  awInitializeNumberOfRowsShown();
+
+  var event = document.createEvent("Events");
+  event.initEvent("compose-window-init", false, true);
+  document.getElementById("msgMailRedirectWindow").dispatchEvent(event);
+
+  // finally, see if we need to auto open the address sidebar.
+  var sideBarBox = document.getElementById('sidebar-box');
+  if (sideBarBox.getAttribute("sidebarVisible") === "true")
+  {
+    // if we aren't supposed to have the side bar hidden, make sure it is visible
+    if (document.getElementById("sidebar").getAttribute("src") === "")
+      setTimeout(toggleAddressPicker, 0);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
+  }
 }
 
 function WizCallback(state)
@@ -1171,51 +1204,6 @@ function BounceLoad()
     return;
   }
 
-  // Before and after callbacks for the customizeToolbar code
-  var toolbox = document.getElementById("bounce-toolbox");
-  var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-  if (appInfo.ID === THUNDERBIRD_ID) {
-    toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
-  }
-  else if (appInfo.ID === SEAMONKEY_ID) {
-    toolbox.customizeInit = BounceToolboxCustomizeInit;
-    toolbox.customizeDone = BounceToolboxCustomizeDone;
-    toolbox.customizeChange = BounceToolboxCustomizeChange;
-  }
-
-  if (appInfo.ID === SEAMONKEY_ID) {
-    toolbox.customizeInit = MailToolboxCustomizeInit;
-    // toolbox.customizeDone = MailToolboxCustomizeDone;
-    toolbox.customizeChange = MailToolboxCustomizeChange;
-  }
-
-  var toolbarset = document.getElementById("customToolbars");
-  toolbox.toolbarset = toolbarset;
-
-  // finally, see if we need to auto open the address sidebar.
-  var sideBarBox = document.getElementById('sidebar-box');
-  if (sideBarBox.getAttribute("sidebarVisible") === "true")
-  {
-    // if we aren't supposed to have the side bar hidden, make sure it is visible
-    if (document.getElementById("sidebar").getAttribute("src") === "")
-      setTimeout(function() { toggleAddressPicker() }, 0); // do this on a delay so we don't hurt perf. on bringing up a new compose window
-  }
-
-  awSetAutoComplete(1); // somehow this doesn't get set otherwise 
-  awInitializeNumberOfRowsShown();
-
-  var event = document.createEvent("Events");
-  event.initEvent("compose-window-init", false, true);
-  document.getElementById("msgMailRedirectWindow").dispatchEvent(event);
-
-  // finally, see if we need to auto open the address sidebar.
-  var sideBarBox = document.getElementById('sidebar-box');
-  if (sideBarBox.getAttribute("sidebarVisible") === "true")
-  {
-    // if we aren't supposed to have the side bar hidden, make sure it is visible
-    if (document.getElementById("sidebar").getAttribute("src") === "")
-      setTimeout(toggleAddressPicker, 0);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
-  }
 }
 
 function AdjustFocus()
