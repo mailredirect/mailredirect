@@ -1067,6 +1067,21 @@ function BounceStartup(aParams)
   event.initEvent("compose-window-init", false, true);
   document.getElementById("msgMailRedirectWindow").dispatchEvent(event);
 
+  // Add the Contacts button to the toolbar on first run
+  let firstRunPref = "extensions.mailredirect.firstrun.button-contacts";
+  if (!getPref(firstRunPref))
+  {
+    Services.prefs.setBoolPref(firstRunPref, true);
+    var toolbar = document.getElementById("bounceToolbar");
+    var before = null;
+    let elem = document.getElementById("button-address");
+    if (elem && elem.parentNode === toolbar)
+      before = elem.nextElementSibling;
+    toolbar.insertItem("button-contacts", before);
+    toolbar.setAttribute("currentset", toolbar.currentSet);
+    document.persist(toolbar.id, "currentset");
+  }
+
   // finally, see if we need to auto open the address sidebar.
   var sideBarBox = document.getElementById('sidebar-box');
   if (sideBarBox.getAttribute("sidebarVisible") === "true")

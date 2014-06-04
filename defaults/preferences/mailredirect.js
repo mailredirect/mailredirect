@@ -7,3 +7,4 @@ pref("extensions.mailredirect.defaultResentBcc", "");
 pref("extensions.mailredirect.defaultMode", "addr_to");
 pref("extensions.mailredirect.debug", false);
 pref("extensions.mailredirect.addresswidget.numRowsShownDefault", 4);
+pref("extensions.mailredirect.firstrun.button-contacts", false);

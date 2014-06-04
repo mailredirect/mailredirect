@@ -228,7 +228,7 @@
              toolbarname="&showBounceToolbarCmd.label;"
              accesskey="&showBounceToolbarCmd.accesskey;"
              customizable="true"
-             defaultset="button-send,separator,button-address,spring,throbber-box"
+             defaultset="button-send,separator,button-address,button-contacts,spring,throbber-box"
              defaultmode="full"
              defaulticonsize="large"
              context="toolbar-context-menu">
