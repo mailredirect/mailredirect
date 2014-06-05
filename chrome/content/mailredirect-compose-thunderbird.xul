@@ -230,7 +230,7 @@
              accesskey="&showBounceToolbarCmd.accesskey;"
              fullscreentoolbar="true"
              mode="full"
-             defaultset="button-send,separator,button-address,button-contacts,spring"
+             defaultset="button-send,separator,button-contacts,spring"
              customizable="true"
              context="toolbar-context-menu">
     </toolbar>

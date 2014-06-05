@@ -916,18 +916,6 @@ function BounceStartup(aParams)
       params.identity = identities.QueryElementAt(0, Ci.nsIMsgIdentity);
   }
 
-  identityList.value = params.identity.key;
-  LoadIdentity(true);
-
-  gMsgCompose = MailServices.compose.initCompose(params, window);
-
-  var identityList = document.getElementById("msgIdentity");
-
-  document.addEventListener("keypress", awDocumentKeyPress, true);
-
-  if (identityList)
-    FillIdentityList(identityList);
-
   var preSelectedIdentityKey = null;
   if (window.arguments) {
     mstate.selectedURIs = window.arguments[0];
@@ -1067,19 +1055,24 @@ function BounceStartup(aParams)
   event.initEvent("compose-window-init", false, true);
   document.getElementById("msgMailRedirectWindow").dispatchEvent(event);
 
-  // Add the Contacts button to the toolbar on first run
+  // Change the Address Book button to the Contacts button in the toolbar on first run
   let firstRunPref = "extensions.mailredirect.firstrun.button-contacts";
   if (!getPref(firstRunPref))
   {
     Services.prefs.setBoolPref(firstRunPref, true);
     var toolbar = document.getElementById("bounceToolbar");
     var before = null;
-    let elem = document.getElementById("button-address");
-    if (elem && elem.parentNode === toolbar)
-      before = elem.nextElementSibling;
-    toolbar.insertItem("button-contacts", before);
-    toolbar.setAttribute("currentset", toolbar.currentSet);
-    document.persist(toolbar.id, "currentset");
+    let buttonContacts = document.getElementById("button-contacts")
+    if (!buttonContacts || buttonContacts.parentNode !== toolbar) {
+      let buttonAddressBook = document.getElementById("button-address");
+      if (buttonAddressBook && buttonAddressBook.parentNode === toolbar) {
+        before = buttonAddressBook.nextElementSibling;
+        toolbar.removeChild(buttonAddressBook);
+      }
+      toolbar.insertItem("button-contacts", before);
+      toolbar.setAttribute("currentset", toolbar.currentSet);
+      document.persist(toolbar.id, "currentset");
+    }
   }
 
   // finally, see if we need to auto open the address sidebar.
