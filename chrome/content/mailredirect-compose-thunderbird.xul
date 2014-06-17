@@ -300,7 +300,7 @@
                            ontextentered="awRecipientTextCommand(eventParam, this)"
                            onerrorcommand="awRecipientErrorCommand(eventParam, this)"
                            onchange="onRecipientsChanged();"
-                           oninput="onRecipientsInput();"
+                           oninput="setupAutocomplete();"
                            onkeypress="awRecipientKeyPress(event, this)"
                            onkeydown="awRecipientKeyDown(event, this)"
                            disableonsend="true">

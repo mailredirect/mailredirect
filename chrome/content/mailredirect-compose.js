@@ -713,11 +713,6 @@ function getCurrentAccountKey()
   return identityList.selectedItem.getAttribute("accountkey");
 }
 
-function onRecipientsInput()
-{
-  setupAutocomplete();
-}
-
 function setupAutocomplete()
 {
   var autoCompleteWidget = document.getElementById("addressCol2#1");
@@ -2667,7 +2662,7 @@ function toggleAddressPicker()
 function AddRecipient(recipientType, address)
 {
   awAddRecipient(recipientType, address);
-  onRecipientsInput();
+  setupAutocomplete();
 }
 
 function renameToToResendTo()
