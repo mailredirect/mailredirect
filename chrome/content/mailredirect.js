@@ -168,7 +168,8 @@ window.MailredirectExtension = {
       var label = hdrMailredirectButton.getAttribute("label");
       var image = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("list-style-image");
       var region = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("-moz-image-region");
-      el = el.contentDocument.getElementById("headingwrapper");
+      // headingwrapper was renamed to heading_wrapper in tb32 (bug 942638 patch part 5 v5)
+      el = el.contentDocument.getElementById("heading_wrapper") || el.contentDocument.getElementById("headingwrapper");
       var parentEl = el.getElementsByTagName("toolbar").item(0); // header-view-toolbar
       var oldEl = el.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
       if (parentEl !== null && oldEl !== null)
