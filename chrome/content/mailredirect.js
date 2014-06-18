@@ -143,6 +143,12 @@ window.MailredirectExtension = {
     }
   },
 
+  MultimessageClick: function(event)
+  {
+    if (event.button === 0)
+      goDoCommand('cmd_mailredirect')
+  },
+
   InstallListeners: function(event)
   {
     var el = document.getElementById("threadTree");
@@ -180,7 +186,7 @@ window.MailredirectExtension = {
         newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
         newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
         newEl.setAttribute("label", label);
-        newEl.addEventListener("click", function(event) { if (event.button === 0) goDoCommand('cmd_mailredirect') }, false);
+        newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
         parentEl.insertBefore(newEl, oldEl);
       }
       else
@@ -195,7 +201,7 @@ window.MailredirectExtension = {
           newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
           newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
           newEl.setAttribute("label", label);
-          newEl.addEventListener("click", function(event) { if (event.button === 0) goDoCommand('cmd_mailredirect') }, false);
+          newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
           parentEl.insertBefore(newEl, oldEl);
         }
       }
@@ -212,6 +218,13 @@ window.MailredirectExtension = {
     el = document.getElementById("mailContext");
     if (el !== null)
       el.removeEventListener("popupshowing", MailredirectExtension.FillMailContextMenu, false);
+
+    el = document.getElementById("multimessage");
+    if (el !== null) {
+      el = el.getElementById("hdrMailredirectButton");
+      if (el !== null)
+        el.removeEventlistener("click", MailredirectExtension.MultimessageClick, false);
+    }
   },
 
   AddOfflineObserver: function()
