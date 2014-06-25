@@ -38,11 +38,6 @@
 <!ENTITY debug.accesskey "L">
 <!ENTITY debug.tooltip "Zapnúť / vypnúť ladenie MailRedirect. Komentáre o ladení sú zapisované do konzoly JavaScript.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Uložiť obsah ladiacej konzoly JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "U">
 <!ENTITY saveConsoleContent.label2 "Uložiť obsah chybovej konzoly…">
 <!ENTITY saveConsoleContent.accesskey2 "U">
 <!ENTITY sendViaEmail.label "Odoslať cez e-mail">

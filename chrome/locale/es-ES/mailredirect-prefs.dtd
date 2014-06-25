@@ -38,11 +38,6 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Habilitar la depuración para la extensión. Los registros aparecen en la consola Javascript.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Guardar contenido de la consola Javascript…">
-<!ENTITY saveConsoleContent.accesskey "J">
 <!ENTITY saveConsoleContent.label2 "Guardar contenido de la consola de errores…">
 <!ENTITY saveConsoleContent.accesskey2 "G">
 <!ENTITY sendViaEmail.label "Enviar por correo">

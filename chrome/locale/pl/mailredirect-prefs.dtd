@@ -25,6 +25,7 @@
 <!ENTITY defaultResendBcc.label "Ukryta kopia:">
 <!ENTITY defaultResendBcc.accesskey "y">
 <!ENTITY defaultResendBcc.tooltip "Wykaz adresów e-mail oddzielanych przecinkiem.">
+
 <!ENTITY defaultMode.label "Domyślny tryb:">
 <!ENTITY defaultMode.accesskey "M">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
@@ -37,11 +38,6 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Włącza/wyłącza wykrywanie błędów tego rozszerzenia. Wykryte błędy są wyświetlane w konsoli błędów.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Zapisz zawartość konsoli błędów">
-<!ENTITY saveConsoleContent.accesskey "Z">
 <!ENTITY saveConsoleContent.label2 "Zapisz zawartość konsoli błędów">
 <!ENTITY saveConsoleContent.accesskey2 "A">
 <!ENTITY sendViaEmail.label "Wyślij poprzez e-mail">

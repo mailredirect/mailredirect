@@ -38,15 +38,10 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Activer/Désactiver le débogueur de l'extension MailRedirect. Logs envoyés vers la Console JavaScript.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Sauvegarder le contenu de la Console JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "S">
 <!ENTITY saveConsoleContent.label2 "Enregistrer le contenu de la console d'erreurs…">
 <!ENTITY saveConsoleContent.accesskey2 "E">
 <!ENTITY sendViaEmail.label "Envoyer par courrier électronique">
-<!ENTITY sendViaEmail.accesskey "N">
+<!ENTITY sendViaEmail.accesskey "n">
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Mail Redirect">

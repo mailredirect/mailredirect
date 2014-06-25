@@ -221,9 +221,9 @@ window.MailredirectExtension = {
 
     el = document.getElementById("multimessage");
     if (el !== null) {
-      el = el.getElementById("hdrMailredirectButton");
+      el = el.contentDocument.getElementById("hdrMailredirectButton");
       if (el !== null)
-        el.removeEventlistener("click", MailredirectExtension.MultimessageClick, false);
+        el.removeEventListener("click", MailredirectExtension.MultimessageClick, false);
     }
   },
 

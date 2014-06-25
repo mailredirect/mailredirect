@@ -38,11 +38,6 @@
 <!ENTITY debug.accesskey "т">
 <!ENTITY debug.tooltip "Включение/Выключение отладки расширения Mail Redirect. Отладочные сообщения выводятся в консоль JavaScript.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Сохранить содержимое консоли JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "С">
 <!ENTITY saveConsoleContent.label2 "Сохранить консоль ошибок…">
 <!ENTITY saveConsoleContent.accesskey2 "C">
 <!ENTITY sendViaEmail.label "Послать по почте">

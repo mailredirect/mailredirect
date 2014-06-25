@@ -14,6 +14,7 @@
 
 <!ENTITY defaultRecipientsGroup.label "Подразумевани примаоци">
 
+<!--
 <!ENTITY defaultResendTo.label "Resend-To:">
 <!ENTITY defaultResendTo.accesskey "T">
 <!ENTITY defaultResendTo.tooltip "Списак е-адреса одвојених запетама.">
@@ -25,24 +26,37 @@
 <!ENTITY defaultResendBcc.label "Resend-Bcc:">
 <!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "Списак е-адреса одвојених запетама.">
+-->
+
+<!ENTITY defaultResendTo.label "Поново пошаљи-прималац">
+<!ENTITY defaultResendTo.accesskey "П">
+<!ENTITY defaultResendTo.tooltip "Списак е-адреса одвојених запетама.">
+
+<!ENTITY defaultResendCc.label "Поново пошаљи-додатни примаоци:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Списак е-адреса одвојених запетама.">
+
+<!ENTITY defaultResendBcc.label "Поново пошаљи-додатни сакривени примаоци:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "Списак е-адреса одвојених запетама.">
 
 <!ENTITY defaultMode.label "Подразумевани режим:">
 <!ENTITY defaultMode.accesskey "д">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!--
 <!ENTITY defaultMode.tooltip "Изаберите подразумевани начин преусмеравања порука\nОва поставка ступа на снагу само ако нисте навели подразумеване примаоце.">
 <!ENTITY defaultModeResendTo.label "Resend-To">
 <!ENTITY defaultModeResendCc.label "Resend-Cc">
 <!ENTITY defaultModeResendBcc.label "Resend-Bcc">
+-->
+<!ENTITY defaultModeResendTo.label "Поново пошаљи-прималац">
+<!ENTITY defaultModeResendCc.label "Поново пошаљи-додатни примаоци">
+<!ENTITY defaultModeResendBcc.label "Поново пошаљи-додатни сакривени примаоци">
 
 <!ENTITY debug.label "Отклањање грешака">
 <!ENTITY debug.accesskey "г">
 <!ENTITY debug.tooltip "Омогућите или онемогућите отклањање грешака из додатка Mail Redirect. Евиденције ће бити пренете JavaScript конзоли.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Сачувај садржај из JavaScript конзоле…">
-<!ENTITY saveConsoleContent.accesskey "С">
 <!ENTITY saveConsoleContent.label2 "Чување садржаја из Конзола са грешкама…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Пошаљи електронском поштом">

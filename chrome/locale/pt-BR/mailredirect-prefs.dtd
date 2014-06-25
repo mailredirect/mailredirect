@@ -38,11 +38,6 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Ligar/desligar extensões de debug do MailRedirect. Logs são enviados para a console do JavaScript.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Salva conteúdo do console do JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "S">
 <!ENTITY saveConsoleContent.label2 "Salvar conteúdo da Console de Erros…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Enviar por e-mail">

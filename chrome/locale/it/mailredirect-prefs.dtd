@@ -38,11 +38,6 @@
 <!ENTITY debug.accesskey "d">
 <!ENTITY debug.tooltip "Attiva/disattiva il debug degli errori per MailRedirect. La registrazione degli errori verrà salvata nella console JavaScript">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Salva il contenuto della console JavaScript…">
-<!ENTITY saveConsoleContent.accesskey "S">
 <!ENTITY saveConsoleContent.label2 "Salva il contenuto della console degli errori…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Invia tramite e-mail">

@@ -38,11 +38,6 @@
 <!ENTITY debug.accesskey "D">
 <!ENTITY debug.tooltip "Aktivizoni/çaktivizoni diagnostikimin për zgjerimin mailredirect. Regjistrimet dërgohen te Konsola JavaScript.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Ruani lëndë Konsole JavaScript...">
-<!ENTITY saveConsoleContent.accesskey "S">
 <!ENTITY saveConsoleContent.label2 "Ruani lëndë Konsole Gabimesh...">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Dërgoje përmes email-i">

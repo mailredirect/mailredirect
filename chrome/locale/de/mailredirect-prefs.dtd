@@ -38,11 +38,6 @@
 <!ENTITY debug.accesskey "F">
 <!ENTITY debug.tooltip "An-/Abschalten des Debuggings für die Umleitungserweiterung. Logs werden in die Fehlerkonsole geschrieben.">
 
-<!-- saveConsoleContent.label and saveConsoleContent.accesskey have been superseeded by
-     saveConsoleContent.label2 and saveConsoleContent.accesskey2. They are temporarily
-     left in here to ease translation of the new strings -->
-<!ENTITY saveConsoleContent.label "Protokoll speichern…">
-<!ENTITY saveConsoleContent.accesskey "P">
 <!ENTITY saveConsoleContent.label2 "Inhalt der Fehlerkonsole speichern…">
 <!ENTITY saveConsoleContent.accesskey2 "h">
 <!ENTITY sendViaEmail.label "Als E-Mail versenden">

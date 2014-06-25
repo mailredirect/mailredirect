@@ -46,13 +46,14 @@
 <!ENTITY addressSidebar.accesskey "к">
 <!ENTITY addressesSidebarTitle.label "Контакти">
 <!ENTITY addressSidebarButton.label "Контакти">
-<!ENTITY addressSidebarButton.tooltip "Изаберите примаоца из адресара">
+<!ENTITY addressSidebarButton.tooltip "Изаберите примаоца из адресар">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
+<!--
 <!ENTITY headersSpace.style "width: 9em;">
 
 <!ENTITY resendFromAddr.label "Resend-From:">
@@ -61,6 +62,15 @@
 <!ENTITY resendToAddr.label "Resend-To:">
 <!ENTITY resendCcAddr.label "Resend-Cc:">
 <!ENTITY resendBccAddr.label "Resend-Bcc:">
+-->
+<!ENTITY headersSpace.style "width: 25em;">
+
+<!ENTITY resendFromAddr.label "Поново пошаљи-пошиљалац:">
+<!ENTITY resendFromAddr.accesskey "А">
+
+<!ENTITY resendToAddr.label "Поново пошаљи-прималац:">
+<!ENTITY resendCcAddr.label "Поново пошаљи-додатни примаоци:">
+<!ENTITY resendBccAddr.label "Поново пошаљи-додатни сакривени примаоци:">
 
 <!ENTITY bounceMailsLabel.label "Следеће е-поруке ће бити преусмерене:">
 
