@@ -43,8 +43,8 @@
 <!ENTITY defaultMode.label "Подразумевани режим:">
 <!ENTITY defaultMode.accesskey "д">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!--
 <!ENTITY defaultMode.tooltip "Изаберите подразумевани начин преусмеравања порука\nОва поставка ступа на снагу само ако нисте навели подразумеване примаоце.">
+<!--
 <!ENTITY defaultModeResendTo.label "Resend-To">
 <!ENTITY defaultModeResendCc.label "Resend-Cc">
 <!ENTITY defaultModeResendBcc.label "Resend-Bcc">
