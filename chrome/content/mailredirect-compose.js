@@ -1129,6 +1129,13 @@ function BounceLoad()
     }
   }
 
+  var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+  var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
+  if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "31.0") < 0) {
+    var textbox = document.getElementById("addressCol2#1");
+    textbox.setAttribute("ontextentered", "awRecipientTextCommandPre31(eventParam, this)");
+  }
+
   // get defaults for Resent-To, Resent-Cc and Resent-Bcc from preferences
   var defaultResentToString  = "";
   var defaultResentCcString  = "";

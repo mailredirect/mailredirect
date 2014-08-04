@@ -183,6 +183,8 @@ function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, r
     awSetInputAndPopupId(inputElem, popupElem, rowNumber);
 
   _awSetAutoComplete(popupElem, inputElem);
+
+  onRecipientsChanged(true);
 }
 
 function _awSetInputAndPopup(inputValue, popupValue, parentNode, templateNode)
@@ -543,7 +545,12 @@ function awSetAutoComplete(rowNumber)
   _awSetAutoComplete(selectElem, inputElem)
 }
 
-function awRecipientTextCommand(userAction, element)
+function awRecipientTextCommand(enterEvent, element)
+{
+  awReturnHit(element);
+}
+
+function awRecipientTextCommandPre31(userAction, element)
 {
   if (userAction === "typing" || userAction === "scrolling")
     awReturnHit(element);
@@ -552,12 +559,6 @@ function awRecipientTextCommand(userAction, element)
 function awRecipientKeyPress(event, element)
 {
   switch(event.keyCode) {
-  case KeyEvent.DOM_VK_UP:
-    awArrowHit(element, -1);
-    break;
-  case KeyEvent.DOM_VK_DOWN:
-    awArrowHit(element, 1);
-    break;
   case KeyEvent.DOM_VK_RETURN:
   case KeyEvent.DOM_VK_TAB:
     // if the user text contains a comma or a line return, ignore
@@ -574,27 +575,11 @@ function awRecipientKeyPress(event, element)
   }
 }
 
-function awArrowHit(inputElement, direction)
-{
-  var row = awGetRowByInputElement(inputElement) + direction;
-  if (row) {
-    var nextInput = awGetInputElement(row);
-
-    if (nextInput)
-      awSetFocus(row, nextInput);
-    else if (inputElement.value)
-      awAppendNewRow(true);
-  }
-}
-
 function awRecipientKeyDown(event, element)
 {
   switch(event.keyCode) {
   case KeyEvent.DOM_VK_DELETE:
   case KeyEvent.DOM_VK_BACK_SPACE:
-    /* do not query directly the value of the text field else the autocomplete widget could potentially
-       alter it value while doing some internal cleanup, instead, query the value through the first child
-    */
     if (!element.value)
       awDeleteHit(element);
 

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Style sheets -->
+<?xml-stylesheet href="chrome://messenger/skin/messengercompose/messengercompose.css" type="text/css"?>
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
-
-<?xml-stylesheet href="chrome://messenger/skin/addressingWidget.css" type="text/css"?>
-<?xml-stylesheet href="chrome://messenger/skin/messengercompose/messengercompose.css" type="text/css"?>
 
 <?xml-stylesheet href="chrome://messenger/skin/threadPane.css" type="text/css"?>
 <?xml-stylesheet href="chrome://messenger/skin/threadPaneExtras.css" type="text/css"?>
@@ -32,7 +30,11 @@
         onload="BounceLoad();"
         onunload="BounceUnload();"
         onclose="return DoCommandClose()"
+        toggletoolbar="true"
+        lightweightthemes="true"
+        lightweightthemesfooter="status-bar"
         windowtype="mail:mailredirectWindow"
+        macanimationtype="document"
         width="600" height="350" screenX="100" screenY="100"
         persist="screenX screenY width height sizemode">
 
@@ -297,8 +299,7 @@
                            timeout="300" maxrows="4"
                            completedefaultindex="true" forcecomplete="true"
                            minresultsforpopup="2" ignoreblurwhilesearching="true"
-                           ontextentered="awRecipientTextCommand(eventParam, this)"
-                           onerrorcommand="awRecipientErrorCommand(eventParam, this)"
+                           ontextentered="awRecipientTextCommand(param, this)"
                            onchange="onRecipientsChanged();"
                            oninput="setupAutocomplete();"
                            onkeypress="awRecipientKeyPress(event, this)"

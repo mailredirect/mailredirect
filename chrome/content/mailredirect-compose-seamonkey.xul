@@ -297,7 +297,6 @@
                            completedefaultindex="true" forcecomplete="true"
                            minresultsforpopup="2" ignoreblurwhilesearching="true"
                            ontextentered="awRecipientTextCommand(eventParam, this)"
-                           onerrorcommand="awRecipientErrorCommand(eventParam, this)"
                            onchange="onRecipientsChanged();"
                            oninput="setupAutocomplete();"
                            onkeypress="awRecipientKeyPress(event, this)"
