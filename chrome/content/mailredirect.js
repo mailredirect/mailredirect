@@ -70,14 +70,18 @@ window.MailredirectExtension = {
         case "cmd_mailredirect":
           if (!MailredirectExtension.isOffline)
           {
-            var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].
-                                 getService(Ci.nsIWindowMediator);
-            var currWindow = windowMediator.getMostRecentWindow(null);
-            var currWindowType = currWindow.document.documentElement.getAttribute("windowtype");
-            if (currWindowType === "mail:messageWindow")
-              return true;
-            else if (currWindowType === "mail:3pane")
-              return (GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed);
+            // Extra check for issue #9 (Init error in TB24 on Mac breaking the status bar)
+            if (gFolderDisplay)
+            {
+              var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].
+                                   getService(Ci.nsIWindowMediator);
+              var currWindow = windowMediator.getMostRecentWindow("");
+              var currWindowType = currWindow.document.documentElement.getAttribute("windowtype");
+              if (currWindowType === "mail:messageWindow")
+                return true;
+              else if (currWindowType === "mail:3pane")
+                return (GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed);
+            }
           }
           return false;
         default:
