@@ -131,7 +131,7 @@ function Recipients2CompFields(msgCompFields)
             try {
               let headerParser = MailServices.headerParser;
               // for..of is new to ECMAScript 6 and cannot be used because it breaks
-              // compatibility with Thunderbird < 13
+              // compatibility with Thunderbird < 23
 /*
               recipient = [headerParser.makeMimeAddress(fullValue.name,
                                                         fullValue.email) for
@@ -139,9 +139,14 @@ function Recipients2CompFields(msgCompFields)
                     headerParser.makeFromDisplayAddress(fieldValue, {}))]
                 .join(", ");
 */
-//              var recipients = headerParser.makeFromDisplayAddress(fieldValue);
-              recipient = headerParser.makeHeader(headerParser.makeFromDisplayAddress(fieldValue).join(", "));
-            } catch (ex) {recipient = fieldValue;}
+              var fullValues = headerParser.makeFromDisplayAddress(fieldValue, {});
+              var recipients = [];
+              for (var i = 0; i < fullValues.length; i++)
+                recipients.push(headerParser.makeMimeAddress(fullValues[i].name, fullValues[i].email));
+              recipient = recipients.join(", ");
+            } catch (ex) {
+              recipient = fieldValue;
+            }
             break;
         }
 
@@ -379,7 +384,7 @@ function awAppendNewRow(setFocus)
 
 function awGetPopupElement(row)
 {
-    return document.getElementById("addressCol1#" + row);
+  return document.getElementById("addressCol1#" + row);
 }
 
 function awGetInputElement(row)
@@ -562,6 +567,8 @@ function awRecipientKeyPress(event, element)
   case KeyEvent.DOM_VK_RETURN:
   case KeyEvent.DOM_VK_TAB:
     // if the user text contains a comma or a line return, ignore
+    // str.contains is new to ECMAScript 6
+    // if (element.value.contains(","))
     if (element.value.search(",") !== -1)
     {
       var addresses = element.value;
@@ -736,12 +743,9 @@ function parseAndAddAddresses(addressText, recipientType)
   // strip any leading >> characters inserted by the autocomplete widget
   var strippedAddresses = addressText.replace(/.* >> /, "");
 
-  var addresses = {};
-  var names = {};
-  var fullNames = {};
-  let numAddresses = MailServices.headerParser.parseHeadersWithArray(strippedAddresses, addresses, names, fullNames);
+  let addresses = Mailservices.headerParser.makeFromDisplayAddress(strippedAddresses);
 
-  if (numAddresses > 0)
+  if (addresses.length > 0)
   {
     // we need to set up our own autocomplete session and search for results
 
@@ -749,7 +753,10 @@ function parseAndAddAddresses(addressText, recipientType)
     if (!gAutomatedAutoCompleteListener)
       gAutomatedAutoCompleteListener = new AutomatedAutoCompleteHandler();
 
-    gAutomatedAutoCompleteListener.init(fullNames.value, numAddresses, recipientType);
+    // map(.. => ..) is new to ECMAScript 6 and cannot be used because it breaks
+    // compatibility with Thunderbird < 23
+    // gAutomatedAutoCompleteListener.init(addresses.map(addr => addr.toString()), addresses.length, recipientType);
+    gAutomatedAutoCompleteListener.init(addresses.map(function(addr) { return addr.toString() } ), addresses.length, recipientType);
   }
 }
 

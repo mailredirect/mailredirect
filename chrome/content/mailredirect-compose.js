@@ -1831,7 +1831,6 @@ function RealBounceMessage(idx)
            send report! */
         dumper.dump("msgSendReport is null.");
       }
-
       // msgSend = null;
       // dumper.dump("abc");
     },
