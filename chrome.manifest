@@ -6,6 +6,9 @@ overlay  chrome://messenger/content/mailWindowOverlay.xul    chrome://mailredire
 overlay  chrome://global/content/customizeToolbar.xul        chrome://mailredirect/content/mailredirectCustomizeToolbar.xul
 overlay  chrome://communicator/content/pref/preferences.xul  chrome://mailredirect/content/mailredirectPrefsOverlay.xul
 
+override  chrome://mailredirect/content/aw.js  chrome://mailredirect/content/awPre31.js  application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion<31.0
+override  chrome://mailredirect/content/aw.js  chrome://mailredirect/content/awPre31.js  application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+
 locale  mailredirect  en-US  chrome/locale/en-US/
 locale  mailredirect  cs     chrome/locale/cs/
 locale  mailredirect  da     chrome/locale/da/

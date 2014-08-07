@@ -304,6 +304,7 @@
                            oninput="setupAutocomplete();"
                            onkeypress="awRecipientKeyPress(event, this)"
                            onkeydown="awRecipientKeyDown(event, this)"
+                           ononblur="awRecipientsBlur(event, this)"
                            disableonsend="true">
                     <image class="person-icon" onclick="this.parentNode.select();"/>
                   </textbox>

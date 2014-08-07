@@ -127,12 +127,7 @@ function Recipients2CompFields(msgCompFields)
           case "addr_cc"    :
           case "addr_bcc"   :
             try {
-              let headerParser = MailServices.headerParser;
-              recipient = [headerParser.makeMimeAddress(fullValue.name,
-                                                        fullValue.email) for
-                  (fullValue of
-                    headerParser.makeFromDisplayAddress(fieldValue, {}))]
-                .join(", ");
+              recipient = MailServices.headerParser.reformatUnquotedAddresses(fieldValue);
             } catch (ex) {
               recipient = fieldValue;
             }
@@ -325,7 +320,22 @@ function awAppendNewRow(setFocus)
     var input = newNode.getElementsByTagName(awInputElementName());
     if (input && input.length === 1)
     {
+      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
+
       input[0].setAttribute("value", "");
+
+      if ((appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "26.0a1") < 0) ||
+          (appInfo.ID === SEAMONKEY_ID && versionChecker.compare(appInfo.version, "2.23a1") < 0))
+      {      
+        //this copies the autocomplete sessions list from recipient#1
+        input[0].syncSessions(document.getElementById("addressCol2#1"));
+
+    	  // also clone the showCommentColumn setting
+    	  //
+  	   input[0].showCommentColumn =
+	        document.getElementById("addressCol2#1").showCommentColumn;
+      }
 
       // We always clone the first row.  The problem is that the first row
       // could be focused.  When we clone that row, we end up with a cloned
@@ -343,9 +353,7 @@ function awAppendNewRow(setFocus)
     if (select && select.length === 1)
     {
       select[0].selectedIndex = awGetSelectItemIndex(lastRecipientType);
-
       awSetInputAndPopupId(input[0], select[0], top.MAX_RECIPIENTS);
-
       if (input)
         _awSetAutoComplete(select[0], input[0]);
     }
@@ -526,11 +534,6 @@ function awSetAutoComplete(rowNumber)
   _awSetAutoComplete(selectElem, inputElem)
 }
 
-function awRecipientTextCommand(enterEvent, element)
-{
-  awReturnHit(element);
-}
-
 function awRecipientTextCommandPre31(userAction, element)
 {
   if (userAction === "typing" || userAction === "scrolling")
@@ -554,10 +557,18 @@ function awRecipientsBlur(event, element) {
 function awRecipientKeyPress(event, element)
 {
   switch(event.keyCode) {
+  case KeyEvent.DOM_VK_UP:
+    awArrowHit(element, -1);
+    break;
+  case KeyEvent.DOM_VK_DOWN:
+    awArrowHit(element, 1);
+    break;
   case KeyEvent.DOM_VK_RETURN:
   case KeyEvent.DOM_VK_TAB:
     // if the user text contains a comma or a line return, ignore
-    if (element.value.contains(','))
+    // str.contains is new to ECMAScript 6
+    // if (element.value.contains(","))
+    if (element.value.search(",") !== -1)
     {
       var addresses = element.value;
       element.value = ""; // clear out the current line so we don't try to autocomplete it..
@@ -567,6 +578,19 @@ function awRecipientKeyPress(event, element)
       awTabFromRecipient(element, event);
 
     break;
+  }
+}
+
+function awArrowHit(inputElement, direction)
+{
+  var row = awGetRowByInputElement(inputElement) + direction;
+  if (row) {
+    var nextInput = awGetInputElement(row);
+
+    if (nextInput)
+      awSetFocus(row, nextInput);
+    else if (inputElement.value)
+      awAppendNewRow(true);
   }
 }
 
@@ -741,7 +765,10 @@ function parseAndAddAddresses(addressText, recipientType)
     if (!gAutomatedAutoCompleteListener)
       gAutomatedAutoCompleteListener = new AutomatedAutoCompleteHandler();
 
-    gAutomatedAutoCompleteListener.init(addresses.map(addr => addr.toString(true)), addresses.length, recipientType);
+    // map(.. => ..) is new to ECMAScript 6 and cannot be used because it breaks
+    // compatibility with Thunderbird < 23
+    // gAutomatedAutoCompleteListener.init(addresses.map(addr => addr.toString(true)), addresses.length, recipientType);
+    gAutomatedAutoCompleteListener.init(addresses.map(function(addr) { return addr.toString(true) } ), addresses.length, recipientType);
   }
 }
 

@@ -9,8 +9,6 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
-var dumper = new MailredirectDebug.Dump();
-
 window.MailredirectExtension = {
 
   isOffline: Cc["@mozilla.org/network/io-service;1"].
