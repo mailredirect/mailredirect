@@ -9,6 +9,8 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
+var dumper = new MailredirectDebug.Dump();
+
 window.MailredirectExtension = {
 
   isOffline: Cc["@mozilla.org/network/io-service;1"].
@@ -175,9 +177,29 @@ window.MailredirectExtension = {
       head.appendChild(newEl);
 
       var hdrMailredirectButton = document.getElementById("hdrMailredirectButton");
+      if (hdrMailredirectButton === null)
+      {
+        // The CompactHeader extension can hide the hdrMailredirectButton and add a copy of
+        // the mailredirect-toolbarbutton button from the Mail toolbar to the msgHeaderViewDeck
+        hdrMailredirectButton = document.getElementById("msgHeaderViewDeck").getElementsByClassName("customize-header-toolbar-mailredirect-toolbarbutton").item(0);
+      }
+      var disabled = hdrMailredirectButton.getAttribute("disabled");
       var label = hdrMailredirectButton.getAttribute("label");
       var image = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("list-style-image");
       var region = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("-moz-image-region");
+      if (disabled)
+      {
+        // Calculate the right region...
+        // Disabled: -moz-image-region: rect(32px, 16px, 48px, 0px);
+        // Normal: -moz-image-region: rect(16px, 16px, 32px, 0px);
+        // Normal is always the rect above Disabled
+        let coords = region.replace("rect(", "").replace("px)", "").replace("px", "", "g").split(", ");
+        if (coords[0] !== "0") {
+          coords[0] = eval("coords[0] - coords[1]");
+          coords[2] = eval("coords[2] - coords[1]");
+          region = "rect(" + coords[0] + "px, " + coords[1] + "px, " + coords[2] + "px, " + coords[3] + "px)";
+        }
+      }
       // headingwrapper was renamed to heading_wrapper in tb32 (bug 942638 patch part 5 v5)
       el = el.contentDocument.getElementById("heading_wrapper") || el.contentDocument.getElementById("headingwrapper");
       var parentEl = el.getElementsByTagName("toolbar").item(0); // header-view-toolbar

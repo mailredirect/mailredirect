@@ -1,10 +1,10 @@
 #mailredirect-toolbarbutton {
-  -moz-image-region: rect(0px 17px 17px 0px);
+  -moz-image-region: rect(0px, 17px, 17px, 0px);
   list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
 }
 
 #mailredirect-toolbarbutton:active {
-  -moz-image-region: rect(18px 17px 35px 0px);
+  -moz-image-region: rect(18px, 17px, 35px, 0px);
   list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
 }
 

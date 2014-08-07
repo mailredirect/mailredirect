@@ -27,17 +27,17 @@
 
 #button-contacts {
   list-style-image: url("chrome://messenger/skin/icons/btn1.gif");
-  -moz-image-region: rect(476px 49px 509px 0);
+  -moz-image-region: rect(476px, 49px, 509px, 0);
 }
 
 #button-contacts:hover {
-  -moz-image-region: rect(476px 99px 509px 50px);
+  -moz-image-region: rect(476px, 99px, 509px, 50px);
 }
 
 #button-contacts:hover:active {
-  -moz-image-region: rect(476px 149px 509px 100px);
+  -moz-image-region: rect(476px, 149px, 509px, 100px);
 }
 
 #button-contacts[disabled="true"] {
-  -moz-image-region: rect(476px 199px 509px 150px) !important;
+  -moz-image-region: rect(476px, 199px, 509px, 150px) !important;
 }
