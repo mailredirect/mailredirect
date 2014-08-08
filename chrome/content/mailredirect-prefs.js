@@ -33,7 +33,7 @@ window.MailredirectPrefs = {
     // open filePicker
     var filePicker = Cc["@mozilla.org/filepicker;1"].
                      createInstance(nsIFilePicker);
-    filePicker.init(window, strbundle.getString("saveFile"), nsIFilePicker.modeSave);
+    filePicker.init(window, strbundle.getString("saveFile2"), nsIFilePicker.modeSave);
     filePicker.appendFilters(nsIFilePicker.filterText);
     filePicker.appendFilters(nsIFilePicker.filterAll);
     filePicker.defaultString = "errorconsole.txt";
