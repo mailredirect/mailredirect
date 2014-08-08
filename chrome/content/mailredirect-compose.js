@@ -1134,6 +1134,7 @@ function BounceLoad()
   if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "31.0") < 0) {
     var textbox = document.getElementById("addressCol2#1");
     textbox.setAttribute("ontextentered", "awRecipientTextCommandPre31(eventParam, this)");
+    textbox.removeAttribute("onblur");
   }
 
   // get defaults for Resent-To, Resent-Cc and Resent-Bcc from preferences

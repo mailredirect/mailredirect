@@ -755,9 +755,12 @@ function parseAndAddAddresses(addressText, recipientType)
   // strip any leading >> characters inserted by the autocomplete widget
   var strippedAddresses = addressText.replace(/.* >> /, "");
 
-  let addresses = MailServices.headerParser.makeFromDisplayAddress(strippedAddresses);
+  var addresses = {};
+  var names = {};
+  var fullNames = {};
+  let numAddresses = MailServices.headerParser.parseHeadersWithArray(strippedAddresses, addresses, names, fullNames);
 
-  if (addresses.length > 0)
+  if (numAddresses > 0)
   {
     // we need to set up our own autocomplete session and search for results
 
@@ -765,10 +768,7 @@ function parseAndAddAddresses(addressText, recipientType)
     if (!gAutomatedAutoCompleteListener)
       gAutomatedAutoCompleteListener = new AutomatedAutoCompleteHandler();
 
-    // map(.. => ..) is new to ECMAScript 6 and cannot be used because it breaks
-    // compatibility with Thunderbird < 23
-    // gAutomatedAutoCompleteListener.init(addresses.map(addr => addr.toString(true)), addresses.length, recipientType);
-    gAutomatedAutoCompleteListener.init(addresses.map(function(addr) { return addr.toString(true) } ), addresses.length, recipientType);
+    gAutomatedAutoCompleteListener.init(fullNames.value, numAddresses, recipientType);
   }
 }
 
