@@ -185,7 +185,7 @@ window.MailredirectExtension = {
       var label = hdrMailredirectButton.getAttribute("label");
       var image = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("list-style-image");
       var region = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("-moz-image-region");
-      if (disabled)
+      if (disabled && region !== "auto")
       {
         // Calculate the right region...
         // Disabled: -moz-image-region: rect(32px, 16px, 48px, 0px);
