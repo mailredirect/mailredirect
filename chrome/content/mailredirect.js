@@ -193,8 +193,8 @@ window.MailredirectExtension = {
         // Normal is always the rect above Disabled
         let coords = region.replace("rect(", "").replace("px)", "").replace("px", "", "g").split(", ");
         if (coords[0] !== "0") {
-          coords[0] = eval("coords[0] - coords[1]");
-          coords[2] = eval("coords[2] - coords[1]");
+          coords[0] = coords[0].toString() - coords[1].toString();
+          coords[2] = coords[2].toString() - coords[1].toString();
           region = "rect(" + coords[0] + "px, " + coords[1] + "px, " + coords[2] + "px, " + coords[3] + "px)";
         }
       }
