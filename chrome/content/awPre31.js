@@ -40,7 +40,7 @@ function awGetNumberOfCols()
  */
 function awInitializeNumberOfRowsShown()
 {
-  let headerToolbar = document.getElementById("addressingToolbar");
+  let headerToolbar = document.getElementById("MsgHeadersToolbar");
   let addressingWidget = document.getElementById("addressingWidget");
   let awNumRowsShownDefault =
     Services.prefs.getIntPref("extensions.mailredirect.addresswidget.numRowsShownDefault");
