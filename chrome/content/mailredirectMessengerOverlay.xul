@@ -10,7 +10,7 @@
 
   <menupopup id="appmenu_messageMenuPopup">
     <menuitem id="appmenu_mailredirect"
-      label="&bounceCommand.label;" 
+      label="&bounceCommand.label;"
       insertafter="appmenu_forwardAsMenu"
       observes="cmd_mailredirect" />
   </menupopup>

@@ -1078,6 +1078,9 @@ function BounceStartup(aParams)
     if (document.getElementById("sidebar").getAttribute("src") === "")
       setTimeout(toggleAddressPicker, 0);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
   }
+
+  // Update the status of the redirect button (in case default recipients are specified)
+  updateSendCommands(false);
 }
 
 function WizCallback(state)
