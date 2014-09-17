@@ -2294,7 +2294,6 @@ nsMeteorsStatus.prototype = {
 
     dumper.dump("_stopMeteors: successfuly sent all messages? " + success);
 
-    let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
     let numMessages = mstate.size;
     let pluralRule = BounceMsgsBundle.getString("pluralRule");
     let [get, numForms] = PluralForm.makeGetter(pluralRule);
