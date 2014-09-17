@@ -1258,6 +1258,13 @@ function updateEditableFields(aDisable)
     elements[i].disabled = aDisable;
 }
 
+function ExitFullscreenMode()
+{
+  // On OS X we need to deliberately exit full screen mode before closing.
+  if (Application.platformIsMac)
+    window.fullscreen = false;
+}
+
 function DoCommandClose()
 {
   window.MeteorsStatus = null;
@@ -1271,6 +1278,7 @@ function DoCommandClose()
     }
   }
   clearMState();
+  ExitFullscreenMode();
   window.close();
   return false;
 }
@@ -2763,19 +2771,6 @@ function renameToToResendTo()
  * ported from http://mxr.mozilla.org/comm-central/source/mailnews/compose/src/nsMsgCompose.cpp#4671
  * (nsMsgCompose::CheckAndPopulateRecipients)
  */
-
-var processedMailLists;
-
-function ExtractAllAddresses(header, names, emails)
-{
-  var count = header.length;
-  names.length = count;
-  emails.length = count;
-  for (var i = 0; i < count; i++) {
-    names[i] = header[i].name;
-    emails[i] = header[i].email;
-  }
-}
 
 /* Only called in TB < 29 */
 function ResolveMailLists()

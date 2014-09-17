@@ -35,6 +35,7 @@
         lightweightthemesfooter="status-bar"
         windowtype="mail:mailredirectWindow"
         macanimationtype="document"
+        fullscreenbutton="true"
         width="600" height="350" screenX="100" screenY="100"
         persist="screenX screenY width height sizemode">
 
