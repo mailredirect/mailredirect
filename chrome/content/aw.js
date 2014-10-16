@@ -531,12 +531,6 @@ function awRecipientTextCommand(enterEvent, element)
   awReturnHit(element);
 }
 
-function awRecipientTextCommandPre31(userAction, element)
-{
-  if (userAction === "typing" || userAction === "scrolling")
-    awReturnHit(element);
-}
-
 /**
  * Handle recipient field blur. Recipient can be confirmed by
  * Enter/Tab or autocomplete selection. In case the recipient name contains
