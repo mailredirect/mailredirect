@@ -42,6 +42,7 @@
         lightweightthemesfooter="status-bar"
         windowtype="mail:mailredirectWindow"
         macanimationtype="document"
+        drawtitle="true"
         width="600" height="350" screenX="100" screenY="100"
         persist="screenX screenY width height sizemode">
 
@@ -290,18 +291,17 @@
                 <listcell class="addressingWidgetCell">
                   <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"
                            aria-labelledby="addressCol1#1"
-                           type="autocomplete" flex="1"
-                           autocompletesearch="mydomain addrbook ldap"
+                           type="autocomplete" flex="1" maxrows="4"
+                           newlines="replacewithcommas"
+                           autocompletesearch="mydomain addrbook ldap" timeout="300"
                            autocompletesearchparam="{}"
-                           timeout="300" maxrows="4"
                            completedefaultindex="true" forcecomplete="true"
                            minresultsforpopup="2" ignoreblurwhilesearching="true"
-                           ontextentered="awRecipientTextCommandPre31(eventParam, this)"
-                           onchange="onRecipientsChanged();"
-                           oninput="setupAutocomplete();"
+                           ontextentered="awRecipientTextCommand(eventParam, this)"
+                           onerrorcommand="awRecipientErrorCommand(eventParam, this)"
+                           oninput="setupAutocomplete();" disableonsend="true"
                            onkeypress="awRecipientKeyPress(event, this)"
-                           onkeydown="awRecipientKeyDown(event, this)"
-                           disableonsend="true">
+                           onkeydown="awRecipientKeyDown(event, this)">
                     <image class="person-icon" onclick="this.parentNode.select();"/>
                   </textbox>
                 </listcell>

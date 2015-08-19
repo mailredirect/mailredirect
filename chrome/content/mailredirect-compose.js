@@ -35,6 +35,7 @@ var gMessenger;
 
 // Global variables
 
+var gAppInfoID = null;
 var gMsgCompose;
 var gWindowLocked;
 var gSendLocked;
@@ -244,6 +245,11 @@ function updateSendCommands(aHaveController)
  */
 function updateSendLock()
 {
+  if (gAppInfoID === SEAMONKEY_ID) {
+    gSendLocked = false;
+    return;
+  }
+
   gSendLocked = true;
   if (!gMsgCompose)
     return;
@@ -1031,10 +1037,11 @@ function BounceStartup(aParams)
   // Before and after callbacks for the customizeToolbar code
   var toolbox = document.getElementById("bounce-toolbox");
   var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-  if (appInfo.ID === THUNDERBIRD_ID) {
+  gAppInfoID = appInfo.ID;
+  if (gAppInfoID === THUNDERBIRD_ID) {
     toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
   }
-  else if (appInfo.ID === SEAMONKEY_ID) {
+  else if (gAppInfoID === SEAMONKEY_ID) {
     toolbox.customizeInit = BounceToolboxCustomizeInit;
     toolbox.customizeDone = BounceToolboxCustomizeDone;
     toolbox.customizeChange = BounceToolboxCustomizeChange;
@@ -1133,8 +1140,9 @@ function BounceLoad()
   }
 
   var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+  gAppInfoID = appInfo.ID;
   var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
-  if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "31.0") < 0) {
+  if (gAppInfoID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "31.0") < 0) {
     var textbox = document.getElementById("addressCol2#1");
     textbox.setAttribute("ontextentered", "awRecipientTextCommandPre31(eventParam, this)");
     textbox.removeAttribute("onblur");
@@ -2029,11 +2037,11 @@ nsMsgStatusFeedback.prototype =
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
     if (!this.throbber) {
-      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-      if (appInfo.ID === THUNDERBIRD_ID) {
+//      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      if (gAppInfoID === THUNDERBIRD_ID) {
         this.throbber = document.getElementById("throbber-box");
       }
-      else if (appInfo.ID === SEAMONKEY_ID) {
+      else if (gAppInfoID === SEAMONKEY_ID) {
         this.throbber = document.getElementById("navigator-throbber");
       }
     }
@@ -2254,11 +2262,11 @@ nsMeteorsStatus.prototype = {
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
     if (!this.throbber) {
-      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-      if (appInfo.ID === THUNDERBIRD_ID) {
+//      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      if (gAppInfoID === THUNDERBIRD_ID) {
         this.throbber = document.getElementById("throbber-box");
       }
-      else if (appInfo.ID === SEAMONKEY_ID) {
+      else if (gAppInfoID === SEAMONKEY_ID) {
         this.throbber = document.getElementById("navigator-throbber");
       }
     }
@@ -2654,11 +2662,11 @@ function toggleAddressPicker()
     // we do this lazily here, so we don't spend time when bringing up the compose window loading the address book
     // data sources. Only when the user opens the address picker do we set the src url for the sidebar...
     if (sidebarUrl === "") {
-      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-      if (appInfo.ID === THUNDERBIRD_ID) {
+//      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+      if (gAppInfoID === THUNDERBIRD_ID) {
         sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
       }
-      else if (appInfo.ID === SEAMONKEY_ID) {
+      else if (gAppInfoID === SEAMONKEY_ID) {
         sidebar.setAttribute("src", "chrome://messenger/content/addressbook/addressbook-panel.xul");
       }
       setTimeout(function() { renameToToResendTo() }, 100);
@@ -2692,8 +2700,8 @@ function renameToToResendTo()
   else
   {
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-    if (appInfo.ID === THUNDERBIRD_ID) {
+//    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+    if (gAppInfoID === THUNDERBIRD_ID) {
       var cardProperties = el.contentDocument.getElementById("cardProperties");
       if (cardProperties === null)
       {
@@ -2740,7 +2748,7 @@ function renameToToResendTo()
         }
       }
     }
-    else if (appInfo.ID === SEAMONKEY_ID) {
+    else if (gAppInfoID === SEAMONKEY_ID) {
       var popup = el.contentDocument.getElementById("composeMail");
       if (popup === null)
       {

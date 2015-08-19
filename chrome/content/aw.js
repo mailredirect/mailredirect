@@ -515,8 +515,6 @@ function _awSetAutoComplete(selectElem, inputElem)
   let params = JSON.parse(inputElem.getAttribute('autocompletesearchparam'));
   params.type = selectElem.value;
   inputElem.setAttribute('autocompletesearchparam', JSON.stringify(params));
-
-  inputElem.disableAutoComplete = false;
 }
 
 function awSetAutoComplete(rowNumber)
@@ -528,21 +526,50 @@ function awSetAutoComplete(rowNumber)
 
 function awRecipientTextCommand(enterEvent, element)
 {
-  awReturnHit(element);
+  // Only add new row when enter was hit (not for tab/autocomplete select).
+  if (enterEvent)
+    awReturnHit(element);
 }
 
-/**
- * Handle recipient field blur. Recipient can be confirmed by
- * Enter/Tab or autocomplete selection. In case the recipient name contains
- * a comma, we should quote it.
- */
-function awRecipientsBlur(event, element) {
-  if (element.value.contains(","))
-  {
-    let addresses = element.value;
-    element.value = ""; // clear out the current line so we don't try to autocomplete it..
-    parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).selectedItem.getAttribute("value"));
-  }
+// Called when an autocomplete session item is selected and the status of
+// the session it was selected from is nsIAutoCompleteStatus::failureItems.
+//
+// As of this writing, the only way that can happen is when an LDAP
+// autocomplete session returns an error to be displayed to the user.
+//
+// There are hardcoded messages in here, but these are just fallbacks for
+// when string bundles have already failed us.
+//
+function awRecipientErrorCommand(errItem, element)
+{
+    // remove the angle brackets from the general error message to construct
+    // the title for the alert.  someday we'll pass this info using a real
+    // exception object, and then this code can go away.
+    //
+    var generalErrString;
+    if (errItem.value != "") {
+      generalErrString = errItem.value.slice(1, errItem.value.length-1);
+    } else {
+      generalErrString = "Unknown LDAP server problem encountered";
+    }
+
+    // try and get the string of the specific error to contruct the complete
+    // err msg, otherwise fall back to something generic.  This message is
+    // handed to us as an nsISupportsString in the param slot of the
+    // autocomplete error item, by agreement documented in
+    // nsILDAPAutoCompFormatter.idl
+    //
+    var specificErrString = "";
+    try {
+      var specificError = errItem.param.QueryInterface(Ci.nsISupportsString);
+      specificErrString = specificError.data;
+    } catch (ex) {
+    }
+    if (specificErrString == "") {
+      specificErrString = "Internal error";
+    }
+
+    Services.prompt.alert(window, generalErrString, specificErrString);
 }
 
 function awRecipientKeyPress(event, element)
@@ -886,4 +913,11 @@ AutomatedAutoCompleteHandler.prototype =
         return this;
       throw Components.results.NS_NOINTERFACE;
   }
+}
+
+// Returns the load context for the current window
+function getLoadContext() {
+  return window.QueryInterface(Ci.nsIInterfaceRequestor)
+               .getInterface(Ci.nsIWebNavigation)
+               .QueryInterface(Ci.nsILoadContext);
 }

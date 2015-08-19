@@ -1,0 +1,5 @@
+<!ENTITY bounceCommand.label "Preusmeri">
+<!ENTITY bounceCommand.accesskey "P">
+<!ENTITY bounceCommand.tooltip "Preusmeri izbrana sporočila">
+<!ENTITY bounceMsgCmd.key "z">
+<!ENTITY bounceMsgCmd.modifiers "accel">

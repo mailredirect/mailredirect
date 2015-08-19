@@ -302,10 +302,9 @@
                            minresultsforpopup="2" ignoreblurwhilesearching="true"
                            ontextentered="awRecipientTextCommand(param, this)"
                            onchange="onRecipientsChanged();"
-                           oninput="setupAutocomplete();"
+                           oninput="onRecipientsChanged();"
                            onkeypress="awRecipientKeyPress(event, this)"
                            onkeydown="awRecipientKeyDown(event, this)"
-                           ononblur="awRecipientsBlur(event, this)"
                            disableonsend="true">
                     <image class="person-icon" onclick="this.parentNode.select();"/>
                   </textbox>

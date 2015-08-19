@@ -45,6 +45,12 @@ function awInitializeNumberOfRowsShown()
   let awNumRowsShownDefault =
     Services.prefs.getIntPref("extensions.mailredirect.addresswidget.numRowsShownDefault");
 
+  // Work around bug 966655: extraHeight 2 pixels for msgHeadersToolbar ensures
+  // visibility of recipient rows per awNumRowsShownDefault and prevents scrollbar
+  // on empty Address Widget, depending on OS screen resolution dpi scaling
+  // (> 100%; thresholds differ).
+  let extraHeight = 2;
+
   // Set minimum number of rows shown for address widget, per hardwired
   // rows="1" attribute of addressingWidget, to prevent resizing the
   // subject and format toolbar over the address widget.
@@ -55,7 +61,7 @@ function awInitializeNumberOfRowsShown()
 
   // Set default number of rows shown for address widget.
   addressingWidget.setAttribute("rows", awNumRowsShownDefault);
-  headerToolbar.height = headerToolbar.boxObject.height;
+  headerToolbar.height = headerToolbar.boxObject.height + extraHeight;
 
   // Update addressingWidget internals.
   awCreateOrRemoveDummyRows();
@@ -127,7 +133,12 @@ function Recipients2CompFields(msgCompFields)
           case "addr_cc"    :
           case "addr_bcc"   :
             try {
-              recipient = MailServices.headerParser.reformatUnquotedAddresses(fieldValue);
+              let headerParser = MailServices.headerParser;
+              recipient = [headerParser.makeMimeAddress(fullValue.name,
+                                                        fullValue.email) for
+                  (fullValue of
+                    headerParser.makeFromDisplayAddress(fieldValue, {}))]
+                .join(", ");
             } catch (ex) {
               recipient = fieldValue;
             }
@@ -523,8 +534,6 @@ function _awSetAutoComplete(selectElem, inputElem)
   let params = JSON.parse(inputElem.getAttribute('autocompletesearchparam'));
   params.type = selectElem.value;
   inputElem.setAttribute('autocompletesearchparam', JSON.stringify(params));
-
-  inputElem.disableAutoComplete = false;
 }
 
 function awSetAutoComplete(rowNumber)
@@ -538,20 +547,6 @@ function awRecipientTextCommandPre31(userAction, element)
 {
   if (userAction === "typing" || userAction === "scrolling")
     awReturnHit(element);
-}
-
-/**
- * Handle recipient field blur. Recipient can be confirmed by
- * Enter/Tab or autocomplete selection. In case the recipient name contains
- * a comma, we should quote it.
- */
-function awRecipientsBlur(event, element) {
-  if (element.value.contains(","))
-  {
-    let addresses = element.value;
-    element.value = ""; // clear out the current line so we don't try to autocomplete it..
-    parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).selectedItem.getAttribute("value"));
-  }
 }
 
 function awRecipientKeyPress(event, element)
@@ -919,4 +914,11 @@ AutomatedAutoCompleteHandler.prototype =
         return this;
       throw Components.results.NS_NOINTERFACE;
   }
+}
+
+// Returns the load context for the current window
+function getLoadContext() {
+  return window.QueryInterface(Ci.nsIInterfaceRequestor)
+               .getInterface(Ci.nsIWebNavigation)
+               .QueryInterface(Ci.nsILoadContext);
 }
