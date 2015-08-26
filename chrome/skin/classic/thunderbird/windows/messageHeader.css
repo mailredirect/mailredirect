@@ -17,7 +17,7 @@ toolbarpaletteitem[place="palette"] #hdrMailredirectButton {
 
 .hdrMailredirectButton {
   -moz-image-region: rect(0px, 16px, 16px, 0px);
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect-small.png");
+  list-style-image: url("chrome://mailredirect-os/skin/mailredirect-small.png") !important;
 }
 
 .hdrMailredirectButton[disabled="true"] {

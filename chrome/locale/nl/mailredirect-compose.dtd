@@ -1,8 +1,8 @@
-<!ENTITY msgMailRedirectWindow.title "Heradresseer bericht">
+<!ENTITY msgMailRedirectWindow.title "Bericht heradresseren">
 
 <!ENTITY fileMenu.label "Bestand">
 <!ENTITY fileMenu.accesskey "B">
-<!ENTITY forwardBounce.label "Heradresseer">
+<!ENTITY forwardBounce.label "Heradresseren">
 <!ENTITY forwardBounce.accesskey "H">
 <!ENTITY closeCmd.label "Sluiten">
 <!ENTITY closeCmd.accesskey "S">
@@ -11,18 +11,18 @@
 <!ENTITY viewMenu.accesskey "l">
 <!ENTITY viewToolbarsMenuNew.label "Tonen/verbergen">
 <!ENTITY viewToolbarsMenuNew.accesskey "T">
-<!ENTITY menubarCmd.label "Menu Bar">
+<!ENTITY menubarCmd.label "Menubalk">
 <!ENTITY menubarCmd.accesskey "M">
 
 <!ENTITY tasksMenu.label "Extra">
 <!ENTITY tasksMenu.accesskey "x">
-<!ENTITY messengerCmd.label "E-mail &amp; Nieuwsgroepen">
+<!ENTITY messengerCmd.label "E-mail &amp; nieuwsgroepen">
 <!ENTITY messengerCmd.accesskey "m">
 <!ENTITY addressBookCmd.label "Adresboek">
-<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.accesskey "A">
 
-<!ENTITY bounceButton.label "Heradresseer">
-<!ENTITY bounceButton.tooltip "Heradresseer berichten">
+<!ENTITY bounceButton.label "Heradresseren">
+<!ENTITY bounceButton.tooltip "Berichten heradresseren">
 <!ENTITY addressButton.label "Adresboek">
 <!ENTITY addressButton.tooltip "Adresboek openen">
 <!ENTITY throbberItem.title "Activiteitsindicator">
@@ -37,7 +37,7 @@
 
 <!ENTITY customizeToolbar.label "Aanpassen…">
 <!ENTITY customizeToolbar.accesskey "A">
-<!ENTITY showBounceToolbarCmd.label "Heradresseerwerkbalk">
+<!ENTITY showBounceToolbarCmd.label "Heradresseringswerkbalk">
 <!ENTITY showBounceToolbarCmd.accesskey "H">
 <!ENTITY showStatusbarCmd.label "Statusbalk">
 <!ENTITY showStatusbarCmd.accesskey "S">

@@ -1,47 +1,47 @@
-<!ENTITY mailredirectSettings.title "Heradresseer Opties">
+<!ENTITY mailredirectSettings.title "MailRedirect voorkeuren">
 
 <!ENTITY prefsGroup.label "Instellingen">
 
-<!ENTITY copyToSentMails.label "Een kopie van geheradresseerde berichten in map Verzonden plaatsen?">
-<!ENTITY copyToSentMails.accesskey "k">
+<!ENTITY copyToSentMails.label "Kopie van geheradresseerde berichten in map Verzonden plaatsen?">
+<!ENTITY copyToSentMails.accesskey "K">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Als deze optie is aangevinkt, wordt een kopie van geheradresseerde berichten in de map Verzonden geplaatst. Als deze optie uit staat, wordt er geen kopie van geheradresseerde berichten bewaard.\nN.B.: Als deze optie is aangevinkt en u bij het account dat gebruikt wordt om te heradresseren heeft ingesteld 'geen kopie te plaatsen', dan wordt er ook geen kopie geplaatst.">
+<!ENTITY copyToSentMails.tooltip "Als deze optie is aangevinkt, wordt een kopie van geheradresseerde berichten in de map Verzonden geplaatst. Als deze optie niet is aangevinkt, wordt er geen kopie van geheradresseerde berichten bewaard.\nN.B.: Als deze optie is aangevinkt en de account die voor heradressering wordt gebruikt op ‘geen kopie plaatsen’ is ingesteld, wordt er ook geen kopie geheradresseerde berichten opgeslagen.">
 
-<!ENTITY concurrentConnections.label "Aantal gelijktijdige SMTP verbindingen:">
-<!ENTITY concurrentConnections.accesskey "A">
+<!ENTITY concurrentConnections.label "Aantal gelijktijdige SMTP-verbindingen:">
+<!ENTITY concurrentConnections.accesskey "S">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "Hiermee stelt u het aantal verbindingen in die met uw SMTP server worden opgezet bij het verzenden van berichten. U kunt hier betere prestaties mee bereiken als u veel berichten tegelijk heradresseert.\nN.B.: Als u deze parameter op nul instelt, geldt er geen limiet voor het aantal gelijktijdige verbindingen - dit kan de stabiliteit van uw SMTP server beïnvloeden of het heradresseren van enkele berichten zou kunnen mislukken. Als u problemen ondervindt, stel dan de waarde een in.">
+<!ENTITY concurrentConnections.tooltip "Hiermee stelt u het aantal verbindingen in dat bij het verzenden van berichten met uw SMTP-server wordt opgezet. Doorgaans bereikt u hier betere prestaties mee als u veel berichten tegelijk heradresseert.\nN.B.: Als u deze parameter op 0 instelt, geldt er geen limiet voor het aantal gelijktijdige verbindingen - dit kan de stabiliteit van uw SMTP-server beïnvloeden of het heradresseren van enkele berichten zou kunnen mislukken. Als u problemen ondervindt, stel dan de waarde in op 1.">
 
-<!ENTITY defaultRecipientsGroup.label "Standaard ontvangers">
+<!ENTITY defaultRecipientsGroup.label "Standaardontvangers">
 
 <!ENTITY defaultResendTo.label "Heradresseer-Aan:">
 <!ENTITY defaultResendTo.accesskey "A">
-<!ENTITY defaultResendTo.tooltip "Comma-gescheiden lijst van e-mailadressen.">
+<!ENTITY defaultResendTo.tooltip "Kommagescheiden lijst van e-mailadressen.">
 
 <!ENTITY defaultResendCc.label "Heradresseer-Cc:">
 <!ENTITY defaultResendCc.accesskey "C">
-<!ENTITY defaultResendCc.tooltip "Comma-gescheiden lijst van e-mailadressen.">
+<!ENTITY defaultResendCc.tooltip "Kommagescheiden lijst van e-mailadressen.">
 
 <!ENTITY defaultResendBcc.label "Heradresseer-Bcc:">
 <!ENTITY defaultResendBcc.accesskey "B">
-<!ENTITY defaultResendBcc.tooltip "Comma-gescheiden lijst van e-mailadressen.">
+<!ENTITY defaultResendBcc.tooltip "Kommagescheiden lijst van e-mailadressen.">
 
-<!ENTITY defaultMode.label "Standaard manier:">
+<!ENTITY defaultMode.label "Standaardmodus:">
 <!ENTITY defaultMode.accesskey "m">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Kies hoe je berichten standaard wilt heradresseren\nDeze instelling heeft alleen effect als je geen standaard ontvanngers hebt ingesteld.">
+<!ENTITY defaultMode.tooltip "Kiezen hoe u berichten standaard wilt heradresseren\nDeze instelling heeft alleen effect als u geen standaardontvanngers hebt opgegeven.">
 <!ENTITY defaultModeResendTo.label "Heradresseer-Aan">
 <!ENTITY defaultModeResendCc.label "Heradresseer-Cc">
 <!ENTITY defaultModeResendBcc.label "Heradresseer-Bcc">
 
-<!ENTITY debug.label "Debug">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Debuggen van Heradresseer extensie aan/uit zetten. Meldingen komen op de JavaScript Foutconsole.">
+<!ENTITY debug.label "Foutopsporing">
+<!ENTITY debug.accesskey "F">
+<!ENTITY debug.tooltip "Foutopsporing voor Mail Redirect-extensie aan-/uitzetten. Logboekvermeldingen worden naar de JavaScript-foutconsole gestuurd.">
 
-<!ENTITY saveConsoleContent.label2 "Bewaar inhoud van de Foutconsole…">
-<!ENTITY saveConsoleContent.accesskey2 "B">
-<!ENTITY sendViaEmail.label "Via e-mail versturen">
-<!ENTITY sendViaEmail.accesskey "v">
+<!ENTITY saveConsoleContent.label2 "Inhoud van foutconsole opslaan…">
+<!ENTITY saveConsoleContent.accesskey2 "I">
+<!ENTITY sendViaEmail.label "Verzenden via e-mail">
+<!ENTITY sendViaEmail.accesskey "V">
 
 <!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Heradresseer bericht">
+<!ENTITY mailredirectSettings.label "Bericht heradresseren">
