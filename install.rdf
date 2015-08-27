@@ -43,14 +43,14 @@
       <rdf:Description rdf:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>6.0</em:minVersion>
-        <em:maxVersion>35.0a2</em:maxVersion>
+        <em:maxVersion>42.0a2</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
     <em:targetApplication>
       <rdf:Description rdf:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1</em:minVersion>
-        <em:maxVersion>2.32a2</em:maxVersion>
+        <em:maxVersion>2.39a2</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
   </rdf:Description>
