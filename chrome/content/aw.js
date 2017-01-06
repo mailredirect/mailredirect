@@ -1,4 +1,4 @@
-// based on http://mxr.mozilla.org/comm-central/source/mail/components/compose/content/addressingWidgetOverlay.js
+// based on http://dxr.mozilla.org/comm-central/source/mail/components/compose/content/addressingWidgetOverlay.js
 
 "use strict";
 
@@ -95,66 +95,63 @@ function awGetSelectItemIndex(itemData)
 
 function Recipients2CompFields(msgCompFields)
 {
-  if (msgCompFields)
+  if (!msgCompFields)
   {
-    var i = 1;
-    var addrTo = "";
-    var addrCc = "";
-    var addrBcc = "";
-    var to_Sep = "";
-    var cc_Sep = "";
-    var bcc_Sep = "";
-
-    var recipientType;
-    var inputField;
-    var fieldValue;
-    var recipient;
-    while ((inputField = awGetInputElement(i)))
-    {
-      fieldValue = inputField.value;
-
-      if (fieldValue === null)
-        fieldValue = inputField.getAttribute("value");
-
-      if (fieldValue !== "")
-      {
-        recipientType = awGetPopupElement(i).selectedItem.getAttribute("value");
-        recipient = null;
-
-        switch (recipientType)
-        {
-          case "addr_to"    :
-          case "addr_cc"    :
-          case "addr_bcc"   :
-            try {
-              let headerParser = MailServices.headerParser;
-              recipient = [headerParser.makeMimeAddress(fullValue.name,
-                                                        fullValue.email) for
-                  (fullValue of
-                    headerParser.makeFromDisplayAddress(fieldValue, {}))]
-                .join(", ");
-            } catch (ex) {
-              recipient = fieldValue;
-            }
-            break;
-        }
-
-        switch (recipientType)
-        {
-          case "addr_to"          : addrTo += to_Sep + recipient; to_Sep = ",";    break;
-          case "addr_cc"          : addrCc += cc_Sep + recipient; cc_Sep = ",";    break;
-          case "addr_bcc"         : addrBcc += bcc_Sep + recipient; bcc_Sep = ","; break;
-        }
-      }
-      i ++;
-    }
-
-    msgCompFields.to = addrTo;
-    msgCompFields.cc = addrCc;
-    msgCompFields.bcc = addrBcc;
-  }
-  else
     dumper.dump("Message Compose Error: msgCompFields is null (ExtractRecipients)");
+    return;
+  }
+
+  var i = 1;
+  var addrTo = "";
+  var addrCc = "";
+  var addrBcc = "";
+  var to_Sep = "";
+  var cc_Sep = "";
+  var bcc_Sep = "";
+
+  var recipientType;
+  var inputField;
+  var fieldValue;
+  var recipient;
+  while ((inputField = awGetInputElement(i)))
+  {
+    fieldValue = inputField.value;
+
+    if (fieldValue !== "")
+    {
+      recipientType = awGetPopupElement(i).value;
+      recipient = null;
+
+      switch (recipientType)
+      {
+        case "addr_to"    :
+        case "addr_cc"    :
+        case "addr_bcc"   :
+          try {
+            let headerParser = MailServices.headerParser;
+            recipient =
+              headerParser.makeFromDisplayAddress(fieldValue, {}).map(fullValue =>
+                headerParser.makeMimeAddress(fullValue.name, fullValue.email))
+              .join(", ");
+          } catch (ex) {
+            recipient = fieldValue;
+          }
+          break;
+      }
+
+      switch (recipientType)
+      {
+        case "addr_to"          : addrTo += to_Sep + recipient; to_Sep = ",";    break;
+        case "addr_cc"          : addrCc += cc_Sep + recipient; cc_Sep = ",";    break;
+        case "addr_bcc"         : addrBcc += bcc_Sep + recipient; bcc_Sep = ","; break;
+      }
+    }
+    i ++;
+  }
+
+  msgCompFields.to = addrTo;
+  msgCompFields.cc = addrCc;
+  msgCompFields.bcc = addrBcc;
 }
 
 function awSetInputAndPopupId(inputElem, popupElem, rowNumber)
@@ -164,12 +161,22 @@ function awSetInputAndPopupId(inputElem, popupElem, rowNumber)
   inputElem.setAttribute("aria-labelledby", popupElem.id);
 }
 
-function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, rowNumber)
+/**
+ * Set value of the recipient input field at row rowNumber and set up
+ * the recipient type menulist.
+ *
+ * @param inputElem                 recipient input element
+ * @param inputValue                recipient value (address)
+ * @param popupElem                 recipient type menulist element
+ * @param popupValue
+ * @param aNotifyRecipientsChanged  Notify that the recipients have changed.
+ *                                  Generally we notify unless recipients are
+ *                                  added in batch when the caller takes care
+ *                                  of the notification.
+ */
+function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, rowNumber, aNotifyRecipientsChanged = true)
 {
-  inputValue = inputValue.trimLeft();
-
-  inputElem.setAttribute("value", inputValue);
-  inputElem.value = inputValue;
+  inputElem.value = inputValue.trimLeft();
 
   popupElem.selectedItem = popupElem.childNodes[0].childNodes[awGetSelectItemIndex(popupValue)];
 
@@ -178,7 +185,8 @@ function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, r
 
   _awSetAutoComplete(popupElem, inputElem);
 
-  onRecipientsChanged(true);
+  if (aNotifyRecipientsChanged)
+    onRecipientsChanged(true);
 }
 
 function _awSetInputAndPopup(inputValue, popupValue, parentNode, templateNode)
@@ -195,8 +203,67 @@ function _awSetInputAndPopup(inputValue, popupValue, parentNode, templateNode)
     awSetInputAndPopupValue(input[0], inputValue, select[0], popupValue, top.MAX_RECIPIENTS)
 }
 
-// this was broken out of awAddRecipients so it can be re-used...adds a new row matching recipientType and
-// drops in the single address.
+/**
+ * Adds a batch of new rows matching recipientType and drops in the array of addresses.
+ *
+ * @param aRecipientType  Type of recipient, e.g. "addr_to".
+ * @param aAddressArray   An array of recipient addresses (strings) to add.
+ */
+function awAddRecipientsArray(aRecipientType, aAddressArray)
+{
+  // Find rows that are empty so that we can fill them.
+  let emptyRows = [];
+  for (let row = 1; row <= top.MAX_RECIPIENTS; row ++)
+  {
+    if (awGetInputElement(row).value == "")
+      emptyRows.push(row);
+  }
+
+  // Push the new recipients into the found empty rows or append new rows when needed.
+  let row = 1;
+  for (let address of aAddressArray)
+  {
+    if (emptyRows.length > 0)
+    {
+      row = emptyRows.shift();
+    }
+    else
+    {
+      awAppendNewRow(false);
+      row = top.MAX_RECIPIENTS;
+    }
+
+    awSetInputAndPopupValue(awGetInputElement(row), address, awGetPopupElement(row), aRecipientType,
+                            row, false);
+  }
+
+  // Be sure we still have an empty row left.
+  if ((emptyRows.length == 0) && (awGetInputElement(top.MAX_RECIPIENTS).value != ""))
+  {
+    // Insert empty row at the end and focus.
+    awAppendNewRow(true);
+    awSetInputAndPopupValue(awGetInputElement(top.MAX_RECIPIENTS), "",
+    awGetPopupElement(top.MAX_RECIPIENTS), "addr_to",
+    top.MAX_RECIPIENTS, false);
+  }
+  else
+  {
+    // Focus the next empty row, if any, or the pre-existing empty last row.
+    row = (emptyRows.length > 0) ? emptyRows.shift() : top.MAX_RECIPIENTS;
+    awSetFocus(row, awGetInputElement(row));
+  }
+
+  onRecipientsChanged(true);
+}
+
+/**
+ * Adds a new row matching recipientType and drops in the single address.
+ *
+ * This is mostly used by addons, even though they should use AddRecipient().
+ *
+ * @param aRecipientType  Type of recipient, e.g. addr_to.
+ * @param aAddress        A string with recipient address.
+ */
 function awAddRecipient(recipientType, address)
 {
   for (var row = 1; row <= top.MAX_RECIPIENTS; row++)
@@ -311,7 +378,7 @@ function awAppendNewRow(setFocus)
 
   if (listbox && listitem1)
   {
-    var lastRecipientType = awGetPopupElement(top.MAX_RECIPIENTS).selectedItem.getAttribute("value");
+    var lastRecipientType = awGetPopupElement(top.MAX_RECIPIENTS).value;
 
     var nextDummy = awGetNextDummyRow();
     var newNode = listitem1.cloneNode(true);
@@ -325,7 +392,7 @@ function awAppendNewRow(setFocus)
     var input = newNode.getElementsByTagName(awInputElementName());
     if (input && input.length === 1)
     {
-      input[0].setAttribute("value", "");
+      input[0].value = "";
 
       // We always clone the first row.  The problem is that the first row
       // could be focused.  When we clone that row, we end up with a cloned
@@ -358,11 +425,23 @@ function awAppendNewRow(setFocus)
 
 // functions for accessing the elements in the addressing widget
 
+/**
+ * Returns the recipient type popup for a row.
+ *
+ * @param row  Index of the recipient row to return. Starts at 1.
+ * @return     This returns the menulist (not its child menupopup), despite the function name.
+ */
 function awGetPopupElement(row)
 {
   return document.getElementById("addressCol1#" + row);
 }
 
+/**
+ * Returns the recipient type popup for a row.
+ *
+ * @param row  Index of the recipient row to return. Starts at 1.
+ * @return     This returns the menulist (not its child menupopup), despite the function name.
+ */
 function awGetInputElement(row)
 {
   return document.getElementById("addressCol2#" + row);
@@ -507,7 +586,7 @@ function DropOnAddressingWidget(event)
 function DropRecipient(target, recipient)
 {
   // break down and add each address
-  return parseAndAddAddresses(recipient, awGetInputElement(top.MAX_RECIPIENTS).selectedItem.getAttribute("value"));
+  return parseAndAddAddresses(recipient, awGetInputElement(top.MAX_RECIPIENTS).value);
 }
 
 function _awSetAutoComplete(selectElem, inputElem)
@@ -577,12 +656,27 @@ function awRecipientKeyPress(event, element)
   switch(event.keyCode) {
   case KeyEvent.DOM_VK_RETURN:
   case KeyEvent.DOM_VK_TAB:
+    // str.includes is new to ECMAScript 6
+    if (typeof String.includes === "undefined")
+      String.prototype.includes = function() {
+        'use strict';
+        if (typeof arguments[1] === "number") {
+          if (this.length < arguments[0].length + arguments[1].length) {
+            return false;
+          } else {
+            if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
+            else return false;
+          }
+        } else {
+          return String.prototype.indexOf.apply(this, arguments) !== -1;
+        }
+      };
     // if the user text contains a comma or a line return, ignore
-    if (element.value.contains(','))
+    if (element.value.includes(','))
     {
       var addresses = element.value;
       element.value = ""; // clear out the current line so we don't try to autocomplete it..
-      parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).selectedItem.getAttribute("value"));
+      parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).value);
     }
     else if (event.keyCode == KeyEvent.DOM_VK_TAB)
       awTabFromRecipient(element, event);
@@ -613,9 +707,9 @@ function awKeyDown(event, listboxElement)
   case KeyEvent.DOM_VK_BACK_SPACE:
     /* Warning, the listboxElement.selectedItems will change everytime we delete a row */
     var selItems = listboxElement.selectedItems;
-    var length = listboxElement.selectedItems.length;
+    var length = listboxElement.selectedCount;
     for (var i = 1; i <= length; i++) {
-      var inputs = listboxElement.selectedItems[0].getElementsByTagName(awInputElementName());
+      var inputs = listboxElement.selectedItem.getElementsByTagName(awInputElementName());
       if (inputs && inputs.length === 1)
         awDeleteHit(inputs[0]);
     }
@@ -757,12 +851,10 @@ function parseAndAddAddresses(addressText, recipientType)
   if (addresses.length > 0)
   {
     // we need to set up our own autocomplete session and search for results
-
-    setupAutocomplete(); // be safe, make sure we are setup
     if (!gAutomatedAutoCompleteListener)
       gAutomatedAutoCompleteListener = new AutomatedAutoCompleteHandler();
 
-    gAutomatedAutoCompleteListener.init(addresses.map(addr => addr.toString(true)), addresses.length, recipientType);
+    gAutomatedAutoCompleteListener.init(addresses.map(addr => addr.toString()), recipientType);
   }
 }
 
@@ -778,25 +870,26 @@ AutomatedAutoCompleteHandler.prototype =
 {
   param: this,
   sessionName: null,
-  namesToComplete: {},
+  namesToComplete: null,
   numNamesToComplete: 0,
   indexIntoNames: 0,
+  finalAddresses: null,
 
   numSessionsToSearch: 0,
   numSessionsSearched: 0,
   recipientType: null,
   searchResults: null,
 
-  init: function(namesToComplete, numNamesToComplete, recipientType)
+  init: function(namesToComplete, recipientType)
   {
     this.indexIntoNames = 0;
-    this.numNamesToComplete = numNamesToComplete;
+    this.numNamesToComplete = namesToComplete.length;
     this.namesToComplete = namesToComplete;
+    this.finalAddresses = [];
 
-    this.recipientType = recipientType;
+    this.recipientType = recipientType ? recipientType : "addr_to";
 
     // set up the auto complete sessions to use
-    setupAutocomplete();
     this.autoCompleteNextAddress();
   },
 
@@ -804,43 +897,63 @@ AutomatedAutoCompleteHandler.prototype =
   {
     this.numSessionsToSearch = 0;
     this.numSessionsSearched = 0;
-    this.searchResults = new Array;
+    this.searchResults = [];
 
-    if (this.indexIntoNames < this.numNamesToComplete && this.namesToComplete[this.indexIntoNames])
+    if (this.indexIntoNames < this.numNamesToComplete)
     {
-    	/* XXX This is used to work, until switching to the new toolkit broke it
-         We should fix it see bug 456550.
-      if (!this.namesToComplete[this.indexIntoNames].contains("@")) // don't autocomplete if address has an @ sign in it
-      {
-        // make sure total session count is updated before we kick off ANY actual searches
-        if (gAutocompleteSession)
-          this.numSessionsToSearch++;
-
-        if (gLDAPSession && gCurrentAutocompleteDirectory)
-          this.numSessionsToSearch++;
-
-        if (gAutocompleteSession)
+      if (this.namesToComplete[this.indexIntoNames]) {
+        /* XXX This used to work, until switching to the new toolkit broke it
+           We should fix it see bug 456550.
+        if (typeof String.includes === "undefined")
+          String.prototype.includes = function() {
+            'use strict';
+            if (typeof arguments[1] === "number") {
+              if (this.length < arguments[0].length + arguments[1].length) {
+                return false;
+              } else {
+                if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
+                else return false;
+              }
+            } else {
+              return String.prototype.indexOf.apply(this, arguments) !== -1;
+            }
+          };
+        if (!this.namesToComplete[this.indexIntoNames].includes("@")) // don't autocomplete if address has an @ sign in it
         {
-           gAutocompleteSession.onAutoComplete(this.namesToComplete[this.indexIntoNames], null, this);
-           // AB searches are actually synchronous. So by the time we get here we have already looked up results.
+          // make sure total session count is updated before we kick off ANY actual searches
+          if (gAutocompleteSession)
+            this.numSessionsToSearch++;
 
-           // if we WERE going to also do an LDAP lookup, then check to see if we have a valid match in the AB, if we do
-           // don't bother with the LDAP search too just return
+          if (gLDAPSession && gCurrentAutocompleteDirectory)
+            this.numSessionsToSearch++;
 
-           if (gLDAPSession && gCurrentAutocompleteDirectory && this.searchResults[0] && this.searchResults[0].defaultItemIndex !== -1)
-           {
-             this.processAllResults();
-             return;
-           }
+          if (gAutocompleteSession)
+          {
+             gAutocompleteSession.onAutoComplete(this.namesToComplete[this.indexIntoNames], null, this);
+             // AB searches are actually synchronous. So by the time we get here we have already looked up results.
+
+             // if we WERE going to also do an LDAP lookup, then check to see if we have a valid match in the AB, if we do
+             // don't bother with the LDAP search too just return
+
+             if (gLDAPSession && gCurrentAutocompleteDirectory && this.searchResults[0] && this.searchResults[0].defaultItemIndex !== -1)
+             {
+               this.processAllResults();
+               return;
+             }
+          }
+
+          if (gLDAPSession && gCurrentAutocompleteDirectory)
+            gLDAPSession.onStartLookup(this.namesToComplete[this.indexIntoNames], null, this);
         }
+        */
 
-        if (gLDAPSession && gCurrentAutocompleteDirectory)
-          gLDAPSession.onStartLookup(this.namesToComplete[this.indexIntoNames], null, this);
+        if (!this.numSessionsToSearch)
+          this.processAllResults(); // ldap and ab are turned off, so leave text alone
       }
-      */
-
-      if (!this.numSessionsToSearch)
-        this.processAllResults(); // ldap and ab are turned off, so leave text alone
+    }
+    else
+    {
+      this.finish();
     }
   },
 
@@ -899,11 +1012,17 @@ AutomatedAutoCompleteHandler.prototype =
     if (!addressToAdd)
       addressToAdd = this.namesToComplete[this.indexIntoNames];
 
-    // that will automatically set the focus on a new available row, and make sure it is visible
-    awAddRecipient(this.recipientType ? this.recipientType : "addr_to", addressToAdd);
+    this.finalAddresses.push(addressToAdd);
 
     this.indexIntoNames++;
     this.autoCompleteNextAddress();
+  },
+
+  finish : function()
+  {
+    // This will now append all the recipients, set the focus on a new
+    // available row, and make sure it is visible.
+    awAddRecipientsArray(this.recipientType, this.finalAddresses);
   },
 
   QueryInterface : function(iid)

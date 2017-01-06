@@ -1,6 +1,11 @@
 #!/bin/bash
 # babelzilla
-cd $(dirname $(cygpath -u $(cygpath -m -s "${0}")))/..
+if [ "$(uname)" == "Linux" ]
+then
+  cd $(dirname .)/..
+else
+  cd $(dirname $(cygpath -u $(cygpath -m -s "${0}")))/..
+fi
 [ -d xpi ] || mkdir xpi
 cd xpi
 rm -fr babelzilla/

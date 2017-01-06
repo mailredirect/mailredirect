@@ -1,4 +1,4 @@
-// based on http://mxr.mozilla.org/comm-central/source/mail/components/compose/content/MsgComposeCommands.js
+// based on http://dxr.mozilla.org/comm-central/source/mail/components/compose/content/MsgComposeCommands.js
 
 "use strict";
 
@@ -271,7 +271,6 @@ function updateSendLock()
  *
  * @param aMsgCompFields  A nsIMsgCompFields object containing the fields to check.
  */
-const NS_MSG_NO_RECIPIENTS = "12511"; // from composeMsgs.properties
 function CheckValidEmailAddress(aMsgCompFields)
 {
   // hasRecipients is new to Thunderbird 23
@@ -281,8 +280,20 @@ function CheckValidEmailAddress(aMsgCompFields)
            aMsgCompFields.cc.match(/^\s*$/) &&
            aMsgCompFields.bcc.match(/^\s*$/))) {
     var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
-    Services.prompt.alert(window, composeMsgsBundle.getString("addressInvalidTitle"),
-                          composeMsgsBundle.getString(NS_MSG_NO_RECIPIENTS));
+    var errorTitle;
+    var errorMsg;
+    if (gAppInfoID === THUNDERBIRD_ID) {
+      errorTitle = composeMsgsBundle.getString("addressInvalidTitle");
+    } else {
+      errorTitle = composeMsgsBundle.getString("sendMsgTitle");
+    }
+    try {
+      errorMsg = composeMsgsBundle.getString("noRecipients");
+    } catch(ex) {
+      // Entity 12511 was renamed to addressInvalid in TB38
+      errorMsg = composeMsgsBundle.getString("12511");
+    }
+    Services.prompt.alert(window, errorTitle, errorMsg);
 
     return false;
   }
@@ -291,14 +302,24 @@ function CheckValidEmailAddress(aMsgCompFields)
   // Crude check that the to, cc, and bcc fields contain at least one '@'.
   // We could parse each address, but that might be overkill.
   function isInvalidAddress(aAddress) {
-    // str.contains is new to ECMAScript 6  
-    if (typeof String.contains === "undefined")
-      String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
-    // str.endsWith is new to ECMAScript 6  
+    // str.includes is new to ECMAScript 6
+    if (typeof String.includes === "undefined")
+      String.prototype.includes = function(search, start) {
+        'use strict';
+        if (typeof start !== "number") {
+          start = 0;
+        }
+        if (start + search.length > this.length) {
+          return false;
+        } else {
+          return this.indexOf(search, start) !== -1;
+        }
+      };
+    // str.endsWith is new to ECMAScript 6
     if (typeof String.endsWith === "undefined")
       String.prototype.endsWith = function(suffix) { return this.indexOf(suffix, this.length - suffix.length) != -1; };
     return (aAddress.length > 0 &&
-            ((!aAddress.contains("@", 1) && aAddress.toLowerCase() != "postmaster") ||
+            ((!aAddress.includes("@", 1) && aAddress.toLowerCase() != "postmaster") ||
               aAddress.endsWith("@")));
   }
   if (isInvalidAddress(aMsgCompFields.to))
@@ -310,7 +331,13 @@ function CheckValidEmailAddress(aMsgCompFields)
   if (invalidStr)
   {
     var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
-    Services.prompt.alert(window, composeMsgsBundle.getString("addressInvalidTitle"),
+    var errorTitle;
+    if (gAppInfoID === THUNDERBIRD_ID) {
+      errorTitle = composeMsgsBundle.getString("addressInvalidTitle");
+    } else {
+      errorTitle = composeMsgsBundle.getString("sendMsgTitle");
+    }
+    Services.prompt.alert(window, errorTitle,
                           composeMsgsBundle.getFormattedString("addressInvalid",
                           [invalidStr], 1));
     return false;
@@ -654,9 +681,6 @@ function onAddressColCommand(aAddressWidgetId)
  */
 function onRecipientsChanged(aAutomatic)
 {
-  if (!aAutomatic) {
-    setupAutocomplete();
-  }
   updateSendCommands(true);
 }
 
@@ -1127,6 +1151,8 @@ function BounceLoad()
   var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
   var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
 
+  setupAutocomplete();
+
   // copy toolbar appearance settings from mail3pane
   if (mail3paneWindow) {
     var aBounceToolbar = document.getElementById("bounceToolbar");
@@ -1196,6 +1222,17 @@ function BounceLoad()
     menulist.value = defaultMode;
   }
 
+  var cardbookAutocompletion = getPref("extensions.cardbook.autocompletion");
+  if (cardbookAutocompletion) {
+    var textbox = document.getElementById("addressCol2#1");
+    var cardbookExclusive = getPref("extensions.cardbook.exclusive");
+    if (cardbookExclusive) {
+      textbox.setAttribute("autocompletesearch", "addrbook-cardbook");
+    } else {
+      textbox.setAttribute("autocompletesearch", "mydomain addrbook-cardbook addrbook ldap");
+    }
+  }
+
   AddDirectoryServerObserver(true);
 
   try {
@@ -1225,7 +1262,6 @@ function BounceLoad()
     DoCommandClose();
     return;
   }
-
 }
 
 function AdjustFocus()
@@ -1361,91 +1397,97 @@ var mailredirectDragObserver = {
 
   onDrop: function (aEvent, aData, aDragSession)
   {
-    var aTree = document.getElementById("topTreeChildren");
-    if (!aTree.disabled)
-    {
-      var dataList = aData.dataList;
-      var dataListLength = dataList.length;
-      var errorTitle;
-      var attachment;
-      var errorMsg;
+    var dataList = aData.dataList;
+    var dataListLength = dataList.length;
+    var errorTitle;
+    var attachment;
+    var errorMsg;
 
-      for (var i = 0; i < dataListLength; i++)
+    for (var i = 0; i < dataListLength; i++)
+    {
+      var item = dataList[i].first;
+      var prettyName;
+      var size;
+      var rawData = item.data;
+
+      if (item.flavour.contentType === "text/x-moz-message")
       {
-        var item = dataList[i].first;
-        var prettyName;
-        var rawData = item.data;
-  
-        if (item.flavour.contentType === "text/x-moz-message")
-        {
-          if (mstate.selectedURIs.indexOf(rawData) === -1) {
-            var i = mstate.size++;
-            mstate.selectedURIs.push(rawData);
-  
-            var aRow = document.createElement("treerow");
-            aRow.setAttribute("messageURI", rawData);
-            aRow.setAttribute("URIidx", i);
-            aRow.setAttribute("disableonsend", true);
-  
-            dumper.dump(mstate.selectedURIs[i]);
-            var msgService = gMessenger.messageServiceFromURI(mstate.selectedURIs[i]);
-            var msgSubject = "";
-            var msgAuthor = "";
-            var msgDate = null;
-            var propertiesString = "";
-            var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
+        if (mstate.selectedURIs.indexOf(rawData) === -1) {
+          var i = mstate.size++;
+          mstate.selectedURIs.push(rawData);
+
+          var aRow = document.createElement("treerow");
+          aRow.setAttribute("messageURI", rawData);
+          aRow.setAttribute("URIidx", i);
+          aRow.setAttribute("disableonsend", true);
+
+          dumper.dump(mstate.selectedURIs[i]);
+          var msgService = gMessenger.messageServiceFromURI(mstate.selectedURIs[i]);
+          var msgSubject = "";
+          var msgAuthor = "";
+          var msgDate = null;
+          var propertiesString = "";
+          var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
+          if (msgHdr) {
+            msgSubject = msgHdr.mime2DecodedSubject;
+            msgAuthor = msgHdr.mime2DecodedAuthor;
+            msgDate = msgHdr.date;
+            if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
+            if (msgHdr.flags & 0x0001)  propertiesString += " read";
+            if (msgHdr.flags & 0x0002)  propertiesString += " replied";
+            if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
+            if (msgHdr.flags & 0x10000) propertiesString += " new";
+            if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
+          } else if (currMsgWindow && currMsgWindow.messageHeaderSink) {
+            msgHdr = currMsgWindow.messageHeaderSink.dummyMsgHeader;
             if (msgHdr) {
-              msgSubject = msgHdr.mime2DecodedSubject;
-              msgAuthor = msgHdr.mime2DecodedAuthor;
-              msgDate = msgHdr.date;
-              if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
-              if (msgHdr.flags & 0x0001)  propertiesString += " read";
-              if (msgHdr.flags & 0x0002)  propertiesString += " replied";
-              if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
-              if (msgHdr.flags & 0x10000) propertiesString += " new";
-              if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
-            } else if (currMsgWindow && currMsgWindow.messageHeaderSink) {
-              msgHdr = currMsgWindow.messageHeaderSink.dummyMsgHeader;
-              if (msgHdr) {
-                msgSubject = msgHdr.subject;
-                msgAuthor = msgHdr.author;
-              }
+              msgSubject = msgHdr.subject;
+              msgAuthor = msgHdr.author;
             }
-  
-            var aCell = document.createElement("treecell");
-            aCell.setAttribute("label", msgSubject);
-            aCell.setAttribute("properties", propertiesString);
-            aRow.appendChild(aCell);
-  
-            var aCell = document.createElement("treecell");
-            aCell.setAttribute("label", msgAuthor);
-            aRow.appendChild(aCell);
-  
-            var aCell = document.createElement("treecell");
-            var dateString = "";
-            if (msgDate) {
-              var dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
-                                      getService(Ci.nsIScriptableDateFormat);
-              var date = new Date();
-              date.setTime(msgDate / 1000);
-              dateString = dateFormatService.FormatDateTime("",
-                dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
-                date.getFullYear(), date.getMonth()+1, date.getDate(),
-                date.getHours(), date.getMinutes(), date.getSeconds());
-            }
-            aCell.setAttribute("label", dateString);
-            aRow.appendChild(aCell);
-  
-            var aItem = document.createElement("treeitem");
-            aItem.appendChild(aRow);
-            aTree.appendChild(aItem);
           }
+
+          var aCell = document.createElement("treecell");
+          aCell.setAttribute("label", msgSubject);
+          aCell.setAttribute("properties", propertiesString);
+          aRow.appendChild(aCell);
+
+          var aCell = document.createElement("treecell");
+          aCell.setAttribute("label", msgAuthor);
+          aRow.appendChild(aCell);
+
+          var aCell = document.createElement("treecell");
+          var dateString = "";
+          if (msgDate) {
+            var dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
+                                    getService(Ci.nsIScriptableDateFormat);
+            var date = new Date();
+            date.setTime(msgDate / 1000);
+            dateString = dateFormatService.FormatDateTime("",
+              dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
+              date.getFullYear(), date.getMonth()+1, date.getDate(),
+              date.getHours(), date.getMinutes(), date.getSeconds());
+          }
+          aCell.setAttribute("label", dateString);
+          aRow.appendChild(aCell);
+
+          var aItem = document.createElement("treeitem");
+          aItem.appendChild(aRow);
+          aTree.appendChild(aItem);
         }
-        else if (item.flavour.contentType === "text/x-moz-address")
+      }
+      else if (item.flavour.contentType === "text/x-moz-address")
+      {
+        // process the address
+        if (rawData)
         {
-          // process the address
-          if (rawData)
-            DropRecipient(aEvent.target, rawData);
+          DropRecipient(aEvent.target, rawData);
+
+          // Since we are now using ondrop (eDrop) instead of previously using
+          // ondragdrop (eLegacyDragDrop), we must prevent the default
+          // which is dropping the address text into the widget.
+          // Note that stopPropagation() is called by our caller in
+          // nsDragAndDrop.js.
+          aEvent.preventDefault();
         }
       }
     }
@@ -1460,8 +1502,8 @@ var mailredirectDragObserver = {
   getSupportedFlavours: function ()
   {
     var flavourSet = new FlavourSet();
-    flavourSet.appendFlavour("text/x-moz-message");
     flavourSet.appendFlavour("text/x-moz-address");
+    flavourSet.appendFlavour("text/x-moz-message");
     return flavourSet;
   }
 };
@@ -2683,11 +2725,16 @@ function toggleAddressPicker()
   }
 }
 
-// public method called by the address picker sidebar
+// public method called by add-ons.
 function AddRecipient(recipientType, address)
 {
   awAddRecipient(recipientType, address);
-  setupAutocomplete();
+}
+
+// public method called by the contacts sidebar.
+function AddRecipientsArray(aRecipientType, aAddressArray)
+{
+  awAddRecipientsArray(aRecipientType, aAddressArray);
 }
 
 function renameToToResendTo()
@@ -2775,7 +2822,7 @@ function renameToToResendTo()
 /*
  * maillists
  *
- * ported from http://mxr.mozilla.org/comm-central/source/mailnews/compose/src/nsMsgCompose.cpp#4671
+ * ported from http://dxr.mozilla.org/comm-central/source/mailnews/compose/src/nsMsgCompose.cpp#4823
  * (nsMsgCompose::CheckAndPopulateRecipients)
  */
 

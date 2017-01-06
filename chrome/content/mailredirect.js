@@ -221,7 +221,7 @@ window.MailredirectExtension = {
           var newEl = document.createElement("button");
           newEl.setAttribute("id", "hdrMailredirectButton");
           newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
-          if (hdrMailresdirectButton !== null) {
+          if (hdrMailredirectButton !== null) {
             newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
             newEl.setAttribute("label", label);
           }

@@ -1,4 +1,4 @@
-// based on http://mxr.mozilla.org/comm-central/source/mail/components/compose/content/addressingWidgetOverlay.js
+// based on http://dxr.mozilla.org/comm-central/source/mail/components/compose/content/addressingWidgetOverlay.js
 
 "use strict";
 
@@ -133,12 +133,13 @@ function Recipients2CompFields(msgCompFields)
           case "addr_cc"    :
           case "addr_bcc"   :
             try {
-              let headerParser = MailServices.headerParser;
-              recipient = [headerParser.makeMimeAddress(fullValue.name,
-                                                        fullValue.email) for
-                  (fullValue of
-                    headerParser.makeFromDisplayAddress(fieldValue, {}))]
-                .join(", ");
+              // let headerParser = MailServices.headerParser;
+              // recipient = [headerParser.makeMimeAddress(fullValue.name,
+              //                                           fullValue.email) for
+              //     (fullValue of
+              //       headerParser.makeFromDisplayAddress(fieldValue, {}))]
+              //   .join(", ");
+              recipient = gMimeHeaderParser.reformatUnquotedAddresses(fieldValue);
             } catch (ex) {
               recipient = fieldValue;
             }

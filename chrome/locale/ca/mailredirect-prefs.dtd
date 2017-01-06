@@ -1,0 +1,47 @@
+<!ENTITY mailredirectSettings.title "Configuració MailRedirect">
+
+<!ENTITY prefsGroup.label "Preferències">
+
+<!ENTITY copyToSentMails.label "Deixar una còpia del correu redirigit a la carpeta Enviats?">
+<!ENTITY copyToSentMails.accesskey "D">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "Si activeu aquesta opció, una còpia del missatge es deixarà a la carpeta Enviat. Si no, no se'n deixarà enlloc.\nNota: si l'activeu i a la configuració del vostre compte hi ha &quot;no desar els missatges enviats mai&quot;, tampoc no se'n desarà cap.">
+
+<!ENTITY concurrentConnections.label "Nombre de connexions SMTP concurrents:">
+<!ENTITY concurrentConnections.accesskey "N">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "Especifica el nombre de connexions que es poden establir al servidor SMTP quan s'envien missatges. En general, això permet d'incrementar el rendiment del procés d'enviament quan redirigiu una gran quantitat de missatges.\nNota: si el poseu a zero, no hi haurà cap límit - compte perquè això pot afectar l'estabilitat del servidor o pot fallar l'enviament d'alguns missatges. Si teniu cap problema, poseu-hi un u.">
+
+<!ENTITY defaultRecipientsGroup.label "Destinataris predeterminats">
+
+<!ENTITY defaultResendTo.label "Reenviar-A:">
+<!ENTITY defaultResendTo.accesskey "A">
+<!ENTITY defaultResendTo.tooltip "Llista separada per comes d'adreces de correu.">
+
+<!ENTITY defaultResendCc.label "Reenviar-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Llista separada per comes d'adreces de correu.">
+
+<!ENTITY defaultResendBcc.label "Reenviar-Cco:">
+<!ENTITY defaultResendBcc.accesskey "o">
+<!ENTITY defaultResendBcc.tooltip "Llista separada per comes d'adreces de correu.">
+
+<!ENTITY defaultMode.label "Mode per defecte:">
+<!ENTITY defaultMode.accesskey "M">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Trieu com voleu redirigir missatges per defecte\nAquest paràmetre només té efecte si no heu especificat cap destinatari per defecte.">
+<!ENTITY defaultModeResendTo.label "Reenviar-A">
+<!ENTITY defaultModeResendCc.label "Reenviar-Cc">
+<!ENTITY defaultModeResendBcc.label "Reenviar-Cco">
+
+<!ENTITY debug.label "Depurar">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Activar o desactivar la depuració de l'extensió MailRedirect. El registre és dirigit a la consola Javascript.">
+
+<!ENTITY saveConsoleContent.label2 "Desar el contingut de la consola d'errors...">
+<!ENTITY saveConsoleContent.accesskey2 "D">
+<!ENTITY sendViaEmail.label "Enviar via correu">
+<!ENTITY sendViaEmail.accesskey "c">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Mail Redirect">
