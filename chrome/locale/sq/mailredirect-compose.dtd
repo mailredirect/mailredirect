@@ -29,9 +29,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "A">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
-<!ENTITY customizeToolbar.label "Customize…">
+<!ENTITY customizeToolbar.label "Përshtateni…">
 <!ENTITY customizeToolbar.accesskey "C">
-<!ENTITY showBounceToolbarCmd.label "Personalizoni Panelin">
+<!ENTITY showBounceToolbarCmd.label "Përshtatni Panelin">
 <!ENTITY showBounceToolbarCmd.accesskey "n">
 <!ENTITY showStatusbarCmd.label "Shtyllë Gjendjeje">
 <!ENTITY showStatusbarCmd.accesskey "S">
@@ -53,6 +53,6 @@
 <!ENTITY resendCcAddr.label "Ridërgoje-Cc:">
 <!ENTITY resendBccAddr.label "Ridërgoje-Bcc:">
 <!ENTITY bounceMailsLabel.label "Do të ridrejtohen mesazhet vijues:">
-<!ENTITY subject.label "Subjeck">
+<!ENTITY subject.label "Subjekt">
 <!ENTITY sender.label "Dërgues">
 <!ENTITY date.label "Datë">
