@@ -657,20 +657,26 @@ function awRecipientKeyPress(event, element)
   case KeyEvent.DOM_VK_RETURN:
   case KeyEvent.DOM_VK_TAB:
     // str.includes is new to ECMAScript 6
-    if (typeof String.includes === "undefined")
-      String.prototype.includes = function() {
-        'use strict';
-        if (typeof arguments[1] === "number") {
-          if (this.length < arguments[0].length + arguments[1].length) {
-            return false;
+    if (typeof String.prototype.includes !== "function")
+      // dumper.dump("defineProperty includes");
+      Object.defineProperty(String.prototype, 'includes', {
+        enumerable: false,
+        configurable: true,
+        writable: false,
+        value: function() {
+          'use strict';
+          if (typeof arguments[1] === "number") {
+            if (this.length < arguments[0].length + arguments[1].length) {
+              return false;
+            } else {
+              if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
+              else return false;
+            }
           } else {
-            if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
-            else return false;
+            return String.prototype.indexOf.apply(this, arguments) !== -1;
           }
-        } else {
-          return String.prototype.indexOf.apply(this, arguments) !== -1;
         }
-      };
+      });
     // if the user text contains a comma or a line return, ignore
     if (element.value.includes(','))
     {

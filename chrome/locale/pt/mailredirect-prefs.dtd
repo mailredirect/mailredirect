@@ -1,0 +1,47 @@
+<!ENTITY mailredirectSettings.title "Configurações MailRedirect">
+
+<!ENTITY prefsGroup.label "Preferências">
+
+<!ENTITY copyToSentMails.label "Colocar cópia do e-mail redireccionado na pasta Itens enviados?">
+<!ENTITY copyToSentMails.accesskey "P">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "Se esta opção estiver marcada a cópia da mensagem redireccionada é colocada na pasta Itens enviados. Se a opção estiver desmarcada a cópia da mensagem redireccionada não é copiada para nenhuma pasta.\nNota: Se esta opção estiver marcada e as configurações para a conta usada para redireccionar são 'não gravar mensagens enviadas de qualquer modo' a cópia das mensagens redireccionadas não serão gravadas também.">
+
+<!ENTITY concurrentConnections.label "Número de conexões SMTP simultâneas:">
+<!ENTITY concurrentConnections.accesskey "N">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "A opção especifica o número de conexões que serão estabelecidas para o seu servidor de SMTP ao enviar as mensagens. Em geral, isto permite aumentar o desempenho do processo de envio quando escolher redireccionar quantidades enormes de mensagens.\nNota: Se definir este parâmetro para zero, não serão aplicados limites de conexões simultâneas - ter em conta que pode afectar a estabilidade do seu servidor SMTP ou o envio de algumas mensagens poderá falhar. Em caso de quaisquer problemas defina esse valor para um.">
+
+<!ENTITY defaultRecipientsGroup.label "Destinatários Predefinidos">
+
+<!ENTITY defaultResendTo.label "Reenviar-Para:">
+<!ENTITY defaultResendTo.accesskey "T">
+<!ENTITY defaultResendTo.tooltip "Lista de endereços de e-mail separados por vírgula.">
+
+<!ENTITY defaultResendCc.label "Reenviar-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Lista de endereços de e-mail separados por vírgula.">
+
+<!ENTITY defaultResendBcc.label "Reenviar-Bcc:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "Lista de endereços de e-mail separados por vírgula.">
+
+<!ENTITY defaultMode.label "Modo Predefinido:">
+<!ENTITY defaultMode.accesskey "m">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Escolha como deseja redireccionar as mensagens por predefinição\nEsta configuração apenas tem efeito quando não especificou quaisquer destinatários predefinidos.">
+<!ENTITY defaultModeResendTo.label "Reenviar-Para">
+<!ENTITY defaultModeResendCc.label "Reenviar-Cc">
+<!ENTITY defaultModeResendBcc.label "Reenviar-Bcc">
+
+<!ENTITY debug.label "Debug">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Activar/desactivar o debug para a extensão mailredirect. Os logs serão direccionados para a Consola JavaScript.">
+
+<!ENTITY saveConsoleContent.label2 "Gravar o conteúdo da Consola de Erro…">
+<!ENTITY saveConsoleContent.accesskey2 "S">
+<!ENTITY sendViaEmail.label "Enviar via e-mail">
+<!ENTITY sendViaEmail.accesskey "e">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Redireccionamento de e-mail">

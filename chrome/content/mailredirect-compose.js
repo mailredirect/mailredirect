@@ -9,6 +9,7 @@ Components.utils.import("resource:///modules/folderUtils.jsm"); // Gecko 2+ (TB3
 Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
 Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
 Components.utils.import("resource://gre/modules/PluralForm.jsm");
+Components.utils.import("resource://gre/modules/AddonManager.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
@@ -303,21 +304,43 @@ function CheckValidEmailAddress(aMsgCompFields)
   // We could parse each address, but that might be overkill.
   function isInvalidAddress(aAddress) {
     // str.includes is new to ECMAScript 6
-    if (typeof String.includes === "undefined")
-      String.prototype.includes = function(search, start) {
-        'use strict';
-        if (typeof start !== "number") {
-          start = 0;
+    if (typeof String.prototype.includes !== "function")
+      // dumper.dump("defineProperty includes");
+      Object.defineProperty(String.prototype, 'includes', {
+        enumerable: false,
+        configurable: true,
+        writable: false,
+        value: function() {
+          'use strict';
+          if (typeof arguments[1] === "number") {
+            if (this.length < arguments[0].length + arguments[1].length) {
+              return false;
+            } else {
+              if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
+              else return false;
+            }
+          } else {
+            return String.prototype.indexOf.apply(this, arguments) !== -1;
+          }
         }
-        if (start + search.length > this.length) {
-          return false;
-        } else {
-          return this.indexOf(search, start) !== -1;
-        }
-      };
+      });
     // str.endsWith is new to ECMAScript 6
-    if (typeof String.endsWith === "undefined")
-      String.prototype.endsWith = function(suffix) { return this.indexOf(suffix, this.length - suffix.length) != -1; };
+    if (typeof String.prototype.endsWith !== "function")
+      // dumper.dump("defineProperty endsWith");
+      Object.defineProperty(String.prototype, 'endsWith', {
+        enumerable: false,
+        configurable: true,
+        writable: false,
+        value: function(searchString, position) {
+          var subjectString = this.toString();
+          if (position === undefined || position > subjectString.length) {
+            position = subjectString.length;
+          }
+          position -= searchString.length;
+          var lastIndex = subjectString.indexOf(searchString, position);
+          return lastIndex !== -1 && lastIndex === position;
+        }
+      });
     return (aAddress.length > 0 &&
             ((!aAddress.includes("@", 1) && aAddress.toLowerCase() != "postmaster") ||
               aAddress.endsWith("@")));
@@ -1153,6 +1176,29 @@ function BounceLoad()
 
   setupAutocomplete();
 
+  // Check to see if CardBook is installed i norder to modify autocomplete
+  AddonManager.getAddonByID("cardbook@vigneau.philippe", (aAddon) => {
+    if (aAddon !== null && aAddon.isActive) {
+      var cardbookAutocompletion = getPref("extensions.cardbook.autocompletion");
+      if (cardbookAutocompletion) {
+        var listitem = 1;
+        var textbox = document.getElementById("addressCol2#" + listitem);
+        while (textbox !== null) {
+          // listitems can already be cloned, so we need to adjust them all
+          var cardbookExclusive = getPref("extensions.cardbook.exclusive");
+          if (cardbookExclusive) {
+            textbox.setAttribute("autocompletesearch", "addrbook-cardbook");
+          } else {
+            var autocompletesearch = textbox.getAttribute("autocompletesearch");
+            textbox.setAttribute("autocompletesearch", "addrbook-cardbook " + autocompletesearch);
+          }
+          listitem++;
+          var textbox = document.getElementById("addressCol2#" + listitem);
+        }
+      }
+    }
+  });
+
   // copy toolbar appearance settings from mail3pane
   if (mail3paneWindow) {
     var aBounceToolbar = document.getElementById("bounceToolbar");
@@ -1220,17 +1266,6 @@ function BounceLoad()
     var menulist = document.getElementById("addressCol1#1");
     var defaultMode = getPref("extensions.mailredirect.defaultMode");
     menulist.value = defaultMode;
-  }
-
-  var cardbookAutocompletion = getPref("extensions.cardbook.autocompletion");
-  if (cardbookAutocompletion) {
-    var textbox = document.getElementById("addressCol2#1");
-    var cardbookExclusive = getPref("extensions.cardbook.exclusive");
-    if (cardbookExclusive) {
-      textbox.setAttribute("autocompletesearch", "addrbook-cardbook");
-    } else {
-      textbox.setAttribute("autocompletesearch", "mydomain addrbook-cardbook addrbook ldap");
-    }
   }
 
   AddDirectoryServerObserver(true);
@@ -2704,7 +2739,6 @@ function toggleAddressPicker()
     // we do this lazily here, so we don't spend time when bringing up the compose window loading the address book
     // data sources. Only when the user opens the address picker do we set the src url for the sidebar...
     if (sidebarUrl === "") {
-//      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
       if (gAppInfoID === THUNDERBIRD_ID) {
         sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
       }
@@ -2747,23 +2781,37 @@ function renameToToResendTo()
   else
   {
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-//    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
     if (gAppInfoID === THUNDERBIRD_ID) {
       var cardProperties = el.contentDocument.getElementById("cardProperties");
       if (cardProperties === null)
       {
         setTimeout(function() { renameToToResendTo() }, 100);
       } else {
+        var offset = 0;
+        // Add-on sniffing by checking for id that is used by CardBook
+        var menuitem = el.contentDocument.getElementById("replytoEmail");
+        if (menuitem !== null) {
+          menuitem.setAttribute("hidden", true);
+          menuitem = el.contentDocument.getElementById("replytoButton");
+          menuitem.setAttribute("hidden", true);
+        } else {
+          // In bug 236240 the position of Delete and Properties items has changed, so also those of To, Cc, and Bcc
+          var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+          var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
+          if (versionChecker.compare(appInfo.version, "50.0") < 0) {
+            offset = 2;
+          }
+        }
         var menuitems = cardProperties.getElementsByTagName("menuitem");
-        menuitems.item(2).setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelTB"));
-        menuitems.item(2).setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeyTB"));
-        menuitems.item(2).setAttribute("oncommand", "addSelectedAddresses('addr_to');");
-        menuitems.item(3).setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelTB"));
-        menuitems.item(3).setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeyTB"));
-        menuitems.item(3).setAttribute("oncommand", "addSelectedAddresses('addr_cc');");
-        menuitems.item(4).setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelTB"));
-        menuitems.item(4).setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeyTB"));
-        menuitems.item(4).setAttribute("oncommand", "addSelectedAddresses('addr_bcc');");
+        menuitems.item(offset).setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelTB"));
+        menuitems.item(offset).setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeyTB"));
+        menuitems.item(offset).setAttribute("oncommand", "addSelectedAddresses('addr_to');");
+        menuitems.item(offset+1).setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelTB"));
+        menuitems.item(offset+1).setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeyTB"));
+        menuitems.item(offset+1).setAttribute("oncommand", "addSelectedAddresses('addr_cc');");
+        menuitems.item(offset+2).setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelTB"));
+        menuitems.item(offset+2).setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeyTB"));
+        menuitems.item(offset+2).setAttribute("oncommand", "addSelectedAddresses('addr_bcc');");
 
         var button = el.contentDocument.getElementById("toButton");
         button.setAttribute("label", BounceMsgsBundle.getString("resendToButtonLabel"));
