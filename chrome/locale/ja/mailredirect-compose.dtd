@@ -17,9 +17,9 @@
 <!ENTITY tasksMenu.label "ツール">
 <!ENTITY tasksMenu.accesskey "T">
 <!ENTITY messengerCmd.label "メール &amp; ニュースグループ">
-<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.accesskey "M">
 <!ENTITY addressBookCmd.label "アドレス帳">
-<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.accesskey "A">
 
 <!ENTITY bounceButton.label "リダイレクト">
 <!ENTITY bounceButton.tooltip "メッセージをリダイレクトします">

@@ -5,20 +5,21 @@
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
-    <em:version>0.8.9a2</em:version>
+    <em:version>0.8.9a3</em:version>
     <em:unpack>true</em:unpack>
     <em:description>Allow to redirect (a.k.a. &quot;bounce&quot;) mail messages to other recipients.</em:description>
     <em:creator>Paweł Krześniak</em:creator>
     <em:developer>Ronald Wahl</em:developer>
     <em:developer>Onno Ekker</em:developer>
     <em:translator>David Gimeno i Ayuso (ca)</em:translator>
-    <em:translator>Tomáš Drbohlav &amp; strepon (cs)</em:translator>
-    <em:translator>Jørgen Rasmussen (da)</em:translator>
+    <em:translator>Tomáš Drbohlav &amp; Stanislav Horáček (cs)</em:translator>
+    <em:translator>Joergen (da)</em:translator>
     <em:translator>Lars Roth, Alexander Ihrig &amp; Archaeopteryx (de)</em:translator>
     <em:translator>Thad McGinnis &amp; acushnir (es-AR)</em:translator>
     <em:translator>Antonio Pardo &amp; urko (es-ES)</em:translator>
+    <em:translator>Ans tec (es-MX)</em:translator>
     <em:translator>Laurent Malgras &amp; Goofy (fr)</em:translator>
-    <em:translator>Neo &amp; Luana Di Muzio (it)</em:translator>
+    <em:translator>Luana Di Muzio (it)</em:translator>
     <em:translator>matsumoto (ja)</em:translator>
     <em:translator>Onno Ekker (nl)</em:translator>
     <em:translator>Lukasz Stelmach &amp; Leszek(teo)Życzkowsk (pl)</em:translator>
@@ -28,7 +29,7 @@
     <em:translator>Evgeny Lavrov &amp; Anton Pinsky (ru)</em:translator>
     <em:translator>Branislav Rozbora (sk)</em:translator>
     <em:translator>Peter Klofutar (sl)</em:translator>
-    <em:translator>besnik (sq)</em:translator>
+    <em:translator>Besnik Bleta (sq)</em:translator>
     <em:translator>Rancher &amp; ДакСРБИЈА (sr)</em:translator>
     <em:translator>Niklas Bjärholm &amp; Mikael Hiort af Ornäs (sv-SE)</em:translator>
     <em:translator>Sinan Kaan Yerli (skyerli.org) (tr)</em:translator>

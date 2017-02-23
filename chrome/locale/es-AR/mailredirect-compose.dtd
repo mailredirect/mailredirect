@@ -16,16 +16,16 @@
 
 <!ENTITY tasksMenu.label "Herramientas">
 <!ENTITY tasksMenu.accesskey "t">
-<!ENTITY messengerCmd.label "Correo y grupos de noticias">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY addressBookCmd.label "Direcciones">
+<!ENTITY messengerCmd.label "Correo y noticias">
+<!ENTITY messengerCmd.accesskey "o">
+<!ENTITY addressBookCmd.label "Libreta de direcciones">
 <!ENTITY addressBookCmd.accesskey "a">
 
 <!ENTITY bounceButton.label "Reexpedir">
 <!ENTITY bounceButton.tooltip "Reexpedir mensages">
 <!ENTITY addressButton.label "Direcciones">
 <!ENTITY addressButton.tooltip "Ir a la libreta de direcciones">
-<!ENTITY throbberItem.title "Activity Indicator">
+<!ENTITY throbberItem.title "Indicador de actividad">
 <!ENTITY throbber.tooltip "Ir a la página web de &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">

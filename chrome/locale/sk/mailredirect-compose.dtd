@@ -3,26 +3,26 @@
 <!ENTITY fileMenu.label "Súbor">
 <!ENTITY fileMenu.accesskey "S">
 <!ENTITY forwardBounce.label "Presmerovať">
-<!ENTITY forwardBounce.accesskey "P">
+<!ENTITY forwardBounce.accesskey "e">
 <!ENTITY closeCmd.label "Zavrieť">
 <!ENTITY closeCmd.accesskey "Z">
 
 <!ENTITY viewMenu.label "Zobraziť">
 <!ENTITY viewMenu.accesskey "Z">
 <!ENTITY viewToolbarsMenuNew.label "Panely s nástrojmi">
-<!ENTITY viewToolbarsMenuNew.accesskey "n">
-<!ENTITY menubarCmd.label "Panel ponuky">
-<!ENTITY menubarCmd.accesskey "e">
+<!ENTITY viewToolbarsMenuNew.accesskey "P">
+<!ENTITY menubarCmd.label "Hlavná ponuka">
+<!ENTITY menubarCmd.accesskey "H">
 
 <!ENTITY tasksMenu.label "Nástroje">
 <!ENTITY tasksMenu.accesskey "N">
 <!ENTITY messengerCmd.label "Pošta &amp; diskusie">
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Adresár">
-<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.accesskey "A">
 
 <!ENTITY bounceButton.label "Presmerovať">
-<!ENTITY bounceButton.tooltip "Presmerovať správu na niekoho iného">
+<!ENTITY bounceButton.tooltip "Presmerovať správy">
 <!ENTITY addressButton.label "Adresár">
 <!ENTITY addressButton.tooltip "Prejsť na adresár">
 <!ENTITY throbberItem.title "Kontrolka aktivity">
@@ -37,7 +37,7 @@
 
 <!ENTITY customizeToolbar.label "Prispôsobenie…">
 <!ENTITY customizeToolbar.accesskey "r">
-<!ENTITY showBounceToolbarCmd.label "Panel nástrojov MailRedirect">
+<!ENTITY showBounceToolbarCmd.label "Panel nástrojov presmerovania">
 <!ENTITY showBounceToolbarCmd.accesskey "p">
 <!ENTITY showStatusbarCmd.label "Stavový riadok">
 <!ENTITY showStatusbarCmd.accesskey "S">

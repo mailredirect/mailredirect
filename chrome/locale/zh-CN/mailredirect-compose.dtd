@@ -17,9 +17,9 @@
 <!ENTITY tasksMenu.label "工具">
 <!ENTITY tasksMenu.accesskey "T">
 <!ENTITY messengerCmd.label "邮件 &amp; 新闻组">
-<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.accesskey "M">
 <!ENTITY addressBookCmd.label "通讯录">
-<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.accesskey "A">
 
 <!ENTITY bounceButton.label "重定向">
 <!ENTITY bounceButton.tooltip "重定向消息">

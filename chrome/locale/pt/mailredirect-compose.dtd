@@ -16,10 +16,10 @@
 
 <!ENTITY tasksMenu.label "Ferramentas">
 <!ENTITY tasksMenu.accesskey "T">
-<!ENTITY messengerCmd.label "Correio &amp; Newsgroups">
-<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.label "Correio e grupos de notícias">
+<!ENTITY messengerCmd.accesskey "n">
 <!ENTITY addressBookCmd.label "Livro de Endereços">
-<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.accesskey "i">
 
 <!ENTITY bounceButton.label "Redireccionar">
 <!ENTITY bounceButton.tooltip "Redireccionar mensagens">

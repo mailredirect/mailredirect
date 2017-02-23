@@ -1,9 +1,9 @@
-<!ENTITY msgMailRedirectWindow.title "Mail Redirect">
+<!ENTITY msgMailRedirectWindow.title "Omdirigering af mail">
 
 <!ENTITY fileMenu.label "Filer">
 <!ENTITY fileMenu.accesskey "F">
 <!ENTITY forwardBounce.label "Omdiriger">
-<!ENTITY forwardBounce.accesskey "i">
+<!ENTITY forwardBounce.accesskey "O">
 <!ENTITY closeCmd.label "Luk">
 <!ENTITY closeCmd.accesskey "L">
 
@@ -17,7 +17,7 @@
 <!ENTITY tasksMenu.label "Funktioner">
 <!ENTITY tasksMenu.accesskey "u">
 <!ENTITY messengerCmd.label "Mail &amp; nyhedsgrupper">
-<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.accesskey "M">
 <!ENTITY addressBookCmd.label "Adressebog">
 <!ENTITY addressBookCmd.accesskey "A">
 
@@ -37,7 +37,7 @@
 
 <!ENTITY customizeToolbar.label "Tilpas…">
 <!ENTITY customizeToolbar.accesskey "T">
-<!ENTITY showBounceToolbarCmd.label "Omdirigerlinje">
+<!ENTITY showBounceToolbarCmd.label "Omdirigeringslinje">
 <!ENTITY showBounceToolbarCmd.accesskey "O">
 <!ENTITY showStatusbarCmd.label "Statuslinje">
 <!ENTITY showStatusbarCmd.accesskey "S">
@@ -55,12 +55,12 @@
      label -->
 <!ENTITY headersSpace.style "width: 16em;">
 
-<!ENTITY resendFromAddr.label "Gensend fra:">
-<!ENTITY resendFromAddr.accesskey "G">
+<!ENTITY resendFromAddr.label "Omdiriger fra:">
+<!ENTITY resendFromAddr.accesskey "O">
 
-<!ENTITY resendToAddr.label "Gensend til:">
-<!ENTITY resendCcAddr.label "Gensend kopi til (Cc):">
-<!ENTITY resendBccAddr.label "Gensend skjult kopi til (Bcc):">
+<!ENTITY resendToAddr.label "Omdiriger til:">
+<!ENTITY resendCcAddr.label "Omdiriger kopi til (Cc):">
+<!ENTITY resendBccAddr.label "Omdiriger skjult kopi til (Bcc):">
 
 <!ENTITY bounceMailsLabel.label "Følgende meddelelser vil blive omdirigeret:">
 

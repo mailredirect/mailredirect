@@ -16,10 +16,10 @@
 
 <!ENTITY tasksMenu.label "Алатке">
 <!ENTITY tasksMenu.accesskey "А">
-<!ENTITY messengerCmd.label "Е-пошта и дописне листе">
-<!ENTITY messengerCmd.accesskey "Е">
-<!ENTITY addressBookCmd.label "Адресар">
-<!ENTITY addressBookCmd.accesskey "д">
+<!ENTITY messengerCmd.label "Пошта и новинске групе">
+<!ENTITY messengerCmd.accesskey "п">
+<!ENTITY addressBookCmd.label "Именик">
+<!ENTITY addressBookCmd.accesskey "И">
 
 <!ENTITY bounceButton.label "Преусмери">
 <!ENTITY bounceButton.tooltip "Преусмерите поруке">

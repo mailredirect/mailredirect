@@ -17,7 +17,7 @@
 <!ENTITY tasksMenu.label "Інструменти">
 <!ENTITY tasksMenu.accesskey "І">
 <!ENTITY messengerCmd.label "Пошта і групи новин">
-<!ENTITY messengerCmd.accesskey "ш">
+<!ENTITY messengerCmd.accesskey "П">
 <!ENTITY addressBookCmd.label "Адресна книга">
 <!ENTITY addressBookCmd.accesskey "А">
 

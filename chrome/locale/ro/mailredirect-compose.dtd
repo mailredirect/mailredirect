@@ -16,10 +16,10 @@
 
 <!ENTITY tasksMenu.label "Utilitare">
 <!ENTITY tasksMenu.accesskey "T">
-<!ENTITY messengerCmd.label "Mesaje și grupuri de știri">
-<!ENTITY messengerCmd.accesskey "m">
-<!ENTITY addressBookCmd.label "Agendă">
-<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY messengerCmd.label "Corespondență și grupuri de discuții">
+<!ENTITY messengerCmd.accesskey "C">
+<!ENTITY addressBookCmd.label "Agendă de contacte">
+<!ENTITY addressBookCmd.accesskey "A">
 
 <!ENTITY bounceButton.label "Retrimite">
 <!ENTITY bounceButton.tooltip "Retrimite mesajele">

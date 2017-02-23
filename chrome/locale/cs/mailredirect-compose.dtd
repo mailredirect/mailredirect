@@ -19,7 +19,7 @@
 <!ENTITY messengerCmd.label "Pošta a diskusní skupiny">
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Adresář">
-<!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY addressBookCmd.accesskey "A">
 
 <!ENTITY bounceButton.label "Přesměrovat">
 <!ENTITY bounceButton.tooltip "Přesměruje zprávy">

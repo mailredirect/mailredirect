@@ -17,7 +17,7 @@
 <!ENTITY tasksMenu.label "Strumenti">
 <!ENTITY tasksMenu.accesskey "S">
 <!ENTITY messengerCmd.label "Posta e gruppi di discussione">
-<!ENTITY messengerCmd.accesskey "p">
+<!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Rubrica">
 <!ENTITY addressBookCmd.accesskey "R">
 

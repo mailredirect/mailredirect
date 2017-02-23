@@ -16,10 +16,10 @@
 
 <!ENTITY tasksMenu.label "Araçlar">
 <!ENTITY tasksMenu.accesskey "R">
-<!ENTITY messengerCmd.label "E-posta ve Haber-grupları">
-<!ENTITY messengerCmd.accesskey "H">
+<!ENTITY messengerCmd.label "Posta ve haber grupları">
+<!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Adres Defteri">
-<!ENTITY addressBookCmd.accesskey "D">
+<!ENTITY addressBookCmd.accesskey "A">
 
 <!ENTITY bounceButton.label "Yönlendir">
 <!ENTITY bounceButton.tooltip "Mesajları yönlendir">

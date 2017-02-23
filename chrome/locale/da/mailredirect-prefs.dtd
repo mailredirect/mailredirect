@@ -22,7 +22,7 @@
 <!ENTITY defaultResendCc.accesskey "C">
 <!ENTITY defaultResendCc.tooltip "Kommasepareret liste med mailadresser.">
 
-<!ENTITY defaultResendBcc.label "Gensend skjult kopi til (Bcc):">
+<!ENTITY defaultResendBcc.label "Omdiriger skjult kopi til (Bcc):">
 <!ENTITY defaultResendBcc.accesskey "B">
 <!ENTITY defaultResendBcc.tooltip "Kommasepareret liste med mailadresser.">
 
@@ -30,13 +30,13 @@
 <!ENTITY defaultMode.accesskey "S">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Vælg, hvordan du vil omdirigere meddelelser som standard\nDenne indstilling virker kun, når du ikke har angivet nogle standardmodtagere.">
-<!ENTITY defaultModeResendTo.label "Gensend til">
-<!ENTITY defaultModeResendCc.label "Gensend kopi til (Cc)">
-<!ENTITY defaultModeResendBcc.label "Gensend skjult kopi til (Bcc)">
+<!ENTITY defaultModeResendTo.label "Omdiriger til">
+<!ENTITY defaultModeResendCc.label "Omdiriger kopi til (Cc)">
+<!ENTITY defaultModeResendBcc.label "Omdiriger skjult kopi til (Bcc)">
 
-<!ENTITY debug.label "Fejlfind">
-<!ENTITY debug.accesskey "F">
-<!ENTITY debug.tooltip "Slå fejlfinding til/fra for udvidelsen MailRedirect. Log sendes til JavaScript-konsollen.">
+<!ENTITY debug.label "Debug">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Slå fejlfinding til/fra for udvidelsen MailRedirect. Log sendes til fejlkonsollen.">
 
 <!ENTITY saveConsoleContent.label2 "Gem indholdet af fejlkonsollen…">
 <!ENTITY saveConsoleContent.accesskey2 "G">

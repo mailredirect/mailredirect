@@ -17,7 +17,7 @@
 <!ENTITY tasksMenu.label "Narzędzia">
 <!ENTITY tasksMenu.accesskey "N">
 <!ENTITY messengerCmd.label "Poczta i grupy dyskusyjne">
-<!ENTITY messengerCmd.accesskey "m">
+<!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Książka adresowa">
 <!ENTITY addressBookCmd.accesskey "a">
 

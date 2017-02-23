@@ -30,9 +30,9 @@
 <!ENTITY defaultMode.accesskey "r">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Vyberte si, ako chcete presmerovať správy v predvolenom nastavení.\n Toto nastavenie má vplyv iba vtedy, ak ste predvolených príjemcov nešpecifikovali inak.">
-<!ENTITY defaultModeResendTo.label "Preposlať - Komu">
-<!ENTITY defaultModeResendCc.label "Preposlať - Kópia">
-<!ENTITY defaultModeResendBcc.label "Preposlať - Skrytá kópia">
+<!ENTITY defaultModeResendTo.label "Znovu odoslať - Komu">
+<!ENTITY defaultModeResendCc.label "Znovu odoslať - Kópia">
+<!ENTITY defaultModeResendBcc.label "Znovu odoslať - Skrytá kópia">
 
 <!ENTITY debug.label "Ladiť">
 <!ENTITY debug.accesskey "L">
