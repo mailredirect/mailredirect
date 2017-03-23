@@ -23,8 +23,7 @@ function awGetMaxRecipients()
 
 function awGetNumberOfCols()
 {
-  if (gNumberOfCols === 0)
-  {
+  if (gNumberOfCols === 0) {
     var listbox = document.getElementById("addressingWidget");
     var listCols = listbox.getElementsByTagName("listcol");
     gNumberOfCols = listCols.length;
@@ -85,8 +84,7 @@ function awSelectElementName()
 
 function awGetSelectItemIndex(itemData)
 {
-  if (selectElementIndexTable === null)
-  {
+  if (selectElementIndexTable === null) {
     selectElementIndexTable = new Object();
     var selectElem = document.getElementById("addressCol1#1");
     for (var i = 0; i < selectElem.childNodes[0].childNodes.length; i++)
@@ -101,8 +99,7 @@ function awGetSelectItemIndex(itemData)
 
 function Recipients2CompFields(msgCompFields)
 {
-  if (msgCompFields)
-  {
+  if (msgCompFields) {
     var i = 1;
     var addrTo = "";
     var addrCc = "";
@@ -122,8 +119,7 @@ function Recipients2CompFields(msgCompFields)
       if (fieldValue === null)
         fieldValue = inputField.getAttribute("value");
 
-      if (fieldValue !== "")
-      {
+      if (fieldValue !== "") {
         recipientType = awGetPopupElement(i).selectedItem.getAttribute("value");
         recipient = null;
 
@@ -218,8 +214,7 @@ function awAddRecipient(recipientType, address)
   awSetInputAndPopupValue(awGetInputElement(row), address, awGetPopupElement(row), recipientType, row);
 
   /* be sure we still have an empty row left at the end */
-  if (row === top.MAX_RECIPIENTS)
-  {
+  if (row === top.MAX_RECIPIENTS) {
     awAppendNewRow(true);
     awSetInputAndPopupValue(awGetInputElement(top.MAX_RECIPIENTS), "", awGetPopupElement(top.MAX_RECIPIENTS), recipientType, top.MAX_RECIPIENTS);
   }
@@ -233,10 +228,9 @@ function awCleanupRows()
   for (var row = 1; row <= maxRecipients; row++)
   {
     var inputElem = awGetInputElement(row);
-    if (inputElem.value === "" && row < maxRecipients)
+    if (inputElem.value === "" && row < maxRecipients) {
       awRemoveRow(awGetRowByInputElement(inputElem));
-    else
-    {
+    } else {
       awSetInputAndPopupId(inputElem, awGetPopupElement(row), rowID);
       rowID++;
     }
@@ -276,13 +270,10 @@ function awReturnHit(inputElement)
   var row = awGetRowByInputElement(inputElement);
   var nextInput = awGetInputElement(row+1);
 
-  if (!nextInput)
-  {
+  if (!nextInput) {
     if (inputElement.value)
       awAppendNewRow(true);
-  }
-  else
-  {
+  } else {
     nextInput.select();
     awSetFocus(row+1, nextInput);
   }
@@ -293,8 +284,7 @@ function awDeleteHit(inputElement)
   var row = awGetRowByInputElement(inputElement);
 
   /* 1. don't delete the row if it's the last one remaining, just reset it! */
-  if (top.MAX_RECIPIENTS <= 1)
-  {
+  if (top.MAX_RECIPIENTS <= 1) {
     inputElement.value = "";
     return;
   }
@@ -316,8 +306,7 @@ function awAppendNewRow(setFocus)
   var listbox = document.getElementById("addressingWidget");
   var listitem1 = awGetListItem(1);
 
-  if (listbox && listitem1)
-  {
+  if (listbox && listitem1) {
     var lastRecipientType = awGetPopupElement(top.MAX_RECIPIENTS).selectedItem.getAttribute("value");
 
     var nextDummy = awGetNextDummyRow();
@@ -330,16 +319,14 @@ function awAppendNewRow(setFocus)
     top.MAX_RECIPIENTS++;
 
     var input = newNode.getElementsByTagName(awInputElementName());
-    if (input && input.length === 1)
-    {
+    if (input && input.length === 1) {
       var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
       var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
 
       input[0].setAttribute("value", "");
 
       if ((appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "26.0a1") < 0) ||
-          (appInfo.ID === SEAMONKEY_ID && versionChecker.compare(appInfo.version, "2.23a1") < 0))
-      {      
+          (appInfo.ID === SEAMONKEY_ID && versionChecker.compare(appInfo.version, "2.23a1") < 0)) {
         //this copies the autocomplete sessions list from recipient#1
         input[0].syncSessions(document.getElementById("addressCol2#1"));
 
@@ -362,8 +349,7 @@ function awAppendNewRow(setFocus)
         input[0].removeAttribute("focused");
     }
     var select = newNode.getElementsByTagName(awSelectElementName());
-    if (select && select.length === 1)
-    {
+    if (select && select.length === 1) {
       select[0].selectedIndex = awGetSelectItemIndex(lastRecipientType);
       awSetInputAndPopupId(input[0], select[0], top.MAX_RECIPIENTS);
       if (input)
@@ -392,8 +378,7 @@ function awGetListItem(row)
 {
   var listbox = document.getElementById("addressingWidget");
 
-  if (listbox && row > 0)
-  {
+  if (listbox && row > 0) {
     var listitems = listbox.getElementsByTagName("listitem");
     if (listitems && listitems.length >= row)
       return listitems[row-1];
@@ -564,14 +549,13 @@ function awRecipientKeyPress(event, element)
     // if the user text contains a comma or a line return, ignore
     // str.contains is new to ECMAScript 6
     // if (element.value.contains(","))
-    if (element.value.search(",") !== -1)
-    {
+    if (element.value.search(",") !== -1) {
       var addresses = element.value;
       element.value = ""; // clear out the current line so we don't try to autocomplete it..
       parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).selectedItem.getAttribute("value"));
-    }
-    else if (event.keyCode == KeyEvent.DOM_VK_TAB)
-      awTabFromRecipient(element, event);
+    } else
+      if (event.keyCode == KeyEvent.DOM_VK_TAB)
+        awTabFromRecipient(element, event);
 
     break;
   }
@@ -756,8 +740,7 @@ function parseAndAddAddresses(addressText, recipientType)
   var fullNames = {};
   let numAddresses = MailServices.headerParser.parseHeadersWithArray(strippedAddresses, addresses, names, fullNames);
 
-  if (numAddresses > 0)
-  {
+  if (numAddresses > 0) {
     // we need to set up our own autocomplete session and search for results
 
     setupAutocomplete(); // be safe, make sure we are setup
@@ -808,8 +791,7 @@ AutomatedAutoCompleteHandler.prototype =
     this.numSessionsSearched = 0;
     this.searchResults = new Array;
 
-    if (this.indexIntoNames < this.numNamesToComplete && this.namesToComplete[this.indexIntoNames])
-    {
+    if (this.indexIntoNames < this.numNamesToComplete && this.namesToComplete[this.indexIntoNames]) {
     	/* XXX This is used to work, until switching to the new toolkit broke it
          We should fix it see bug 456550.
       if (!this.namesToComplete[this.indexIntoNames].contains("@")) // don't autocomplete if address has an @ sign in it
@@ -876,21 +858,18 @@ AutomatedAutoCompleteHandler.prototype =
     for (sessionIndex in this.searchResults)
     {
       searchResultsForSession = this.searchResults[sessionIndex];
-      if (searchResultsForSession && searchResultsForSession.defaultItemIndex > -1)
-      {
+      if (searchResultsForSession && searchResultsForSession.defaultItemIndex > -1) {
         addressToAdd = searchResultsForSession.items.QueryElementAt(searchResultsForSession.defaultItemIndex, Ci.nsIAutoCompleteItem).value;
         break;
       }
     }
 
     // still no match? loop through looking for the -1 default index
-    if (!addressToAdd)
-    {
+    if (!addressToAdd) {
       for (sessionIndex in this.searchResults)
       {
         searchResultsForSession = this.searchResults[sessionIndex];
-        if (searchResultsForSession && searchResultsForSession.defaultItemIndex === -1)
-        {
+        if (searchResultsForSession && searchResultsForSession.defaultItemIndex === -1) {
           addressToAdd = searchResultsForSession.items.QueryElementAt(0, Ci.nsIAutoCompleteItem).value;
           break;
         }

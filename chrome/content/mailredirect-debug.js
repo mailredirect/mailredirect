@@ -26,10 +26,8 @@ MailredirectDebug.Dump.prototype =
     mydump: null,
     observe: function(subject, topic, prefName)
     {
-      if (topic === "nsPref:changed")
-      {
-        if (prefName === prefString)
-        {
+      if (topic === "nsPref:changed"){
+        if (prefName === prefString) {
           if (this.mydump)
             this.mydump.init();
         }
@@ -39,13 +37,11 @@ MailredirectDebug.Dump.prototype =
 
   init: function()
   {
-    if (!this.prefBranch)
-    {
+    if (!this.prefBranch) {
       var prefService = Cc["@mozilla.org/preferences-service;1"].
                         getService(Ci.nsIPrefService);
       this.prefBranch = prefService.getBranch(null);
-      if (!("addObserver" in this.prefBranch))
-      {
+      if (!("addObserver" in this.prefBranch)) {
         // Only necessary prior to Gecko 13
         try {
           this.prefBranch = this.prefBranch.QueryInterface(Ci.nsIPrefBranch2);

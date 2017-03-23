@@ -14,11 +14,11 @@
 
 <!ENTITY defaultRecipientsGroup.label "Standardmodtagere">
 
-<!ENTITY defaultResendTo.label "Gensend til:">
+<!ENTITY defaultResendTo.label "Omdiriger til:">
 <!ENTITY defaultResendTo.accesskey "t">
 <!ENTITY defaultResendTo.tooltip "Kommasepareret liste med mailadresser.">
 
-<!ENTITY defaultResendCc.label "Gensend kopi til (Cc):">
+<!ENTITY defaultResendCc.label "Omdiriger kopi til (Cc):">
 <!ENTITY defaultResendCc.accesskey "C">
 <!ENTITY defaultResendCc.tooltip "Kommasepareret liste med mailadresser.">
 

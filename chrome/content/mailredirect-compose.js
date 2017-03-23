@@ -194,7 +194,6 @@ function updateAllItems(aDisable)
       aElement.setAttribute("disabled", aValue ? "true" : "false");
   }
 
-
   // This array will contain HTMLCollection objects as members.
   let commandItemCollections = [];
   commandItemCollections.push(document.getElementsByTagName("menu"));
@@ -212,8 +211,7 @@ function updateAllItems(aDisable)
           commandItem.setAttribute("stateBeforeSend", getDisabledState(commandItem));
           setDisabledState(commandItem, true);
         }
-      }
-      else {
+      } else {
         // Any element can appear multiple times in the commandItemCollections
         // list so only act on it if it still has the "stateBeforeSend"
         // attribute.
@@ -304,7 +302,7 @@ function CheckValidEmailAddress(aMsgCompFields)
   // We could parse each address, but that might be overkill.
   function isInvalidAddress(aAddress) {
     // str.includes is new to ECMAScript 6
-    if (typeof String.prototype.includes !== "function")
+    if (typeof String.prototype.includes !== "function") {
       // dumper.dump("defineProperty includes");
       Object.defineProperty(String.prototype, 'includes', {
         enumerable: false,
@@ -312,20 +310,20 @@ function CheckValidEmailAddress(aMsgCompFields)
         writable: false,
         value: function() {
           'use strict';
+          var start = 0;
           if (typeof arguments[1] === "number") {
-            if (this.length < arguments[0].length + arguments[1].length) {
-              return false;
-            } else {
-              if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
-              else return false;
-            }
+            start = arguments[1];
+          }
+          if (this.length < arguments[0].length + start) {
+            return false;
           } else {
-            return String.prototype.indexOf.apply(this, arguments) !== -1;
+            return this.indexOf(arguments[0], start) !== -1;
           }
         }
       });
+    }
     // str.endsWith is new to ECMAScript 6
-    if (typeof String.prototype.endsWith !== "function")
+    if (typeof String.prototype.endsWith !== "function") {
       // dumper.dump("defineProperty endsWith");
       Object.defineProperty(String.prototype, 'endsWith', {
         enumerable: false,
@@ -341,6 +339,7 @@ function CheckValidEmailAddress(aMsgCompFields)
           return lastIndex !== -1 && lastIndex === position;
         }
       });
+    }
     return (aAddress.length > 0 &&
             ((!aAddress.includes("@", 1) && aAddress.toLowerCase() != "postmaster") ||
               aAddress.endsWith("@")));
@@ -351,8 +350,8 @@ function CheckValidEmailAddress(aMsgCompFields)
     invalidStr = aMsgCompFields.cc;
   else if (isInvalidAddress(aMsgCompFields.bcc))
     invalidStr = aMsgCompFields.bcc;
-  if (invalidStr)
-  {
+
+  if (invalidStr) {
     var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
     var errorTitle;
     if (gAppInfoID === THUNDERBIRD_ID) {
@@ -401,9 +400,7 @@ function AddDirectoryServerObserver(flag)
                                directoryServerObserver, false);
     Services.prefs.addObserver("ldap_2.autoComplete.directoryServer",
                                directoryServerObserver, false);
-  }
-  else
-  {
+  } else {
     var prefstring = "mail.identity." + gCurrentIdentity.key + ".overrideGlobal_Pref";
     Services.prefs.addObserver(prefstring, directoryServerObserver, false);
     prefstring = "mail.identity." + gCurrentIdentity.key + ".directoryServer";
@@ -416,9 +413,7 @@ function RemoveDirectoryServerObserver(prefstring)
   if (!prefstring) {
     Services.prefs.removeObserver("ldap_2.autoComplete.useDirectory", directoryServerObserver);
     Services.prefs.removeObserver("ldap_2.autoComplete.directoryServer", directoryServerObserver);
-  }
-  else
-  {
+  } else {
     var str = prefstring + ".overrideGlobal_Pref";
     Services.prefs.removeObserver(str, directoryServerObserver);
     str = prefstring + ".directoryServer";
@@ -478,8 +473,7 @@ function setupLdapAutocompleteSession()
         RemoveDirectorySettingsObserver(prevAutocompleteDirectory);
         AddDirectorySettingsObserver();
       }
-    }
-    else
+    } else
       AddDirectorySettingsObserver();
 
     // fill in the session params if there is a session
@@ -639,8 +633,7 @@ function setupLdapAutocompleteSession()
         for (let i = 1; i <= maxRecipients; i++)
         {
           let autoCompleteWidget = document.getElementById("addressCol2#" + i);
-          if (autoCompleteWidget)
-          {
+          if (autoCompleteWidget) {
             autoCompleteWidget.addSession(LDAPSession);
             // ldap searches don't insert a default entry with the default domain appended to it
             // so reduce the minimum results for a popup to 2 in this case.
@@ -679,8 +672,7 @@ function queryIArray(aArray, iid)
     for (let i = 0; i < aArray.length; i++) {
       result[i] = aArray.queryElementAt(i, iid);
     }
-  }
-  else {
+  } else {
     // nsISupportsArray
     for (let i = 0; i < aArray.Count(); i++) {
       result[i] = aArray.QueryElementAt(i, iid);
@@ -787,8 +779,7 @@ function setupAutocomplete()
     // what the XUL defaults to)
   }
 
-  if (!gSetupLdapAutocomplete)
-  {
+  if (!gSetupLdapAutocomplete) {
     try
     {
       setupLdapAutocompleteSession();
@@ -805,8 +796,7 @@ function LoadIdentity(startup)
   var identityElement = document.getElementById("msgIdentity");
   var prevIdentity = gCurrentIdentity;
 
-  if (identityElement)
-  {
+  if (identityElement) {
     var idKey = identityElement.value;
     gCurrentIdentity = gAccountManager.getIdentity(idKey);
 
@@ -829,15 +819,13 @@ function LoadIdentity(startup)
       awGetInputElement(i).searchParam = JSON.stringify(params);
     }
 
-    if (!startup && prevIdentity && idKey !== prevIdentity.key)
-    {
+    if (!startup && prevIdentity && idKey !== prevIdentity.key) {
       var prefstring = "mail.identity." + prevIdentity.key;
       RemoveDirectoryServerObserver(prefstring);
     }
 
     AddDirectoryServerObserver(false);
-    if (!startup)
-    {
+    if (!startup) {
       if (getPref("mail.autoComplete.highlightNonMatches"))
         document.getElementById("addressCol2#1").highlightNonMatches = true;
 
@@ -888,27 +876,27 @@ function BounceStartup(aParams)
 
   if (aParams)
     params = aParams;
-  else if (window.arguments && window.arguments[0]) {
-    try {
-      if (window.arguments[0] instanceof Ci.nsIMsgComposeParams)
+  else
+    if (window.arguments && window.arguments[0]) {
+      try {
+        if (window.arguments[0] instanceof Ci.nsIMsgComposeParams)
         params = window.arguments[0];
-    }
-    catch(ex) { dump("ERROR with parameters: " + ex + "\n"); }
+      } catch(ex) {
+        dump("ERROR with parameters: " + ex + "\n");
+      }
 
 /*
-    // if still no dice, try and see if the params is an old fashioned list of string attributes
-    // XXX can we get rid of this yet?
-    if (!params)
-    {
-      args = GetArgs(window.arguments[0]);
-    }
+      // if still no dice, try and see if the params is an old fashioned list of string attributes
+      // XXX can we get rid of this yet?
+      if (!params) {
+        args = GetArgs(window.arguments[0]);
+      }
 */
-  }
+    }
 
   // Set a sane starting width/height for all resolutions on new profiles.
   // Do this before the window loads.
-  if (!document.documentElement.hasAttribute("width"))
-  {
+  if (!document.documentElement.hasAttribute("width")) {
     // Prefer 600x350.
     let defaultHeight = Math.min(screen.availHeight, 350);
     let defaultWidth = Math.min(screen.availWidth, 600);
@@ -1087,8 +1075,7 @@ function BounceStartup(aParams)
   gAppInfoID = appInfo.ID;
   if (gAppInfoID === THUNDERBIRD_ID) {
     toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
-  }
-  else if (gAppInfoID === SEAMONKEY_ID) {
+  } else if (gAppInfoID === SEAMONKEY_ID) {
     toolbox.customizeInit = BounceToolboxCustomizeInit;
     toolbox.customizeDone = BounceToolboxCustomizeDone;
     toolbox.customizeChange = BounceToolboxCustomizeChange;
@@ -1106,8 +1093,7 @@ function BounceStartup(aParams)
 
   // Change the Address Book button to the Contacts button in the toolbar on first run
   let firstRunPref = "extensions.mailredirect.firstrun.button-contacts";
-  if (!getPref(firstRunPref))
-  {
+  if (!getPref(firstRunPref)) {
     Services.prefs.setBoolPref(firstRunPref, true);
     var toolbar = document.getElementById("bounceToolbar");
     var before = null;
@@ -1126,8 +1112,7 @@ function BounceStartup(aParams)
 
   // finally, see if we need to auto open the address sidebar.
   var sideBarBox = document.getElementById('sidebar-box');
-  if (sideBarBox.getAttribute("sidebarVisible") === "true")
-  {
+  if (sideBarBox.getAttribute("sidebarVisible") === "true") {
     // if we aren't supposed to have the side bar hidden, make sure it is visible
     if (document.getElementById("sidebar").getAttribute("src") === "")
       setTimeout(toggleAddressPicker, 0);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
@@ -1141,9 +1126,7 @@ function WizCallback(state)
 {
   if (state){
     BounceStartup(null);
-  }
-  else
-  {
+  } else {
     // The account wizard is still closing so we can't close just yet
     setTimeout(MsgComposeCloseWindow, 0, false); // Don't recycle a bogus window
   }
@@ -1176,8 +1159,8 @@ function BounceLoad()
 
   setupAutocomplete();
 
-  // Check to see if CardBook is installed i norder to modify autocomplete
-  AddonManager.getAddonByID("cardbook@vigneau.philippe", (aAddon) => {
+  // Check to see if CardBook is installed in order to modify autocomplete
+  let cardbookCallback = function(aAddon) {
     if (aAddon !== null && aAddon.isActive) {
       var cardbookAutocompletion = getPref("extensions.cardbook.autocompletion");
       if (cardbookAutocompletion) {
@@ -1197,7 +1180,8 @@ function BounceLoad()
         }
       }
     }
-  });
+  };
+  AddonManager.getAddonByID("cardbook@vigneau.philippe", cardbookCallback);
 
   // copy toolbar appearance settings from mail3pane
   if (mail3paneWindow) {
@@ -1236,8 +1220,7 @@ function BounceLoad()
   // set defaults for Resent-To, Resent-Cc and Resent-Bcc in the bounce dialog
   if (!(defaultResentToString.match(/^\s*$/) &&
         defaultResentCcString.match(/^\s*$/) &&
-        defaultResentBccString.match(/^\s*$/)))
-  {
+        defaultResentBccString.match(/^\s*$/))) {
     var addr;
     if (defaultResentToString !== "") {
       var defaultResentToArray = defaultResentToString.split(",");
@@ -1376,7 +1359,7 @@ function DoForwardBounceWithCheck()
     let windowTitle = PluralForm.get(selectedCount, textValue);
     textValue = BounceMsgsBundle.getString("sendMessageCheckLabelMsgs");
     let label = get(selectedCount, textValue);
-    
+
     var buttonPressed = Services.prompt.confirmEx(window, windowTitle, label,
       (Services.prompt.BUTTON_TITLE_IS_STRING * Services.prompt.BUTTON_POS_0) +
       (Services.prompt.BUTTON_TITLE_CANCEL * Services.prompt.BUTTON_POS_1),
@@ -1445,8 +1428,7 @@ var mailredirectDragObserver = {
       var size;
       var rawData = item.data;
 
-      if (item.flavour.contentType === "text/x-moz-message")
-      {
+      if (item.flavour.contentType === "text/x-moz-message") {
         if (mstate.selectedURIs.indexOf(rawData) === -1) {
           var i = mstate.size++;
           mstate.selectedURIs.push(rawData);
@@ -1513,8 +1495,7 @@ var mailredirectDragObserver = {
       else if (item.flavour.contentType === "text/x-moz-address")
       {
         // process the address
-        if (rawData)
-        {
+        if (rawData) {
           DropRecipient(aEvent.target, rawData);
 
           // Since we are now using ondrop (eDrop) instead of previously using
@@ -1582,10 +1563,8 @@ function encodeMimeHeader(header)
     return header.substr(0, fieldNameLen) + // and don't encode field name
            MailServices.mimeConverter.
                         encodeMimePartIIStr_UTF8(header.substr(fieldNameLen), true, "UTF-8", fieldNameLen,
-                                                 Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE) + "\r\n"; 
-  }
-  else
-  {
+                                                 Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE) + "\r\n";
+  } else {
     header = header.replace(/\r\n$/, "");
     let fieldName = header.substr(0, fieldNameLen);
     let splitHeader = "";
@@ -1595,13 +1574,10 @@ function encodeMimeHeader(header)
       let splitPos = header.substr(0, MAX_HEADER_LENGTH - 2).lastIndexOf(","); // Try to split before MAX_HEADER_LENGTH
       if (splitPos === -1)
         splitPos = header.indexOf(","); // If that fails, split at first possible position
-      if (splitPos === -1)
-      {
+      if (splitPos === -1) {
         currentLine = header;
         header = "";
-      } 
-      else
-      {
+      } else {
         currentLine = header.substr(0, splitPos);
         if (header.charAt(splitPos + 1) === " ")
           header = fieldName + header.substr(splitPos + 2);
@@ -1800,9 +1776,9 @@ function RealBounceMessages()
   msgCompFields.from = getSender();
   Recipients2CompFields(msgCompFields);
 
-  if (typeof gMsgCompose.expandMailingLists === 'function')
+  if (typeof gMsgCompose.expandMailingLists === 'function') {
     expandRecipients();
-  else {
+  } else {
     var recipientsStrings = getRecipients(true);
     msgCompFields.to = recipientsStrings.resendTo;
     msgCompFields.cc = recipientsStrings.resendCc;
@@ -2008,9 +1984,7 @@ function RealBounceMessage(idx)
             if (skipping) {
               if (line[0] === " " || line[0] === "\t") {
                 continue;
-              }
-              else
-              {
+              } else {
                 skipping = false;
               }
             }
@@ -2117,8 +2091,7 @@ nsMsgStatusFeedback.prototype =
 //      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
       if (gAppInfoID === THUNDERBIRD_ID) {
         this.throbber = document.getElementById("throbber-box");
-      }
-      else if (gAppInfoID === SEAMONKEY_ID) {
+      } else if (gAppInfoID === SEAMONKEY_ID) {
         this.throbber = document.getElementById("navigator-throbber");
       }
     }
@@ -2217,8 +2190,7 @@ nsMsgStatusFeedback.prototype =
   {
     // dumper.dump("showProgress(" + percentage +")");
     this.ensureStatusFields();
-    if (percentage >= 0)
-    {
+    if (percentage >= 0) {
       this.statusBar.setAttribute("mode", "normal");
       this.statusBar.value = percentage;
       this.statusBar.label = Math.round(percentage) + "%";
@@ -2342,8 +2314,7 @@ nsMeteorsStatus.prototype = {
 //      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
       if (gAppInfoID === THUNDERBIRD_ID) {
         this.throbber = document.getElementById("throbber-box");
-      }
-      else if (gAppInfoID === SEAMONKEY_ID) {
+      } else if (gAppInfoID === SEAMONKEY_ID) {
         this.throbber = document.getElementById("navigator-throbber");
       }
     }
@@ -2580,7 +2551,7 @@ var MailredirectWindowController = {
     switch(command) {
       case "cmd_mailredirect_now":
       case "cmd_mailredirect_withcheck":
-        return ((!Services.io.offline) && (mstate.selectedURIs !== null)) && !gSendLocked; 
+        return ((!Services.io.offline) && (mstate.selectedURIs !== null)) && !gSendLocked;
       case "cmd_mailredirect_close":
         return true;
       case "cmd_mailredirect_delete":
@@ -2627,8 +2598,7 @@ var MailredirectWindowController = {
             treeitem.parentNode.removeChild(treeitem);
           }
         }
-        if (treeChildren.hasChildNodes)
-        {
+        if (treeChildren.hasChildNodes) {
           var treerows = treeChildren.childNodes;
           for (var i = 0; i < treerows.length; i++)
           {
@@ -2700,8 +2670,7 @@ function SwitchElementFocus(event)
   var addressingWidget = document.getElementById("addressingWidget");
   var bounceTree = document.getElementById("bounceTree");
 
-  if (event.shiftKey)
-  {
+  if (event.shiftKey) {
     if (focusedElement === msgIdentityElement) {
       bounceTree.focus();
     } else if (focusedElement === addressingWidget) {
@@ -2727,8 +2696,7 @@ function toggleAddressPicker()
   var sidebarBox = document.getElementById("sidebar-box");
   var sidebarSplitter = document.getElementById("sidebar-splitter");
   var el = document.getElementById("viewAddressPicker");
-  if (sidebarBox.hidden)
-  {
+  if (sidebarBox.hidden) {
     sidebarBox.hidden = false;
     sidebarSplitter.hidden = false;
     el.setAttribute("checked","true");
@@ -2741,8 +2709,7 @@ function toggleAddressPicker()
     if (sidebarUrl === "") {
       if (gAppInfoID === THUNDERBIRD_ID) {
         sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
-      }
-      else if (gAppInfoID === SEAMONKEY_ID) {
+      } else if (gAppInfoID === SEAMONKEY_ID) {
         sidebar.setAttribute("src", "chrome://messenger/content/addressbook/addressbook-panel.xul");
       }
       setTimeout(function() { renameToToResendTo() }, 100);
@@ -2774,17 +2741,13 @@ function AddRecipientsArray(aRecipientType, aAddressArray)
 function renameToToResendTo()
 {
   var el = document.getElementById("sidebar");
-  if (el === null)
-  {
+  if (el === null) {
     setTimeout(function() { renameToToResendTo() }, 100);
-  }
-  else
-  {
+  } else {
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
     if (gAppInfoID === THUNDERBIRD_ID) {
       var cardProperties = el.contentDocument.getElementById("cardProperties");
-      if (cardProperties === null)
-      {
+      if (cardProperties === null) {
         setTimeout(function() { renameToToResendTo() }, 100);
       } else {
         var offset = 0;
@@ -2828,8 +2791,7 @@ function renameToToResendTo()
         button.setAttribute("oncommand", "addSelectedAddresses('addr_bcc');");
 
         // Move bccButton down
-        if (false)
-        {
+        if (false) {
           var spacer = button.previousSibling;
           spacer.parentNode.removeChild(spacer);
           var hboxCc = button.parentNode;
@@ -2845,8 +2807,7 @@ function renameToToResendTo()
     }
     else if (gAppInfoID === SEAMONKEY_ID) {
       var popup = el.contentDocument.getElementById("composeMail");
-      if (popup === null)
-      {
+      if (popup === null) {
         setTimeout(function() { renameToToResendTo() }, 100);
       } else {
         parent.document.documentElement.setAttribute("windowtype", "msgcompose"); // Make AbPanelLoad believe this is a msgcompose window so it displays the right menuitems
@@ -2886,7 +2847,7 @@ function ResolveMailLists()
   var nbrAddressbook = addrbookDirArray.length;
 
   let msgCompFields = gMsgCompose.compFields;
-  
+
   for (var k = 0; k < nbrAddressbook && stillNeedToSearch; ++k) {
     // Avoid recursive mailing lists
     if (abDirectory && (addrbookDirArray[k] === abDirectory)) {
@@ -2910,27 +2871,25 @@ function ResolveMailLists()
         recipient.mProcessed = false;
       }
     }
-    
+
     stillNeedToSearch = false;
     for (var recipType in mailredirectRecipients) {
       // Note: We check this each time to allow for length changes.
       for (var j = 0; j < mailredirectRecipients[recipType].length; ++j) {
         var recipient = mailredirectRecipients[recipType][j];
-        if (!recipient.mProcessed)
-        {
+        if (!recipient.mProcessed) {
           // First check if it's a mailing list
           var mailListAddresses = GetMailListAddresses(recipient.fullname, mailListArray);
-          if (mailListAddresses)
-          {
+          if (mailListAddresses) {
             // Always populate
             for (var nbrAddresses = mailListAddresses.length; nbrAddresses > 0; nbrAddresses--)
             {
               existingCard = mailListAddresses.queryElementAt(nbrAddresses - 1, Ci.nsIAbCard);
-              
+
               var newRecipient;
               var bIsMailList = existingCard.isMailList;
               var pDisplayName = existingCard.displayName;
-              
+
               var email;
               if (bIsMailList)
                 email = existingCard.notes;
@@ -2942,8 +2901,7 @@ function ResolveMailLists()
                 mAddress = MailServices.headerParser.makeMimeHeader([{name: existingCard.displayName, email: email}], 1);
               else
                 mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
-              if (!mAddress)
-              {
+              if (!mAddress) {
                 // Oops, parser problem! I will try to do my best...
                 mAddress = pDisplayName + " <";
                 if (bIsMailList)
@@ -2955,15 +2913,14 @@ function ResolveMailLists()
                   mAddress += email;
                 mAddress += ">";
               }
-  
+
               if (!mAddress)
                 continue;
-  
+
               // Now we need to insert the new address into the list of recipient
-              if (bIsMailList)
+              if (bIsMailList) {
                 stillNeedToSearch = true;
-              else
-              {
+              } else {
                 var newRecipient = { email : email, name : pDisplayName, fullname : mAddress };
                 newRecipient.mProcessed = true;
               }
@@ -2974,12 +2931,11 @@ function ResolveMailLists()
             continue;
           }
 
-          if (!abDirectory)
-          {
+          if (!abDirectory) {
             stillNeedToSearch = true;
             continue;
           }
-          
+
           // find a card that contains this e-mail address
           existingCard = null
           // Try/catch because cardForEmailAddress will throw if not implemented.
@@ -2988,21 +2944,18 @@ function ResolveMailLists()
             existingCard = abDirectory.cardForEmailAddress(recipient.email);
           } catch (e) {}
 
-          if (existingCard)
-          {
+          if (existingCard) {
             recipient.mProcessed = true;
-            if (!abDirectory.readOnly)
-            {
+            if (!abDirectory.readOnly) {
               var popularityValue = existingCard.getProperty("PopularityIndex", "0");
               var popularityIndex = parseInt(popularityValue);
-              
-              if (isNaN(popularityIndex))
-              {
+
+              if (isNaN(popularityIndex)) {
                 // TB 2 wrote the popularity value as hex, so if we get here,
                 // then we've probably got a hex value. We'll convert it back
                 // to decimal, as that's the best we can do.
                 popularityIndex = parseInt(popularityValue, 16);
-                
+
                 // If its still NaN, just give up, we shouldn't ever get here.
                 if (isNaN(popularityIndex))
                   popularityIndex = 0;

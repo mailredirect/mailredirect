@@ -45,13 +45,13 @@ window.MailredirectPrefs = {
                          createInstance(Ci.nsIFileOutputStream);
 
         fileStream.init(file, mailredirect_MODE_WRONLY | mailredirect_MODE_CREATE | mailredirect_MODE_TRUNCATE, parseInt("0600", 8), null);
-      
+
         // for every nsIConsoleMessage save it to file
         var consoleService = Cc["@mozilla.org/consoleservice;1"].
                              getService(Ci.nsIConsoleService);
         var messagesArray = {};
         // Retrieve the message array in a compatible way for both Gecko prior
-        // to 19 and Gecko 19 or later 
+        // to 19 and Gecko 19 or later
         var messagesArray = consoleService.getMessageArray(messagesArray, {}) || messagesArray.value;
         for (var i = 0; i < messagesArray.length; ++i) {
           var m = messagesArray[i].message;
@@ -67,8 +67,7 @@ window.MailredirectPrefs = {
       filePicker.open(filePickerCallback);
     } catch (ex) {
       // Deprecated since Gecko 17: Display the file picker dialog
-      if (filePicker.show() !== Ci.nsIFilePicker.returnCancel)
-      {
+      if (filePicker.show() !== Ci.nsIFilePicker.returnCancel) {
         filePickerCallback(nsIFilePicker.returnOK);
       }
     }
@@ -87,13 +86,13 @@ window.MailredirectPrefs = {
                    createInstance(Ci.nsIFileOutputStream);
       fileStream.init(tempFile, mailredirect_MODE_WRONLY | mailredirect_MODE_CREATE | mailredirect_MODE_TRUNCATE, parseInt("0600", 8), 0);
       let dataTxt = "";
-  
+
       // for every nsIConsoleMessage save it to file
       var consoleService = Cc["@mozilla.org/consoleservice;1"].
                            getService(Ci.nsIConsoleService);
       var messagesArray = {};
       // Retrieve the message array in a compatible way for both Gecko prior
-      // to 19 and Gecko 19 or later 
+      // to 19 and Gecko 19 or later
       var messagesArray = consoleService.getMessageArray(messagesArray, {}) || messagesArray.value;
       for (var i = 0; i < messagesArray.length; ++i) {
         var m = messagesArray[i].message;
@@ -101,13 +100,13 @@ window.MailredirectPrefs = {
         fileStream.write(m, m.length);
       }
       fileStream.close();
-  
+
       // Set up parameters and fields to use for the compose window.
       let params = Cc["@mozilla.org/messengercompose/composeparams;1"].
                    createInstance(Ci.nsIMsgComposeParams);
       params.type = Ci.nsIMsgCompType.New;
       params.format = Ci.nsIMsgCompFormat.Default;
-    
+
       let fields = Cc["@mozilla.org/messengercompose/composefields;1"]
                      .createInstance(Ci.nsIMsgCompFields);
       fields.forcePlainText = false;
@@ -117,7 +116,7 @@ window.MailredirectPrefs = {
       // text isn't. So take the easy way out and force UTF-8.
       fields.characterSet = "UTF-8";
       fields.bodyIsAsciiOnly = false;
-  
+
       let attachment = Cc["@mozilla.org/messengercompose/attachment;1"].
                        createInstance(Ci.nsIMsgAttachment);
       // resolveURI does all the magic around working out what the
@@ -126,8 +125,7 @@ window.MailredirectPrefs = {
                         createInstance();
       let uri = commandLine.resolveURI(tempFile.path);
       // If uri is for a file and it exists set the attachment size.
-      if (uri instanceof Ci.nsIFileURL)
-      {
+      if (uri instanceof Ci.nsIFileURL) {
         if (uri.file.exists())
           attachment.size = uri.file.fileSize;
         else
@@ -136,7 +134,7 @@ window.MailredirectPrefs = {
       attachment.url = uri.spec;
       fields.addAttachment(attachment);
       params.composeFields = fields;
-    
+
       // Our params are set up. Now open a compose window.
       MailServices.compose.OpenComposeWindowWithParams(null, params);
     } catch (ex) {

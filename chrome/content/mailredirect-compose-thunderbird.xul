@@ -119,7 +119,7 @@
               src=""/>
     </panel>
   </popupset>
-  
+
   <toolbox id="bounce-toolbox"
            class="toolbox-top"
            mode="full"

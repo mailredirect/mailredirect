@@ -23,8 +23,7 @@ function awGetMaxRecipients()
 
 function awGetNumberOfCols()
 {
-  if (gNumberOfCols === 0)
-  {
+  if (gNumberOfCols === 0) {
     var listbox = document.getElementById("addressingWidget");
     var listCols = listbox.getElementsByTagName("listcol");
     gNumberOfCols = listCols.length;
@@ -79,8 +78,7 @@ function awSelectElementName()
 
 function awGetSelectItemIndex(itemData)
 {
-  if (selectElementIndexTable === null)
-  {
+  if (selectElementIndexTable === null) {
     selectElementIndexTable = new Object();
     var selectElem = document.getElementById("addressCol1#1");
     for (var i = 0; i < selectElem.childNodes[0].childNodes.length; i++)
@@ -95,8 +93,7 @@ function awGetSelectItemIndex(itemData)
 
 function Recipients2CompFields(msgCompFields)
 {
-  if (!msgCompFields)
-  {
+  if (!msgCompFields) {
     dumper.dump("Message Compose Error: msgCompFields is null (ExtractRecipients)");
     return;
   }
@@ -117,8 +114,7 @@ function Recipients2CompFields(msgCompFields)
   {
     fieldValue = inputField.value;
 
-    if (fieldValue !== "")
-    {
+    if (fieldValue !== "") {
       recipientType = awGetPopupElement(i).value;
       recipient = null;
 
@@ -223,12 +219,9 @@ function awAddRecipientsArray(aRecipientType, aAddressArray)
   let row = 1;
   for (let address of aAddressArray)
   {
-    if (emptyRows.length > 0)
-    {
+    if (emptyRows.length > 0) {
       row = emptyRows.shift();
-    }
-    else
-    {
+    } else {
       awAppendNewRow(false);
       row = top.MAX_RECIPIENTS;
     }
@@ -238,16 +231,13 @@ function awAddRecipientsArray(aRecipientType, aAddressArray)
   }
 
   // Be sure we still have an empty row left.
-  if ((emptyRows.length == 0) && (awGetInputElement(top.MAX_RECIPIENTS).value != ""))
-  {
+  if ((emptyRows.length == 0) && (awGetInputElement(top.MAX_RECIPIENTS).value != "")) {
     // Insert empty row at the end and focus.
     awAppendNewRow(true);
     awSetInputAndPopupValue(awGetInputElement(top.MAX_RECIPIENTS), "",
     awGetPopupElement(top.MAX_RECIPIENTS), "addr_to",
     top.MAX_RECIPIENTS, false);
-  }
-  else
-  {
+  } else {
     // Focus the next empty row, if any, or the pre-existing empty last row.
     row = (emptyRows.length > 0) ? emptyRows.shift() : top.MAX_RECIPIENTS;
     awSetFocus(row, awGetInputElement(row));
@@ -278,8 +268,7 @@ function awAddRecipient(recipientType, address)
   awSetInputAndPopupValue(awGetInputElement(row), address, awGetPopupElement(row), recipientType, row);
 
   /* be sure we still have an empty row left at the end */
-  if (row === top.MAX_RECIPIENTS)
-  {
+  if (row === top.MAX_RECIPIENTS) {
     awAppendNewRow(true);
     awSetInputAndPopupValue(awGetInputElement(top.MAX_RECIPIENTS), "", awGetPopupElement(top.MAX_RECIPIENTS), recipientType, top.MAX_RECIPIENTS);
   }
@@ -293,10 +282,9 @@ function awCleanupRows()
   for (var row = 1; row <= maxRecipients; row++)
   {
     var inputElem = awGetInputElement(row);
-    if (inputElem.value === "" && row < maxRecipients)
+    if (inputElem.value === "" && row < maxRecipients) {
       awRemoveRow(awGetRowByInputElement(inputElem));
-    else
-    {
+    } else {
       awSetInputAndPopupId(inputElem, awGetPopupElement(row), rowID);
       rowID++;
     }
@@ -336,13 +324,10 @@ function awReturnHit(inputElement)
   var row = awGetRowByInputElement(inputElement);
   var nextInput = awGetInputElement(row+1);
 
-  if (!nextInput)
-  {
+  if (!nextInput) {
     if (inputElement.value)
       awAppendNewRow(true);
-  }
-  else
-  {
+  } else {
     nextInput.select();
     awSetFocus(row+1, nextInput);
   }
@@ -353,8 +338,7 @@ function awDeleteHit(inputElement)
   var row = awGetRowByInputElement(inputElement);
 
   /* 1. don't delete the row if it's the last one remaining, just reset it! */
-  if (top.MAX_RECIPIENTS <= 1)
-  {
+  if (top.MAX_RECIPIENTS <= 1) {
     inputElement.value = "";
     return;
   }
@@ -376,8 +360,7 @@ function awAppendNewRow(setFocus)
   var listbox = document.getElementById("addressingWidget");
   var listitem1 = awGetListItem(1);
 
-  if (listbox && listitem1)
-  {
+  if (listbox && listitem1) {
     var lastRecipientType = awGetPopupElement(top.MAX_RECIPIENTS).value;
 
     var nextDummy = awGetNextDummyRow();
@@ -390,8 +373,7 @@ function awAppendNewRow(setFocus)
     top.MAX_RECIPIENTS++;
 
     var input = newNode.getElementsByTagName(awInputElementName());
-    if (input && input.length === 1)
-    {
+    if (input && input.length === 1) {
       input[0].value = "";
 
       // We always clone the first row.  The problem is that the first row
@@ -407,8 +389,7 @@ function awAppendNewRow(setFocus)
         input[0].removeAttribute("focused");
     }
     var select = newNode.getElementsByTagName(awSelectElementName());
-    if (select && select.length === 1)
-    {
+    if (select && select.length === 1) {
       select[0].selectedIndex = awGetSelectItemIndex(lastRecipientType);
 
       awSetInputAndPopupId(input[0], select[0], top.MAX_RECIPIENTS);
@@ -451,8 +432,7 @@ function awGetListItem(row)
 {
   var listbox = document.getElementById("addressingWidget");
 
-  if (listbox && row > 0)
-  {
+  if (listbox && row > 0) {
     var listitems = listbox.getElementsByTagName("listitem");
     if (listitems && listitems.length >= row)
       return listitems[row-1];
@@ -657,35 +637,34 @@ function awRecipientKeyPress(event, element)
   case KeyEvent.DOM_VK_RETURN:
   case KeyEvent.DOM_VK_TAB:
     // str.includes is new to ECMAScript 6
-    if (typeof String.prototype.includes !== "function")
-      // dumper.dump("defineProperty includes");
+    if (typeof String.prototype.includes !== "function") {
+      dumper.dump("awRecipientKeyPress defineProperty includes");
       Object.defineProperty(String.prototype, 'includes', {
         enumerable: false,
         configurable: true,
         writable: false,
         value: function() {
           'use strict';
+          var start = 0;
           if (typeof arguments[1] === "number") {
-            if (this.length < arguments[0].length + arguments[1].length) {
-              return false;
-            } else {
-              if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
-              else return false;
-            }
+            start = arguments[1];
+          }
+          if (this.length < arguments[0].length + start) {
+            return false;
           } else {
-            return String.prototype.indexOf.apply(this, arguments) !== -1;
+            return this.indexOf(arguments[0], start) !== -1;
           }
         }
       });
+    }
     // if the user text contains a comma or a line return, ignore
-    if (element.value.includes(','))
-    {
+    if (element.value.includes(',')) {
       var addresses = element.value;
       element.value = ""; // clear out the current line so we don't try to autocomplete it..
       parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).value);
-    }
-    else if (event.keyCode == KeyEvent.DOM_VK_TAB)
-      awTabFromRecipient(element, event);
+    } else
+      if (event.keyCode == KeyEvent.DOM_VK_TAB)
+        awTabFromRecipient(element, event);
 
     break;
   }
@@ -854,8 +833,7 @@ function parseAndAddAddresses(addressText, recipientType)
 
   let addresses = MailServices.headerParser.makeFromDisplayAddress(strippedAddresses);
 
-  if (addresses.length > 0)
-  {
+  if (addresses.length > 0) {
     // we need to set up our own autocomplete session and search for results
     if (!gAutomatedAutoCompleteListener)
       gAutomatedAutoCompleteListener = new AutomatedAutoCompleteHandler();
@@ -905,25 +883,31 @@ AutomatedAutoCompleteHandler.prototype =
     this.numSessionsSearched = 0;
     this.searchResults = [];
 
-    if (this.indexIntoNames < this.numNamesToComplete)
-    {
+    if (this.indexIntoNames < this.numNamesToComplete) {
       if (this.namesToComplete[this.indexIntoNames]) {
         /* XXX This used to work, until switching to the new toolkit broke it
            We should fix it see bug 456550.
-        if (typeof String.includes === "undefined")
-          String.prototype.includes = function() {
-            'use strict';
-            if (typeof arguments[1] === "number") {
-              if (this.length < arguments[0].length + arguments[1].length) {
-                return false;
-              } else {
-                if (this.substr(arguments[1], arguments[0].length) === arguments[0]) return true;
-                else return false;
-              }
-            } else {
-              return String.prototype.indexOf.apply(this, arguments) !== -1;
-            }
-          };
+        if (typeof String.prototype.includes !== "function")
+	{
+	  // dumper.dump("autoCompleteNextAddress defineProperty includes");
+	  Object.defineProperty(String.prototype, 'includes', {
+	    enumerable: false,
+	    configurable: true,
+	    writable: false,
+	    value: function() {
+	      'use strict';
+	      var start = 0;
+	      if (typeof arguments[1] === "number") {
+		start = arguments[1];
+	      }
+	      if (this.length < arguments[0].length + start) {
+		return false;
+	      } else {
+		return this.indexOf(arguments[0], start) !== -1;
+	      }
+	    }
+	  });
+	}
         if (!this.namesToComplete[this.indexIntoNames].includes("@")) // don't autocomplete if address has an @ sign in it
         {
           // make sure total session count is updated before we kick off ANY actual searches
@@ -956,9 +940,7 @@ AutomatedAutoCompleteHandler.prototype =
         if (!this.numSessionsToSearch)
           this.processAllResults(); // ldap and ab are turned off, so leave text alone
       }
-    }
-    else
-    {
+    } else {
       this.finish();
     }
   },
@@ -993,21 +975,18 @@ AutomatedAutoCompleteHandler.prototype =
     for (sessionIndex in this.searchResults)
     {
       searchResultsForSession = this.searchResults[sessionIndex];
-      if (searchResultsForSession && searchResultsForSession.defaultItemIndex > -1)
-      {
+      if (searchResultsForSession && searchResultsForSession.defaultItemIndex > -1) {
         addressToAdd = searchResultsForSession.items.QueryElementAt(searchResultsForSession.defaultItemIndex, Ci.nsIAutoCompleteItem).value;
         break;
       }
     }
 
     // still no match? loop through looking for the -1 default index
-    if (!addressToAdd)
-    {
+    if (!addressToAdd) {
       for (sessionIndex in this.searchResults)
       {
         searchResultsForSession = this.searchResults[sessionIndex];
-        if (searchResultsForSession && searchResultsForSession.defaultItemIndex === -1)
-        {
+        if (searchResultsForSession && searchResultsForSession.defaultItemIndex === -1) {
           addressToAdd = searchResultsForSession.items.QueryElementAt(0, Ci.nsIAutoCompleteItem).value;
           break;
         }

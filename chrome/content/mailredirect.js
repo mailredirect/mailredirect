@@ -20,13 +20,10 @@ window.MailredirectExtension = {
     var selectedURIs;
     var server;
     var folder;
-    if (typeof gFolderDisplay !== "undefined")
-    {
+    if (typeof gFolderDisplay !== "undefined") {
       selectedURIs = gFolderDisplay.selectedMessageUris;
       folder = gFolderDisplay.displayedFolder;
-    }
-    else
-    {
+    } else {
       var mailWindow = Cc["@mozilla.org/appshell/window-mediator;1"].
                        getService(Ci.nsIWindowMediator).getMostRecentWindow("");
       selectedURIs = mailWindow.GetSelectedMessages();
@@ -68,11 +65,9 @@ window.MailredirectExtension = {
       switch(command)
       {
         case "cmd_mailredirect":
-          if (!MailredirectExtension.isOffline)
-          {
+          if (!MailredirectExtension.isOffline) {
             // Extra check for issue #9 (Init error in TB24 on Mac breaking the status bar)
-            if (gFolderDisplay)
-            {
+            if (gFolderDisplay) {
               var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].
                                    getService(Ci.nsIWindowMediator);
               var currWindow = windowMediator.getMostRecentWindow("");
@@ -136,8 +131,7 @@ window.MailredirectExtension = {
     MailredirectExtension.UpdateCommand(event);
 
     var item = document.getElementById("mailContext-mailredirect");
-    if (item !== null)
-    {
+    if (item !== null) {
       item.removeAttribute("hidden");
 
       // don't show mail items for links/images
@@ -163,26 +157,22 @@ window.MailredirectExtension = {
     head.appendChild(newEl);
 
     var hdrMailredirectButton = document.getElementById("hdrMailredirectButton");
-    if (hdrMailredirectButton === null)
-    {
+    if (hdrMailredirectButton === null) {
       // The CompactHeader extension can hide the hdrMailredirectButton and add a copy of
       // the mailredirect-toolbarbutton button from the Mail toolbar to the msgHeaderViewDeck
       hdrMailredirectButton = document.getElementById("msgHeaderViewDeck").getElementsByClassName("customize-header-toolbar-mailredirect-toolbarbutton").item(0);
     }
-    if (hdrMailredirectButton === null)
-    {
+    if (hdrMailredirectButton === null) {
       // Try the mail toolbar header button when the message hader redirect button is not found
       hdrMailredirectButton = document.getElementById("mailredirect-toolbarbutton");
     }
-    if (hdrMailredirectButton !== null)
-    {
+    if (hdrMailredirectButton !== null) {
       // Only create a redirect button for multimessage view if one is found on message header or toolbar
       var disabled = hdrMailredirectButton.getAttribute("disabled");
       var label = hdrMailredirectButton.getAttribute("label");
       var image = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("list-style-image");
       var region = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("-moz-image-region");
-      if (disabled && region !== "auto")
-      {
+      if (disabled && region !== "auto") {
         // Calculate the right region...
         // Disabled: -moz-image-region: rect(32px, 16px, 48px, 0px);
         // Normal: -moz-image-region: rect(16px, 16px, 32px, 0px);
@@ -198,8 +188,7 @@ window.MailredirectExtension = {
       el = el.contentDocument.getElementById("heading_wrapper") || el.contentDocument.getElementById("headingwrapper");
       var parentEl = el && el.getElementsByTagName("toolbar").item(0); // header-view-toolbar
       var oldEl = el && el.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
-      if (parentEl !== null && oldEl !== null)
-      {
+      if (parentEl !== null && oldEl !== null) {
         // Thunderbird 10+
         var newEl = document.createElement("toolbarbutton");
         newEl.setAttribute("id", "hdrMailredirectButton");
@@ -210,14 +199,11 @@ window.MailredirectExtension = {
         }
         newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
         var insEl = parentEl.insertBefore(newEl, oldEl);
-      }
-      else
-      {
+      } else {
         // Thunderbird 10-
         var parentEl = el && el.getElementsByTagName("hbox").item(0); // buttonhbox
         var oldEl = el && el.getElementsByTagName("button").item(0); // archive
-        if (parentEl !== null && oldEl !== null)
-        {
+        if (parentEl !== null && oldEl !== null) {
           var newEl = document.createElement("button");
           newEl.setAttribute("id", "hdrMailredirectButton");
           newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
@@ -242,7 +228,7 @@ window.MailredirectExtension = {
     if (el !== null)
       el.addEventListener("popupshowing", MailredirectExtension.FillMailContextMenu, false);
 
-    // I've got to perform some tricks for multimessage redirect button, because it is in an iframe 
+    // I've got to perform some tricks for multimessage redirect button, because it is in an iframe
     el = document.getElementById("multimessage");
     if (el !== null)
       MailredirectExtension.AddRedirectButtonToElement(el);
