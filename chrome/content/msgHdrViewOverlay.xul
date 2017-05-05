@@ -19,6 +19,6 @@
   </toolbarpalette>
 
   <toolbar id="header-view-toolbar"
-           defaultset="hdrReplyToSenderButton,hdrSmartReplyButton,hdrForwardButton,hdrMailredirectButton,hdrArchiveButton,hdrJunkButton,hdrTrashButton"/>
+           defaultset="hdrReplyToSenderButton,hdrSmartReplyButton,hdrForwardButton,hdrMailredirectButton,hdrArchiveButton,hdrJunkButton,hdrTrashButton,otherActionsButton"/>
 
 </overlay>

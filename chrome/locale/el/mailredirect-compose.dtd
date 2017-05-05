@@ -1,0 +1,69 @@
+<!ENTITY msgMailRedirectWindow.title "Επαναδρομολόγηση μηνύματος">
+
+<!ENTITY fileMenu.label "Αρχείο">
+<!ENTITY fileMenu.accesskey "F">
+<!ENTITY forwardBounce.label "Επαναδρομολόγηση">
+<!ENTITY forwardBounce.accesskey "i">
+<!ENTITY closeCmd.label "Κλείσιμο">
+<!ENTITY closeCmd.accesskey "C">
+
+<!ENTITY viewMenu.label "Προβολή">
+<!ENTITY viewMenu.accesskey "V">
+<!ENTITY viewToolbarsMenuNew.label "Γραμμή Εργαλείων">
+<!ENTITY viewToolbarsMenuNew.accesskey "T">
+<!ENTITY menubarCmd.label "Γραμμή Μενού">
+<!ENTITY menubarCmd.accesskey "M">
+
+<!ENTITY tasksMenu.label "Εργαλεία">
+<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY messengerCmd.label "Μηνύματα και Ομάδες Ειδήσεων">
+<!ENTITY messengerCmd.accesskey "M">
+<!ENTITY addressBookCmd.label "Βιβλίο Διευθύνσεων">
+<!ENTITY addressBookCmd.accesskey "A">
+
+<!ENTITY bounceButton.label "Επαναδρομολόγηση">
+<!ENTITY bounceButton.tooltip "Επαναδρομολογήστε τα μηνύματα">
+<!ENTITY addressButton.label "Βιβλίο Διευθύνσεων">
+<!ENTITY addressButton.tooltip "Μεταβείτε στο βιβλίο διευθύνσεων">
+<!ENTITY throbberItem.title "Δείκτης δραστηριότητας">
+<!ENTITY throbber.tooltip "Μεταβείτε σε &vendorShortName; Αρχική σελίδα">
+
+<!ENTITY closeCmd.key "W">
+<!ENTITY closeCmd.modifiers "accel">
+<!ENTITY messengerCmd.key "1">
+<!ENTITY messengerCmd.modifiers "accel">
+<!ENTITY addressBookCmd.key "B">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
+
+<!ENTITY customizeToolbar.label "Διαμόρφωση ρυθμίσεων…">
+<!ENTITY customizeToolbar.accesskey "C">
+<!ENTITY showBounceToolbarCmd.label "Γραμμή Εργαλείων Επαναδρομολόγησης">
+<!ENTITY showBounceToolbarCmd.accesskey "o">
+<!ENTITY showStatusbarCmd.label "Γραμμή κατάστασης">
+<!ENTITY showStatusbarCmd.accesskey "S">
+
+<!ENTITY addressSidebar.label "Πλαϊνή μπάρα επαφών">
+<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressesSidebarTitle.label "Επαφές">
+<!ENTITY addressSidebarButton.label "Επαφές">
+<!ENTITY addressSidebarButton.tooltip "Επιλέξτε έναν παραλήπτη από το βιβλίο διευθύνσεων">
+
+<!ENTITY dialog.dimensions "πλάτος: 92 χαρακτήρες; Ύψος: 36em?">
+
+<!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
+     Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
+     label -->
+<!ENTITY headersSpace.style "πλάτος: 9em?">
+
+<!ENTITY resendFromAddr.label "Επανάληψη αποστολής-Από:">
+<!ENTITY resendFromAddr.accesskey "R">
+
+<!ENTITY resendToAddr.label "Επανάληψη αποστολής-Σε:">
+<!ENTITY resendCcAddr.label "Επανάληψη αποστολής-Υπόψιν (cc):">
+<!ENTITY resendBccAddr.label "Επανάληψη αποστολής-Κρυφή κοινοποίηση (bcc):">
+
+<!ENTITY bounceMailsLabel.label "Τα μηνύματα που ακολουθούν θα επαναδρομολογηθούν:">
+
+<!ENTITY subject.label "Θέμα">
+<!ENTITY sender.label "Αποστολέας">
+<!ENTITY date.label "Ημ/νία">

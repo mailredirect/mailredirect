@@ -200,7 +200,9 @@ function updateAllItems(aDisable)
   commandItemCollections.push(document.getElementsByTagName("toolbarbutton"));
   commandItemCollections.push(document.querySelectorAll('[command]'));
   commandItemCollections.push(document.querySelectorAll('[oncommand]'));
-  for each (let itemCollection in commandItemCollections) {
+  // for..each doesn't work in Gecko>=55, for..of doesn't work in Gecko<13
+  for (let index in commandItemCollections) {
+    let itemCollection = commandItemCollections[index];
     for (let item = 0; item < itemCollection.length; item++) {
       let commandItem = itemCollection[item];
       if (aDisable) {

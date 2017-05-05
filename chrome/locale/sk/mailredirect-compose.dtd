@@ -38,7 +38,7 @@
 <!ENTITY customizeToolbar.label "Prispôsobenie…">
 <!ENTITY customizeToolbar.accesskey "r">
 <!ENTITY showBounceToolbarCmd.label "Panel nástrojov presmerovania">
-<!ENTITY showBounceToolbarCmd.accesskey "p">
+<!ENTITY showBounceToolbarCmd.accesskey "P">
 <!ENTITY showStatusbarCmd.label "Stavový riadok">
 <!ENTITY showStatusbarCmd.accesskey "S">
 

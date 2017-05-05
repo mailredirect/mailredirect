@@ -1,15 +1,15 @@
-#mailredirect-toolbarbutton {
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
+#mailredirect-toolbarbutton, toolbar #mailredirect-toolbarbutton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-flat") !important;
 }
 
-/* Default icons have a built-in glow, so they are 18*18px even in small mode,
-   except for the large back icon, which is why the code below uses 'auto'
-   rather than 18px. This will pick the correct size based on the image
-   region. */
-:-moz-any(
-    #mailredirect-toolbarbutton
-    ) .toolbarbutton-icon {
-  margin: 0 !important;
-  width: auto !important;
-  height: auto !important;
+toolbar[brighttext] #mailredirect-toolbarbutton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-inverted");
+}
+
+toolbarpaletteitem[place="palette"] #mailredirect-toolbarbutton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-flat");
+}
+
+toolbarpaletteitem[place="palette"] #hdrMailredirectButton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-flat");
 }

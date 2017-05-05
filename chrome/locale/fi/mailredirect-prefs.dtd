@@ -1,0 +1,47 @@
+<!ENTITY mailredirectSettings.title "MailRedirect -asetukset">
+
+<!ENTITY prefsGroup.label "Ominaisuudet">
+
+<!ENTITY copyToSentMails.label "Jätä uudelleenohjatun viestin kopio lähetetyt-kansioon?">
+<!ENTITY copyToSentMails.accesskey "J">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "Jos tämä vaihtoehto on valittuna, uudelleenohjatun viestin kopio sijoitetaan lähetetyt-kansioon. Jos asetusta ei ole valittu, uudelleenohjatun viestin kopiota ei kopioida mihinkään kansioon.\nHuomio: Jos tämä vaihtoehto on valittuna ja käytettävän sähköpostitilin asetuksissä on määritetty, että &quot;lähetettyjä viestejä ei talleteta lähetetyt-kansioon&quot;, ei uudelleenohjatun viestin kopiotakaan tallenneta.">
+
+<!ENTITY concurrentConnections.label "Yhtäaikaisten SMTP-yhteyksien määrä:">
+<!ENTITY concurrentConnections.accesskey "Y">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "Asetus määrittää viestien lähetyksen yhteydessä muodostettavan yhteysmäärän SMTP-palvelimellesi. Tämän avulla voit lisätä lähetysprosessin suorituskykyä, jos olet lähettämässä isoa viestimäärää.\nHuomio: Jos asetat asetuksen nollaksi, yhtäaikaiseten yhteyksien määrää ei rajoiteta - tämä saattaa vaikuttaa SMTP-palvelimesi vakauteen tai joidenkin lähetettävien viestin lähetys saattaa epäonnistua. Ongelmien ilmetessä, aseta arvoksi numero yksi.">
+
+<!ENTITY defaultRecipientsGroup.label "Oletusvastaanottajat">
+
+<!ENTITY defaultResendTo.label "Vastaanottaja:">
+<!ENTITY defaultResendTo.accesskey "V">
+<!ENTITY defaultResendTo.tooltip "Pilkuilla erotettu sähköpostiosoitteiden luettelo.">
+
+<!ENTITY defaultResendCc.label "Kopio:">
+<!ENTITY defaultResendCc.accesskey "K">
+<!ENTITY defaultResendCc.tooltip "Pilkuilla erotettu sähköpostiosoitteiden luettelo.">
+
+<!ENTITY defaultResendBcc.label "Piilokopio:">
+<!ENTITY defaultResendBcc.accesskey "P">
+<!ENTITY defaultResendBcc.tooltip "Pilkuilla erotettu sähköpostiosoitteiden luettelo.">
+
+<!ENTITY defaultMode.label "Oletustila:">
+<!ENTITY defaultMode.accesskey "t">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Valitse, miten haluat oletuksena uudelleenohjata viestit\nTämä asetus on voimassa vain, jollet ole määrittänyt yhtään oletusvastaanottajaa.">
+<!ENTITY defaultModeResendTo.label "Vastaanottaja">
+<!ENTITY defaultModeResendCc.label "Kopio">
+<!ENTITY defaultModeResendBcc.label "Piilokopio">
+
+<!ENTITY debug.label "Virheenkorjaus">
+<!ENTITY debug.accesskey "V">
+<!ENTITY debug.tooltip "Vaihda uudelleenohjaus-lisäosan virheenkorjauksen tilaa. Lokit ohjataan JavaScript-konsoliin.">
+
+<!ENTITY saveConsoleContent.label2 "Tallenna virhekonsolin sisältö...">
+<!ENTITY saveConsoleContent.accesskey2 "T">
+<!ENTITY sendViaEmail.label "Lähetä sähköpostilla">
+<!ENTITY sendViaEmail.accesskey "t">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Sähköpostin uudelleenohjaus">

@@ -15,11 +15,11 @@
 <!ENTITY defaultRecipientsGroup.label "Типові адресати">
 
 <!ENTITY defaultResendTo.label "Кому:">
-<!ENTITY defaultResendTo.accesskey "П">
+<!ENTITY defaultResendTo.accesskey "о">
 <!ENTITY defaultResendTo.tooltip "Адреси електронної пошти розділені комами.">
 
 <!ENTITY defaultResendCc.label "Копія:">
-<!ENTITY defaultResendCc.accesskey "К">
+<!ENTITY defaultResendCc.accesskey "п">
 <!ENTITY defaultResendCc.tooltip "Адреси електронної пошти розділені комами.">
 
 <!ENTITY defaultResendBcc.label "Прихована копія:">

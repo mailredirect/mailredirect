@@ -1,29 +1,15 @@
-#mailredirect-toolbarbutton {
-  -moz-image-region: rect(0px, 24px, 24px, 0px);
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
+#mailredirect-toolbarbutton, toolbar #mailredirect-toolbarbutton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-flat") !important;
 }
 
-#mailredirect-toolbarbutton:hover {
-  -moz-image-region: rect(24px, 24px, 48px, 0px);
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
+toolbar[brighttext] #mailredirect-toolbarbutton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-inverted");
 }
 
-#mailredirect-toolbarbutton[disabled="true"] {
-  -moz-image-region: rect(48px, 24px, 72px, 0px);
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
+toolbarpaletteitem[place="palette"] #mailredirect-toolbarbutton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-flat");
 }
 
-toolbar[iconsize="small"] #mailredirect-toolbarbutton {
-  -moz-image-region: rect(0px, 16px, 16px, 0px);
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect-small.png");
-}
-
-toolbar[iconsize="small"] #mailredirect-toolbarbutton:hover {
-  -moz-image-region: rect(16px, 16px, 32px, 0px);
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect-small.png");
-}
-
-toolbar[iconsize="small"] #mailredirect-toolbarbutton[disabled="true"] {
-  -moz-image-region: rect(32px, 16px, 48px, 0px);
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect-small.png");
+toolbarpaletteitem[place="palette"] #hdrMailredirectButton {
+  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-flat");
 }

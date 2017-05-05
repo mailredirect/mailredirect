@@ -3,7 +3,7 @@
 <!ENTITY prefsGroup.label "Preferências">
 
 <!ENTITY copyToSentMails.label "Enviar cópia do e-mail redirecionado para a pasta Itens Enviados?">
-<!ENTITY copyToSentMails.accesskey "M">
+<!ENTITY copyToSentMails.accesskey "r">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Se esta opção estiver marcada, uma cópia da mensagem redirecionada é enviada para a pasta Itens Enviados. Se estiver desmarcada, a mensagem redirecionada não é copiada para pasta alguma.\nNota: Se esta opção estiver marcada mas as configuração da conta sendo usada para redireccionar for 'nunca salvar mensagens enviadas', nenhuma cópia das mensagens redirecionadas será gravada.">
 
