@@ -5,3 +5,7 @@
 toolbar[brighttext] .hdrMailredirectButton {
   list-style-image: url("chrome://messenger/skin/icons/mail-toolbar.svg#redirect-inverted");
 }
+
+.hdrMailredirectButton[disabled="true"] {
+  display: -moz-box !important;
+}
