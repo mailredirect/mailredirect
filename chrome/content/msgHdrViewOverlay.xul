@@ -15,7 +15,7 @@
                    tooltiptext="&hdrMailredirectButton1.tooltip;"
                    oncommand="cmd_mailredirect(event);RestoreFocusAfterHdrButton();"
                    observes="cmd_mailredirect"
-                   class="toolbarbutton-1 msgHeaderView-button hdrMailredirectButton"/>
+                   class="toolbarbutton-1 msgHeaderView-button hdrMailredirectButton" />
   </toolbarpalette>
 
   <toolbar id="header-view-toolbar"

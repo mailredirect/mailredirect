@@ -35,7 +35,7 @@
       insertafter="forwardAsMenu"
       key="key_mailredirect"
       observes="cmd_mailredirect"
-      oncommand="cmd_mailredirect(event)"/>
+      oncommand="cmd_mailredirect(event)" />
   </menupopup>
 
   <!-- if (thunderbird) -->
@@ -49,8 +49,7 @@
     <toolbar id="msgToolbar">
       <hbox id="toolbar_button_box">
         <toolbarbutton id="mailredirect-toolbarbutton" class="toolbarbutton-1" label="&bounceCommand.label;"
-          tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward"
-          disabled="true" />
+          tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward" />
       </hbox>
     </toolbar>
   </toolbox>
