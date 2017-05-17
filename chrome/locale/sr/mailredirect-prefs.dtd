@@ -14,20 +14,6 @@
 
 <!ENTITY defaultRecipientsGroup.label "Подразумевани примаоци">
 
-<!--
-<!ENTITY defaultResendTo.label "Resend-To:">
-<!ENTITY defaultResendTo.accesskey "T">
-<!ENTITY defaultResendTo.tooltip "Списак е-адреса одвојених запетама.">
-
-<!ENTITY defaultResendCc.label "Resend-Cc:">
-<!ENTITY defaultResendCc.accesskey "C">
-<!ENTITY defaultResendCc.tooltip "Списак е-адреса одвојених запетама.">
-
-<!ENTITY defaultResendBcc.label "Resend-Bcc:">
-<!ENTITY defaultResendBcc.accesskey "B">
-<!ENTITY defaultResendBcc.tooltip "Списак е-адреса одвојених запетама.">
--->
-
 <!ENTITY defaultResendTo.label "Поново пошаљи-прималац">
 <!ENTITY defaultResendTo.accesskey "П">
 <!ENTITY defaultResendTo.tooltip "Списак е-адреса одвојених запетама.">
@@ -44,11 +30,6 @@
 <!ENTITY defaultMode.accesskey "д">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Изаберите подразумевани начин преусмеравања порука\nОва поставка ступа на снагу само ако нисте навели подразумеване примаоце.">
-<!--
-<!ENTITY defaultModeResendTo.label "Resend-To">
-<!ENTITY defaultModeResendCc.label "Resend-Cc">
-<!ENTITY defaultModeResendBcc.label "Resend-Bcc">
--->
 <!ENTITY defaultModeResendTo.label "Поново пошаљи-прималац">
 <!ENTITY defaultModeResendCc.label "Поново пошаљи-додатни примаоци">
 <!ENTITY defaultModeResendBcc.label "Поново пошаљи-додатни сакривени примаоци">
