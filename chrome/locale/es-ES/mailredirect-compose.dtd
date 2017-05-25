@@ -16,8 +16,8 @@
 
 <!ENTITY tasksMenu.label "Herramientas">
 <!ENTITY tasksMenu.accesskey "H">
-<!ENTITY messengerCmd.label "Correo y noticias">
-<!ENTITY messengerCmd.accesskey "o">
+<!ENTITY messengerCmd.label "Correo y grupos de noticias">
+<!ENTITY messengerCmd.accesskey "C">
 <!ENTITY addressBookCmd.label "Libreta de direcciones">
 <!ENTITY addressBookCmd.accesskey "L">
 
@@ -58,7 +58,7 @@
 <!ENTITY resendFromAddr.label "Redirigir-De:">
 <!ENTITY resendFromAddr.accesskey "D">
 
-<!ENTITY resendToAddr.label "Redirigir A:">
+<!ENTITY resendToAddr.label "Redirigir-A:">
 <!ENTITY resendCcAddr.label "Redirigir-Cc:">
 <!ENTITY resendBccAddr.label "Redirigir-Bcc:">
 

@@ -44,4 +44,4 @@
 <!ENTITY sendViaEmail.accesskey "E">
 
 <!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Redirigir correo">
+<!ENTITY mailredirectSettings.label "Mail Redirect">
