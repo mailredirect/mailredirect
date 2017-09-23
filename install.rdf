@@ -46,7 +46,6 @@
                   wgfcecW2i0tuV52U8EcQ1nfGuDZtvuHJiu1rdn57G3BsVfTwwyfxY35w7Kjk4/J7HtB/+3EPyV81PT+f
                   lO5YT/F4yeO+k5MiAWsIb6Re2RF1ildra4lqxY+va4uDQuXJ3wIDAQAB</em:updateKey>
     <em:optionsURL>chrome://mailredirect/content/mailredirect-prefs.xul</em:optionsURL>
-    <em:iconURL>chrome://mailredirect/skin/mailredirect-icon.png</em:iconURL>
     <em:targetApplication>
       <rdf:Description rdf:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
