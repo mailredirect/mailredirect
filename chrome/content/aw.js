@@ -81,8 +81,7 @@ function awGetSelectItemIndex(itemData)
   if (selectElementIndexTable === null) {
     selectElementIndexTable = new Object();
     var selectElem = document.getElementById("addressCol1#1");
-    for (var i = 0; i < selectElem.childNodes[0].childNodes.length; i++)
-    {
+    for (var i = 0; i < selectElem.childNodes[0].childNodes.length; i++) {
       var aData = selectElem.childNodes[0].childNodes[i].getAttribute("value");
       selectElementIndexTable[aData] = i;
     }
@@ -110,16 +109,14 @@ function Recipients2CompFields(msgCompFields)
   var inputField;
   var fieldValue;
   var recipient;
-  while ((inputField = awGetInputElement(i)))
-  {
+  while ((inputField = awGetInputElement(i))) {
     fieldValue = inputField.value;
 
     if (fieldValue !== "") {
       recipientType = awGetPopupElement(i).value;
       recipient = null;
 
-      switch (recipientType)
-      {
+      switch (recipientType) {
         case "addr_to"    :
         case "addr_cc"    :
         case "addr_bcc"   :
@@ -133,13 +130,12 @@ function Recipients2CompFields(msgCompFields)
             recipient = fieldValue;
           }
           break;
-      }
+        }
 
-      switch (recipientType)
-      {
-        case "addr_to"          : addrTo += to_Sep + recipient; to_Sep = ",";    break;
-        case "addr_cc"          : addrCc += cc_Sep + recipient; cc_Sep = ",";    break;
-        case "addr_bcc"         : addrBcc += bcc_Sep + recipient; bcc_Sep = ","; break;
+      switch (recipientType) {
+        case "addr_to"    : addrTo += to_Sep + recipient; to_Sep = ",";    break;
+        case "addr_cc"    : addrCc += cc_Sep + recipient; cc_Sep = ",";    break;
+        case "addr_bcc"   : addrBcc += bcc_Sep + recipient; bcc_Sep = ","; break;
       }
     }
     i ++;
@@ -209,8 +205,7 @@ function awAddRecipientsArray(aRecipientType, aAddressArray)
 {
   // Find rows that are empty so that we can fill them.
   let emptyRows = [];
-  for (let row = 1; row <= top.MAX_RECIPIENTS; row ++)
-  {
+  for (let row = 1; row <= top.MAX_RECIPIENTS; row ++) {
     if (awGetInputElement(row).value == "")
       emptyRows.push(row);
   }
@@ -256,8 +251,7 @@ function awAddRecipientsArray(aRecipientType, aAddressArray)
  */
 function awAddRecipient(recipientType, address)
 {
-  for (var row = 1; row <= top.MAX_RECIPIENTS; row++)
-  {
+  for (var row = 1; row <= top.MAX_RECIPIENTS; row++) {
     if (awGetInputElement(row).value === "")
       break;
   }
@@ -279,8 +273,7 @@ function awCleanupRows()
   var maxRecipients = top.MAX_RECIPIENTS;
   var rowID = 1;
 
-  for (var row = 1; row <= maxRecipients; row++)
-  {
+  for (var row = 1; row <= maxRecipients; row++) {
     var inputElem = awGetInputElement(row);
     if (inputElem.value === "" && row < maxRecipients) {
       awRemoveRow(awGetRowByInputElement(inputElem));
@@ -542,8 +535,7 @@ function DropOnAddressingWidget(event)
   trans.init(getLoadContext());
   trans.addDataFlavor("text/x-moz-address");
 
-  for (var i = 0; i < dragSession.numDropItems; ++i)
-  {
+  for (var i = 0; i < dragSession.numDropItems; ++i) {
     dragSession.getData(trans, i);
     var dataObj = new Object();
     var bestFlavor = new Object();
@@ -571,9 +563,9 @@ function DropRecipient(target, recipient)
 
 function _awSetAutoComplete(selectElem, inputElem)
 {
-  let params = JSON.parse(inputElem.getAttribute('autocompletesearchparam'));
+  let params = JSON.parse(inputElem.getAttribute("autocompletesearchparam"));
   params.type = selectElem.value;
-  inputElem.setAttribute('autocompletesearchparam', JSON.stringify(params));
+  inputElem.setAttribute("autocompletesearchparam", JSON.stringify(params));
 }
 
 function awSetAutoComplete(rowNumber)
@@ -622,8 +614,7 @@ function awRecipientErrorCommand(errItem, element)
     try {
       var specificError = errItem.param.QueryInterface(Ci.nsISupportsString);
       specificErrString = specificError.data;
-    } catch (ex) {
-    }
+    } catch (ex) { }
     if (specificErrString == "") {
       specificErrString = "Internal error";
     }
@@ -634,80 +625,80 @@ function awRecipientErrorCommand(errItem, element)
 function awRecipientKeyPress(event, element)
 {
   switch(event.keyCode) {
-  case KeyEvent.DOM_VK_RETURN:
-  case KeyEvent.DOM_VK_TAB:
-    // str.includes is new to ECMAScript 6
-    if (typeof String.prototype.includes !== "function") {
-      dumper.dump("awRecipientKeyPress defineProperty includes");
-      Object.defineProperty(String.prototype, 'includes', {
-        enumerable: false,
-        configurable: true,
-        writable: false,
-        value: function() {
-          'use strict';
-          var start = 0;
-          if (typeof arguments[1] === "number") {
-            start = arguments[1];
+    case KeyEvent.DOM_VK_RETURN:
+    case KeyEvent.DOM_VK_TAB:
+      // str.includes is new to ECMAScript 6
+      if (typeof String.prototype.includes !== "function") {
+        dumper.dump("awRecipientKeyPress defineProperty includes");
+        Object.defineProperty(String.prototype, "includes", {
+          enumerable: false,
+          configurable: true,
+          writable: false,
+          value: function() {
+            "use strict";
+            var start = 0;
+            if (typeof arguments[1] === "number") {
+              start = arguments[1];
+            }
+            if (this.length < arguments[0].length + start) {
+              return false;
+            } else {
+              return this.indexOf(arguments[0], start) !== -1;
+            }
           }
-          if (this.length < arguments[0].length + start) {
-            return false;
-          } else {
-            return this.indexOf(arguments[0], start) !== -1;
-          }
-        }
-      });
-    }
-    // if the user text contains a comma or a line return, ignore
-    if (element.value.includes(',')) {
-      var addresses = element.value;
-      element.value = ""; // clear out the current line so we don't try to autocomplete it..
-      parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).value);
-    } else
-      if (event.keyCode == KeyEvent.DOM_VK_TAB)
-        awTabFromRecipient(element, event);
+        });
+      }
+      // if the user text contains a comma or a line return, ignore
+      if (element.value.includes(",")) {
+        var addresses = element.value;
+        element.value = ""; // clear out the current line so we don't try to autocomplete it..
+        parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).value);
+      } else
+        if (event.keyCode == KeyEvent.DOM_VK_TAB)
+          awTabFromRecipient(element, event);
 
-    break;
+      break;
   }
 }
 
 function awRecipientKeyDown(event, element)
 {
   switch(event.keyCode) {
-  case KeyEvent.DOM_VK_DELETE:
-  case KeyEvent.DOM_VK_BACK_SPACE:
-    if (!element.value)
-      awDeleteHit(element);
+    case KeyEvent.DOM_VK_DELETE:
+    case KeyEvent.DOM_VK_BACK_SPACE:
+      if (!element.value)
+        awDeleteHit(element);
 
-    // We need to stop the event else the listbox will receive it and the
-    // function awKeyDown will be executed!
-    event.stopPropagation();
-    break;
+      // We need to stop the event else the listbox will receive it and the
+      // function awKeyDown will be executed!
+      event.stopPropagation();
+      break;
   }
 }
 
 function awKeyDown(event, listboxElement)
 {
   switch(event.keyCode) {
-  case KeyEvent.DOM_VK_DELETE:
-  case KeyEvent.DOM_VK_BACK_SPACE:
-    /* Warning, the listboxElement.selectedItems will change everytime we delete a row */
-    var selItems = listboxElement.selectedItems;
-    var length = listboxElement.selectedCount;
-    for (var i = 1; i <= length; i++) {
-      var inputs = listboxElement.selectedItem.getElementsByTagName(awInputElementName());
-      if (inputs && inputs.length === 1)
-        awDeleteHit(inputs[0]);
-    }
-    break;
+    case KeyEvent.DOM_VK_DELETE:
+    case KeyEvent.DOM_VK_BACK_SPACE:
+      /* Warning, the listboxElement.selectedItems will change everytime we delete a row */
+      var selItems = listboxElement.selectedItems;
+      var length = listboxElement.selectedCount;
+      for (var i = 1; i <= length; i++) {
+        var inputs = listboxElement.selectedItem.getElementsByTagName(awInputElementName());
+        if (inputs && inputs.length === 1)
+          awDeleteHit(inputs[0]);
+      }
+      break;
   }
 }
 
 function awMenulistKeyPress(event, element)
 {
   switch(event.keyCode) {
-  case KeyEvent.DOM_VK_TAB:
-    awTabFromMenulist(element, event);
-    break;
+    case KeyEvent.DOM_VK_TAB:
+      awTabFromMenulist(element, event);
+      break;
   }
 }
 
@@ -728,7 +719,7 @@ function awCreateOrRemoveDummyRows()
   let listboxHeight = listbox.boxObject.height;
 
   // remove rows to remove scrollbar
-  let kids = listbox.querySelectorAll('[_isDummyRow]');
+  let kids = listbox.querySelectorAll("[_isDummyRow]");
   for (let i = kids.length-1; gAWContentHeight > listboxHeight && i >= 0; --i) {
     gAWContentHeight -= gAWRowHeight;
     listbox.removeChild(kids[i]);
@@ -789,7 +780,7 @@ function awCreateDummyCell(aParent)
 function awGetNextDummyRow()
 {
   // gets the next row from the top down
-  return document.querySelector('#addressingWidget > [_isDummyRow]');
+  return document.querySelector("#addressingWidget > [_isDummyRow]");
 }
 
 function awSizerListen()
@@ -815,7 +806,7 @@ function awDocumentKeyPress(event)
 {
   try {
     var id = event.target.id;
-    if (id.startsWith('addressCol1'))
+    if (id.startsWith("addressCol1"))
       awMenulistKeyPress(event, event.target);
   } catch (e) { }
 }
@@ -887,29 +878,27 @@ AutomatedAutoCompleteHandler.prototype =
       if (this.namesToComplete[this.indexIntoNames]) {
         /* XXX This used to work, until switching to the new toolkit broke it
            We should fix it see bug 456550.
-        if (typeof String.prototype.includes !== "function")
-	{
-	  // dumper.dump("autoCompleteNextAddress defineProperty includes");
-	  Object.defineProperty(String.prototype, 'includes', {
-	    enumerable: false,
-	    configurable: true,
-	    writable: false,
-	    value: function() {
-	      'use strict';
-	      var start = 0;
-	      if (typeof arguments[1] === "number") {
-		start = arguments[1];
-	      }
-	      if (this.length < arguments[0].length + start) {
-		return false;
-	      } else {
-		return this.indexOf(arguments[0], start) !== -1;
-	      }
-	    }
-	  });
-	}
-        if (!this.namesToComplete[this.indexIntoNames].includes("@")) // don't autocomplete if address has an @ sign in it
-        {
+        if (typeof String.prototype.includes !== "function") {
+      	  // dumper.dump("autoCompleteNextAddress defineProperty includes");
+      	  Object.defineProperty(String.prototype, "includes", {
+      	    enumerable: false,
+      	    configurable: true,
+      	    writable: false,
+      	    value: function() {
+      	      "use strict";
+      	      var start = 0;
+      	      if (typeof arguments[1] === "number") {
+            		start = arguments[1];
+      	      }
+      	      if (this.length < arguments[0].length + start) {
+            		return false;
+      	      } else {
+      		      return this.indexOf(arguments[0], start) !== -1;
+      	      }
+      	    }
+      	  });
+      	}
+        if (!this.namesToComplete[this.indexIntoNames].includes("@")) { // don't autocomplete if address has an @ sign in it
           // make sure total session count is updated before we kick off ANY actual searches
           if (gAutocompleteSession)
             this.numSessionsToSearch++;
@@ -917,16 +906,14 @@ AutomatedAutoCompleteHandler.prototype =
           if (gLDAPSession && gCurrentAutocompleteDirectory)
             this.numSessionsToSearch++;
 
-          if (gAutocompleteSession)
-          {
+          if (gAutocompleteSession) {
              gAutocompleteSession.onAutoComplete(this.namesToComplete[this.indexIntoNames], null, this);
              // AB searches are actually synchronous. So by the time we get here we have already looked up results.
 
              // if we WERE going to also do an LDAP lookup, then check to see if we have a valid match in the AB, if we do
              // don't bother with the LDAP search too just return
 
-             if (gLDAPSession && gCurrentAutocompleteDirectory && this.searchResults[0] && this.searchResults[0].defaultItemIndex !== -1)
-             {
+             if (gLDAPSession && gCurrentAutocompleteDirectory && this.searchResults[0] && this.searchResults[0].defaultItemIndex !== -1){
                this.processAllResults();
                return;
              }
@@ -972,8 +959,7 @@ AutomatedAutoCompleteHandler.prototype =
 
     var searchResultsForSession;
 
-    for (sessionIndex in this.searchResults)
-    {
+    for (sessionIndex in this.searchResults) {
       searchResultsForSession = this.searchResults[sessionIndex];
       if (searchResultsForSession && searchResultsForSession.defaultItemIndex > -1) {
         addressToAdd = searchResultsForSession.items.QueryElementAt(searchResultsForSession.defaultItemIndex, Ci.nsIAutoCompleteItem).value;
@@ -983,8 +969,7 @@ AutomatedAutoCompleteHandler.prototype =
 
     // still no match? loop through looking for the -1 default index
     if (!addressToAdd) {
-      for (sessionIndex in this.searchResults)
-      {
+      for (sessionIndex in this.searchResults) {
         searchResultsForSession = this.searchResults[sessionIndex];
         if (searchResultsForSession && searchResultsForSession.defaultItemIndex === -1) {
           addressToAdd = searchResultsForSession.items.QueryElementAt(0, Ci.nsIAutoCompleteItem).value;
@@ -1012,10 +997,10 @@ AutomatedAutoCompleteHandler.prototype =
 
   QueryInterface : function(iid)
   {
-      if (iid.equals(Ci.nsIAutoCompleteListener) ||
-          iid.equals(Ci.nsISupports))
-        return this;
-      throw Components.results.NS_NOINTERFACE;
+    if (iid.equals(Ci.nsIAutoCompleteListener) ||
+        iid.equals(Ci.nsISupports))
+      return this;
+    throw Components.results.NS_NOINTERFACE;
   }
 }
 

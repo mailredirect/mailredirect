@@ -10,6 +10,9 @@ Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3
 Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
 Components.utils.import("resource://gre/modules/PluralForm.jsm");
 Components.utils.import("resource://gre/modules/AddonManager.jsm");
+try {
+  Components.utils.import("resource://gre/modules/AppConstants.jsm"); // Gecko 45+
+} catch(ex) { };
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
@@ -29,6 +32,19 @@ const MODE_EXCL     = 0x80;
 // from nsDirPrefs.h
 const kPersonalAddressbookUri  = "moz-abmdbdirectory://abook.mab";
 const kCollectedAddressbookUri = "moz-abmdbdirectory://history.mab";
+
+const kDateFormatNone = 0;          // do not include the date in the format string
+const kDateFormatLong = 1;          // provides the long date format for the given locale
+const kDateFormatShort = 2;         // provides the short date format for the given locale
+const kDateFormatYearMonth = 3;     // formats using only the year and month
+const kDateFormatWeekday = 4;       // week day (e.g. Mon, Tue)
+
+const kTimeFormatNone = 0;          // don't include the time in the format string
+const kTimeFormatSeconds = 1;       // provides the time format with seconds in the  given locale
+const kTimeFormatNoSeconds = 2;     // provides the time format without seconds in the given locale
+
+const PR_MSEC_PER_SEC = 1000;
+const PR_MSEC_PER_DAY = PR_MSEC_PER_SEC * 60 * 60 * 24;
 
 // Global message window object
 var msgWindow;
@@ -91,7 +107,7 @@ var dumper = new MailredirectDebug.Dump();
 function RemoveValueFromAttribute(el, atr, val)
 {
   var orgval = el.getAttribute(atr);
-  val = val.replace(/^\s+|\s+$/g, "")
+  val = val.replace(/^\s+|\s+$/g, "");
   var regExp = new RegExp("(?:^|\\s+)" + val + "(?:\\s+|$)", "g");
   var newval = orgval.replace(regExp, "");
   if (newval.match(/^\s*$/)) {
@@ -198,8 +214,8 @@ function updateAllItems(aDisable)
   let commandItemCollections = [];
   commandItemCollections.push(document.getElementsByTagName("menu"));
   commandItemCollections.push(document.getElementsByTagName("toolbarbutton"));
-  commandItemCollections.push(document.querySelectorAll('[command]'));
-  commandItemCollections.push(document.querySelectorAll('[oncommand]'));
+  commandItemCollections.push(document.querySelectorAll("[command]"));
+  commandItemCollections.push(document.querySelectorAll("[oncommand]"));
   // for..each doesn't work in Gecko>=55, for..of doesn't work in Gecko<13
   for (let index in commandItemCollections) {
     let itemCollection = commandItemCollections[index];
@@ -306,12 +322,12 @@ function CheckValidEmailAddress(aMsgCompFields)
     // str.includes is new to ECMAScript 6
     if (typeof String.prototype.includes !== "function") {
       // dumper.dump("defineProperty includes");
-      Object.defineProperty(String.prototype, 'includes', {
+      Object.defineProperty(String.prototype, "includes", {
         enumerable: false,
         configurable: true,
         writable: false,
         value: function() {
-          'use strict';
+          "use strict";
           var start = 0;
           if (typeof arguments[1] === "number") {
             start = arguments[1];
@@ -327,7 +343,7 @@ function CheckValidEmailAddress(aMsgCompFields)
     // str.endsWith is new to ECMAScript 6
     if (typeof String.prototype.endsWith !== "function") {
       // dumper.dump("defineProperty endsWith");
-      Object.defineProperty(String.prototype, 'endsWith', {
+      Object.defineProperty(String.prototype, "endsWith", {
         enumerable: false,
         configurable: true,
         writable: false,
@@ -632,8 +648,7 @@ function setupLdapAutocompleteSession()
         // succeeded; add the session for all recipients, and
         // remember that we've done so
         let maxRecipients = awGetMaxRecipients();
-        for (let i = 1; i <= maxRecipients; i++)
-        {
+        for (let i = 1; i <= maxRecipients; i++) {
           let autoCompleteWidget = document.getElementById("addressCol2#" + i);
           if (autoCompleteWidget) {
             autoCompleteWidget.addSession(LDAPSession);
@@ -641,7 +656,7 @@ function setupLdapAutocompleteSession()
             // so reduce the minimum results for a popup to 2 in this case.
             autoCompleteWidget.minResultsForPopup = 2;
           }
-         }
+        }
         gSessionAdded = true;
       }
     }
@@ -685,7 +700,7 @@ function queryIArray(aArray, iid)
 
 function onAddressColCommand(aAddressWidgetId)
 {
-  awSetAutoComplete(aAddressWidgetId.slice(aAddressWidgetId.lastIndexOf('#') + 1));
+  awSetAutoComplete(aAddressWidgetId.slice(aAddressWidgetId.lastIndexOf("#") + 1));
   updateSendCommands(true);
 }
 
@@ -768,25 +783,21 @@ function setupAutocomplete()
   // this element then gets cloned for subsequent rows, so they should
   // honor it as well
   //
-  try
-  {
+  try {
     if (getPref("mail.autoComplete.highlightNonMatches"))
       autoCompleteWidget.highlightNonMatches = true;
 
     if (getPref("mail.autoComplete.commentColumn"))
       autoCompleteWidget.showCommentColumn = true;
-  } catch (ex)
-  {
+  } catch (ex) {
     // if we can't get this pref, then don't show the columns (which is
     // what the XUL defaults to)
   }
 
   if (!gSetupLdapAutocomplete) {
-    try
-    {
+    try {
       setupLdapAutocompleteSession();
-    } catch (ex)
-    {
+    } catch (ex) {
       // catch the exception and ignore it, so that if LDAP setup
       // fails, the entire compose window doesn't end up horked
     }
@@ -810,8 +821,7 @@ function LoadIdentity(startup)
     }
 
     let maxRecipients = awGetMaxRecipients();
-    for (let i = 1; i <= maxRecipients; i++)
-    {
+    for (let i = 1; i <= maxRecipients; i++) {
       let params = "{}";
       if (typeof awGetInputElement(i).searchParam !== "undefined") {
         params = JSON.parse(awGetInputElement(i).searchParam);
@@ -997,8 +1007,24 @@ function BounceStartup(aParams)
     var messenger = Cc["@mozilla.org/messenger;1"].
                     createInstance(Ci.nsIMessenger);
 
-    var dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
-                            getService(Ci.nsIScriptableDateFormat);
+    var locale = undefined;
+    var dateFormatService = undefined;
+
+    var dateFormatDefault  = getPref("mail.ui.display.dateformat.default");
+    var dateFormatThisWeek = getPref("mail.ui.display.dateformat.thisweek");
+    var dateFormatToday    = getPref("mail.ui.display.dateformat.today");
+
+    if (dateFormatDefault === null) {
+      dateFormatDefault = kDateFormatShort;
+    }
+    if (dateFormatThisWeek === null) {
+      dateFormatThisWeek = kDateFormatShort;
+    }
+    if (dateFormatToday === null) {
+      dateFormatToday = kDateFormatNone;
+    }
+
+    var today = new Date();
 
     for (let i = 0; i < mstate.size; ++i) {
       var aRow = document.createElement("treerow");
@@ -1045,10 +1071,56 @@ function BounceStartup(aParams)
       if (msgDate) {
         var date = new Date();
         date.setTime(msgDate / 1000);
-        dateString = dateFormatService.FormatDateTime("",
-          dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
-          date.getFullYear(), date.getMonth()+1, date.getDate(),
-          date.getHours(), date.getMinutes(), date.getSeconds());
+
+        var dateFormat = dateFormatDefault;
+        if (date.getFullYear() === today.getFullYear() &&
+            date.getMonth() === today.getMonth() &&
+            date.getDate() === today.getDate()) {
+          dateFormat = dateFormatToday;
+        } else if (today > date) {
+          var todaysMilliSeconds = today.getTime() % PR_MSEC_PER_DAY;
+          var mostRecentMidnight = today.getTime() - todaysMilliSeconds;
+          var mostRecentWeek = mostRecentMidnight - 6*PR_MSEC_PER_DAY;
+          // was the message sent during the last week?
+          if (date.getTime() >= mostRecentWeek) {
+            dateFormat = dateFormatThisWeek;
+          }
+        }
+        if (Services.intl !== undefined &&
+            typeof Services.intl.createDateTimeFormat === "function") {
+          if (locale === undefined) {
+            var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
+            if (useOSLocales) {
+              var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
+                            getService(Ci.mozIOSPreferences);
+              locale = osprefs.getRegionalPrefsLocales()[0];
+            } else {
+              locale = null;
+            }
+          }
+          var dateOption = {dateStyle: "short", timeStyle: "short"};
+          if (dateFormat === kDateFormatNone) {
+            dateOption = {timeStyle: "short"};
+          } else if (dateFormat === kDateFormatLong) {
+            dateOption = {dateStyle: "long", timeStyle: "short"};
+          } else if (dateFormat === kDateFormatShort) {
+            dateOption = {dateStyle: "short", timeStyle: "short"};
+          } else if (dateFormat === kDateFormatYearMonth) {
+            dateOption = {year: "numeric", month: "2-digit", hour: "numeric", minute: "numeric"};
+          } else if (dateFormat === kDateFormatWeekday) {
+            dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
+          }
+          dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date);
+        } else {
+          if (dateFormatService === undefined) {
+            dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
+                                getService(Ci.nsIScriptableDateFormat);
+          }
+          dateString = dateFormatService.FormatDateTime("",
+            dateFormat, dateFormatService.timeFormatNoSeconds,
+            date.getFullYear(), date.getMonth()+1, date.getDate(),
+            date.getHours(), date.getMinutes(), date.getSeconds());
+        }
       }
       aCell.setAttribute("label", dateString);
       aRow.appendChild(aCell);
@@ -1065,9 +1137,8 @@ function BounceStartup(aParams)
   AdjustFocus();
   setTimeout(function() { awFitDummyRows() }, 0);
 
-  window.onresize = function()
-  {
-    // dumper.dump("window.onresize func");
+  window.onresize = function() {
+    // .dump("window.onresize func");
     awFitDummyRows();
   }
 
@@ -1113,7 +1184,7 @@ function BounceStartup(aParams)
   }
 
   // finally, see if we need to auto open the address sidebar.
-  var sideBarBox = document.getElementById('sidebar-box');
+  var sideBarBox = document.getElementById("sidebar-box");
   if (sideBarBox.getAttribute("sidebarVisible") === "true") {
     // if we aren't supposed to have the side bar hidden, make sure it is visible
     if (document.getElementById("sidebar").getAttribute("src") === "")
@@ -1245,9 +1316,7 @@ function BounceLoad()
         if (addr !== "") awAddRecipient("addr_bcc", addr);
       }
     }
-  }
-  else
-  {
+  } else {
     var menulist = document.getElementById("addressCol1#1");
     var defaultMode = getPref("extensions.mailredirect.defaultMode");
     menulist.value = defaultMode;
@@ -1317,7 +1386,7 @@ function BounceUnload()
  */
 function updateEditableFields(aDisable)
 {
-  let elements = document.querySelectorAll('[disableonsend="true"]');
+  let elements = document.querySelectorAll("[disableonsend=\"true\"]");
   for (let i = 0; i < elements.length; i++)
     elements[i].disabled = aDisable;
 }
@@ -1325,8 +1394,13 @@ function updateEditableFields(aDisable)
 function ExitFullscreenMode()
 {
   // On OS X we need to deliberately exit full screen mode before closing.
-  if (Application.platformIsMac)
-    window.fullscreen = false;
+  if (typeof AppConstants !== "undefined") {
+    if (AppConstants.platformIsMac)
+      window.fullscreen = false;
+  } else {
+    if (Application.platformIsMac)
+      window.fullscreen = false;
+  }
 }
 
 function DoCommandClose()
@@ -1415,110 +1489,169 @@ var mailredirectDragObserver = {
 
   canHandleMultipleItems: true,
 
-  onDrop: function (aEvent, aData, aDragSession)
-  {
-    var dataList = aData.dataList;
-    var dataListLength = dataList.length;
-    var errorTitle;
-    var attachment;
-    var errorMsg;
+  onDrop: function (aEvent, aData, aDragSession) {
+    var aTree = document.getElementById("topTreeChildren");
+    if (!aTree.disabled) {
+      var dataList = aData.dataList;
+      var dataListLength = dataList.length;
+      var errorTitle;
+      var attachment;
+      var errorMsg;
 
-    for (var i = 0; i < dataListLength; i++)
-    {
-      var item = dataList[i].first;
-      var prettyName;
-      var size;
-      var rawData = item.data;
+      var locale = undefined;
+      var dateFormatService = undefined;
 
-      if (item.flavour.contentType === "text/x-moz-message") {
-        if (mstate.selectedURIs.indexOf(rawData) === -1) {
-          var i = mstate.size++;
-          mstate.selectedURIs.push(rawData);
+      var dateFormatDefault  = getPref("mail.ui.display.dateformat.default");
+      var dateFormatThisWeek = getPref("mail.ui.display.dateformat.thisweek");
+      var dateFormatToday    = getPref("mail.ui.display.dateformat.today");
 
-          var aRow = document.createElement("treerow");
-          aRow.setAttribute("messageURI", rawData);
-          aRow.setAttribute("URIidx", i);
-          aRow.setAttribute("disableonsend", true);
-
-          dumper.dump(mstate.selectedURIs[i]);
-          var msgService = gMessenger.messageServiceFromURI(mstate.selectedURIs[i]);
-          var msgSubject = "";
-          var msgAuthor = "";
-          var msgDate = null;
-          var propertiesString = "";
-          var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
-          if (msgHdr) {
-            msgSubject = msgHdr.mime2DecodedSubject;
-            msgAuthor = msgHdr.mime2DecodedAuthor;
-            msgDate = msgHdr.date;
-            if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
-            if (msgHdr.flags & 0x0001)  propertiesString += " read";
-            if (msgHdr.flags & 0x0002)  propertiesString += " replied";
-            if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
-            if (msgHdr.flags & 0x10000) propertiesString += " new";
-            if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
-          } else if (currMsgWindow && currMsgWindow.messageHeaderSink) {
-            msgHdr = currMsgWindow.messageHeaderSink.dummyMsgHeader;
-            if (msgHdr) {
-              msgSubject = msgHdr.subject;
-              msgAuthor = msgHdr.author;
-            }
-          }
-
-          var aCell = document.createElement("treecell");
-          aCell.setAttribute("label", msgSubject);
-          aCell.setAttribute("properties", propertiesString);
-          aRow.appendChild(aCell);
-
-          var aCell = document.createElement("treecell");
-          aCell.setAttribute("label", msgAuthor);
-          aRow.appendChild(aCell);
-
-          var aCell = document.createElement("treecell");
-          var dateString = "";
-          if (msgDate) {
-            var dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
-                                    getService(Ci.nsIScriptableDateFormat);
-            var date = new Date();
-            date.setTime(msgDate / 1000);
-            dateString = dateFormatService.FormatDateTime("",
-              dateFormatService.dateFormatShort, dateFormatService.timeFormatNoSeconds,
-              date.getFullYear(), date.getMonth()+1, date.getDate(),
-              date.getHours(), date.getMinutes(), date.getSeconds());
-          }
-          aCell.setAttribute("label", dateString);
-          aRow.appendChild(aCell);
-
-          var aItem = document.createElement("treeitem");
-          aItem.appendChild(aRow);
-          aTree.appendChild(aItem);
-        }
+      if (dateFormatDefault === null) {
+        dateFormatDefault = kDateFormatShort;
       }
-      else if (item.flavour.contentType === "text/x-moz-address")
-      {
-        // process the address
-        if (rawData) {
-          DropRecipient(aEvent.target, rawData);
+      if (dateFormatThisWeek === null) {
+        dateFormatThisWeek = kDateFormatShort;
+      }
+      if (dateFormatToday === null) {
+        dateFormatToday = kDateFormatNone;
+      }
 
-          // Since we are now using ondrop (eDrop) instead of previously using
-          // ondragdrop (eLegacyDragDrop), we must prevent the default
-          // which is dropping the address text into the widget.
-          // Note that stopPropagation() is called by our caller in
-          // nsDragAndDrop.js.
-          aEvent.preventDefault();
+      var today = new Date();
+
+      for (var i = 0; i < dataListLength; i++) {
+        var item = dataList[i].first;
+        var prettyName;
+        var size;
+        var rawData = item.data;
+
+        if (item.flavour.contentType === "text/x-moz-message") {
+          if (mstate.selectedURIs.indexOf(rawData) === -1) {
+            var i = mstate.size++;
+            mstate.selectedURIs.push(rawData);
+
+            var aRow = document.createElement("treerow");
+            aRow.setAttribute("messageURI", rawData);
+            aRow.setAttribute("URIidx", i);
+            aRow.setAttribute("disableonsend", true);
+
+            dumper.dump(mstate.selectedURIs[i]);
+            var msgService = gMessenger.messageServiceFromURI(mstate.selectedURIs[i]);
+            var msgSubject = "";
+            var msgAuthor = "";
+            var msgDate = null;
+            var propertiesString = "";
+            var msgHdr = GetMsgHdrForUri(mstate.selectedURIs[i]);
+            if (msgHdr) {
+              msgSubject = msgHdr.mime2DecodedSubject;
+              msgAuthor = msgHdr.mime2DecodedAuthor;
+              msgDate = msgHdr.date;
+              if (isNewsURI(mstate.selectedURIs[i])) propertiesString += " news";
+              if (msgHdr.flags & 0x0001)  propertiesString += " read";
+              if (msgHdr.flags & 0x0002)  propertiesString += " replied";
+              if (msgHdr.flags & 0x1000)  propertiesString += " forwarded";
+              if (msgHdr.flags & 0x10000) propertiesString += " new";
+              if (/(?:^| )redirected(?: |$)/.test(msgHdr.getStringProperty("keywords"))) propertiesString += " kw-redirected";
+            } else if (currMsgWindow && currMsgWindow.messageHeaderSink) {
+              msgHdr = currMsgWindow.messageHeaderSink.dummyMsgHeader;
+              if (msgHdr) {
+                msgSubject = msgHdr.subject;
+                msgAuthor = msgHdr.author;
+              }
+            }
+
+            var aCell = document.createElement("treecell");
+            aCell.setAttribute("label", msgSubject);
+            aCell.setAttribute("properties", propertiesString);
+            aRow.appendChild(aCell);
+
+            var aCell = document.createElement("treecell");
+            aCell.setAttribute("label", msgAuthor);
+            aRow.appendChild(aCell);
+
+            var aCell = document.createElement("treecell");
+            var dateString = "";
+            if (msgDate) {
+              var date = new Date();
+              date.setTime(msgDate / 1000);
+
+              var dateFormat = dateFormatDefault;
+              if (date.getFullYear() === today.getFullYear() &&
+                  date.getMonth() === today.getMonth() &&
+                  date.getDate() === today.getDate()) {
+                dateFormat = dateFormatToday;
+              } else if (today > date) {
+                var todaysMilliSeconds = today.getTime() % PR_MSEC_PER_DAY;
+                var mostRecentMidnight = today.getTime() - todaysMilliSeconds;
+                var mostRecentWeek = mostRecentMidnight - 6*PR_MSEC_PER_DAY;
+                // was the message sent during the last week?
+                if (date.getTime() >= mostRecentWeek) {
+                  dateFormat = dateFormatThisWeek;
+                }
+              }
+              if (Services.intl !== undefined &&
+                  typeof Services.intl.createDateTimeFormat === "function") {
+                if (locale === undefined) {
+                  var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
+                  if (useOSLocales) {
+                    var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
+                                  getService(Ci.mozIOSPreferences);
+                    locale = osprefs.getRegionalPrefsLocales()[0];
+                  } else {
+                    locale = null;
+                  }
+                }
+                var dateOption = {dateStyle: "short", timeStyle: "short"};
+                if (dateFormat === kDateFormatNone) {
+                  dateOption = {timeStyle: "short"};
+                } else if (dateFormat === kDateFormatLong) {
+                  dateOption = {dateStyle: "long", timeStyle: "short"};
+                } else if (dateFormat === kDateFormatShort) {
+                  dateOption = {dateStyle: "short", timeStyle: "short"};
+                } else if (dateFormat === kDateFormatYearMonth) {
+                  dateOption = {year: "numeric", month: "2-digit", hour: "numeric", minute: "numeric"};
+                } else if (dateFormat === kDateFormatWeekday) {
+                  dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
+                }
+                dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date);
+              } else {
+                if (dateFormatService === undefined) {
+                  dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
+                                      getService(Ci.nsIScriptableDateFormat);
+                }
+                dateString = dateFormatService.FormatDateTime("",
+                  dateFormat, dateFormatService.timeFormatNoSeconds,
+                  date.getFullYear(), date.getMonth()+1, date.getDate(),
+                  date.getHours(), date.getMinutes(), date.getSeconds());
+              }
+            }
+            aCell.setAttribute("label", dateString);
+            aRow.appendChild(aCell);
+
+            var aItem = document.createElement("treeitem");
+            aItem.appendChild(aRow);
+            aTree.appendChild(aItem);
+          }
+        } else if (item.flavour.contentType === "text/x-moz-address") {
+          // process the address
+          if (rawData) {
+            DropRecipient(aEvent.target, rawData);
+
+            // Since we are now using ondrop (eDrop) instead of previously using
+            // ondragdrop (eLegacyDragDrop), we must prevent the default
+            // which is dropping the address text into the widget.
+            // Note that stopPropagation() is called by our caller in
+            // nsDragAndDrop.js.
+            aEvent.preventDefault();
+          }
         }
       }
     }
   },
 
-  onDragOver: function (aEvent, aFlavour, aDragSession)
-  { },
+  onDragOver: function (aEvent, aFlavour, aDragSession) { },
 
-  onDragExit: function (aEvent, aDragSession)
-  { },
+  onDragExit: function (aEvent, aDragSession) { },
 
-  getSupportedFlavours: function ()
-  {
+  getSupportedFlavours: function () {
     var flavourSet = new FlavourSet();
     flavourSet.appendFlavour("text/x-moz-address");
     flavourSet.appendFlavour("text/x-moz-message");
@@ -1535,19 +1668,28 @@ function createTempFile()
                     getService(Ci.nsIProperties)
   var tmpDir = dirService.get("TmpD", Ci.nsIFile)
 
-  // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
-  var localfile = Cc["@mozilla.org/file/local;1"].
-                  createInstance(Ci.nsILocalFile);
-  localfile.initWithPath(tmpDir.path);
-  localfile.appendRelativePath("mailredirect.tmp");
+  var file;
 
   try {
-    localfile.createUnique(localfile.NORMAL_FILE_TYPE, parseInt("0600", 8));
+    file = Cc["@mozilla.org/file/local;1"].
+           createInstance(Ci.nsIFile);
+    file.initWithPath(tmpDir.path);
+    file.appendRelativePath("mailredirect.tmp");
+  } catch(ex) {
+    // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
+    file = Cc["@mozilla.org/file/local;1"].
+           createInstance(Ci.nsILocalFile);
+    file.initWithPath(tmpDir.path);
+    file.appendRelativePath("mailredirect.tmp");
+  }
+
+  try {
+    file.createUnique(file.NORMAL_FILE_TYPE, parseInt("0600", 8));
   } catch(ex) {
     return null;
   }
 
-  return localfile;
+  return file;
 }
 
 function FileSpecFromLocalFile(localfile)
@@ -1571,8 +1713,7 @@ function encodeMimeHeader(header)
     let fieldName = header.substr(0, fieldNameLen);
     let splitHeader = "";
     let currentLine = "";
-    while (header.length > MAX_HEADER_LENGTH - 2)
-    {
+    while (header.length > MAX_HEADER_LENGTH - 2) {
       let splitPos = header.substr(0, MAX_HEADER_LENGTH - 2).lastIndexOf(","); // Try to split before MAX_HEADER_LENGTH
       if (splitPos === -1)
         splitPos = header.indexOf(","); // If that fails, split at first possible position
@@ -1603,7 +1744,7 @@ function getSender()
 {
   if (!aSender) {
     // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
-    if (typeof MailServices.headerParser.makeMimeHeader === 'function')
+    if (typeof MailServices.headerParser.makeMimeHeader === "function")
       aSender = MailServices.headerParser.makeMimeHeader([{name: gCurrentIdentity.fullName, email: gCurrentIdentity.email}], 1);
     else
       aSender = MailServices.headerParser.makeFullAddress(gCurrentIdentity.fullName,
@@ -1655,8 +1796,7 @@ function getRecipients(onlyemails)
       // dumper.dump("numAddresses[" + recipType + "]= " + numAddresses);
 
       for (var i = 0; i < numAddresses; ++i) {
-        mailredirectRecipients[recipType][i] =
-        {
+        mailredirectRecipients[recipType][i] = {
           email: emails.value[i],
           name: names.value[i],
           fullname: fullnames.value[i]
@@ -1765,7 +1905,7 @@ function getResentHeaders()
   if (msgID) resenthdrs += "Resent-Message-ID: " + msgID + "\r\n";
   var useragent = getUserAgent();
   if (useragent) resenthdrs += "Resent-User-Agent: " + useragent + "\r\n";
-  // dumper.dump('resent-headers\n' + resenthdrs);
+  // dumper.dump("resent-headers\n" + resenthdrs);
   return resenthdrs;
 }
 
@@ -1778,7 +1918,7 @@ function RealBounceMessages()
   msgCompFields.from = getSender();
   Recipients2CompFields(msgCompFields);
 
-  if (typeof gMsgCompose.expandMailingLists === 'function') {
+  if (typeof gMsgCompose.expandMailingLists === "function") {
     expandRecipients();
   } else {
     var recipientsStrings = getRecipients(true);
@@ -1855,15 +1995,13 @@ function RealBounceMessage(idx)
   var line = "";
 
   var aCopyListener = {
-    onStartRequest: function(aRequest, aContext)
-    {
+    onStartRequest: function(aRequest, aContext) {
       // write out Resent-* headers
       var resenthdrs = getResentHeaders();
       aFileOutputStream.write(resenthdrs, resenthdrs.length);
     },
 
-    onStopRequest: function(aRequest, aContext, aStatusCode)
-    {
+    onStopRequest: function(aRequest, aContext, aStatusCode) {
       // write leftovers
       aFileOutputStream.write(leftovers, leftovers.length);
       aFileOutputStream.close();
@@ -1910,8 +2048,7 @@ function RealBounceMessage(idx)
       // dumper.dump("abc");
     },
 
-    onDataAvailable: function(aRequest, aContext, aInputStream, aOffset, aCount)
-    {
+    onDataAvailable: function(aRequest, aContext, aInputStream, aOffset, aCount) {
       // dumper.dump("ondataavail req=" + aRequest + ",contxt=" + aContext + ",input="+aInputStream + ",off=" + aOffset + "1nt=" + aCount);
       aScriptableInputStream.init(aInputStream);
       var available = 0;
@@ -2084,8 +2221,7 @@ nsMsgStatusFeedback.prototype =
   mailredirectTreeCell: null,
   URIidx: -1,
 
-  ensureStatusFields: function()
-  {
+  ensureStatusFields: function() {
     // dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
@@ -2108,8 +2244,7 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  updateStatusText: function()
-  {
+  updateStatusText: function() {
     // if all StatusStrings are equal show this string
     // else don't change currently showing statusstring
     var str = mstate.statusStrings[0];
@@ -2121,8 +2256,7 @@ nsMsgStatusFeedback.prototype =
     this.statusTextFld.label = str;
   },
 
-  QueryInterface: function(iid)
-  {
+  QueryInterface: function(iid) {
     // dumper.dump("nsMsgStatusFeedback.QueryInterface " + iid);
     if (iid.equals(Ci.nsIMsgStatusFeedback) ||
     //  iid.equals(Ci.nsIProgressEventSink) ||
@@ -2134,15 +2268,13 @@ nsMsgStatusFeedback.prototype =
   },
 
   // nsIMsgStatusFeedback implementation.
-  showStatusString: function(statusText)
-  {
+  showStatusString: function(statusText) {
     // dumper.dump(this.URIidx + ". showStatusString(" + statusText + ")");
     mstate.statusStrings[this.URIidx] = statusText;
     this.updateStatusText();
   },
 
-  startMeteors: function()
-  {
+  startMeteors: function() {
     dumper.dump("startMeteors");
     mstate.statusStrings[this.URIidx] = "";
     mstate.sendOperationInProgress[this.URIidx] = true;
@@ -2163,8 +2295,7 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  stopMeteors: function()
-  {
+  stopMeteors: function() {
     dumper.dump("stopMeteors");
     if (mstate) mstate.sendOperationInProgress[this.URIidx] = false;
 
@@ -2188,8 +2319,7 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  showProgress: function(percentage)
-  {
+  showProgress: function(percentage) {
     // dumper.dump("showProgress(" + percentage +")");
     this.ensureStatusFields();
     if (percentage >= 0) {
@@ -2199,26 +2329,22 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  closeWindow: function(percent)
-  {
+  closeWindow: function(percent) {
     // dumper.dump("closeWindow(" + percent +")");
   },
 
   // nsIProgressEventSink implementation
   /*
-  onProgress: function(aRequest, aContext, aProgress, aProgressMax)
-  {
+  onProgress: function(aRequest, aContext, aProgress, aProgressMax) {
     dumper.dump("statusFeedback.onProgress(" + aRequest + ", " + aContext + ", " + aProgress + ", " + aProgressMax);
   },
-  onStatus: function(aRequest, aContext, aStatus, aStatusArg)
-  {
+  onStatus: function(aRequest, aContext, aStatus, aStatusArg) {
     dumper.dump("statusFeedback.onStatus(" + aRequest + ", " + aContext + ", " + aStatus + ", " + aStatusArg);
   }
   */
 
   // all progress notifications are done through the nsIWebProgressListener implementation...
-  onStateChange: function(aWebProgress, aRequest, aStateFlags, aStatus)
-  {
+  onStateChange: function(aWebProgress, aRequest, aStateFlags, aStatus) {
     // dumper.dump(this.URIidx + ". onStateChange(" + aWebProgress + ", " + aRequest + ", " + aStateFlags + ", " + aStatus + ")");
     if (aStateFlags & Ci.nsIWebProgressListener.STATE_START) {
       // dumper.dump("onStateChange STATE_START");
@@ -2240,8 +2366,7 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  onProgressChange: function(aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress)
-  {
+  onProgressChange: function(aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress) {
     // dumper.dump(this.URIidx + ". onProgressChange(" + aWebProgress + ", " + aRequest.name + ", " + aCurSelfProgress + ", " + aMaxSelfProgress + ", " + aCurTotalProgress + ", " + aMaxTotalProgress + ")");
 
     this.ensureStatusFields();
@@ -2265,11 +2390,9 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  onLocationChange: function(aWebProgress, aRequest, aLocation)
-  { },
+  onLocationChange: function(aWebProgress, aRequest, aLocation) { },
 
-  onStatusChange: function(aWebProgress, aRequest, aStatus, aMessage)
-  {
+  onStatusChange: function(aWebProgress, aRequest, aStatus, aMessage) {
     // dumper.dump("onStatusChange(" + aWebProgress + ", " + aRequest + ", " + aStatus + ", " + aMessage + ")");
     // Looks like it's possible that we get call while the document has been already delete!
     // therefore we need to protect ourself by using try/catch
@@ -2279,11 +2402,9 @@ nsMsgStatusFeedback.prototype =
     } catch (ex) { };
   },
 
-  onSecurityChange: function(aWebProgress, aRequest, state)
-  { },
+  onSecurityChange: function(aWebProgress, aRequest, state) { },
 
-  updateStatusBar: function()
-  {
+  updateStatusBar: function() {
     var sum = 0;
     for (var i = 0; i < mstate.size; sum += mstate.selectedURIsProgress[i++]) { }
     var percent = Math.round(sum / mstate.size);
@@ -2307,8 +2428,7 @@ nsMeteorsStatus.prototype = {
   statusBar: null,
   throbber: null,
 
-  ensureStatusFields: function()
-  {
+  ensureStatusFields: function() {
     // dumper.dump("ensureStatusFields");
     if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
     if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
@@ -2322,8 +2442,7 @@ nsMeteorsStatus.prototype = {
     }
   },
 
-  _startMeteors: function()
-  {
+  _startMeteors: function() {
     dumper.dump("_startMeteors");
 
     this.ensureStatusFields();
@@ -2338,8 +2457,7 @@ nsMeteorsStatus.prototype = {
     if (this.throbber) this.throbber.setAttribute("busy", true);
   },
 
-  _stopMeteors: function()
-  {
+  _stopMeteors: function() {
     dumper.dump("_stopMeteors");
 
     var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
@@ -2402,8 +2520,7 @@ nsMsgSendListener.prototype =
   mailredirectTreeRow: null,
   mailredirectTreeCell: null,
 
-  ensureStatusFields: function()
-  {
+  ensureStatusFields: function() {
     dumper.dump("msgSendListener.ensureStatusFields");
     if (!this.mailredirectTreeRow || !this.mailredirectTreeCell) {
       var treeChildren = document.getElementById("topTreeChildren");
@@ -2417,8 +2534,7 @@ nsMsgSendListener.prototype =
     }
   },
 
-  QueryInterface: function(iid)
-  {
+  QueryInterface: function(iid) {
     // dumper.dump("nsMsgSendListener.QueryInterface " + iid);
     if (iid.equals(Ci.nsIMsgSendListener) ||
         iid.equals(Ci.nsIMsgCopyServiceListener) ||
@@ -2428,23 +2544,19 @@ nsMsgSendListener.prototype =
   },
 
   // nsIMsgSendListener
-  onStartSending: function(aMsgID, aMsgSize)
-  {
+  onStartSending: function(aMsgID, aMsgSize) {
     // dumper.dump("onStartSending(" + aMsgID + ", " + aMsgSize + ")");
   },
 
-  onProgress: function(aMsgID, aProgress, aProgressMax)
-  {
+  onProgress: function(aMsgID, aProgress, aProgressMax) {
     // dumper.dump("msgSendListener.onProgress(" + aMsgID + ", " + aProgress + ", " + aProgressMax + ")");
   },
 
-  onStatus: function(aMsgID, aMsg)
-  {
+  onStatus: function(aMsgID, aMsg) {
     // dumper.dump("msgSendListener.onStatus("+aMsgID+", "+aMsg + ")");
   },
 
-  onStopSending: function(aMsgID, aStatus, aMsg, returnFileSpec)
-  {
+  onStopSending: function(aMsgID, aStatus, aMsg, returnFileSpec) {
     // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +", "+aMsg+", "+returnFileSpec + ")");
     this.ensureStatusFields();
     mstate.selectedURIsProgress[this.URIidx] = 100;
@@ -2499,29 +2611,24 @@ nsMsgSendListener.prototype =
     }
   },
 
-  onSendNotPerformed: function(aMsgID, aStatus)
-  {
+  onSendNotPerformed: function(aMsgID, aStatus) {
     // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +")");
   },
 
-  onGetDraftFolderURI: function(aFolderURI)
-  {
+  onGetDraftFolderURI: function(aFolderURI) {
     // dumper.dump("onGetDraftFolderURI("+aFolderURI +")");
   },
 
   // nsIMsgCopyServiceListener
-  OnStartCopy: function()
-  {
+  OnStartCopy: function() {
     // dumper.dump("OnStartCopy()");
   },
 
-  OnProgress: function(aProgress, aProgressMax)
-  {
+  OnProgress: function(aProgress, aProgressMax) {
     // dumper.dump("OnProgress(" + aProgress + ", " + aProgressMax + ")");
   },
 
-  OnStopCopy: function(aStatus)
-  {
+  OnStopCopy: function(aStatus) {
     // dumper.dump("OnStopCopy(" + aStatus + ")");
     /*
     if (aStatus) {
@@ -2534,8 +2641,7 @@ nsMsgSendListener.prototype =
 };
 
 var MailredirectWindowController = {
-  supportsCommand: function(command)
-  {
+  supportsCommand: function(command) {
     // dumper.dump("supportsCommand(" + command + ")");
     switch(command) {
       case "cmd_mailredirect_now":
@@ -2548,8 +2654,7 @@ var MailredirectWindowController = {
     }
   },
 
-  isCommandEnabled: function(command)
-  {
+  isCommandEnabled: function(command) {
     switch(command) {
       case "cmd_mailredirect_now":
       case "cmd_mailredirect_withcheck":
@@ -2565,8 +2670,7 @@ var MailredirectWindowController = {
     }
   },
 
-  doCommand: function(command)
-  {
+  doCommand: function(command) {
     // dumper.dump("doCommand(" + command + ")");
 
     // if the user invoked a key short cut then it is possible that we got here for a command which is
@@ -2588,11 +2692,9 @@ var MailredirectWindowController = {
         var tree = document.getElementById("bounceTree");
         var treeChildren = document.getElementById("topTreeChildren");
         var numRanges = tree.view.selection.getRangeCount();
-        for (var t = numRanges; t > 0; t--)
-        {
+        for (var t = numRanges; t > 0; t--) {
           tree.view.selection.getRangeAt(t-1, start, end);
-          for (var v = end.value; v >= start.value; v--)
-          {
+          for (var v = end.value; v >= start.value; v--) {
             mstate.selectedURIs.splice(v, 1);
             mstate.size--;
             var treerows = treeChildren.getElementsByAttribute("URIidx", v);
@@ -2602,16 +2704,14 @@ var MailredirectWindowController = {
         }
         if (treeChildren.hasChildNodes) {
           var treerows = treeChildren.childNodes;
-          for (var i = 0; i < treerows.length; i++)
-          {
+          for (var i = 0; i < treerows.length; i++) {
             treerows[i].firstChild.setAttribute("URIidx", i);
           }
         }
     }
   },
 
-  onEvent: function(event)
-  {
+  onEvent: function(event) {
     // dumper.dump("onEvent(" + event + ")");
   }
 };
@@ -2642,8 +2742,7 @@ function WhichElementHasFocus()
   var msgAddressingWidgetTreeElement = document.getElementById("addressingWidget");
 
   var currentNode = top.document.commandDispatcher.focusedElement;
-  while (currentNode)
-  {
+  while (currentNode) {
     if (currentNode === msgIdentityElement ||
         currentNode === msgAddressingWidgetTreeElement)
       return currentNode;
@@ -2718,9 +2817,7 @@ function toggleAddressPicker()
     }
 
     sidebarBox.setAttribute("sidebarVisible", "true");
-  }
-  else
-  {
+  } else {
     sidebarBox.hidden = true;
     sidebarSplitter.hidden = true;
     sidebarBox.setAttribute("sidebarVisible", "false");
@@ -2770,27 +2867,27 @@ function renameToToResendTo()
         var menuitems = cardProperties.getElementsByTagName("menuitem");
         menuitems.item(offset).setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelTB"));
         menuitems.item(offset).setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeyTB"));
-        menuitems.item(offset).setAttribute("oncommand", "addSelectedAddresses('addr_to');");
+        menuitems.item(offset).setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
         menuitems.item(offset+1).setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelTB"));
         menuitems.item(offset+1).setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeyTB"));
-        menuitems.item(offset+1).setAttribute("oncommand", "addSelectedAddresses('addr_cc');");
+        menuitems.item(offset+1).setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
         menuitems.item(offset+2).setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelTB"));
         menuitems.item(offset+2).setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeyTB"));
-        menuitems.item(offset+2).setAttribute("oncommand", "addSelectedAddresses('addr_bcc');");
+        menuitems.item(offset+2).setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
 
         var button = el.contentDocument.getElementById("toButton");
         button.setAttribute("label", BounceMsgsBundle.getString("resendToButtonLabel"));
         button.setAttribute("accesskey", BounceMsgsBundle.getString("resendToButtonAccesskey"));
-        button.setAttribute("oncommand", "addSelectedAddresses('addr_to');");
+        button.setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
         button = el.contentDocument.getElementById("ccButton");
         button.setAttribute("label", BounceMsgsBundle.getString("resendCcButtonLabel"));
         button.setAttribute("accesskey", BounceMsgsBundle.getString("resendCcButtonAccesskey"));
-        button.setAttribute("oncommand", "addSelectedAddresses('addr_cc');");
+        button.setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
         button = el.contentDocument.getElementById("bccButton");
         button.setAttribute("label", BounceMsgsBundle.getString("resendBccButtonLabel"));
         button.setAttribute("crop", "center");
         button.setAttribute("accesskey", BounceMsgsBundle.getString("resendBccButtonAccesskey"));
-        button.setAttribute("oncommand", "addSelectedAddresses('addr_bcc');");
+        button.setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
 
         // Move bccButton down
         if (false) {
@@ -2806,8 +2903,7 @@ function renameToToResendTo()
           hboxCc.parentNode.insertBefore(hboxBcc, hboxCc.nextSibling);
         }
       }
-    }
-    else if (gAppInfoID === SEAMONKEY_ID) {
+    } else if (gAppInfoID === SEAMONKEY_ID) {
       var popup = el.contentDocument.getElementById("composeMail");
       if (popup === null) {
         setTimeout(function() { renameToToResendTo() }, 100);
@@ -2815,13 +2911,13 @@ function renameToToResendTo()
         parent.document.documentElement.setAttribute("windowtype", "msgcompose"); // Make AbPanelLoad believe this is a msgcompose window so it displays the right menuitems
         popup.childNodes[0].setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelSM"));
         popup.childNodes[0].setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeySM"));
-        popup.childNodes[0].setAttribute("oncommand", "AbPanelAdd('addr_to');");
+        popup.childNodes[0].setAttribute("oncommand", "AbPanelAdd(\"addr_to\");");
         popup.childNodes[1].setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelSM"));
         popup.childNodes[1].setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeySM"));
-        popup.childNodes[1].setAttribute("oncommand", "AbPanelAdd('addr_cc');");
+        popup.childNodes[1].setAttribute("oncommand", "AbPanelAdd(\"addr_cc\");");
         popup.childNodes[2].setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelSM"));
         popup.childNodes[2].setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeySM"));
-        popup.childNodes[2].setAttribute("oncommand", "AbPanelAdd('addr_bcc');");
+        popup.childNodes[2].setAttribute("oncommand", "AbPanelAdd(\"addr_bcc\");");
         for (var i = 0; i < 4; i++)
           popup.childNodes[i].hidden = false;
         popup.childNodes[4].hidden = true;
@@ -2884,8 +2980,7 @@ function ResolveMailLists()
           var mailListAddresses = GetMailListAddresses(recipient.fullname, mailListArray);
           if (mailListAddresses) {
             // Always populate
-            for (var nbrAddresses = mailListAddresses.length; nbrAddresses > 0; nbrAddresses--)
-            {
+            for (var nbrAddresses = mailListAddresses.length; nbrAddresses > 0; nbrAddresses--) {
               existingCard = mailListAddresses.queryElementAt(nbrAddresses - 1, Ci.nsIAbCard);
 
               var newRecipient;
@@ -2899,7 +2994,7 @@ function ResolveMailLists()
                 email = existingCard.primaryEmail;
               var mAddress;
               // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
-              if (typeof MailServices.headerParser.makeMimeHeader === 'function')
+              if (typeof MailServices.headerParser.makeMimeHeader === "function")
                 mAddress = MailServices.headerParser.makeMimeHeader([{name: existingCard.displayName, email: email}], 1);
               else
                 mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
@@ -2941,8 +3036,7 @@ function ResolveMailLists()
           // find a card that contains this e-mail address
           existingCard = null
           // Try/catch because cardForEmailAddress will throw if not implemented.
-          try
-          {
+          try {
             existingCard = abDirectory.cardForEmailAddress(recipient.email);
           } catch (e) {}
 
@@ -2971,8 +3065,7 @@ function ResolveMailLists()
                 Components.utils.reportError(ex);
               }
             }
-          }
-          else
+          } else
             stillNeedToSearch = true;
         }
       }
@@ -3021,7 +3114,7 @@ function BuildMailListArray(parentDir)
       var email = !listDescription ? listName : listDescription;
       var fullAddress;
       // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
-      if (typeof MailServices.headerParser.makeMimeHeader === 'function')
+      if (typeof MailServices.headerParser.makeMimeHeader === "function")
         fullAddress = MailServices.headerParser.makeMimeHeader([{name: listName, email: email}], 1);
       else
         fullAddress = MailServices.headerParser.makeFullAddress(listName, email);

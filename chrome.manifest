@@ -51,4 +51,4 @@ skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/macPre45/  a
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/seamonkey/             application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
 
 skin  mailredirect     modern/1.0   chrome/skin/shared/
-skin  mailredirect-os  modern/1.0   chrome/skin/modern/seamonkey/             application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+skin  mailredirect-os  modern/1.0   chrome/skin/modern/seamonkey/              application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}

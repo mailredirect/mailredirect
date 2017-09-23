@@ -26,7 +26,7 @@ MailredirectDebug.Dump.prototype =
     mydump: null,
     observe: function(subject, topic, prefName)
     {
-      if (topic === "nsPref:changed"){
+      if (topic === "nsPref:changed") {
         if (prefName === prefString) {
           if (this.mydump)
             this.mydump.init();
