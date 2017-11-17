@@ -1,0 +1,47 @@
+<!ENTITY mailredirectSettings.title "Laiškų nukreipimo nuostatos">
+
+<!ENTITY prefsGroup.label "Nuostatos">
+
+<!ENTITY copyToSentMails.label "Įrašyti nukreipiamų laiškų kopijas išsiųstų laiškų aplanke">
+<!ENTITY copyToSentMails.accesskey "r">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "Pažymėjus šią parinktį, į išsiųstų laiškų aplanką bus įrašomos visų nukreipiamų laiškų kopijos. Nepažymėjus, kopija nebus įrašoma.\nPastaba: jei ši parinktis pažymėta, tačiau nukreipimui naudojamos paskyros nuostatose nepasirinkta, kad laiškai būtų įrašomi, ši parinktis taip pat negalioja.">
+
+<!ENTITY concurrentConnections.label "Lygiagrečių SMTP ryšių skaičius:">
+<!ENTITY concurrentConnections.accesskey "L">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "Čia galite nurodyti, kiek lygiagrečių ryšio seansų bus užmezgiama siunčiant laiškuis. Bendruoju atveju tai gali padėi išsiųsti laiškus greičiau, jei pasirenkate nukreipti labai didelį jų kiekį.\nPastaba: jei čia įrašysite nulį, išeinantiems ryšiams apribojimai nebus taikomi, o tai gali neigiamai įtakoti jūsų SMTP serverio stabilumą, arba dalies laiškų gali nepavykti išsiųsti. Jei iškiltų problemų, čia įveskite vienetą.">
+
+<!ENTITY defaultRecipientsGroup.label "Numatytieji gavėjai">
+
+<!ENTITY defaultResendTo.label "Nukreipti kam:">
+<!ENTITY defaultResendTo.accesskey "k">
+<!ENTITY defaultResendTo.tooltip "Atskirkite adresatus kableliais.">
+
+<!ENTITY defaultResendCc.label "Nukreipti kopiją:">
+<!ENTITY defaultResendCc.accesskey "o">
+<!ENTITY defaultResendCc.tooltip "Atskirkite adresatus kableliais.">
+
+<!ENTITY defaultResendBcc.label "Nukreipti nematomąją kopiją:">
+<!ENTITY defaultResendBcc.accesskey "n">
+<!ENTITY defaultResendBcc.tooltip "Atskirkite adresatus kableliais.">
+
+<!ENTITY defaultMode.label "Numatytoji veiksena:">
+<!ENTITY defaultMode.accesskey "v">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Pasirinkite numatytąjį nukreipimo būdą.\nŠi parinktis nieko neįtakoja, jei aukščiau yra nurodytas bent vienas numatytasis gavėjas.">
+<!ENTITY defaultModeResendTo.label "Nukreipti tiesiogiai">
+<!ENTITY defaultModeResendCc.label "Nukreipti kopiją">
+<!ENTITY defaultModeResendBcc.label "Nukreipti nematomąją kopiją">
+
+<!ENTITY debug.label "Derinimo veiksena">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Įjungti „Mail Redirect“ priedo derinimą. Žurnalas nukreipiamas į klaidų pultą.">
+
+<!ENTITY saveConsoleContent.label2 "Įrašyti klaidų pulto turinį…">
+<!ENTITY saveConsoleContent.accesskey2 "r">
+<!ENTITY sendViaEmail.label "Išsiųsti el. paštu">
+<!ENTITY sendViaEmail.accesskey "s">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Laiškų nukreipimas">

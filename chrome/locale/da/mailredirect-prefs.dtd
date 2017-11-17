@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect - Indstillinger">
 
-<!ENTITY prefsGroup.label "Præferencer">
-
 <!ENTITY copyToSentMails.label "Anbring en kopi af omdirigeret mail i mappen Sendt?">
 <!ENTITY copyToSentMails.accesskey "A">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

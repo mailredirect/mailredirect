@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect – ustawienia">
 
-<!ENTITY prefsGroup.label "Ustawienia">
-
 <!ENTITY copyToSentMails.label "Umieszczaj kopię przekierowanych wiadomości w folderze Wysłane">
 <!ENTITY copyToSentMails.accesskey "U">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

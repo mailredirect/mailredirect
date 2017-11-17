@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Rregullime për MailRedirect">
 
-<!ENTITY prefsGroup.label "Parapëlqime">
-
 <!ENTITY copyToSentMails.label "Të vendoset te dosja Të Dërguar një kopje e mesazhit të ridrejtuar?">
 <!ENTITY copyToSentMails.accesskey "v">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "E-posta-Yönlendirme Ayarları">
 
-<!ENTITY prefsGroup.label "Tercihler">
-
 <!ENTITY copyToSentMails.label "Gönderilenler klasöründe yönlendirilen mesajın kopyasını sakla">
 <!ENTITY copyToSentMails.accesskey "K">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

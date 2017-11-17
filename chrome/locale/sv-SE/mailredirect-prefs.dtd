@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Inställningar för MailRedirect">
 
-<!ENTITY prefsGroup.label "Allmänt">
-
 <!ENTITY copyToSentMails.label "Lägg till en kopia av omdirigerade brev i mappen Skickat?">
 <!ENTITY copyToSentMails.accesskey "L">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

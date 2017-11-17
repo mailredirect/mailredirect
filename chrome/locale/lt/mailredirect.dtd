@@ -1,0 +1,5 @@
+<!ENTITY bounceCommand.label "Nukreipti">
+<!ENTITY bounceCommand.accesskey "k">
+<!ENTITY bounceCommand.tooltip "Nukreipti pažymėtus laiškus kitu adresu">
+<!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">

@@ -1,32 +1,32 @@
-<!ENTITY msgMailRedirectWindow.title "Επαναδρομολόγηση μηνύματος">
+<!ENTITY msgMailRedirectWindow.title "Ανακατεύθυνση e-mail">
 
 <!ENTITY fileMenu.label "Αρχείο">
-<!ENTITY fileMenu.accesskey "F">
-<!ENTITY forwardBounce.label "Επαναδρομολόγηση">
-<!ENTITY forwardBounce.accesskey "i">
+<!ENTITY fileMenu.accesskey "Α">
+<!ENTITY forwardBounce.label "Ανακατεύθυνση">
+<!ENTITY forwardBounce.accesskey "τ">
 <!ENTITY closeCmd.label "Κλείσιμο">
-<!ENTITY closeCmd.accesskey "C">
+<!ENTITY closeCmd.accesskey "Κ">
 
 <!ENTITY viewMenu.label "Προβολή">
-<!ENTITY viewMenu.accesskey "V">
-<!ENTITY viewToolbarsMenuNew.label "Γραμμή Εργαλείων">
-<!ENTITY viewToolbarsMenuNew.accesskey "T">
-<!ENTITY menubarCmd.label "Γραμμή Μενού">
-<!ENTITY menubarCmd.accesskey "M">
+<!ENTITY viewMenu.accesskey "Π">
+<!ENTITY viewToolbarsMenuNew.label "Γραμμές εργαλείων">
+<!ENTITY viewToolbarsMenuNew.accesskey "Γ">
+<!ENTITY menubarCmd.label "Γραμμή μενού">
+<!ENTITY menubarCmd.accesskey "Μ">
 
 <!ENTITY tasksMenu.label "Εργαλεία">
-<!ENTITY tasksMenu.accesskey "T">
-<!ENTITY messengerCmd.label "Μηνύματα και Ομάδες Ειδήσεων">
-<!ENTITY messengerCmd.accesskey "M">
-<!ENTITY addressBookCmd.label "Βιβλίο Διευθύνσεων">
-<!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY tasksMenu.accesskey "Ε">
+<!ENTITY messengerCmd.label "Αλληλογραφία &amp; ομάδες ειδήσεων">
+<!ENTITY messengerCmd.accesskey "Α">
+<!ENTITY addressBookCmd.label "Βιβλίο διευθύνσεων">
+<!ENTITY addressBookCmd.accesskey "Δ">
 
-<!ENTITY bounceButton.label "Επαναδρομολόγηση">
-<!ENTITY bounceButton.tooltip "Επαναδρομολογήστε τα μηνύματα">
-<!ENTITY addressButton.label "Βιβλίο Διευθύνσεων">
-<!ENTITY addressButton.tooltip "Μεταβείτε στο βιβλίο διευθύνσεων">
+<!ENTITY bounceButton.label "Ανακατεύθυνση">
+<!ENTITY bounceButton.tooltip "Ανακατεύθυνση μηνυμάτων">
+<!ENTITY addressButton.label "Βιβλίο διευθύνσεων">
+<!ENTITY addressButton.tooltip "Μετάβαση στο βιβλίο διευθύνσεων">
 <!ENTITY throbberItem.title "Δείκτης δραστηριότητας">
-<!ENTITY throbber.tooltip "Μεταβείτε σε &vendorShortName; Αρχική σελίδα">
+<!ENTITY throbber.tooltip "Μετάβαση στην αρχική σελίδα του &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY closeCmd.modifiers "accel">
@@ -35,35 +35,35 @@
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!ENTITY customizeToolbar.label "Διαμόρφωση ρυθμίσεων…">
-<!ENTITY customizeToolbar.accesskey "C">
-<!ENTITY showBounceToolbarCmd.label "Γραμμή Εργαλείων Επαναδρομολόγησης">
-<!ENTITY showBounceToolbarCmd.accesskey "o">
+<!ENTITY customizeToolbar.label "Προσαρμογή…">
+<!ENTITY customizeToolbar.accesskey "Π">
+<!ENTITY showBounceToolbarCmd.label "Γραμμή εργαλείων ανακατεύθυνσης">
+<!ENTITY showBounceToolbarCmd.accesskey "ρ">
 <!ENTITY showStatusbarCmd.label "Γραμμή κατάστασης">
-<!ENTITY showStatusbarCmd.accesskey "S">
+<!ENTITY showStatusbarCmd.accesskey "Κ">
 
-<!ENTITY addressSidebar.label "Πλαϊνή μπάρα επαφών">
-<!ENTITY addressSidebar.accesskey "o">
+<!ENTITY addressSidebar.label "Πλευρική γραμμή επαφών">
+<!ENTITY addressSidebar.accesskey "π">
 <!ENTITY addressesSidebarTitle.label "Επαφές">
 <!ENTITY addressSidebarButton.label "Επαφές">
 <!ENTITY addressSidebarButton.tooltip "Επιλέξτε έναν παραλήπτη από το βιβλίο διευθύνσεων">
 
-<!ENTITY dialog.dimensions "πλάτος: 92 χαρακτήρες; Ύψος: 36em?">
+<!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
-<!ENTITY headersSpace.style "πλάτος: 9em?">
+<!ENTITY headersSpace.style "width: 9em;">
 
-<!ENTITY resendFromAddr.label "Επανάληψη αποστολής-Από:">
-<!ENTITY resendFromAddr.accesskey "R">
+<!ENTITY resendFromAddr.label "Εκ νέου αποστολή-Από:">
+<!ENTITY resendFromAddr.accesskey "Ε">
 
-<!ENTITY resendToAddr.label "Επανάληψη αποστολής-Σε:">
-<!ENTITY resendCcAddr.label "Επανάληψη αποστολής-Υπόψιν (cc):">
-<!ENTITY resendBccAddr.label "Επανάληψη αποστολής-Κρυφή κοινοποίηση (bcc):">
+<!ENTITY resendToAddr.label "Εκ νέου αποστολή-Προς:">
+<!ENTITY resendCcAddr.label "Εκ νέου αποστολή-Κοινοποίηση:">
+<!ENTITY resendBccAddr.label "Εκ νέου αποστολή-Κρυφή κοινοποίηση:">
 
-<!ENTITY bounceMailsLabel.label "Τα μηνύματα που ακολουθούν θα επαναδρομολογηθούν:">
+<!ENTITY bounceMailsLabel.label "Τα ακόλουθα μηνύματα θα ανακατευθυνθούν:">
 
 <!ENTITY subject.label "Θέμα">
 <!ENTITY sender.label "Αποστολέας">
-<!ENTITY date.label "Ημ/νία">
+<!ENTITY date.label "Ημερομηνία">

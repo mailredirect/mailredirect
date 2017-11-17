@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Настройки Mail Redirect">
 
-<!ENTITY prefsGroup.label "Настройки">
-
 <!ENTITY copyToSentMails.label "Копировать перенаправленные сообщения в папку Отправленные?">
 <!ENTITY copyToSentMails.accesskey "К">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

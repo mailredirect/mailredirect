@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Nastavitve MailRedirect">
 
-<!ENTITY prefsGroup.label "Nastavitve">
-
 <!ENTITY copyToSentMails.label "Vstavi kopijo preusmerjene pošte v mapo Poslano">
 <!ENTITY copyToSentMails.accesskey "V">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

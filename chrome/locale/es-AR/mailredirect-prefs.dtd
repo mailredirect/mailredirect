@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Configuración MailRedirect">
 
-<!ENTITY prefsGroup.label "Preferencias">
-
 <!ENTITY copyToSentMails.label "¿Poner una copia del correo reexpedido en la Carpeta de Enviados?">
 <!ENTITY copyToSentMails.accesskey "c">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

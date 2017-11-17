@@ -52,6 +52,7 @@
   <script type="application/javascript" src="chrome://messenger/content/widgetglue.js"/>
   <script type="application/javascript" src="chrome://messenger/content/mailCore.js"/>
 
+  <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-compose.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/aw.js"/>

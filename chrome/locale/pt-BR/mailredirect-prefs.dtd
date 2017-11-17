@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Configurações do MailRedirect">
 
-<!ENTITY prefsGroup.label "Preferências">
-
 <!ENTITY copyToSentMails.label "Enviar cópia do e-mail redirecionado para a pasta Itens Enviados?">
 <!ENTITY copyToSentMails.accesskey "r">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

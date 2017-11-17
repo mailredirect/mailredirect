@@ -1,47 +1,47 @@
-<!ENTITY mailredirectSettings.title "Ρυθμίσεις Επαναδρομολόγησης μυνημάτων">
+<!ENTITY mailredirectSettings.title "Ρυθμίσεις MailRedirect">
 
 <!ENTITY prefsGroup.label "Προτιμήσεις">
 
-<!ENTITY copyToSentMails.label "Να τοποθετηθεί το αντίγραφο του επαναδρομολογημένου μηνύματος στο φάκελο &quot;Απεσταλμένα&quot;;">
-<!ENTITY copyToSentMails.accesskey "P">
+<!ENTITY copyToSentMails.label "Τοποθέτηση ενός αντιγράφου του ανακατευθυνόμενου e-mail στο φάκελο &quot;Απεσταλμένα&quot;;">
+<!ENTITY copyToSentMails.accesskey "Τ">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Εάν αυτή η επιλογή είναι τσεκαρισμένη, τοποθετείται αντίγραφο του επαναδρομολογημένου μηνύματος στο φάκελο &quot;Απεσταλμένα&quot;. Αν η επιλογή δεν είναι τσεκαρισμένη δεν αντιγράφεται το επαναδρομολογημένο μήνυμα σε κανένα φάκελο. \nΣημείωση: Εάν αυτή η επιλογή είναι τσεκαρισμένη και οι ρυθμίσεις σας για το λογαριασμό που χρησιμοποιείται για την επαναδρομολόγηση είναι 'να μην αποθηκεύονται τα μηνύματα που αποστέλλονται΄ δεν θα αποθηκευτούν ούτε τα αντίγραφα.">
+<!ENTITY copyToSentMails.tooltip "Αν αυτή η επιλογή είναι ενεργή, ένα αντίγραφο του ανακατευθυνόμενου μηνύματος θα τοποθετείται στο φάκελο &quot;Απεσταλμένα&quot;. Αν αυτή η επιλογή είναι ανενεργή, το ανακατευθυνόμενο μήνυμα δεν θα αντιγράφεται σε κανένα φάκελο.\nΣημείωση: Αν αυτή η επιλογή είναι ενεργή και ο λογαριασμός που χρησιμοποιείται για ανακατεύθυνση έχει ρυθμιστεί ώστε να 'μην αποθηκεύει απεσταλμένα μηνύματα', δεν θα αποθηκεύονται αντίγραφα των ανακατευθυνόμενων μηνυμάτων.">
 
 <!ENTITY concurrentConnections.label "Αριθμός ταυτόχρονων συνδέσεων SMTP:">
-<!ENTITY concurrentConnections.accesskey "N">
+<!ENTITY concurrentConnections.accesskey "Α">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "Η επιλογή καθορίζει τον αριθμό των συνδέσεων που θα δημιουργηθούν στο διακομιστή SMTP κατά την αποστολή μηνυμάτων. Σε γενικές γραμμές, αυτό σας επιτρέπει να αυξήσετε την απόδοση της διαδικασίας αποστολής όταν επιλέγετε να ανακατευθύνετε εναν μεγάλο αριθμό μηνυμάτων. \nΣημείωση: Εάν ρυθμίσετε αυτήν την παράμετρο σε μηδέν δεν θα υπάρχει όριο των ταυτόχρονων συνδέσεων - να σημειωθεί άτι αυτό θα μπορούσε να επηρεάσει υην σταθερότητα του διακομιστή SMTP ή η αποστολή ορισμένων μηνυμάτων θα μπορούσε να αποτύχει. Σε περίπτωση προβλήματος ορίσετε αυτήν την τιμή σε ένα.">
+<!ENTITY concurrentConnections.tooltip "Η επιλογή καθορίζει τον αριθμό των συνδέσεων που θα δημιουργηθούν στο διακομιστή SMTP σας κατά την αποστολή μηνυμάτων. Γενικά, αυτό σάς επιτρέπει να αυξήσετε την απόδοση της διαδικασίας αποστολής όταν επιλέγετε να ανακατευθύνετε ένα μεγάλο αριθμό μηνυμάτων.\nΣημείωση: Αν ρυθμίσετε αυτή την παράμετρο σε μηδέν, δεν θα υπάρχει όριο ταυτόχρονων συνδέσεων - να σημειωθεί ότι αυτό θα μπορούσε να επηρεάσει την σταθερότητα του διακομιστή SMTP σας ή η αποστολή ορισμένων μηνυμάτων θα μπορούσε να αποτύχει. Σε περίπτωση προβλήματος, ορίσετε αυτή την τιμή σε ένα.">
 
 <!ENTITY defaultRecipientsGroup.label "Προεπιλεγμένοι παραλήπτες">
 
-<!ENTITY defaultResendTo.label "Επανάληψη αποστολής-Σε:">
-<!ENTITY defaultResendTo.accesskey "T">
-<!ENTITY defaultResendTo.tooltip "Λίστα διευθύνσεων μηνυμάτων διαχωρισμένες με κόμμα.">
+<!ENTITY defaultResendTo.label "Εκ νέου αποστολή-Προς:">
+<!ENTITY defaultResendTo.accesskey "Π">
+<!ENTITY defaultResendTo.tooltip "Λίστα διευθύνσεων e-mail διαχωρισμένες με κόμμα.">
 
-<!ENTITY defaultResendCc.label "Επανάληψη αποστολής-Κοινοποίηση (cc):">
-<!ENTITY defaultResendCc.accesskey "C">
-<!ENTITY defaultResendCc.tooltip "Λίστα διευθύνσεων μηνυμάτων διαχωρισμένες με κόμμα.">
+<!ENTITY defaultResendCc.label "Εκ νέου αποστολή-Κοινοποίηση:">
+<!ENTITY defaultResendCc.accesskey "Ρ">
+<!ENTITY defaultResendCc.tooltip "Λίστα διευθύνσεων e-mail διαχωρισμένες με κόμμα.">
 
-<!ENTITY defaultResendBcc.label "Επανάληψη αποστολής-Κρυφή κοινοποίηση (bcc):">
-<!ENTITY defaultResendBcc.accesskey "B">
-<!ENTITY defaultResendBcc.tooltip "Λίστα διευθύνσεων μηνυμάτων διαχωρισμένες με κόμμα.">
+<!ENTITY defaultResendBcc.label "Εκ νέου αποστολή-Κρυφή κοινοποίηση:">
+<!ENTITY defaultResendBcc.accesskey "Ρ">
+<!ENTITY defaultResendBcc.tooltip "Λίστα διευθύνσεων e-mail διαχωρισμένες με κόμμα.">
 
-<!ENTITY defaultMode.label "Προεπιλεγμένη κατάσταση λειτουργίας:">
-<!ENTITY defaultMode.accesskey "m">
+<!ENTITY defaultMode.label "Προεπιλεγμένη λειτουργία:">
+<!ENTITY defaultMode.accesskey "λ">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Επιλέξτε πώς θέλετε να επαναδρομολογούνται τα μηνύματά σας \nΑυτή η ρύθμιση θα νεργοποιηθεί, όταν δεν έχετε καθορίσει προεπιλεγμένους παραλήπτες.">
-<!ENTITY defaultModeResendTo.label "Επανάληψη αποστολής-Σε">
-<!ENTITY defaultModeResendCc.label "Επανάληψη αποστολής-Κοινοποίηση (cc)">
-<!ENTITY defaultModeResendBcc.label "Επανάληψη αποστολής-Κρυφή κοινοποίηση (bcc)">
+<!ENTITY defaultMode.tooltip "Επιλέξτε πώς θέλετε να ανακατευθύνονται τα μηνύματά σας από προεπιλογή\nΑυτή η ρύθμιση ενεργοποιείται μόνο όταν δεν έχετε καθορίσει προεπιλεγμένους παραλήπτες.">
+<!ENTITY defaultModeResendTo.label "Εκ νέου αποστολή-Προς">
+<!ENTITY defaultModeResendCc.label "Εκ νέου αποστολή-Κοινοποίηση">
+<!ENTITY defaultModeResendBcc.label "Εκ νέου αποστολή-Κρυφή κοινοποίηση">
 
 <!ENTITY debug.label "Εντοπισμός σφαλμάτων">
-<!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Ενεργοποίηση/απενεργοποίηση εντοπισμού σφαλμάτων για επέκταση mailredirect. Αρχεία καταγραφής κατευθύνονται σε κονσόλα JavaScript.">
+<!ENTITY debug.accesskey "Ε">
+<!ENTITY debug.tooltip "Ενεργοποίηση/απενεργοποίηση εντοπισμού σφαλμάτων για την επέκταση mailredirect. Τα αρχεία καταγραφής κατευθύνονται στην κονσόλα σφαλμάτων.">
 
-<!ENTITY saveConsoleContent.label2 "Αποθηκεύστε το περιεχόμενο κονσόλα σφαλμάτων…">
-<!ENTITY saveConsoleContent.accesskey2 "S">
-<!ENTITY sendViaEmail.label "Αποστολή μέσω ηλεκτρονικού ταχυδρομείου">
+<!ENTITY saveConsoleContent.label2 "Αποθήκευση περιεχομένου κονσόλας σφαλμάτων…">
+<!ENTITY saveConsoleContent.accesskey2 "Α">
+<!ENTITY sendViaEmail.label "Αποστολή μέσω e-mail">
 <!ENTITY sendViaEmail.accesskey "e">
 
 <!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Επαναδρομολόγηση μηνύματος">
+<!ENTITY mailredirectSettings.label "Mail Redirect">

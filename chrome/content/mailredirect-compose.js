@@ -102,6 +102,8 @@ function ReleaseGlobalVariables()
   mstate = null;
 }
 
+MailredirectPrefs.init();
+
 var dumper = new MailredirectDebug.Dump();
 
 function RemoveValueFromAttribute(el, atr, val)

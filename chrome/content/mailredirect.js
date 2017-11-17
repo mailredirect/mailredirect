@@ -135,7 +135,8 @@ window.MailredirectExtension = {
       item.removeAttribute("hidden");
 
       // don't show mail items for links/images
-      var hideMailItems = gContextMenu.onImage || gContextMenu.onLink;
+      // and don't show mail items when there are no messages selected
+      var hideMailItems = gContextMenu.onImage || gContextMenu.onLink || gFolderDisplay.selectedCount === 0;
       if (hideMailItems)
         item.hidden = "true";
     }
@@ -274,6 +275,8 @@ window.MailredirectExtension = {
   },
 
 };
+
+window.MailredirectPrefs.init();
 
 window.addEventListener("load", MailredirectExtension.SetupController, false);
 window.addEventListener("load", MailredirectExtension.DelayedUpdateCommand, false);

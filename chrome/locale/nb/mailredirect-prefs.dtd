@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect innstillinger">
 
-<!ENTITY prefsGroup.label "Alternativer">
-
 <!ENTITY copyToSentMails.label "Legg en kopi av omadressert post i sendt-mappen?">
 <!ENTITY copyToSentMails.accesskey "L">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

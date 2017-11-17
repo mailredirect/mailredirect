@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Налаштування MailRedirect">
 
-<!ENTITY prefsGroup.label "Вподобання">
-
 <!ENTITY copyToSentMails.label "Зберігати копію перенаправленого листа в надісланих?">
 <!ENTITY copyToSentMails.accesskey "З">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Mail Redirect の設定">
 
-<!ENTITY prefsGroup.label "設定">
-
 <!ENTITY copyToSentMails.label "送信済みトレイにリダイレクトしたメールのコピーを保存する">
 <!ENTITY copyToSentMails.accesskey "c">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

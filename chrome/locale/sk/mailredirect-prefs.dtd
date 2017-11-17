@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Možnosti rozšírenia MailRedirect">
 
-<!ENTITY prefsGroup.label "Možnosti">
-
 <!ENTITY copyToSentMails.label "Uložiť kópiu presmerovanej pošty do priečinka Odoslaná pošta?">
 <!ENTITY copyToSentMails.accesskey "k">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

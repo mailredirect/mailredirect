@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Configuració MailRedirect">
 
-<!ENTITY prefsGroup.label "Preferències">
-
 <!ENTITY copyToSentMails.label "Deixar una còpia del correu redirigit a la carpeta Enviats?">
 <!ENTITY copyToSentMails.accesskey "D">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

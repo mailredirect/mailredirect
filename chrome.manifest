@@ -23,6 +23,7 @@ locale  mailredirect  fr     chrome/locale/fr/
 locale  mailredirect  hu     chrome/locale/hu/
 locale  mailredirect  it     chrome/locale/it/
 locale  mailredirect  ja     chrome/locale/ja/
+locale  mailredirect  lt     chrome/locale/lt/
 locale  mailredirect  nb     chrome/locale/nb/
 locale  mailredirect  nl     chrome/locale/nl/
 locale  mailredirect  pl     chrome/locale/pl/

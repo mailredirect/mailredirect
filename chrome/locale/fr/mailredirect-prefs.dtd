@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Options de l'extension MailRedirect">
 
-<!ENTITY prefsGroup.label "Préférences">
-
 <!ENTITY copyToSentMails.label "Placer une copie du message redirigé dans le dossier Envoyés">
 <!ENTITY copyToSentMails.accesskey "a">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

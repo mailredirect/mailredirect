@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Setări de retrimitere a mesajelor">
 
-<!ENTITY prefsGroup.label "Preferințe">
-
 <!ENTITY copyToSentMails.label "Păstrați o copie în dosarul mesajelor trimise?">
 <!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

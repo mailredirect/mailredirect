@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Üzenet átirányítás beállítások">
 
-<!ENTITY prefsGroup.label "Általános">
-
 <!ENTITY copyToSentMails.label "Helyez egy másolat az átirányít üzenetből kerül az elküldött mappához?">
 <!ENTITY copyToSentMails.accesskey "á">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

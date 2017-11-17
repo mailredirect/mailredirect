@@ -14,7 +14,7 @@
   <prefpane id="mailredirect_pane"
             label="&mailredirectSettings.label;"
             script="chrome://mailredirect/content/mailredirect-prefs.js"
-            onpaneload="MailredirectPrefs.updateDefaultMode();">
+            onpaneload="MailredirectPrefs.onload();">
 
     <preferences>
       <preference id="pref_copyToSentMail" name="extensions.mailredirect.copyToSentMail" type="bool"/>

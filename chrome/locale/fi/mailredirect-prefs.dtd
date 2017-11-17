@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect -asetukset">
 
-<!ENTITY prefsGroup.label "Ominaisuudet">
-
 <!ENTITY copyToSentMails.label "Jätä uudelleenohjatun viestin kopio lähetetyt-kansioon?">
 <!ENTITY copyToSentMails.accesskey "J">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

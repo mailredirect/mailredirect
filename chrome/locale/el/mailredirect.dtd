@@ -1,5 +1,5 @@
-<!ENTITY bounceCommand.label "Επαναδρομολήσησ">
-<!ENTITY bounceCommand.accesskey "i">
-<!ENTITY bounceCommand.tooltip "Εοαναδρομολόγηση επιλεγμένων μηνυμάτων">
+<!ENTITY bounceCommand.label "Ανακατεύθυνση">
+<!ENTITY bounceCommand.accesskey "ν">
+<!ENTITY bounceCommand.tooltip "Ανακατεύθυνση επιλεγμένων μηνυμάτων">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">

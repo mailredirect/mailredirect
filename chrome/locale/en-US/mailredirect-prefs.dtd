@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect Settings">
 
-<!ENTITY prefsGroup.label "Preferences">
-
 <!ENTITY copyToSentMails.label "Place copy of redirected mail in Sent folder?">
 <!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

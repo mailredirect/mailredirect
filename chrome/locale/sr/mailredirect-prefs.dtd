@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Поставке Mail Redirect-а">
 
-<!ENTITY prefsGroup.label "Поставке">
-
 <!ENTITY copyToSentMails.label "Смести копију преусмерене е-поруке у послате поруке">
 <!ENTITY copyToSentMails.accesskey "С">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

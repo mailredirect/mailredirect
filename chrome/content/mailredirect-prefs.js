@@ -13,6 +13,28 @@ const mailredirect_MODE_TRUNCATE = 0x20;
 
 window.MailredirectPrefs = {
 
+  onload: function()
+  {
+    MailredirectPrefs.init();
+    MailredirectPrefs.updateDefaultMode();
+  },
+
+  init: function()
+  {
+    var prefService = Cc["@mozilla.org/preferences-service;1"].
+                      getService(Ci.nsIPrefService);
+    var defaultBranch = prefService.getDefaultBranch("extensions.mailredirect.");
+    defaultBranch.setBoolPref("copyToSentMail", true);
+    defaultBranch.setIntPref("concurrentConnections", 5);
+    defaultBranch.setCharPref("defaultResentTo", "");
+    defaultBranch.setCharPref("defaultResentCc", "");
+    defaultBranch.setCharPref("defaultResentBcc", "");
+    defaultBranch.setCharPref("defaultMode", "addr_to");
+    defaultBranch.setBoolPref("debug", false);
+    defaultBranch.setIntPref("addresswidget.numRowsShownDefault", 3);
+    defaultBranch.setBoolPref("firstrun.button-contacts", false);
+  },
+
   updateDefaultMode: function()
   {
     var defaultResendTo = document.getElementById("defaultResendTo");

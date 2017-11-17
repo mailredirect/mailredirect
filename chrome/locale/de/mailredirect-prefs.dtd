@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect - Einstellungen">
 
-<!ENTITY prefsGroup.label "Einstellungen">
-
 <!ENTITY copyToSentMails.label "Kopie umgeleiteter Nachricht im Ordner 'Gesendet' ablegen">
 <!ENTITY copyToSentMails.accesskey "K">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

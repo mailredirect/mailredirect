@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect 设置">
 
-<!ENTITY prefsGroup.label "首选项">
-
 <!ENTITY copyToSentMails.label "在已发送文件夹保存重定向邮件副本？">
 <!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

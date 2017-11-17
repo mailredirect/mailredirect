@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Mail Redirect-instellingen">
 
-<!ENTITY prefsGroup.label "Instellingen">
-
 <!ENTITY copyToSentMails.label "Kopie van geheradresseerde berichten in map Verzonden plaatsen?">
 <!ENTITY copyToSentMails.accesskey "K">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

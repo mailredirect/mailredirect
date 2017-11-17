@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Opzioni di MailRedirect">
 
-<!ENTITY prefsGroup.label "Generali">
-
 <!ENTITY copyToSentMails.label "Lascia una copia del messaggio reindirizzato nella cartella Posta inviata">
 <!ENTITY copyToSentMails.accesskey "c">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

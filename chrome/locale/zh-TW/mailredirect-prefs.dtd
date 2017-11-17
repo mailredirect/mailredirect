@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "MailRedirect 設定">
 
-<!ENTITY prefsGroup.label "偏好設定">
-
 <!ENTITY copyToSentMails.label "將已重新導向的郵件的副本放在已寄送資料夾裡？">
 <!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
