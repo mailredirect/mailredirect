@@ -5,7 +5,7 @@
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
-    <em:version>0.9.3</em:version>
+    <em:version>0.9.4</em:version>
     <em:unpack>true</em:unpack>
     <em:description>Allow to redirect (a.k.a. &quot;remail&quot;) mail messages to other recipients.</em:description>
     <em:creator>Paweł Krześniak</em:creator>
@@ -22,6 +22,7 @@
     <em:translator>Sami Kuusisto (fi)</em:translator>
     <em:translator>Laurent Malgras &amp; Goofy (fr)</em:translator>
     <em:translator>Óvári (hu)</em:translator>
+    <em:translator>quincy87 (id)</em:translator>
     <em:translator>Luana Di Muzio (it)</em:translator>
     <em:translator>matsumoto (ja)</em:translator>
     <em:translator>Rimas Kudelis (lt)</em:translator>
@@ -46,6 +47,7 @@
     <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeCTk1UeuneGxy0g3bJcUoSfF+CNTfNrnmsSKYGtLv
                   wgfcecW2i0tuV52U8EcQ1nfGuDZtvuHJiu1rdn57G3BsVfTwwyfxY35w7Kjk4/J7HtB/+3EPyV81PT+f
                   lO5YT/F4yeO+k5MiAWsIb6Re2RF1ildra4lqxY+va4uDQuXJ3wIDAQAB</em:updateKey>
+    <em:optionsType>3</em:optionsType>
     <em:optionsURL>chrome://mailredirect/content/mailredirect-prefs.xul</em:optionsURL>
     <em:localized>
     </em:localized>
@@ -53,14 +55,14 @@
       <rdf:Description rdf:about="rdf:#thunderbird">
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>6.0</em:minVersion>
-        <em:maxVersion>58.0a1</em:maxVersion>
+        <em:maxVersion>59.0a1</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
     <em:targetApplication>
       <rdf:Description rdf:about="rdf:#seamonkey">
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1</em:minVersion>
-        <em:maxVersion>2.55a1</em:maxVersion>
+        <em:maxVersion>2.56a1</em:maxVersion>
       </rdf:Description>
     </em:targetApplication>
   </rdf:Description>

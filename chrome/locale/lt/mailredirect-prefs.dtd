@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Laiškų nukreipimo nuostatos">
 
-<!ENTITY prefsGroup.label "Nuostatos">
-
 <!ENTITY copyToSentMails.label "Įrašyti nukreipiamų laiškų kopijas išsiųstų laiškų aplanke">
 <!ENTITY copyToSentMails.accesskey "r">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->

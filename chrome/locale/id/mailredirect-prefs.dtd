@@ -1,0 +1,45 @@
+<!ENTITY mailredirectSettings.title "Pengaturan MailRedirect">
+
+<!ENTITY copyToSentMails.label "Tempat salinan surat diarahkan dalam folder Terkirim?">
+<!ENTITY copyToSentMails.accesskey "T">
+<!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
+<!ENTITY copyToSentMails.tooltip "Jika opsi ini dicentang, salinan pesan diarahkan ditempatkan dalam folder Terkirim. Jika opsi ini tidak dicentang, salinan pesan diarahkan tidak disalin ke folder apapun. \nCatatan: Jika opsi ini dicentang dan pengaturan Anda untuk akun yang digunakan untuk mengarahkan yang 'tidak menyimpan pesan yang dikirim sama sekali', salinan pesan diarahkan tidak akan disimpan baik.">
+
+<!ENTITY concurrentConnections.label "Jumlah koneksi SMTP bersamaan:">
+<!ENTITY concurrentConnections.accesskey "J">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY concurrentConnections.tooltip "Pilihan menentukan jumlah koneksi yang akan dibentuk ke server SMTP Anda saat mengirim pesan. Secara umum, ini memungkinkan Anda untuk meningkatkan kinerja proses pengiriman ketika Anda memilih untuk mengarahkan sejumlah besar pesan. \nCatatan: Jika Anda menetapkan parameter ini ke nol tidak ada batas koneksi bersamaan akan berlaku - diperingatkan bahwa hal itu bisa berdampak pada stabilitas server SMTP Anda atau mengirim beberapa pesan bisa gagal. Dalam kasus masalah menetapkan nilai ini ke salah satu.">
+
+<!ENTITY defaultRecipientsGroup.label "Penerima default">
+
+<!ENTITY defaultResendTo.label "Kirim kembali-Ke:">
+<!ENTITY defaultResendTo.accesskey "K">
+<!ENTITY defaultResendTo.tooltip "Daftar alamat email dipisahkan dengan tanda koma.">
+
+<!ENTITY defaultResendCc.label "Kirim kembali-Cc:">
+<!ENTITY defaultResendCc.accesskey "C">
+<!ENTITY defaultResendCc.tooltip "Daftar alamat email dipisahkan dengan tanda koma.">
+
+<!ENTITY defaultResendBcc.label "Kirim kembali-Bcc:">
+<!ENTITY defaultResendBcc.accesskey "B">
+<!ENTITY defaultResendBcc.tooltip "Daftar alamat email dipisahkan dengan tanda koma.">
+
+<!ENTITY defaultMode.label "Modus default:">
+<!ENTITY defaultMode.accesskey "m">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY defaultMode.tooltip "Memilih bagaimana Anda ingin mengarahkan pesan oleh default\n Pengaturan ini hanya memiliki efek bila Anda tidak ditentukan penerima default manapun.">
+<!ENTITY defaultModeResendTo.label "Kirim kembali-Ke">
+<!ENTITY defaultModeResendCc.label "Kirim kembali-Cc">
+<!ENTITY defaultModeResendBcc.label "Kirim kembali-Bcc">
+
+<!ENTITY debug.label "Debug">
+<!ENTITY debug.accesskey "D">
+<!ENTITY debug.tooltip "Mengaktifkan/menonaktifkan debug perpanjangan mailredirect. Log diarahkan ke kesalahan konsol.">
+
+<!ENTITY saveConsoleContent.label2 "Simpan Kesalahan Konsol konten…">
+<!ENTITY saveConsoleContent.accesskey2 "S">
+<!ENTITY sendViaEmail.label "Kirim Melalui Email">
+<!ENTITY sendViaEmail.accesskey "E">
+
+<!-- for seamonkey -->
+<!ENTITY mailredirectSettings.label "Mail Redirect">

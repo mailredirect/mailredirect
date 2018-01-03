@@ -30,103 +30,113 @@
       <preference id="pref_debug" name="extensions.mailredirect.debug" type="bool"/>
     </preferences>
 
-    <checkbox preference="pref_copyToSentMail" id="copyToSentMail"
-              label="&copyToSentMails.label;"
-              accesskey="&copyToSentMails.accesskey;"
-              tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"/>
-
-    <separator class="thin"/>
-
     <hbox>
-      <label control="concurrentConnections"
-             value="&concurrentConnections.label;"
-             accesskey="&concurrentConnections.accesskey;"
-             tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
-      <textbox id="concurrentConnections"
-               preference="pref_concurrentConnections"
-               size="3"
-               tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
-    </hbox>
+      <vbox>
+        <checkbox preference="pref_copyToSentMail" id="copyToSentMail"
+                  label="&copyToSentMails.label;"
+                  accesskey="&copyToSentMails.accesskey;"
+                  tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"/>
 
-    <separator class="thin"/>
+        <separator class="thin"/>
 
-    <groupbox>
-      <caption label="&defaultRecipientsGroup.label;"/>
-      <hbox>
-        <spacer flex="1"/>
-        <label control="defaultResendTo"
-               value="&defaultResendTo.label;"
-               accesskey="&defaultResendTo.accesskey;"
-               tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
-        <textbox id="defaultResendTo"
-                 preference="pref_defaultResendTo"
-                 size="48"
-                 onchange="MailredirectPrefs.updateDefaultMode();"
-                 tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
-      </hbox>
+        <hbox>
+          <label control="concurrentConnections"
+                 value="&concurrentConnections.label;"
+                 accesskey="&concurrentConnections.accesskey;"
+                 tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
+          <textbox id="concurrentConnections"
+                   preference="pref_concurrentConnections"
+                   size="3"
+                   tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
+        </hbox>
 
-      <hbox>
-        <spacer flex="1"/>
-        <label control="defaultResendCc"
-               value="&defaultResendCc.label;"
-               accesskey="&defaultResendCc.accesskey;"
-               tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
-        <textbox id="defaultResendCc"
-                 preference="pref_defaultResendCc"
-                 size="48"
-                 onchange="MailredirectPrefs.updateDefaultMode();"
-                 tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
-      </hbox>
+        <separator class="thin"/>
 
-      <hbox>
-        <spacer flex="1"/>
-        <label control="defaultResendBcc"
-               value="&defaultResendBcc.label;"
-               accesskey="&defaultResendBcc.accesskey;"
-               tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
-        <textbox id="defaultResendBcc"
-                 preference="pref_defaultResendBcc"
-                 size="48"
-                 onchange="MailredirectPrefs.updateDefaultMode();"
-                 tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
-      </hbox>
-    </groupbox>
+        <groupbox>
+          <caption label="&defaultRecipientsGroup.label;"/>
+          <grid>
+            <columns>
+              <column/>
+              <column/>
+            </columns>
+            <rows>
+              <row>
+                <label control="defaultResendTo"
+                       value="&defaultResendTo.label;"
+                       accesskey="&defaultResendTo.accesskey;"
+                       tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
+                <textbox id="defaultResendTo"
+                         preference="pref_defaultResendTo"
+                         size="48"
+                         onchange="MailredirectPrefs.updateDefaultMode();"
+                         tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
+              </row>
 
-    <separator class="thin"/>
+              <row>
+                <label control="defaultResendCc"
+                       value="&defaultResendCc.label;"
+                       accesskey="&defaultResendCc.accesskey;"
+                       tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
+                <textbox id="defaultResendCc"
+                         preference="pref_defaultResendCc"
+                         size="48"
+                         onchange="MailredirectPrefs.updateDefaultMode();"
+                         tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
+              </row>
 
-    <hbox align="center">
-      <label control="defaultMode"
-             value="&defaultMode.label;"
-             accesskey="&defaultMode.accesskey;"
-             tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;"/>
-      <menulist id="defaultMode"
-                preference="pref_defaultMode"
-                tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;">
-        <menupopup>
-          <menuitem value="addr_to" label="&defaultModeResendTo.label;"/>
-          <menuitem value="addr_cc" label="&defaultModeResendCc.label;"/>
-          <menuitem value="addr_bcc" label="&defaultModeResendBcc.label;"/>
-        </menupopup>
-      </menulist>
-    </hbox>
+              <row>
+                <label control="defaultResendBcc"
+                       value="&defaultResendBcc.label;"
+                       accesskey="&defaultResendBcc.accesskey;"
+                       tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
+                <textbox id="defaultResendBcc"
+                         preference="pref_defaultResendBcc"
+                         size="48"
+                         onchange="MailredirectPrefs.updateDefaultMode();"
+                         tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
+              </row>
+            </rows>
+          </grid>
+        </groupbox>
 
-    <separator class="thick"/>
+        <separator class="thin"/>
 
-    <hbox>
-      <checkbox preference="pref_debug" id="debug"
-                label="&debug.label;"
-                accesskey="&debug.accesskey;"
-                tooltip="xToolTip" xtooltiptext="&debug.tooltip;"/>
-      <button id="saveConsoleContent"
-              class="dialog"
-              accesskey="&saveConsoleContent.accesskey2;"
-              label="&saveConsoleContent.label2;"
-              oncommand="MailredirectPrefs.saveConsoleContent();"/>
-      <button id="sendViaEmail"
-              class="dialog"
-              accesskey="&sendViaEmail.accesskey;"
-              label="&sendViaEmail.label;"
-              oncommand="MailredirectPrefs.sendViaEmail();"/>
+        <hbox align="center">
+          <label control="defaultMode"
+                 value="&defaultMode.label;"
+                 accesskey="&defaultMode.accesskey;"
+                 tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;"/>
+          <menulist id="defaultMode"
+                    preference="pref_defaultMode"
+                    tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;">
+            <menupopup>
+              <menuitem value="addr_to" label="&defaultModeResendTo.label;"/>
+              <menuitem value="addr_cc" label="&defaultModeResendCc.label;"/>
+              <menuitem value="addr_bcc" label="&defaultModeResendBcc.label;"/>
+            </menupopup>
+          </menulist>
+        </hbox>
+
+        <separator class="thick"/>
+
+        <hbox>
+          <checkbox preference="pref_debug" id="debug"
+                    label="&debug.label;"
+                    accesskey="&debug.accesskey;"
+                    tooltip="xToolTip" xtooltiptext="&debug.tooltip;"/>
+          <button id="saveConsoleContent"
+                  class="dialog"
+                  accesskey="&saveConsoleContent.accesskey2;"
+                  label="&saveConsoleContent.label2;"
+                  oncommand="MailredirectPrefs.saveConsoleContent();"/>
+          <button id="sendViaEmail"
+                  class="dialog"
+                  accesskey="&sendViaEmail.accesskey;"
+                  label="&sendViaEmail.label;"
+                  oncommand="MailredirectPrefs.sendViaEmail();"/>
+        </hbox>
+      </vbox>
+      <vbox flex="1"/>
     </hbox>
 
   </prefpane>

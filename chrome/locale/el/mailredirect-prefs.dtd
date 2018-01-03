@@ -1,7 +1,5 @@
 <!ENTITY mailredirectSettings.title "Ρυθμίσεις MailRedirect">
 
-<!ENTITY prefsGroup.label "Προτιμήσεις">
-
 <!ENTITY copyToSentMails.label "Τοποθέτηση ενός αντιγράφου του ανακατευθυνόμενου e-mail στο φάκελο &quot;Απεσταλμένα&quot;;">
 <!ENTITY copyToSentMails.accesskey "Τ">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
