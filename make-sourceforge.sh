@@ -98,6 +98,8 @@ do
         fi
       fi
     done
+  else
+    rm ${locale}/mailredirect.properties
   fi
 done
 cat ../../install.rdf.tail >> ../../install.rdf
