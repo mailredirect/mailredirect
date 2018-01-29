@@ -806,6 +806,12 @@ function setupAutocomplete()
   }
 }
 
+function fromKeyPress(event)
+{
+  if (event.keyCode == KeyEvent.DOM_VK_RETURN)
+    awSetFocus(1, awGetInputElement(1));
+}
+
 function LoadIdentity(startup)
 {
   var identityElement = document.getElementById("msgIdentity");
@@ -1089,7 +1095,7 @@ function BounceStartup(aParams)
           }
         }
         if (Services.intl !== undefined &&
-            typeof Services.intl.createDateTimeFormat === "function") {
+            typeof Services.intl.DateTimeFormat === "function") {
           if (locale === undefined) {
             var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
             if (useOSLocales) {
@@ -1112,7 +1118,7 @@ function BounceStartup(aParams)
           } else if (dateFormat === kDateFormatWeekday) {
             dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
           }
-          dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date);
+          dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
         } else {
           if (dateFormatService === undefined) {
             dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
@@ -1590,7 +1596,7 @@ var mailredirectDragObserver = {
                 }
               }
               if (Services.intl !== undefined &&
-                  typeof Services.intl.createDateTimeFormat === "function") {
+                  typeof Services.intl.DateTimeFormat === "function") {
                 if (locale === undefined) {
                   var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
                   if (useOSLocales) {
@@ -1613,7 +1619,7 @@ var mailredirectDragObserver = {
                 } else if (dateFormat === kDateFormatWeekday) {
                   dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
                 }
-                dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date);
+                dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
               } else {
                 if (dateFormatService === undefined) {
                   dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].

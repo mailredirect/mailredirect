@@ -1,0 +1,5 @@
+<!ENTITY bounceCommand.label "أعِد التوجيه">
+<!ENTITY bounceCommand.accesskey "ج">
+<!ENTITY bounceCommand.tooltip "أعِد توجيه الرسائل المُحددة">
+<!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">

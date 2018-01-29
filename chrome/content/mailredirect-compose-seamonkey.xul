@@ -16,7 +16,6 @@
 <?xml-stylesheet href="chrome://mailredirect-os/skin/mailredirect-compose.css" type="text/css"?>
 <?xml-stylesheet href="chrome://mailredirect-os/skin/mailredirect-subjectCol.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/globalOverlay.xul"?>
 <?xul-overlay href="chrome://communicator/content/utilityOverlay.xul"?>
 
 <!DOCTYPE window [
@@ -73,7 +72,7 @@
   <script type="application/javascript" src="chrome://global/content/globalOverlay.js"/>
   <script type="application/javascript" src="chrome://global/content/contentAreaUtils.js"/>
   <script type="application/javascript" src="chrome://messenger/content/mailWindowOverlay.js"/>
-  <!-- <script type="application/javascript" src="chrome://communicator/content/utilityOverlay.js"/> -->
+  <script type="application/javascript" src="chrome://communicator/content/utilityOverlay.js"/>
 
   <commandset>
     <command id="cmd_mailredirect_now" oncommand="goDoCommand('cmd_mailredirect_now')"/>

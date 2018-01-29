@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Style sheets -->
+<?xml-stylesheet href="chrome://messenger/content/bindings.css" type="text/css"?>
 <?xml-stylesheet href="chrome://messenger/skin/messengercompose/messengercompose.css" type="text/css"?>
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
@@ -172,7 +173,7 @@
               <menu id="menu_ToolbarsNew"
                     label="&viewToolbarsMenuNew.label;"
                     accesskey="&viewToolbarsMenuNew.accesskey;"
-                    onpopupshowing="onViewToolbarsPopupShowing(event, 'bounce-toolbox');">
+                    onpopupshowing="onViewToolbarsPopupShowing(event, ['bounce-toolbox']);">
                 <menupopup id="view_toolbars_popup">
                   <menuitem id="menu_showTaskbar"
                             type="checkbox"
@@ -264,10 +265,12 @@
                  ondragexit="nsDragAndDrop.dragExit(event, mailredirectDragObserver);">
           <vbox flex="1" id="addresses-box">
             <hbox id="top-gradient-box">
-              <hbox align="center" pack="end" style="&headersSpace.style;">
-                <label value="&resendFromAddr.label;" accesskey="&resendFromAddr.accesskey;" control="msgIdentity"/>
+              <hbox id="identityLabel-box" align="center" pack="end" style="&headersSpace.style;">
+                <label id="identityLabel" value="&resendFromAddr.label;"
+                       accesskey="&resendFromAddr.accesskey;" control="msgIdentity"/>
               </hbox>
               <menulist id="msgIdentity" type="description" flex="1"
+                        disableautoselect="true" onkeypress="fromKeyPress(event);"
                         oncommand="LoadIdentity(false);" disableonsend="true">
                 <menupopup id="msgIdentityPopup"/>
               </menulist>
