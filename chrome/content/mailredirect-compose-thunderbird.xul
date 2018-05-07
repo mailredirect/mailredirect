@@ -243,7 +243,7 @@
     <toolbarset id="customToolbars" context="toolbar-context-menu"/>
   </toolbox>
 
-  <hbox flex="1">
+  <hbox id="bounceContentBox" flex="1">
     <vbox id="sidebar-box" persist="sidebarVisible width" hidden="true">
       <sidebarheader id="sidebarHeader" align="center">
         <label id="sidebar-title" value="&addressesSidebarTitle.label;"/>
@@ -284,7 +284,7 @@
                 <listcol id="textcol-addressingWidget" flex="1"/>
               </listcols>
               <listitem class="addressingWidgetItem" allowevents="true">
-                <listcell class="addressingWidgetCell" align="stretch">
+                <listcell class="addressingWidgetCell">
                   <menulist id="addressCol1#1" disableonsend="true"
                             class="aw-menulist menulist-compact" flex="1"
                             oncommand="onAddressColCommand(this.id);">
@@ -294,6 +294,8 @@
                       <menuitem value="addr_bcc" label="&resendBccAddr.label;"/>
                     </menupopup>
                   </menulist>
+                  <image class="deleteAddress close-icon"
+                         onclick="awDeleteHit(this.parentNode.nextSibling.querySelector('textbox.textbox-addressingWidget'));"/>
                 </listcell>
                 <listcell class="addressingWidgetCell">
                   <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"

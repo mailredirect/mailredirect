@@ -1095,7 +1095,8 @@ function BounceStartup(aParams)
           }
         }
         if (Services.intl !== undefined &&
-            typeof Services.intl.DateTimeFormat === "function") {
+            (typeof Services.intl.DateTimeFormat === "function" ||          // Thunderbird 59.0a1
+             typeof Services.intl.createDateTimeFormat === "function")) {   // Thunderbird 57.0a1
           if (locale === undefined) {
             var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
             if (useOSLocales) {
@@ -1118,7 +1119,10 @@ function BounceStartup(aParams)
           } else if (dateFormat === kDateFormatWeekday) {
             dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
           }
-          dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
+          if (typeof Services.intl.DateTimeFormat === "function")
+            dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date)
+          else
+            dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date)
         } else {
           if (dateFormatService === undefined) {
             dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
@@ -1596,7 +1600,8 @@ var mailredirectDragObserver = {
                 }
               }
               if (Services.intl !== undefined &&
-                  typeof Services.intl.DateTimeFormat === "function") {
+                  (typeof Services.intl.DateTimeFormat === "function" ||          // Thunderbird 59.0a1
+                   typeof Services.intl.createDateTimeFormat === "function")) {   // Thunderbird 57.0a1
                 if (locale === undefined) {
                   var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
                   if (useOSLocales) {
@@ -1619,7 +1624,10 @@ var mailredirectDragObserver = {
                 } else if (dateFormat === kDateFormatWeekday) {
                   dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
                 }
-                dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
+                if (typeof Services.intl.DateTimeFormat === "function")
+                  dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date)
+                else
+                  dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date)
               } else {
                 if (dateFormatService === undefined) {
                   dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].

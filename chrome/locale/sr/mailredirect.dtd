@@ -1,5 +1,5 @@
 <!ENTITY bounceCommand.label "Преусмери">
 <!ENTITY bounceCommand.accesskey "П">
 <!ENTITY bounceCommand.tooltip "Преусмерите изабране поруке">
-<!ENTITY bounceMsgCmd.key "р">
+<!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">

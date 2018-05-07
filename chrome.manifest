@@ -12,6 +12,7 @@ override  chrome://mailredirect/content/aw.js  chrome://mailredirect/content/awP
 
 locale  mailredirect  en-US  chrome/locale/en-US/
 locale  mailredirect  ar     chrome/locale/ar/
+locale  mailredirect  bg     chrome/locale/bg/
 locale  mailredirect  ca     chrome/locale/ca/
 locale  mailredirect  cs     chrome/locale/cs/
 locale  mailredirect  da     chrome/locale/da/

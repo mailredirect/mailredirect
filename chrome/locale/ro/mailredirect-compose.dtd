@@ -33,7 +33,7 @@
 <!ENTITY messengerCmd.key "1">
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "2">
-<!ENTITY addressBookCmd.modifiers "accel, shift">
+<!ENTITY addressBookCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Personalizează">
 <!ENTITY customizeToolbar.accesskey "C">

@@ -28,11 +28,11 @@
 <!ENTITY throbberItem.title "Etkinlik Göstergesi">
 <!ENTITY throbber.tooltip "&vendorShortName; sayfasına git">
 
-<!ENTITY closeCmd.key "S">
+<!ENTITY closeCmd.key "W">
 <!ENTITY closeCmd.modifiers "accel">
 <!ENTITY messengerCmd.key "1">
 <!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY addressBookCmd.key "A">
+<!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
 <!ENTITY customizeToolbar.label "Özelleştir…">

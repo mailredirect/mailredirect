@@ -1,5 +1,5 @@
 <!ENTITY bounceCommand.label "Ridrejtoje">
 <!ENTITY bounceCommand.accesskey "R">
 <!ENTITY bounceCommand.tooltip "Ridrejtoni mesazhet e përzgjedhur">
-<!ENTITY bounceMsgCmd.key "p">
+<!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">

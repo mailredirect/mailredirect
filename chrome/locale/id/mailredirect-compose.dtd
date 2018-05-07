@@ -28,7 +28,7 @@
 <!ENTITY throbberItem.title "Indikator Aktivitas">
 <!ENTITY throbber.tooltip "Pergi ke &amp; vendorShortName; halaman utama">
 
-<!ENTITY closeCmd.key "B">
+<!ENTITY closeCmd.key "W">
 <!ENTITY closeCmd.modifiers "accel">
 <!ENTITY messengerCmd.key "1">
 <!ENTITY messengerCmd.modifiers "accel">

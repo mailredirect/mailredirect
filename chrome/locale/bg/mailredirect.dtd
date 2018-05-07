@@ -1,0 +1,5 @@
+<!ENTITY bounceCommand.label "Преадресиране">
+<!ENTITY bounceCommand.accesskey "с">
+<!ENTITY bounceCommand.tooltip "Преадресиране на избраните съобщения">
+<!ENTITY bounceMsgCmd.key "B">
+<!ENTITY bounceMsgCmd.modifiers "accel">

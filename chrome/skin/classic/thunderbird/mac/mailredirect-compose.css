@@ -1,7 +1,59 @@
+#bounce-toolbox:-moz-lwtheme {
+  -moz-appearance: none;
+  background-color: var(--toolbar-bgcolor);
+  color: var(--toolbar-color, inherit);
+  /* Uses a background image instead of a border to avoid jumping of the toolbar
+     when a theme is enabled. */
+  background-image: linear-gradient(to bottom, var(--tabs-border-color, transparent) 1px, transparent 1px);
+}
+
+#bounce-toolbox:-moz-lwtheme::after {
+  content: "";
+  display: -moz-box;
+  margin-top: -1px;
+  height: 1px;
+  border-bottom: 1px solid var(--toolbox-border-bottom-color);
+}
+
+#bounce-toolbox toolbarbutton[checked="true"] {
+  background-color: transparent;
+}
+
+/* Inactive window state */
+#bounce-toolbox > toolbar:-moz-window-inactive {
+  border-top-color: rgba(255,255,255,0.45);
+  border-bottom-color: rgba(0,0,0,0.35);
+  background-color: #cfcfcf;
+}
+
+#bounce-toolbox > toolbar:-moz-lwtheme {
+  background-color: transparent;
+}
+
+#bounce-toolbox > toolbar:-moz-lwtheme {
+  --toolbarbutton-hover-background: var(--lwt-toolbarbutton-hover-background, hsla(0, 0%, 100%, .1));
+  --toolbarbutton-hover-bordercolor: var(--lwt-toolbarbutton-hover-background, hsla(0, 0%, 0%, .2));
+
+  --toolbarbutton-active-background: var(--lwt-toolbarbutton-active-background, hsla(0, 0%, 0%, .02));
+  --toolbarbutton-active-bordercolor: var(--lwt-toolbarbutton-active-background, hsla(0, 0%, 0%, .3));
+  --toolbarbutton-active-boxshadow: 0 0 0 1px var(--lwt-toolbarbutton-active-background, hsla(0, 0%, 0%, .2)) inset;
+
+  --toolbarbutton-checkedhover-backgroundcolor: var(--lwt-toolbarbutton-hover-background, hsla(0, 0%, 0%, .09));
+}
+
 #bounceTree treechildren::-moz-tree-row(notsent) {
   background-color: red;
 }
 
 #bounceTree treechildren::-moz-tree-cell-text(notsent) {
   color: white;
+}
+
+#bounceContentBox {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6) inset;
+  background-color: rgb(242, 242, 242);
+}
+
+#bounceContentBox:-moz-window-inactive {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
 }

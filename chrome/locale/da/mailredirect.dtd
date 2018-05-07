@@ -1,5 +1,5 @@
 <!ENTITY bounceCommand.label "Omdiriger">
 <!ENTITY bounceCommand.accesskey "i">
 <!ENTITY bounceCommand.tooltip "Omdiriger valgte meddelelser">
-<!ENTITY bounceMsgCmd.key "D">
+<!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
