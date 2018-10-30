@@ -2,9 +2,11 @@
 
 <!-- Style sheets -->
 <?xml-stylesheet href="chrome://messenger/content/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://messenger/content/menulist.css" type="text/css"?>
 <?xml-stylesheet href="chrome://messenger/skin/messengercompose/messengercompose.css" type="text/css"?>
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
+<?xml-stylesheet href="chrome://messenger/skin/compacttheme.css" type="text/css" alternate="yes" title="Light/Dark"?>
 
 <?xml-stylesheet href="chrome://messenger/skin/threadPane.css" type="text/css"?>
 <?xml-stylesheet href="chrome://messenger/skin/threadPaneExtras.css" type="text/css"?>
@@ -52,6 +54,7 @@
   <script type="application/javascript" src="chrome://messenger/content/accountUtils.js"/>
   <script type="application/javascript" src="chrome://messenger/content/widgetglue.js"/>
   <script type="application/javascript" src="chrome://messenger/content/mailCore.js"/>
+  <script type="application/javascript" src="chrome://messenger/content/mail-compacttheme.js"/>
 
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
@@ -230,7 +233,7 @@
     </toolbarpalette>
 
     <toolbar id="bounceToolbar"
-             class="toolbar-primary chromeclass-toolbar"
+             class="chromeclass-toolbar"
              toolbarname="&showBounceToolbarCmd.label;"
              accesskey="&showBounceToolbarCmd.accesskey;"
              fullscreentoolbar="true"
@@ -248,7 +251,9 @@
       <sidebarheader id="sidebarHeader" align="center">
         <label id="sidebar-title" value="&addressesSidebarTitle.label;"/>
         <spacer flex="1"/>
-        <toolbarbutton class="ab-closebutton" oncommand="toggleAddressPicker();"/>
+        <toolbarbutton id="sidebarCloseButton"
+                       class="ab-closebutton close-icon"
+                       oncommand="sidebarCloseButtonOnCommand();"/>
       </sidebarheader>
       <browser id="sidebar" flex="1" src="" disablehistory="true"
                style="min-width: 150px; width: 200px; max-width: 400px;"/>
@@ -275,18 +280,18 @@
                 <menupopup id="msgIdentityPopup"/>
               </menulist>
             </hbox>
-            <listbox id="addressingWidget" flex="1" seltype="multiple" rows="1"
-                     onkeydown="awKeyDown(event, this)"
-                     onclick="awClickEmptySpace(event.originalTarget, true)"
-                     disableonsend="true">
-              <listcols>
-                <listcol id="typecol-addressingWidget" style="&headersSpace.style;"/>
-                <listcol id="textcol-addressingWidget" flex="1"/>
-              </listcols>
-              <listitem class="addressingWidgetItem" allowevents="true">
-                <listcell class="addressingWidgetCell">
+            <richlistbox id="addressingWidget" flex="1" seltype="multiple"
+                         onkeydown="awKeyDown(event, this)"
+                         onclick="awClickEmptySpace(event.originalTarget, true)"
+                         disableonsend="true">
+              <treecols hidden="true">
+                <treecol id="typecol-addressingWidget" style="&headersSpace.style;"/>
+                <treecol id="textcol-addressingWidget" flex="1"/>
+              </treecols>
+              <richlistitem class="addressingWidgetItem" allowevents="true">
+                <hbox class="addressingWidgetCell" align="center" style="&headersSpace.style;">
                   <menulist id="addressCol1#1" disableonsend="true"
-                            class="aw-menulist menulist-compact" flex="1"
+                            class="aw-menulist" flex="1"
                             oncommand="onAddressColCommand(this.id);">
                     <menupopup>
                       <menuitem value="addr_to" label="&resendToAddr.label;"/>
@@ -296,15 +301,17 @@
                   </menulist>
                   <image class="deleteAddress close-icon"
                          onclick="awDeleteHit(this.parentNode.nextSibling.querySelector('textbox.textbox-addressingWidget'));"/>
-                </listcell>
-                <listcell class="addressingWidgetCell">
+                </hbox>
+                <hbox class="addressingWidgetCell" flex="1">
                   <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"
                            aria-labelledby="addressCol1#1"
                            type="autocomplete" flex="1"
                            autocompletesearch="mydomain addrbook ldap"
                            autocompletesearchparam="{}"
-                           timeout="300" maxrows="4"
+                           timeout="300"
+                           maxrows="6"
                            completedefaultindex="true" forcecomplete="true"
+                           completeselectedindex="true"
                            minresultsforpopup="2" ignoreblurwhilesearching="true"
                            ontextentered="awRecipientTextCommand(param, this)"
                            onchange="onRecipientsChanged();"
@@ -312,15 +319,14 @@
                            onkeypress="awRecipientKeyPress(event, this)"
                            onkeydown="awRecipientKeyDown(event, this)"
                            disableonsend="true">
-                    <image class="person-icon" onclick="this.parentNode.select();"/>
                   </textbox>
-                </listcell>
-              </listitem>
-            </listbox>
+                </hbox>
+              </richlistitem>
+            </richlistbox>
           </vbox>
         </toolbar>
 
-        <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" collapse="after"/>
+        <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" orient="vertical"/>
 
         <vbox id="bounceContentArea" flex="1">
           <separator class="thin"/>
@@ -339,7 +345,7 @@
               <treecol id="senderCol" label="&sender.label;" flex="7" ignorecolumnpicker="true" persist="width"/>
               <splitter class="tree-splitter"/>
               <treecol id="dateCol" label="&date.label;" flex="4" ignorecolumnpicker="true" persist="width"
-                       type="progressmeter" />
+                       type="progressmeter"/>
             </treecols>
             <treechildren id="topTreeChildren" flex="1" disableonsend="true"
                ondragover="nsDragAndDrop.dragOver(event, mailredirectDragObserver);"
@@ -351,6 +357,12 @@
       </toolbox>
     </vbox>
   </hbox>
+
+  <panel id="customizeToolbarSheetPopup" noautohide="true">
+    <iframe id="customizeToolbarSheetIFrame"
+            style="&dialog.dimensions;"
+            hidden="true"/>
+  </panel>
 
   <statusbar id="status-bar" class="chromeclass-status">
     <statusbarpanel id="statusText" flex="1"/>

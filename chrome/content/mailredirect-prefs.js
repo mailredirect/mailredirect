@@ -2,14 +2,14 @@
 
 (function() {
 
-const Cc = Components.classes, Ci = Components.interfaces;
-
 Components.utils.import("resource://gre/modules/Services.jsm");
+Components.utils.import("resource://gre/modules/NetUtil.jsm");
 Components.utils.import("resource:///modules/mailServices.js");
+try {
+  Components.utils.import("resource://gre/modules/AppConstants.jsm"); // Gecko 45+
+} catch(ex) { };
 
-const mailredirect_MODE_WRONLY   = 0x02;
-const mailredirect_MODE_CREATE   = 0x08;
-const mailredirect_MODE_TRUNCATE = 0x20;
+const Cc = Components.classes, Ci = Components.interfaces;
 
 window.MailredirectPrefs = {
 
@@ -33,6 +33,7 @@ window.MailredirectPrefs = {
     defaultBranch.setBoolPref("debug", false);
     defaultBranch.setIntPref("addresswidget.numRowsShownDefault", 3);
     defaultBranch.setBoolPref("firstrun.button-contacts", false);
+    defaultBranch.setBoolPref("firstrun.unpack-icon", false);
   },
 
   updateDefaultMode: function()
@@ -62,11 +63,18 @@ window.MailredirectPrefs = {
 
     let filePickerCallback = function filePickerCallbackDone(aResult) {
       if (aResult === nsIFilePicker.returnOK || aResult === nsIFilePicker.returnReplace) {
-        var file = filePicker.file.QueryInterface(Ci.nsILocalFile);
+        var file;
+        try {
+          file = filePicker.file.QueryInterface(Ci.nsIFile);
+        } catch(ex) {
+          // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
+          file = filePicker.file.QueryInterface(Ci.nsILocalFile);
+        }
+
         var fileStream = Cc["@mozilla.org/network/file-output-stream;1"].
                          createInstance(Ci.nsIFileOutputStream);
 
-        fileStream.init(file, mailredirect_MODE_WRONLY | mailredirect_MODE_CREATE | mailredirect_MODE_TRUNCATE, parseInt("0600", 8), null);
+        fileStream.init(file, -1, -1, null);
 
         // for every nsIConsoleMessage save it to file
         var consoleService = Cc["@mozilla.org/consoleservice;1"].
@@ -106,7 +114,7 @@ window.MailredirectPrefs = {
       var tempUri = Services.io.newFileURI(tempFile);
       var fileStream = Cc["@mozilla.org/network/file-output-stream;1"].
                    createInstance(Ci.nsIFileOutputStream);
-      fileStream.init(tempFile, mailredirect_MODE_WRONLY | mailredirect_MODE_CREATE | mailredirect_MODE_TRUNCATE, parseInt("0600", 8), 0);
+      fileStream.init(tempFile, -1, -1, 0);
       let dataTxt = "";
 
       // for every nsIConsoleMessage save it to file
@@ -165,6 +173,121 @@ window.MailredirectPrefs = {
       var errorTitle = PrefsBundle.getString("tempFileErrorDlogTitle");
       var errorMsg = PrefsBundle.getString("tempFileErrorDlogMessage");
       Services.prompt.alert(window, errorTitle, errorMsg);
+    }
+  },
+
+  getPref: function (aPrefName, aIsComplex)
+  {
+    if (aIsComplex) {
+      return Services.prefs.getComplexValue(aPrefName, Ci.nsISupportsString).data;
+    }
+    switch (Services.prefs.getPrefType(aPrefName)) {
+      case Ci.nsIPrefBranch.PREF_BOOL:
+        return Services.prefs.getBoolPref(aPrefName);
+      case Ci.nsIPrefBranch.PREF_INT:
+        return Services.prefs.getIntPref(aPrefName);
+      case Ci.nsIPrefBranch.PREF_STRING:
+        return Services.prefs.getCharPref(aPrefName);
+      default: // includes nsIPrefBranch.PREF_INVALID
+        return null;
+    }
+  },
+
+  unpackIcon: function()
+  {
+    function copyFile(aURL, aSink) {
+      let uri = Services.io.newURI(aURL);
+      let channel = Services.io.newChannelFromURI2(uri,
+                                                   null,
+                                                   Services.scriptSecurityManager.getSystemPrincipal(),
+                                                   null,
+                                                   Components.interfaces.nsILoadInfo.SEC_REQUIRE_SAME_ORIGIN_DATA_INHERITS,
+                                                   Components.interfaces.nsIContentPolicy.TYPE_OTHER);
+
+      NetUtil.asyncFetch(channel, function(aInputStream, aResult) {
+        if (!Components.isSuccessCode(aResult)) {
+          Components.utils.reportError("asyncFetch failed: " + aResult);
+          return;
+        }
+        NetUtil.asyncCopy(aInputStream, aSink, function(aResult) {
+          if (!Components.isSuccessCode(aResult)) {
+            Components.utils.reportError("NetUtil.asyncCopy failed: " + aResult);
+          }
+        });
+      });
+    }
+
+    let firstRunPref = "extensions.mailredirect.firstrun.unpack-icon";
+    if (!this.getPref(firstRunPref)) {
+      var platform;
+      var iconArray;
+      var allExist = true;
+      var allCopied = true;
+      if (typeof AppConstants !== "undefined") {
+        platform = AppConstants.platform;
+      } else {
+        platform = Application.platform;
+      }
+      if (platform === "win") {
+        iconArray = [ "msgMailRedirectWindow.ico" ];
+      } else {
+        iconArray = [ "msgMailRedirectWindow.xpm", "msgMailRedirectWindow16.xpm" ];
+      }
+
+      for (var i = 0; i < iconArray.length; i++) {
+        let iconFilename = iconArray[i];
+        let profileIcon = Cc["@mozilla.org/file/directory_service;1"].
+                          getService(Ci.nsIProperties).
+                          get("ProfD", Ci.nsIFile);
+        profileIcon.append("extensions");
+        profileIcon.append("{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}");
+        profileIcon.append("chrome");
+        profileIcon.append("icons");
+        profileIcon.append("default");
+        profileIcon.append(iconFilename);
+
+        if (!profileIcon.exists()) {  // Icon doesn't exist, so extension isn't unpacked
+          allExist = false;
+          let chromeIcon = Cc["@mozilla.org/file/directory_service;1"].
+                           getService(Ci.nsIProperties).
+                           get("AChrom", Ci.nsIFile);
+          chromeIcon.append("icons");
+          chromeIcon.append("default");
+          chromeIcon.append(iconFilename);
+
+          if (!chromeIcon.exists()) { // Icon doesn't exist in program folder, so copy it
+            var file;
+
+            try {
+              file = Cc["@mozilla.org/file/local;1"].
+                     createInstance(Ci.nsIFile);
+            } catch(ex) {
+              // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
+              file = Cc["@mozilla.org/file/local;1"].
+                     createInstance(Ci.nsILocalFile);
+            }
+            file.initWithFile(chromeIcon);
+
+            var aFileOutputStream = Cc["@mozilla.org/network/file-output-stream;1"].
+                                    createInstance(Ci.nsIFileOutputStream);
+            try {
+              aFileOutputStream.init(file, -1, -1, 0);
+              copyFile("chrome://mailredirect-icons/content/default/" + iconFilename, aFileOutputStream);
+
+              if (!chromeIcon.exists()) { // Icon still doesn't exist
+                Components.utils.reportError(chromeIcon.path + " still doesn't exist");
+                allCopied = false;
+              }
+            } catch(ex) {
+              Components.utils.reportError("Error initializing file output stream " + chromeIcon.path + ": " + ex);
+              allCopied = false;
+            }
+          }
+        }
+      }
+      if (!allExist && allCopied) {
+        Services.prefs.setBoolPref(firstRunPref, true);
+      }
     }
   }
 }

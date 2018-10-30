@@ -54,6 +54,17 @@ toolbar:not(:-moz-lwtheme) {
   padding: 2px 1px;
 }
 
+#bounce-toolbar-sizer {
+  position: relative;
+  z-index: 10;
+  min-height: 0;
+  height: 5px;
+  margin-top: -5px;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  background-color: transparent;
+}
+
 #bounce-toolbox > toolbar:not([type="menubar"]):-moz-lwtheme {
   text-shadow: none;
 }

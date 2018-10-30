@@ -15,6 +15,6 @@ rsync -a ../code/chrome/locale/en-US/* babelzilla/chrome/locale/en-US/
 version=`grep em:version ../code/install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//"`
 cd babelzilla
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
-zip -r -D mailredirect-${version}-sm+tb.xpi install.rdf chrome.manifest chrome/ defaults/ icon.png LICENSE README
-cd ..
+zip -r -D -9 mailredirect-${version}-sm+tb.xpi install.rdf chrome.manifest chrome/ defaults/ icon.png LICENSE README
+rm mailredirect.txt
 read -p "Press any key to continue . . . " -n 1

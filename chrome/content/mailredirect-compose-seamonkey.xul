@@ -223,8 +223,7 @@
     </toolbarpalette>
 
     <toolbar id="bounceToolbar"
-             type="toolbar"
-             class="toolbar-primary chromeclass-toolbar"
+             class="chromeclass-toolbar"
              persist="collapsed"
              toolbarname="&showBounceToolbarCmd.label;"
              accesskey="&showBounceToolbarCmd.accesskey;"
@@ -268,18 +267,18 @@
                 <menupopup id="msgIdentityPopup"/>
               </menulist>
             </hbox>
-            <listbox id="addressingWidget" flex="1" seltype="multiple" rows="1"
-                     onkeydown="awKeyDown(event, this)"
-                     onclick="awClickEmptySpace(event.originalTarget, true)"
-                     disableonsend="true">
-              <listcols>
-                <listcol id="typecol-addressingWidget" style="&headersSpace.style;"/>
-                <listcol id="textcol-addressingWidget" flex="1"/>
-              </listcols>
-              <listitem class="addressingWidgetItem" allowevents="true">
-                <listcell class="addressingWidgetCell" align="stretch">
+            <richlistbox id="addressingWidget" flex="1" seltype="multiple"
+                         onkeydown="awKeyDown(event, this)"
+                         onclick="awClickEmptySpace(event.originalTarget, true)"
+                         disableonsend="true">
+              <treecols hidden="true">
+                <treecol id="typecol-addressingWidget" style="&headersSpace.style;"/>
+                <treecol id="textcol-addressingWidget" flex="1"/>
+              </treecols>
+              <richlistitem class="addressingWidgetItem" allowevents="true">
+                <hbox class="addressingWidgetCell" align="center" style="&headersSpace.style;">
                   <menulist id="addressCol1#1" disableonsend="true"
-                            class="aw-menulist menulist-compact" flex="1"
+                            class="aw-menulist" flex="1"
                             oncommand="onAddressColCommand(this.id);">
                     <menupopup>
                       <menuitem value="addr_to" label="&resendToAddr.label;"/>
@@ -287,15 +286,17 @@
                       <menuitem value="addr_bcc" label="&resendBccAddr.label;"/>
                     </menupopup>
                   </menulist>
-                </listcell>
-                <listcell class="addressingWidgetCell">
+                </hbox>
+                <hbox class="addressingWidgetCell" flex="1">
                   <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"
                            aria-labelledby="addressCol1#1"
-                           type="autocomplete" flex="1" maxrows="4"
-                           newlines="replacewithcommas"
-                           autocompletesearch="mydomain addrbook ldap" timeout="300"
+                           type="autocomplete" flex="1"
+                           autocompletesearch="mydomain addrbook ldap"
                            autocompletesearchparam="{}"
+                           timeout="300"
+                           maxrows="4"
                            completedefaultindex="true" forcecomplete="true"
+                           completeselectedindex="true"
                            minresultsforpopup="2" ignoreblurwhilesearching="true"
                            ontextentered="awRecipientTextCommand(eventParam, this)"
                            onerrorcommand="awRecipientErrorCommand(eventParam, this)"
@@ -304,13 +305,13 @@
                            onkeydown="awRecipientKeyDown(event, this)">
                     <image class="person-icon" onclick="this.parentNode.select();"/>
                   </textbox>
-                </listcell>
-              </listitem>
-            </listbox>
+                </hbox>
+              </richlistitem>
+            </richlistbox>
           </vbox>
         </toolbar>
 
-        <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" collapse="after"/>
+        <splitter id="bounce-toolbar-sizer" onmousedown="awSizerListen()" orient="vertical" collapse="after"/>
 
         <vbox id="bounceContentArea" flex="1">
           <separator class="thin"/>

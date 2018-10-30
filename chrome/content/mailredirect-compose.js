@@ -20,15 +20,6 @@ const Cc = Components.classes, Ci = Components.interfaces;
 // as long as normal e-mail addresses
 const MAX_HEADER_LENGTH = 16384;
 
-const MODE_RDONLY   = 0x01;
-const MODE_WRONLY   = 0x02;
-const MODE_RDWR     = 0x04;
-const MODE_CREATE   = 0x08;
-const MODE_APPEND   = 0x10;
-const MODE_TRUNCATE = 0x20;
-const MODE_SYNC     = 0x40;
-const MODE_EXCL     = 0x80;
-
 // from nsDirPrefs.h
 const kPersonalAddressbookUri  = "moz-abmdbdirectory://abook.mab";
 const kCollectedAddressbookUri = "moz-abmdbdirectory://history.mab";
@@ -106,16 +97,16 @@ MailredirectPrefs.init();
 
 var dumper = new MailredirectDebug.Dump();
 
-function RemoveValueFromAttribute(el, atr, val)
+function RemoveValueFromAttribute(el, attr, val)
 {
-  var orgval = el.getAttribute(atr);
+  var orgval = el.getAttribute(attr);
   val = val.replace(/^\s+|\s+$/g, "");
   var regExp = new RegExp("(?:^|\\s+)" + val + "(?:\\s+|$)", "g");
   var newval = orgval.replace(regExp, "");
   if (newval.match(/^\s*$/)) {
-    el.removeAttribute(atr);
+    el.removeAttribute(attr);
   } else {
-    el.setAttribute(atr, newval);
+    el.setAttribute(attr, newval);
   }
 }
 
@@ -479,7 +470,7 @@ function setupLdapAutocompleteSession()
       try {
         LDAPSession = LDAPSession.createInstance(Ci.nsILDAPAutoCompleteSession);
       } catch (ex) {
-        dumper.dump ("ERROR: Cannot get the LDAP autocomplete session\n" + ex);}
+        dumper.dump ("ERROR: Cannot get the LDAP autocomplete session:" + ex);}
     }
   }
 
@@ -1040,7 +1031,7 @@ function BounceStartup(aParams)
       aRow.setAttribute("URIidx", i);
       aRow.setAttribute("disableonsend", true);
 
-      dumper.dump(mstate.selectedURIs[i]);
+      dumper.dump("[" + i + "] " + mstate.selectedURIs[i]);
       var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[i]);
       var msgSubject = "";
       var msgAuthor = "";
@@ -1289,6 +1280,8 @@ function BounceLoad()
     textbox.removeAttribute("onblur");
   }
 
+  awInitializeNumberOfRowsShown();
+
   // get defaults for Resent-To, Resent-Cc and Resent-Bcc from preferences
   var defaultResentToString  = "";
   var defaultResentCcString  = "";
@@ -1333,6 +1326,7 @@ function BounceLoad()
     var defaultMode = getPref("extensions.mailredirect.defaultMode");
     menulist.value = defaultMode;
   }
+  awFitDummyRows();
 
   AddDirectoryServerObserver(true);
 
@@ -1418,8 +1412,8 @@ function ExitFullscreenMode()
 function DoCommandClose()
 {
   window.MeteorsStatus = null;
-  window.MsgStatusFeedback = null
   window.msgSendListener = null;
+  window.msgStatusFeedback = null
 
   for (var i = 0; i < mstate.size; ++i) {
     if (mstate.sendOperationInProgress[i]) {
@@ -1539,13 +1533,13 @@ var mailredirectDragObserver = {
           if (mstate.selectedURIs.indexOf(rawData) === -1) {
             var i = mstate.size++;
             mstate.selectedURIs.push(rawData);
+            dumper.dump("[" + i + "] " + mstate.selectedURIs[i]);
 
             var aRow = document.createElement("treerow");
             aRow.setAttribute("messageURI", rawData);
             aRow.setAttribute("URIidx", i);
             aRow.setAttribute("disableonsend", true);
 
-            dumper.dump(mstate.selectedURIs[i]);
             var msgService = gMessenger.messageServiceFromURI(mstate.selectedURIs[i]);
             var msgSubject = "";
             var msgAuthor = "";
@@ -1689,15 +1683,13 @@ function createTempFile()
   try {
     file = Cc["@mozilla.org/file/local;1"].
            createInstance(Ci.nsIFile);
-    file.initWithPath(tmpDir.path);
-    file.appendRelativePath("mailredirect.tmp");
   } catch(ex) {
     // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
     file = Cc["@mozilla.org/file/local;1"].
            createInstance(Ci.nsILocalFile);
-    file.initWithPath(tmpDir.path);
-    file.appendRelativePath("mailredirect.tmp");
   }
+  file.initWithPath(tmpDir.path);
+  file.appendRelativePath("mailredirect.tmp");
 
   try {
     file.createUnique(file.NORMAL_FILE_TYPE, parseInt("0600", 8));
@@ -1959,8 +1951,8 @@ function RealBounceMessages()
 
   ToggleWindowLock(true);
 
-  window.MsgStatusFeedback = [];
   window.msgSendListener = [];
+  window.msgStatusFeedback = [];
   window.MeteorsStatus = new nsMeteorsStatus();
 
   concurrentConnections = 5;
@@ -1986,7 +1978,7 @@ function RealBounceMessage(idx)
   dumper.dump("RealBounceMessage(" + uri + ") [" + idx + "]");
 
   window.msgSendListener[idx] = new nsMsgSendListener(idx);
-  window.MsgStatusFeedback[idx] = new nsMsgStatusFeedback(idx);
+  window.msgStatusFeedback[idx] = new nsMsgStatusFeedback(idx);
 
   var localfile = createTempFile();
   if (localfile === null) {
@@ -2024,7 +2016,7 @@ function RealBounceMessage(idx)
 
       if (aStatusCode) {
         // mstate.successfulSent[idx] = false;
-        dumper.dump("aCopyListener.onStopRequest: aStatusCode=" + aStatusCode);
+        dumper.dump("aCopyListener.onStopRequest(" + aRequest + ", " + aContext + ", " + aStatusCode + ")");
         return;
       }
 
@@ -2044,7 +2036,7 @@ function RealBounceMessage(idx)
           msgSend.nsMsgDeliverNow,         // in nsMsgDeliverMode     mode,
           null,                            // in nsIMsgDBHdr          msgToReplace,
           window.msgSendListener[idx],     // in nsIMsgSendListener   aListener,
-          window.MsgStatusFeedback[idx],   // in nsIMsgStatusFeedback aStatusFeedback,
+          window.msgStatusFeedback[idx],   // in nsIMsgStatusFeedback aStatusFeedback,
           null                             // in string               password
           );
       } catch(ex) {
@@ -2065,131 +2057,123 @@ function RealBounceMessage(idx)
     },
 
     onDataAvailable: function(aRequest, aContext, aInputStream, aOffset, aCount) {
-      // dumper.dump("ondataavail req=" + aRequest + ",contxt=" + aContext + ",input="+aInputStream + ",off=" + aOffset + "1nt=" + aCount);
+      //dumper.dump("aCopyListener.onDataAvailable(" + aRequest + ", " + aContext + ", "+aInputStream + ", " + aOffset + ", " + aCount + ")");
       aScriptableInputStream.init(aInputStream);
-      var available = 0;
-      while (true) {
-        try {
-          available = aScriptableInputStream.available();
-        } catch (ex) {
-          available = 0;
-        }
 
-        if (available === 0 || !inHeader) {
-          break;
-        }
+      if (inHeader) {
+        //dumper.dump("!! inHeader reading new buffer, " + aCount + " bytes");
+        buf = leftovers + aScriptableInputStream.read(aCount);
+        leftovers = "";
 
-        if (inHeader) {
-          // dumper.dump("!! reading new buffer  -- leftovers.length="+leftovers.length);
-          buf = leftovers + aScriptableInputStream.read(1024);
-          leftovers = "";
+        while (buf.length > 0) {
+          // find end of line
+          var eol = -1;
+          var eol_length = -1;
+          var eol_r = buf.indexOf("\r");
+          var eol_n = buf.indexOf("\n");
+          if (eol_r !== -1 && eol_n !== -1) {
+            eol = eol_r < eol_n ? eol_r : eol_n;
+          } else if (eol_r !== -1) {
+            eol = eol_r;
+          } else if (eol_n !== -1) {
+            eol = eol_n;
+          }
 
-          while (buf.length > 0) {
-            // find end of line
-            var eol = -1;
-            var eol_length = -1;
-            var eol_r = buf.indexOf("\r");
-            var eol_n = buf.indexOf("\n");
-            if (eol_r !== -1 && eol_n !== -1) {
-              eol = eol_r < eol_n ? eol_r : eol_n;
-            } else if (eol_r !== -1) {
-              eol = eol_r;
-            } else if (eol_n !== -1) {
-              eol = eol_n;
-            }
+          if (eol === -1) {
+            // no end of line character in buffer
+            // remember this part for the next time
+            leftovers = buf;
+            // dumper.dump("leftovers=>>"+leftovers+"<<leftovers_end. length=" + leftovers.length);
+            break;
+          } else {
+            // eol character found. find optional pair (\r\n) (\n\r)
+            eol_length = 1;
 
-            if (eol === -1) {
-              // no end of line character in buffer
-              // remember this part for the next time
+            // try a pair of eol chars
+            // dumper.dump("trying pair. eol="+eol);
+            if (eol + 1 < buf.length) {
+              if ((buf[eol] === "\r" && buf[eol+1] === "\n") ||
+                  (buf[eol] === "\n" && buf[eol+1] === "\r")) {
+                ++eol;
+                ++eol_length;
+                // dumper.dump("pair found. eol="+eol);
+              }
+            } else {
+              // pair couldn't be found because of end of buffer
+              // dumper.dump("pair couldn't be found. end of buf. eol="+eol+" buf.length="+buf.length);
               leftovers = buf;
-              // dumper.dump("leftovers="+leftovers);
               break;
-            } else {
-              // eol character found. find optional pair (\r\n) (\n\r)
-              eol_length = 1;
-
-              // try a pair of eol chars
-              // dumper.dump("trying pair. eol="+eol);
-              if (eol + 1 < buf.length) {
-                if ((buf[eol] === "\r" && buf[eol+1] === "\n") ||
-                    (buf[eol] === "\n" && buf[eol+1] === "\r")) {
-                  ++eol;
-                  ++eol_length;
-                  // dumper.dump("pair found. eol="+eol);
-                }
-              } else {
-                // pair couldn't be found because of end of buffer
-                // dumper.dump("pair couldnt be found. end of buf. eol="+eol+"   buf.length="+buf.length);
-                leftovers = buf;
-                break;
-              }
-              // terminate the line with CRLF sign, not native line-endings
-              line = buf.substr(0, eol+1-eol_length) + "\r\n";
-              buf = buf.substr(eol+1);
-              // dumper.dump("line=>>"+line+"<<line_end.\nline.length=" + line.length);
-
-              if (line === "\r\n") {
-                aFileOutputStream.write(line, line.length);
-                inHeader = false;
-                leftovers = buf;
-                break;
-              }
             }
+            // terminate the line with CRLF sign, not native line-endings
+            line = buf.substr(0, eol+1-eol_length) + "\r\n";
+            buf = buf.substr(eol+1);
+            // dumper.dump("line=>>"+line+"<<line_end. length=" + line.length);
 
-            if (skipping) {
-              if (line[0] === " " || line[0] === "\t") {
-                continue;
-              } else {
-                skipping = false;
-              }
-            }
-
-            // remove sensitive headers (vide: nsMsgSendPart.cpp)
-            // From_ line format - http://www.qmail.org/man/man5/mbox.html
-            if (/^[>]*From \S+ /.test(line) ||
-                /^bcc: /i.test(line) ||
-                /^resent-bcc: /i.test(line) ||
-                /^fcc: /i.test(line) ||
-                /^content-length: /i.test(line) ||
-                /^lines: /i.test(line) ||
-                /^status: /i.test(line) ||
-                /^x-mozilla-status(?:2)?: /i.test(line) ||
-                /^x-mozilla-draft-info: /i.test(line) ||
-                /^x-mozilla-newshost: /i.test(line) ||
-                /^x-uidl: /i.test(line) ||
-                /^x-vm-\S+: /i.test(line) ||
-                /^return-path: /i.test(line) ||
-                /^delivered-to: /i.test(line) ||
-
-                // for drafts
-                /^FCC: /i.test(line) ||
-                /^x-identity-key: /i.test(line) ||
-                /^x-account-key: /i.test(line)) {
-              skipping = true;
-              // discard line
-              // dumper.dump("forbidden line:" + line+"<<");
-            } else {
-              var ret = aFileOutputStream.write(line, line.length);
-              // dumper.dump("write ret = " + ret);
+            if (line === "\r\n") {
+              aFileOutputStream.write(line, line.length);
+              inHeader = false;
+              leftovers = buf;
+              break;
             }
           }
-        }
-      }
-      if (!inHeader) {
-        // out of header -- read the rest and write to file
 
-        // convert all possible line terminations to CRLF (required by RFC822)
-        leftovers = leftovers.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
-        var ret = aFileOutputStream.write(leftovers, leftovers.length);
-        // dumper.dump("leftovers=" + leftovers+"<<end\nret=" + ret);
-        leftovers = "";
-        if (available) {
-          var str = aScriptableInputStream.read(available);
-          // convert all possible line terminations to CRLF (required by RFC822)
-          str = str.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
-          ret = aFileOutputStream.write(str, str.length);
-          // dumper.dump("rest write ret = " + ret);
+          if (skipping) {
+            if (line[0] === " " || line[0] === "\t") {
+              // dumper.dump("forbidden line:" + line+"<<");
+              // continue;
+            } else {
+              skipping = false;
+            }
+          }
+
+          // remove sensitive headers (vide: nsMsgSendPart.cpp)
+          // From_ line format - http://www.qmail.org/man/man5/mbox.html
+          if (/^[>]*From \S+ /.test(line) ||
+              /^bcc: /i.test(line) ||
+              /^resent-bcc: /i.test(line) ||
+              /^fcc: /i.test(line) ||
+              /^content-length: /i.test(line) ||
+              /^lines: /i.test(line) ||
+              /^status: /i.test(line) ||
+              /^x-mozilla-status(?:2)?: /i.test(line) ||
+              /^x-mozilla-draft-info: /i.test(line) ||
+              /^x-mozilla-newshost: /i.test(line) ||
+              /^x-uidl: /i.test(line) ||
+              /^x-vm-\S+: /i.test(line) ||
+              /^return-path: /i.test(line) ||
+              /^delivered-to: /i.test(line) ||
+
+              // for drafts
+              /^FCC: /i.test(line) ||
+              /^x-identity-key: /i.test(line) ||
+              /^x-account-key: /i.test(line)) {
+            skipping = true;
+            // discard line
+            // dumper.dump("forbidden line:" + line+"<<");
+          }
+
+          if (!skipping) {
+            var ret = aFileOutputStream.write(line, line.length);
+            if (ret !== line.length) { dumper.dump("!! inHeader write error? line len "+ line.length + ", written "+ ret); }
+          }
         }
+
+        if (!inHeader && leftovers !== "") {
+          // convert all possible line terminations to CRLF (required by RFC822)
+          leftovers = leftovers.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
+          ret = aFileOutputStream.write(leftovers, leftovers.length);
+          if (ret != leftovers.length) { dumper.dump("!! inBody write error? leftovers len " + leftovers.length + ", written " + ret); }
+          leftovers = "";
+        }
+     } else {
+        // out of header -- read the rest and write to file
+        buf = leftovers + aScriptableInputStream.read(aCount);
+        leftovers = "";
+        // convert all possible line terminations to CRLF (required by RFC822)
+        buf = buf.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
+        ret = aFileOutputStream.write(buf, buf.length);
+        if (ret != buf.length) { dumper.dump("!! inBody write error? buf len " + buf.length + ", written " + ret); }
+        buf = "";
       }
     }
   };
@@ -2197,9 +2181,9 @@ function RealBounceMessage(idx)
   var msgService = messenger.messageServiceFromURI(uri);
 
   try {
-    aFileOutputStream.init(localfile, MODE_WRONLY | MODE_CREATE | MODE_TRUNCATE, parseInt("0600", 8), null);
+    aFileOutputStream.init(localfile, -1, parseInt("0600", 8), 0);
   } catch(ex) {
-    dumper.dump("aFileOutputStream.init() failed.\n" + ex);
+    dumper.dump("aFileOutputStream.init() failed:" + ex);
     // mstate.successfulSent[idx] = false;
     RealBounceMessage(idx+concurrentConnections);
     return;
@@ -2210,12 +2194,11 @@ function RealBounceMessage(idx)
   msgService.CopyMessage(
       uri,
       aCopyListener,
-      false,      //aMoveMessage
-      null, // aUrlListener,
+      false,     // aMoveMessage
+      null,      // aUrlListener,
       msgWindow, // msgWindow,
       newURI);
 
-  // dumper.dump("newURI = " + newURI);
   // dumper.dump("newURI = " + newURI.value.spec);
   newURI = null;
 }
@@ -2284,14 +2267,14 @@ nsMsgStatusFeedback.prototype =
   },
 
   // nsIMsgStatusFeedback implementation.
-  showStatusString: function(statusText) {
-    // dumper.dump(this.URIidx + ". showStatusString(" + statusText + ")");
-    mstate.statusStrings[this.URIidx] = statusText;
+  showStatusString: function(aStatusText) {
+    // dumper.dump("[" + this.URIidx + "] " + " showStatusString(" + aStatusText + ")");
+    mstate.statusStrings[this.URIidx] = aStatusText;
     this.updateStatusText();
   },
 
   startMeteors: function() {
-    dumper.dump("startMeteors");
+    dumper.dump("[" + this.URIidx + "] " + "startMeteors()");
     mstate.statusStrings[this.URIidx] = "";
     mstate.sendOperationInProgress[this.URIidx] = true;
 
@@ -2312,7 +2295,7 @@ nsMsgStatusFeedback.prototype =
   },
 
   stopMeteors: function() {
-    dumper.dump("stopMeteors");
+    dumper.dump("[" + this.URIidx + "] " + "stopMeteors()");
     if (mstate) mstate.sendOperationInProgress[this.URIidx] = false;
 
     if (this.URIidx+concurrentConnections < mstate.size) {
@@ -2336,7 +2319,7 @@ nsMsgStatusFeedback.prototype =
   },
 
   showProgress: function(percentage) {
-    // dumper.dump("showProgress(" + percentage +")");
+    // dumper.dump("[" + this.URIidx + "] " + "showProgress(" + percentage +")");
     this.ensureStatusFields();
     if (percentage >= 0) {
       this.statusBar.setAttribute("mode", "normal");
@@ -2346,7 +2329,7 @@ nsMsgStatusFeedback.prototype =
   },
 
   closeWindow: function(percent) {
-    // dumper.dump("closeWindow(" + percent +")");
+    // dumper.dump("[" + this.URIidx + "] " + "closeWindow(" + percent +")");
   },
 
   // nsIProgressEventSink implementation
@@ -2361,7 +2344,7 @@ nsMsgStatusFeedback.prototype =
 
   // all progress notifications are done through the nsIWebProgressListener implementation...
   onStateChange: function(aWebProgress, aRequest, aStateFlags, aStatus) {
-    // dumper.dump(this.URIidx + ". onStateChange(" + aWebProgress + ", " + aRequest + ", " + aStateFlags + ", " + aStatus + ")");
+    // dumper.dump("[" + this.URIidx + "] " + ". onStateChange(" + aWebProgress + ", " + aRequest + ", " + aStateFlags + ", " + aStatus + ")");
     if (aStateFlags & Ci.nsIWebProgressListener.STATE_START) {
       // dumper.dump("onStateChange STATE_START");
       mstate.sendOperationInProgress[this.URIidx] = true;
@@ -2383,7 +2366,7 @@ nsMsgStatusFeedback.prototype =
   },
 
   onProgressChange: function(aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress) {
-    // dumper.dump(this.URIidx + ". onProgressChange(" + aWebProgress + ", " + aRequest.name + ", " + aCurSelfProgress + ", " + aMaxSelfProgress + ", " + aCurTotalProgress + ", " + aMaxTotalProgress + ")");
+    // dumper.dump("[" + this.URIidx + "] " + ". onProgressChange(" + aWebProgress + ", " + aRequest.name + ", " + aCurSelfProgress + ", " + aMaxSelfProgress + ", " + aCurTotalProgress + ", " + aMaxTotalProgress + ")");
 
     this.ensureStatusFields();
     if (aMaxTotalProgress > 0) {
@@ -2391,7 +2374,7 @@ nsMsgStatusFeedback.prototype =
       if (percent > 100) percent = 100;
       mstate.selectedURIsProgress[this.URIidx] = percent;
 
-      // dumper.dump(this.URIidx + ". onProgressChange = " + percent);
+      // dumper.dump("[" + this.URIidx + "] " + ". onProgressChange = " + percent);
       percent = Math.round(percent);
 
       // this.statusBar.removeAttribute("mode");
@@ -2406,10 +2389,12 @@ nsMsgStatusFeedback.prototype =
     }
   },
 
-  onLocationChange: function(aWebProgress, aRequest, aLocation) { },
+  onLocationChange: function(aWebProgress, aRequest, aLocation) {
+    // dumper.dump("[" + this.URIidx + "] " + "onLocationChange(" + aWebProgress + ", " + aRequest + ", " + aLocation + ")");
+  },
 
   onStatusChange: function(aWebProgress, aRequest, aStatus, aMessage) {
-    // dumper.dump("onStatusChange(" + aWebProgress + ", " + aRequest + ", " + aStatus + ", " + aMessage + ")");
+    // dumper.dump("[" + this.URIidx + "] " + "onStatusChange(" + aWebProgress + ", " + aRequest + ", " + aStatus + ", " + aMessage + ")");
     // Looks like it's possible that we get call while the document has been already delete!
     // therefore we need to protect ourself by using try/catch
     try {
@@ -2484,7 +2469,7 @@ nsMeteorsStatus.prototype = {
       success &= mstate.successfulSent[i];
     }
 
-    dumper.dump("_stopMeteors: successfuly sent all messages? " + success);
+    dumper.dump("_stopMeteors: successfully sent all messages? " + success);
 
     let numMessages = mstate.size;
     let pluralRule = BounceMsgsBundle.getString("pluralRule");
@@ -2537,7 +2522,7 @@ nsMsgSendListener.prototype =
   mailredirectTreeCell: null,
 
   ensureStatusFields: function() {
-    dumper.dump("msgSendListener.ensureStatusFields");
+    // dumper.dump("msgSendListener.ensureStatusFields");
     if (!this.mailredirectTreeRow || !this.mailredirectTreeCell) {
       var treeChildren = document.getElementById("topTreeChildren");
       if (treeChildren) {
@@ -2561,19 +2546,19 @@ nsMsgSendListener.prototype =
 
   // nsIMsgSendListener
   onStartSending: function(aMsgID, aMsgSize) {
-    // dumper.dump("onStartSending(" + aMsgID + ", " + aMsgSize + ")");
+    // dumper.dump("[" + this.URIidx + "] " + "msgSendListener.onStartSending(" + aMsgID + ", " + aMsgSize + ")");
   },
 
   onProgress: function(aMsgID, aProgress, aProgressMax) {
-    // dumper.dump("msgSendListener.onProgress(" + aMsgID + ", " + aProgress + ", " + aProgressMax + ")");
+    // dumper.dump("[" + this.URIidx + "] " + "msgSendListener.onProgress(" + aMsgID + ", " + aProgress + ", " + aProgressMax + ")");
   },
 
   onStatus: function(aMsgID, aMsg) {
-    // dumper.dump("msgSendListener.onStatus("+aMsgID+", "+aMsg + ")");
+    // dumper.dump("[" + this.URIidx + "] " + "msgSendListener.onStatus("+aMsgID+", "+aMsg + ")");
   },
 
   onStopSending: function(aMsgID, aStatus, aMsg, returnFileSpec) {
-    // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +", "+aMsg+", "+returnFileSpec + ")");
+    // dumper.dump("[" + this.URIidx + "] " + "msgSendListener.onStopSending("+aMsgID+", "+aStatus +", "+aMsg+", "+returnFileSpec + ")");
     this.ensureStatusFields();
     mstate.selectedURIsProgress[this.URIidx] = 100;
     if (aStatus) {
@@ -2627,25 +2612,33 @@ nsMsgSendListener.prototype =
     }
   },
 
-  onSendNotPerformed: function(aMsgID, aStatus) {
-    // dumper.dump(this.URIidx + ". onStopSending("+aMsgID+", "+aStatus +")");
+  onGetDraftFolderURI: function(aFolderURI) {
+    // dumper.dump("[" + this.URIidx + "] " + "msgSendListener.onGetDraftFolderURI("+aFolderURI +")");
   },
 
-  onGetDraftFolderURI: function(aFolderURI) {
-    // dumper.dump("onGetDraftFolderURI("+aFolderURI +")");
+  onSendNotPerformed: function(aMsgID, aStatus) {
+    // dumper.dump("[" + this.URIidx + "] " + "msgSendListener.onSendNotPerformed("+aMsgID+", "+aStatus +")");
   },
 
   // nsIMsgCopyServiceListener
   OnStartCopy: function() {
-    // dumper.dump("OnStartCopy()");
+    // dumper.dump("[" + this.URIidx + "] " + "(msgCopyServiceListener) msgSendListener.OnStartCopy()");
   },
 
   OnProgress: function(aProgress, aProgressMax) {
-    // dumper.dump("OnProgress(" + aProgress + ", " + aProgressMax + ")");
+    // dumper.dump("[" + this.URIidx + "] " + "(msgCopyServiceListener) msgSendListener.OnProgress(" + aProgress + ", " + aProgressMax + ")");
+  },
+
+  SetMessageKey: function(aKey) {
+    // dumper.dump("[" + this.URIidx + "] " + "(msgCopyServiceListener) msgSendListener.SetMessageKey(" + aKey + ")");
+  },
+
+  SetMessageId: function(aMessageId) {
+    // dumper.dump("[" + this.URIidx + "] " + "(msgCopyServiceListener) msgSendListener.SetMessageId(" + aMessageId +")");
   },
 
   OnStopCopy: function(aStatus) {
-    // dumper.dump("OnStopCopy(" + aStatus + ")");
+    dumper.dump("[" + this.URIidx + "] " + "(msgCopyServiceListener) msgSendListener.OnStopCopy(" + aStatus + ")");
     /*
     if (aStatus) {
       // mstate.successfulSent[this.URIidx] = false;
@@ -2806,6 +2799,10 @@ function SwitchElementFocus(event)
       msgIdentityElement.focus();
     }
   }
+}
+
+function sidebarCloseButtonOnCommand() {
+  toggleAddressPicker();
 }
 
 function toggleAddressPicker()

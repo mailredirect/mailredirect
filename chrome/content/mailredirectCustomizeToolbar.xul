@@ -3,6 +3,7 @@
 <?xml-stylesheet href="chrome://mailredirect-os/skin/mailredirect.css" type="text/css"?>
 <?xml-stylesheet href="chrome://mailredirect-os/skin/messageHeader.css" type="text/css"?>
 <?xml-stylesheet href="chrome://mailredirect-os/skin/mailredirect-compose.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect.css" type="text/css"?>
 
 <overlay id="mailRedirectCustomizeToolbarOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">

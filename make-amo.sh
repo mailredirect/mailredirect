@@ -59,9 +59,8 @@ do
             if expr match "${line}" '<!ENTITY' > /dev/null
             then
               untranslatedstring="${line%%\"*}\"\">"
-              echo ${line}, ${untranslatedstring//\//\\/}
               sed -r "s/${untranslatedstring//\//\\/}/${line//\//\\/}/" ${file} > ${file}.new
-                mv ${file}.new ${file}
+              mv ${file}.new ${file}
             fi
           done < en-US/$(basename ${file})
         fi
@@ -69,17 +68,19 @@ do
     done
   fi
 done
-cd ..
-find * -type f | grep -E "^content/|^locale|^skin" | sort > mailredirect.txt
-zip -r -D -0 mailredirect.jar -@ < mailredirect.txt
 cd ../..
-grep \<em:update -A 2 ../code/install.rdf > make-grep.txt
-grep -v -f make-grep.txt ../code/install.rdf > amo/install.rdf
+echo install.rdf > mailredirect.txt
+echo chrome.manifest >> mailredirect.txt
+find chrome -type f | sort >> mailredirect.txt
+echo defaults/ >> mailredirect.txt
+echo icon.png >> mailredirect.txt
+echo LICENSE >> mailredirect.txt
+echo README >> mailredirect.txt
+grep \<em:update -A 2 install.rdf > make-grep.txt
+grep -v -f make-grep.txt ../../code/install.rdf > amo/install.rdf
 rm make-grep.txt
-sed -r "s/chrome\//jar:chrome\/mailredirect.jar!\//" ../code/chrome.manifest > amo/chrome.manifest
-version=$(grep em:version ../code/install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
-cd amo
+version=$(grep em:version install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
-zip -r -D mailredirect-${version}-sm+tb.xpi install.rdf chrome.manifest chrome/mailredirect.jar chrome/icons/ defaults/ icon.png LICENSE README
-cd ..
+zip -r -D -9 mailredirect-${version}-sm+tb.xpi -@ < mailredirect.txt
+rm mailredirect.txt
 read -p "Press any key to continue . . . " -n 1

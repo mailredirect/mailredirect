@@ -50,9 +50,9 @@ window.MailredirectExtension = {
   },
 
   MailredirectController : {
-    supportsCommand : function(command)
+    supportsCommand : function(aCommand)
     {
-      switch(command)
+      switch(aCommand)
       {
         case "cmd_mailredirect":
           return true;
@@ -60,9 +60,9 @@ window.MailredirectExtension = {
           return false;
       }
     },
-    isCommandEnabled: function(command)
+    isCommandEnabled: function(aCommand)
     {
-      switch(command)
+      switch(aCommand)
       {
         case "cmd_mailredirect":
           if (!MailredirectExtension.isOffline) {
@@ -76,6 +76,8 @@ window.MailredirectExtension = {
                 return true;
               else if (currWindowType === "mail:3pane")
                 return (GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed);
+            } else {
+              Components.utils.reportError("MailredirectController cannot determine isCommandEnabled state for cmd_mailredirect, because gFolderDisplay is not yet initialized");
             }
           }
           return false;
@@ -83,14 +85,14 @@ window.MailredirectExtension = {
           return false;
       }
     },
-    doCommand: function(command)
+    doCommand: function(aCommand)
     {
       // if the user invoked a key short cut then it is possible that we got here for a command which is
       // really disabled. kick out if the command should be disabled.
-      if (!this.isCommandEnabled(command))
+      if (!this.isCommandEnabled(aCommand))
         return;
 
-      switch(command)
+      switch(aCommand)
       {
         case "cmd_mailredirect":
           MailredirectExtension.OpenMailredirectComposeWindow();
@@ -99,10 +101,13 @@ window.MailredirectExtension = {
     }
   },
 
-  SetupController: function()
+  SetupController: function(event)
   {
-    top.controllers.appendController(MailredirectExtension.MailredirectController);
-    goUpdateCommand("cmd_mailredirect");
+    setTimeout(function() {
+      top.controllers.appendController(MailredirectExtension.MailredirectController);
+      goUpdateCommand("cmd_mailredirect");
+      MailredirectExtension.UpdateCommand()
+    }, 0);
   },
 
   OfflineObserver: {
@@ -119,11 +124,6 @@ window.MailredirectExtension = {
   UpdateCommand: function(event)
   {
     goUpdateCommand("cmd_mailredirect");
-  },
-
-  DelayedUpdateCommand: function(event)
-  {
-    setTimeout(function() { MailredirectExtension.UpdateCommand() }, 0);
   },
 
   FillMailContextMenu: function(event)
@@ -272,23 +272,21 @@ window.MailredirectExtension = {
     var observerService = Cc["@mozilla.org/observer-service;1"].
                           getService(Ci.nsIObserverService);
     observerService.removeObserver(MailredirectExtension.OfflineObserver, "network:offline-status-changed");
-  },
-
+  }
 };
 
 window.MailredirectPrefs.init();
+window.MailredirectPrefs.unpackIcon();
 
-window.addEventListener("load", MailredirectExtension.SetupController, false);
-window.addEventListener("load", MailredirectExtension.DelayedUpdateCommand, false);
 window.addEventListener("load", MailredirectExtension.InstallListeners, false);
+window.addEventListener("load", MailredirectExtension.AddOfflineObserver, false);
+window.addEventListener("load", MailredirectExtension.SetupController, false);
 
 var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
 if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "36.0") >= 0) {
   window.addEventListener("DOMFrameContentLoaded", MailredirectExtension.addButtonToMultimessageView, true);
 }
-
-window.addEventListener("load", MailredirectExtension.AddOfflineObserver, false);
 
 window.addEventListener("unload", MailredirectExtension.UninstallListeners, false);
 window.addEventListener("unload", MailredirectExtension.RemoveOfflineObserver, false);

@@ -25,7 +25,7 @@ function awGetNumberOfCols()
 {
   if (gNumberOfCols === 0) {
     var listbox = document.getElementById("addressingWidget");
-    var listCols = listbox.getElementsByTagName("listcol");
+    var listCols = listbox.getElementsByTagName("treecol");
     gNumberOfCols = listCols.length;
     if (!gNumberOfCols)
       gNumberOfCols = 1;  /* if no cols defined, that means we have only one! */
@@ -39,8 +39,9 @@ function awGetNumberOfCols()
  */
 function awInitializeNumberOfRowsShown()
 {
-  let headerToolbar = document.getElementById("MsgHeadersToolbar");
+  let msgHeadersToolbar = document.getElementById("MsgHeadersToolbar");
   let addressingWidget = document.getElementById("addressingWidget");
+  let addressingWidgetItem = addressingWidget.getElementsByClassName("addressingWidgetItem")[0];
   let awNumRowsShownDefault =
     Services.prefs.getIntPref("extensions.mailredirect.addresswidget.numRowsShownDefault");
 
@@ -56,12 +57,14 @@ function awInitializeNumberOfRowsShown()
   // This lets users shrink the address widget to one row (with delicate UX)
   // and thus maximize the space available for composition body,
   // especially on small screens.
-  headerToolbar.minHeight = headerToolbar.boxObject.height;
+  msgHeadersToolbar.minHeight = msgHeadersToolbar.boxObject.height;
 
   // Set default number of rows shown for address widget.
   addressingWidget.setAttribute("rows", awNumRowsShownDefault);
-  headerToolbar.height = headerToolbar.boxObject.height + extraHeight;
-
+  addressingWidget.height = awNumRowsShownDefault * addressingWidgetItem.boxObject.height +
+    extraHeight;
+dumper.dump("addressingWidgetItem.boxObject.height " + addressingWidgetItem.boxObject.height +
+            ", addressingWidget.height "+ addressingWidget.height);
   // Update addressingWidget internals.
   awCreateOrRemoveDummyRows();
 }
@@ -246,14 +249,15 @@ function awDeleteRow(rowToDelete)
   // assume 2 column update (input and popup)
   for (var row = rowToDelete + 1; row <= maxRecipients; row++)
     awSetInputAndPopupId(awGetInputElement(row), awGetPopupElement(row), (row-1));
+
+  updateSendLock();
 }
 
 function awClickEmptySpace(target, setFocus)
 {
-  if (document.getElementById("addressCol2#1").disabled || target === null ||
-      (target.localName !== "listboxbody" &&
-       target.localName !== "listcell" &&
-       target.localName !== "listitem"))
+  if (document.getElementById("addressCol2#1").disabled ||
+      target === null ||
+      target.localName !== "hbox")
     return;
 
   var lastInput = awGetInputElement(top.MAX_RECIPIENTS);
@@ -286,6 +290,8 @@ function awDeleteHit(inputElement)
   /* 1. don't delete the row if it's the last one remaining, just reset it! */
   if (top.MAX_RECIPIENTS <= 1) {
     inputElement.value = "";
+    onRecipientsChanged(true);
+    updateSendLock();
     return;
   }
 
@@ -379,7 +385,7 @@ function awGetListItem(row)
   var listbox = document.getElementById("addressingWidget");
 
   if (listbox && row > 0) {
-    var listitems = listbox.getElementsByTagName("listitem");
+    var listitems = listbox.getElementsByTagName("richlistitem");
     if (listitems && listitems.length >= row)
       return listitems[row-1];
   }
@@ -392,7 +398,7 @@ function awGetRowByInputElement(inputElement)
   if (inputElement) {
     var listitem = inputElement.parentNode.parentNode;
     while (listitem) {
-      if (listitem.localName === "listitem")
+      if (listitem.localName === "richlistitem")
         ++row;
       listitem = listitem.previousSibling;
     }
@@ -444,6 +450,10 @@ function _awSetFocus()
 
 function awTabFromRecipient(element, event)
 {
+  // If we are the last element in the listbox, we don't want to create a new row.
+  if (element == awGetInputElement(top.MAX_RECIPIENTS))
+    top.doNotCreateANewRow = true;
+
   var row = awGetRowByInputElement(element);
   if (!event.shiftKey && row < top.MAX_RECIPIENTS) {
     var listBoxRow = row - 1; // listbox row indices are 0-based, ours are 1-based.
@@ -650,7 +660,7 @@ function awCreateOrRemoveDummyRows()
 function awCalcContentHeight()
 {
   var listbox = document.getElementById("addressingWidget");
-  var items = listbox.getElementsByTagName("listitem");
+  var items = listbox.getElementsByTagName("richlistitem");
 
   gAWContentHeight = 0;
   if (items.length > 0) {
@@ -667,12 +677,23 @@ function awCalcContentHeight()
 
 function awCreateDummyItem(aParent)
 {
-  var titem = document.createElement("listitem");
+  var listbox = document.getElementById("addressingWidget");
+  var item = listbox.getElementsByTagName("richlistitem")[0];
+
+  var titem = document.createElement("richlistitem");
   titem.setAttribute("_isDummyRow", "true");
   titem.setAttribute("class", "dummy-row");
+  titem.style.height = item.boxObject.height + "px";
 
-  for (var i = awGetNumberOfCols(); i > 0; i--)
-    awCreateDummyCell(titem);
+  for (let i = 0; i < awGetNumberOfCols(); i++) {
+    let cell = awCreateDummyCell(titem);
+    if (item.children[i].hasAttribute("style")) {
+      cell.setAttribute("style", item.children[i].getAttribute("style"));
+    }
+    if (item.children[i].hasAttribute("flex")) {
+      cell.setAttribute("flex", item.children[i].getAttribute("flex"));
+    }
+  }
 
   if (aParent)
     aParent.appendChild(titem);

@@ -69,6 +69,7 @@ MailredirectDebug.Dump.prototype =
 
     return;
   },
+
   dump : function(str)
   {
     if (this.debug) {
