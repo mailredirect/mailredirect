@@ -77,7 +77,7 @@ echo icon.png >> mailredirect.txt
 echo LICENSE >> mailredirect.txt
 echo README >> mailredirect.txt
 grep \<em:update -A 2 install.rdf > make-grep.txt
-grep -v -f make-grep.txt ../../code/install.rdf > amo/install.rdf
+grep -v -f make-grep.txt ../../code/install.rdf > install.rdf
 rm make-grep.txt
 version=$(grep em:version install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
