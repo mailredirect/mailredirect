@@ -4,10 +4,18 @@
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/NetUtil.jsm");
-Components.utils.import("resource:///modules/mailServices.js");
+try {
+  // mailServices.js has been renamed MailServices.jsm in TB63
+  Components.utils.import("resource:///modules/MailServices.jsm");
+} catch(ex) {
+  Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
+}
 try {
   Components.utils.import("resource://gre/modules/AppConstants.jsm"); // Gecko 45+
 } catch(ex) { };
+
+const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
+const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
@@ -16,6 +24,7 @@ window.MailredirectPrefs = {
   onload: function()
   {
     MailredirectPrefs.init();
+    MailredirectPrefs.updateHideMenuitems();
     MailredirectPrefs.updateDefaultMode();
   },
 
@@ -24,7 +33,8 @@ window.MailredirectPrefs = {
     var prefService = Cc["@mozilla.org/preferences-service;1"].
                       getService(Ci.nsIPrefService);
     var defaultBranch = prefService.getDefaultBranch("extensions.mailredirect.");
-    defaultBranch.setBoolPref("copyToSentMail", true);
+    defaultBranch.setBoolPref("addToForwardAs", true);
+    defaultBranch.setBoolPref("hideRedirectMenuitems", false);
     defaultBranch.setIntPref("concurrentConnections", 5);
     defaultBranch.setCharPref("defaultResentTo", "");
     defaultBranch.setCharPref("defaultResentCc", "");
@@ -34,6 +44,13 @@ window.MailredirectPrefs = {
     defaultBranch.setIntPref("addresswidget.numRowsShownDefault", 3);
     defaultBranch.setBoolPref("firstrun.button-contacts", false);
     defaultBranch.setBoolPref("firstrun.unpack-icon", false);
+  },
+
+  updateHideMenuitems: function()
+  {
+    var addToForwardAs = document.getElementById("addToForwardAs");
+    var hideMenuitems = document.getElementById("hideRedirectMenuitems");
+    hideMenuitems.disabled = !addToForwardAs.checked;
   },
 
   updateDefaultMode: function()
@@ -111,11 +128,9 @@ window.MailredirectPrefs = {
                  get("TmpD", Ci.nsIFile);
       tempFile.append("errorconsole.txt");
       tempFile.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, parseInt("0600", 8));
-      var tempUri = Services.io.newFileURI(tempFile);
       var fileStream = Cc["@mozilla.org/network/file-output-stream;1"].
                    createInstance(Ci.nsIFileOutputStream);
       fileStream.init(tempFile, -1, -1, 0);
-      let dataTxt = "";
 
       // for every nsIConsoleMessage save it to file
       var consoleService = Cc["@mozilla.org/consoleservice;1"].
@@ -140,6 +155,8 @@ window.MailredirectPrefs = {
       let fields = Cc["@mozilla.org/messengercompose/composefields;1"]
                      .createInstance(Ci.nsIMsgCompFields);
       fields.forcePlainText = false;
+
+      let dataTxt = "";
       fields.body = dataTxt;
       // In general we can have non-ASCII characters, and compose's charset
       // detection doesn't seem to work when the HTML part is pure ASCII but the
@@ -149,19 +166,24 @@ window.MailredirectPrefs = {
 
       let attachment = Cc["@mozilla.org/messengercompose/attachment;1"].
                        createInstance(Ci.nsIMsgAttachment);
-      // resolveURI does all the magic around working out what the
-      // attachment is, including web pages, and generating the correct uri.
-      let commandLine = Cc["@mozilla.org/toolkit/command-line;1"].
-                        createInstance();
-      let uri = commandLine.resolveURI(tempFile.path);
-      // If uri is for a file and it exists set the attachment size.
-      if (uri instanceof Ci.nsIFileURL) {
-        if (uri.file.exists())
-          attachment.size = uri.file.fileSize;
-        else
-          attachment = null;
+      var tempUri = Services.io.newFileURI(tempFile);
+      if (tempUri instanceof Ci.nsIFileURL) {
+        if (tempUri.file.exists())
+          attachment.size = tempUri.file.fileSize;
+        attachment.url = tempUri.spec;
+      } else {
+        // resolveURI does all the magic around working out what the
+        // attachment is, including web pages, and generating the correct uri.
+        let commandLine = Cc["@mozilla.org/toolkit/command-line;1"].
+                          createInstance();
+        let uri = commandLine.resolveURI(tempFile.path);
+        // If uri is for a file and it exists set the attachment size.
+        if (uri instanceof Ci.nsIFileURL) {
+          if (uri.file.exists())
+            attachment.size = uri.file.fileSize;
+          attachment.url = uri.spec;
+        }
       }
-      attachment.url = uri.spec;
       fields.addAttachment(attachment);
       params.composeFields = fields;
 
@@ -219,15 +241,10 @@ window.MailredirectPrefs = {
 
     let firstRunPref = "extensions.mailredirect.firstrun.unpack-icon";
     if (!this.getPref(firstRunPref)) {
-      var platform;
       var iconArray;
       var allExist = true;
       var allCopied = true;
-      if (typeof AppConstants !== "undefined") {
-        platform = AppConstants.platform;
-      } else {
-        platform = Application.platform;
-      }
+      var platform = AppConstants.platform;
       if (platform === "win") {
         iconArray = [ "msgMailRedirectWindow.ico" ];
       } else {
@@ -261,12 +278,13 @@ window.MailredirectPrefs = {
             try {
               file = Cc["@mozilla.org/file/local;1"].
                      createInstance(Ci.nsIFile);
+              file.initWithFile(chromeIcon);
             } catch(ex) {
               // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
               file = Cc["@mozilla.org/file/local;1"].
                      createInstance(Ci.nsILocalFile);
+              file.initWithFile(chromeIcon);
             }
-            file.initWithFile(chromeIcon);
 
             var aFileOutputStream = Cc["@mozilla.org/network/file-output-stream;1"].
                                     createInstance(Ci.nsIFileOutputStream);

@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "メッセージをリダイレクトします">
 <!ENTITY addressButton.label "アドレス帳">
 <!ENTITY addressButton.tooltip "アドレス帳に移動します">
-<!ENTITY throbberItem.title "Activity Indicator">
+<!ENTITY throbberItem.title "アクティブインジケーター">
 <!ENTITY throbber.tooltip "&vendorShortName; のホームページに移動します">
 
 <!ENTITY closeCmd.key "W">
@@ -42,7 +42,7 @@
 <!ENTITY showStatusbarCmd.label "ステータス バー">
 <!ENTITY showStatusbarCmd.accesskey "S">
 
-<!ENTITY addressSidebar.label "Contacts Sidebar">
+<!ENTITY addressSidebar.label "アドレスサイドバー">
 <!ENTITY addressSidebar.accesskey "o">
 <!ENTITY addressesSidebarTitle.label "連絡先">
 <!ENTITY addressSidebarButton.label "連絡先">
@@ -59,8 +59,8 @@
 <!ENTITY resendFromAddr.accesskey "R">
 
 <!ENTITY resendToAddr.label "再送信先:">
-<!ENTITY resendCcAddr.label "再送信先(CC):">
-<!ENTITY resendBccAddr.label "再送信先(BCC):">
+<!ENTITY resendCcAddr.label "再送信先(Cc):">
+<!ENTITY resendBccAddr.label "再送信先(Bcc):">
 
 <!ENTITY bounceMailsLabel.label "以下のメールがリダイレクトされます:">
 

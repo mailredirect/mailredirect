@@ -1,9 +1,19 @@
 <!ENTITY mailredirectSettings.title "MailRedirect 設定">
 
-<!ENTITY copyToSentMails.label "將已重新導向的郵件的副本放在已寄送資料夾裡？">
+<!ENTITY copyToSentMails.label "是否要將已重新導向的郵件副本放在寄件匣中？">
 <!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "當此選項被選取時，已重新導向的訊息的副本會被放在已寄送資料夾。當此選項未被選取時，已重新導向的訊息的副本將不會被複製至任何資料夾。\n附註：如果此選項被選取時，你用作重新導向的帳戶的設定是「不儲存任何已傳送訊息」，那麼已重新導向的訊息的副本亦不會被儲存。">
+
+<!ENTITY addToForwardAs.label "將「重新導向」新增到「轉寄為」選單與按鈕中">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "將「重新導向」新增到「轉寄為」選單與按鈕中後，可將所有轉寄操作合併到單一項目中。\n您可以自訂工具列並勾選下方的選項來移除該按鈕。額外的選單項目也變得多餘，您可以隱藏。">
+
+<!ENTITY hideRedirectMenuitems.label "從訊息、應用程式與右鍵選單中隱藏重新導向選單項目">
+<!ENTITY hideRedirectMenuitems.accesskey "H">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "從訊息、應用程式與右鍵選單中隱藏多餘的重新導向選單項目。">
 
 <!ENTITY concurrentConnections.label "SMTP 並行連接數目：">
 <!ENTITY concurrentConnections.accesskey "N">
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "預設模式：">
 <!ENTITY defaultMode.accesskey "m">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "選擇你希望如何重新導向訊息的預設方式\n此設定僅在你未指定任何預設收件者時有效。">
+<!ENTITY defaultMode.tooltip "選擇您預設希望如何重新導向訊息。\n此選項僅在您沒有指定預設收件者時有效。">
 <!ENTITY defaultModeResendTo.label "重寄收件者">
 <!ENTITY defaultModeResendCc.label "重寄副本">
 <!ENTITY defaultModeResendBcc.label "重寄密件副本">

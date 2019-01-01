@@ -3,3 +3,7 @@
 <!ENTITY bounceCommand.tooltip "Преусмерите изабране поруке">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
+
+<!ENTITY forwardAsRedirect.label "Преусмери">
+<!ENTITY forwardAsRedirect.accesskey "П">
+<!ENTITY forwardAsRedirect.tooltip "Преусмерите изабране порук">

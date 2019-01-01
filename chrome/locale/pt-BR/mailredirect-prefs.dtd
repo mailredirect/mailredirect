@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Se esta opção estiver marcada, uma cópia da mensagem redirecionada é enviada para a pasta Itens Enviados. Se estiver desmarcada, a mensagem redirecionada não é copiada para pasta alguma.\nNota: Se esta opção estiver marcada mas as configuração da conta sendo usada para redireccionar for 'nunca salvar mensagens enviadas', nenhuma cópia das mensagens redirecionadas será gravada.">
 
+<!ENTITY addToForwardAs.label "Adicionar Redirecionar aos menus e botões de Encaminhar Como">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Adicionando Redirecionar aos menus e botões de Encaminhar Como você agrupa todas as ações de encaminhar sob um único item. \nVocê pode remover os botões da barras de ferramentas marcando a opção abaixo e você pode ocultar os itens de menu separados já que eles se tornaram redundantes.">
+
+<!ENTITY hideRedirectMenuitems.label "Ocultar o menu de redirecionamento da Mensagem, Aplicação e menus de contexto">
+<!ENTITY hideRedirectMenuitems.accesskey "O">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Oculta o menu de redirecionamento da Mensagem, Aplicação e menus de contexto.">
+
 <!ENTITY concurrentConnections.label "Número de conexões SMTP simultâneas:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "Modo Padrão:">
 <!ENTITY defaultMode.accesskey "M">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Escolha como deseja redirecionar as mensagens por padrão.\nEsta configuração tem efeito somente quando não estiver especificado nenhum destinatário predefinido.">
+<!ENTITY defaultMode.tooltip "Escolha como você deseja redirecionar as mensagens por padrão. \nEsta configuração tem efeito apenas quando nenhum destinatário padrão tiver sido especificado.">
 <!ENTITY defaultModeResendTo.label "Reenviar-Para">
 <!ENTITY defaultModeResendCc.label "Reenviar-Cc">
 <!ENTITY defaultModeResendBcc.label "Reenviar-Cco">

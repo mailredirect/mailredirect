@@ -1,5 +1,6 @@
 #!/bin/bash
 # amo
+DEST=amo
 if [ "$(uname)" == "Linux" ]
 then
   cd $(dirname .)/..
@@ -8,9 +9,9 @@ else
 fi
 [ -d xpi ] || mkdir xpi
 cd xpi
-rm -fr amo/
-rsync -a --exclude-from=../code/make-exclude.txt ../code/* amo/
-cd amo/chrome/locale
+rm -fr ${DEST}/
+rsync -a --exclude-from=../code/make-exclude.txt ../code/* ${DEST}/
+cd ${DEST}/chrome/locale
 for locale in *
 do
   if [ "${locale}" != "en-US" ]
@@ -70,6 +71,7 @@ do
 done
 cd ../..
 echo install.rdf > mailredirect.txt
+echo manifest.json >> mailredirect.txt
 echo chrome.manifest >> mailredirect.txt
 find chrome -type f | sort >> mailredirect.txt
 echo defaults/ >> mailredirect.txt

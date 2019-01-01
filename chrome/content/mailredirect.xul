@@ -35,8 +35,15 @@
       accesskey="&bounceCommand.accesskey;"
       insertafter="forwardAsMenu"
       key="key_mailredirect"
-      observes="cmd_mailredirect"
-      oncommand="cmd_mailredirect(event)" />
+      command="cmd_mailredirect" />
+  </menupopup>
+
+  <menupopup id="menu_forwardAsPopup">
+    <menuitem id="menu_forwardAsRedirect"
+      label="&forwardAsRedirect.label;"
+      accesskey="&forwardAsRedirect.accesskey;"
+      insertafter="menu_forwardAsAttachment"
+      command="cmd_mailredirect" />
   </menupopup>
 
   <!-- if (thunderbird) -->
@@ -46,20 +53,46 @@
   </toolbarpalette>
 
   <!-- elseif (seamonkey) -->
-  <toolbox id="mailToolbarToolbox">
-    <toolbar id="msgToolbar">
-      <hbox id="toolbar_button_box">
-        <toolbarbutton id="mailredirect-toolbarbutton" class="toolbarbutton-1" label="&bounceCommand.label;"
-          tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward" />
-      </hbox>
-    </toolbar>
-  </toolbox>
+  <hbox id="toolbar_button_box">
+    <toolbarbutton id="mailredirect-toolbarbutton" class="toolbarbutton-1" label="&bounceCommand.label;"
+      tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward" />
+  </hbox>
   <!-- endif -->
 
-  <popup id="mailContext">
-    <menuitem id="mailContext-mailredirect" insertafter="mailContext-forwardAsMenu,mailContext-forward"
-      label="&bounceCommand.label;" accesskey="&bounceCommand.accesskey;"
-      observes="cmd_mailredirect" />
-  </popup>
+  <menupopup id="button-ForwardPopup"> <!-- thunderbird -->
+    <menuitem id="button-ForwardAsRedirect"
+      label="&forwardAsRedirect.label;"
+      tooltiptext="&forwardAsRedirect.tooltip;"
+      insertafter="button-ForwardAsAttachmentMenu,button-forwardAsMenu-forwardAsAttachment"
+      command="cmd_mailredirect" /> <!-- button-forwardAsMenu-forwardAsAttachment is added by Forward add-on -->
+  </menupopup>
+  <menupopup id="button-forwardPopup"> <!-- seamonkey, menu has a different id, menuitems have no id -->
+    <menuitem id="button-ForwardAsRedirect"
+      label="&forwardAsRedirect.label;"
+      accesskey="&forwardAsRedirect.accesskey;"
+      tooltiptext="&forwardAsRedirect.tooltip;"
+      command="cmd_mailredirect" />
+  </menupopup>
+
+  <menupopup id="mailContext">
+    <menuitem id="mailContext-mailredirect"
+      label="&bounceCommand.label;"
+      accesskey="&bounceCommand.accesskey;"
+      insertafter="mailContext-forwardAsMenu,mailContext-forward"
+      insertbefore="mailContext-multiForwardAsAttachment"
+      command="cmd_mailredirect" />
+    <menuitem id="mailContext-multiMailredirect"
+      label="&bounceCommand.label;"
+      accesskey="&bounceCommand.accesskey;"
+      insertafter="mailContext-multiForwardAsAttachment"
+      insertbefore="mailContext-editAsNew"
+      command="cmd_mailredirect" />
+  </menupopup>
+
+  <menupopup id="mailContext-forwardAsPopup">
+    <menuitem id="mailContext-forwardAsMailredirect" insertafter="mailContext-forwardAsAttachment"
+      label="&forwardAsRedirect.label;" accesskey="&forwardAsRedirect.accesskey;"
+      command="cmd_mailredirect" />
+  </menupopup>
 
 </overlay>

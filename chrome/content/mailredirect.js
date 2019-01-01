@@ -11,9 +11,15 @@ const Cc = Components.classes, Ci = Components.interfaces;
 
 window.MailredirectExtension = {
 
+  appInfo: Cc["@mozilla.org/xre/app-info;1"].
+           getService(Ci.nsIXULAppInfo),
+
   isOffline: Cc["@mozilla.org/network/io-service;1"].
              getService(Ci.nsIIOService).
              offline,
+
+  addToForwardAs: true,
+  hideRedirectMenuitems: false,
 
   OpenMailredirectComposeWindow: function()
   {
@@ -36,14 +42,11 @@ window.MailredirectExtension = {
     if (server && (server.type === "imap" || server.type === "pop3"))
       currentIdentity = getIdentityForServer(server);
 
-    var appInfo = Cc["@mozilla.org/xre/app-info;1"].
-                  getService(Ci.nsIXULAppInfo);
-
-    if (appInfo.ID === THUNDERBIRD_ID)
+    if (MailredirectExtension.appInfo.ID === THUNDERBIRD_ID)
       window.openDialog("chrome://mailredirect/content/mailredirect-compose-thunderbird.xul", "_blank",
           "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
           selectedURIs, currentIdentity.key);
-    else if (appInfo.ID === SEAMONKEY_ID)
+    else if (MailredirectExtension.appInfo.ID === SEAMONKEY_ID)
       window.openDialog("chrome://mailredirect/content/mailredirect-compose-seamonkey.xul", "_blank",
           "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
           selectedURIs, currentIdentity.key);
@@ -52,8 +55,7 @@ window.MailredirectExtension = {
   MailredirectController : {
     supportsCommand : function(aCommand)
     {
-      switch(aCommand)
-      {
+      switch(aCommand) {
         case "cmd_mailredirect":
           return true;
         default:
@@ -62,8 +64,7 @@ window.MailredirectExtension = {
     },
     isCommandEnabled: function(aCommand)
     {
-      switch(aCommand)
-      {
+      switch(aCommand) {
         case "cmd_mailredirect":
           if (!MailredirectExtension.isOffline) {
             // Extra check for issue #9 (Init error in TB24 on Mac breaking the status bar)
@@ -92,8 +93,7 @@ window.MailredirectExtension = {
       if (!this.isCommandEnabled(aCommand))
         return;
 
-      switch(aCommand)
-      {
+      switch(aCommand) {
         case "cmd_mailredirect":
           MailredirectExtension.OpenMailredirectComposeWindow();
           break;
@@ -106,7 +106,7 @@ window.MailredirectExtension = {
     setTimeout(function() {
       top.controllers.appendController(MailredirectExtension.MailredirectController);
       goUpdateCommand("cmd_mailredirect");
-      MailredirectExtension.UpdateCommand()
+      MailredirectExtension.UpdateCommand();
     }, 0);
   },
 
@@ -132,20 +132,24 @@ window.MailredirectExtension = {
 
     var item = document.getElementById("mailContext-mailredirect");
     if (item !== null) {
-      item.removeAttribute("hidden");
-
       // don't show mail items for links/images
       // and don't show mail items when there are no messages selected
-      var hideMailItems = gContextMenu.onImage || gContextMenu.onLink || gFolderDisplay.selectedCount === 0;
-      if (hideMailItems)
-        item.hidden = "true";
+      item.hidden = gContextMenu.onImage || gContextMenu.onLink || (gFolderDisplay.selectedCount === 0);
+    }
+
+    var multiForward = document.getElementById("mailContext-multiForwardAsAttachment");
+    var multiRedirect = document.getElementById("mailContext-multiMailredirect");
+    multiRedirect.hidden = multiForward.hidden;
+    if (multiRedirect.hidden !== true && item !== null) {
+      // Only show one Redirect menuitem
+      item.hidden = true;
     }
   },
 
   MultimessageClick: function(event)
   {
     if (event.button === 0)
-      goDoCommand('cmd_mailredirect')
+      goDoCommand("cmd_mailredirect")
   },
 
   AddRedirectButtonToElement: function(el)
@@ -219,6 +223,78 @@ window.MailredirectExtension = {
     }
   },
 
+  PrefObserver: {
+    observe: function(subject, topic, data)
+    {
+      // Sanity check
+      if (topic !== "nsPref:changed")
+        return;
+
+      switch(data) {
+        case "addToForwardAs":
+          MailredirectExtension.addToForwardAs = MailredirectPrefs.getPref("extensions.mailredirect.addToForwardAs");
+          MailredirectExtension.UpdateForwardAsMenus();
+          break;
+        case "hideRedirectMenuitems":
+          MailredirectExtension.hideRedirectMenuitems = MailredirectPrefs.getPref("extensions.mailredirect.hideRedirectMenuitems");
+          MailredirectExtension.UpdateRedirectMenuitems();
+          break;
+      }
+    }
+  },
+
+  UpdateForwardAsMenus: function()
+  {
+    let addToForwardAs = MailredirectExtension.addToForwardAs;
+    let elementArray = [ "menu_forwardAsRedirect",
+                         "button-ForwardAsRedirect",
+                         "mailContext-forwardAsMailredirect",
+                         "hdrForwardAsRedirectMenu",
+                         "appmenu_forwardAsMailredirect" ];
+
+    for (var i = 0; i < elementArray.length; i++) {
+      var el = document.getElementById(elementArray[i]);
+      if (el) {
+        el.collapsed = !addToForwardAs;
+      }
+    }
+
+    MailredirectExtension.UpdateRedirectMenuitems();
+  },
+
+  UpdateRedirectMenuitems: function()
+  {
+    let hideRedirectMenuitems = MailredirectExtension.addToForwardAs &&
+                                MailredirectExtension.hideRedirectMenuitems;
+    let elementArray = [ "MailredirectMenuItem",
+                         "mailContext-mailredirect",
+                         "appmenu_mailredirect" ]
+
+    if (!document.getElementById("mailContext-forwardAsMenu")) {
+      // SeaMonkey doesn't have a Forward As context menu, so don't hide the context menu item
+      elementArray.splice(1, 1);
+    }
+
+    for (var i = 0; i < elementArray.length; i++) {
+      var el = document.getElementById(elementArray[i]);
+      if (el) {
+        el.collapsed = hideRedirectMenuitems;
+      }
+    }
+
+    let submenuitem = document.getElementById("menu_forwardAsRedirect");
+    let menuitem = document.getElementById("MailredirectMenuItem");
+    if (hideRedirectMenuitems) {
+      submenuitem.setAttribute("key", "key_mailredirect");
+      if (menuitem.hasAttribute("key"))
+        menuitem.removeAttribute("key");
+    } else {
+      if (submenuitem.hasAttribute("key"))
+        submenuitem.removeAttribute("key");
+      menuitem.setAttribute("key", "key_mailredirect");
+    }
+  },
+
   InstallListeners: function(event)
   {
     var el = document.getElementById("threadTree");
@@ -260,26 +336,44 @@ window.MailredirectExtension = {
     }
   },
 
-  AddOfflineObserver: function()
+  AddObservers: function()
   {
     var observerService = Cc["@mozilla.org/observer-service;1"].
                           getService(Ci.nsIObserverService);
     observerService.addObserver(MailredirectExtension.OfflineObserver, "network:offline-status-changed", false);
+
+    var prefService = Cc["@mozilla.org/preferences-service;1"].
+                      getService(Ci.nsIPrefService);
+    window.prefBranch = prefService.getBranch("extensions.mailredirect.");
+    if (!("addObserver" in window.prefBranch)) {
+      // Only necessary prior to Gecko 13
+      try {
+        window.prefBranch = window.prefBranch.QueryInterface(Ci.nsIPrefBranch2);
+      } catch(ex) {
+        // windows doesn't know nsIPrefBranch2 interface
+        window.prefBranch = window.prefBranch.QueryInterface(Ci.nsIPrefBranchInternal);
+      }
+    }
+    window.prefBranch.addObserver("", MailredirectExtension.PrefObserver, false);
+
+    MailredirectExtension.addToForwardAs = MailredirectPrefs.getPref("extensions.mailredirect.addToForwardAs");
+    MailredirectExtension.hideRedirectMenuitems = MailredirectPrefs.getPref("extensions.mailredirect.hideRedirectMenuitems");
+    MailredirectExtension.UpdateForwardAsMenus();
   },
 
-  RemoveOfflineObserver: function()
+  RemoveObservers: function()
   {
     var observerService = Cc["@mozilla.org/observer-service;1"].
                           getService(Ci.nsIObserverService);
     observerService.removeObserver(MailredirectExtension.OfflineObserver, "network:offline-status-changed");
+    window.prefBranch.removeObserver("", MailredirectExtension.PrefObserver);
   }
 };
 
 window.MailredirectPrefs.init();
-window.MailredirectPrefs.unpackIcon();
 
 window.addEventListener("load", MailredirectExtension.InstallListeners, false);
-window.addEventListener("load", MailredirectExtension.AddOfflineObserver, false);
+window.addEventListener("load", MailredirectExtension.AddObservers, false);
 window.addEventListener("load", MailredirectExtension.SetupController, false);
 
 var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
@@ -287,8 +381,50 @@ var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci
 if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "36.0") >= 0) {
   window.addEventListener("DOMFrameContentLoaded", MailredirectExtension.addButtonToMultimessageView, true);
 }
+if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "60.0") >= 0) {
+  // Starting in Thunderbird 60 add-ons aren't unpacked anymore
+  window.MailredirectPrefs.unpackIcon();
+}
 
 window.addEventListener("unload", MailredirectExtension.UninstallListeners, false);
-window.addEventListener("unload", MailredirectExtension.RemoveOfflineObserver, false);
+window.addEventListener("unload", MailredirectExtension.RemoveObservers, false);
 
 })();
+
+// Override InitMessageForward from Suite because it highlights the wrong element
+function InitMessageForward(aPopup)
+{
+  var kMsgForwardAsAttachment = 0;
+  var forwardType = Services.prefs.getIntPref("mail.forward_message_mode");
+
+  if (forwardType != kMsgForwardAsAttachment) {
+    // forward inline is the first menuitem
+    aPopup.firstChild.setAttribute("default", "true");
+    aPopup.getElementsByTagName("menuitem")[1].removeAttribute("default");
+  } else {
+    // attachment is the second menuitem
+    aPopup.getElementsByTagName("menuitem")[1].setAttribute("default", "true");
+    aPopup.firstChild.removeAttribute("default");
+  }
+}
+
+// Override MsgForwardMessage because it also triggers forward as attachment in Suite when Redirect is chosen
+function MsgForwardMessage(event)
+{
+  var kMsgForwardAsAttachment = 0;
+  if (event.target.id !== "button-ForwardAsRedirect") {
+    var forwardType = 0;
+    try {
+      forwardType = Services.prefs.getIntPref("mail.forward_message_mode");
+    }
+    catch (ex) {}
+
+    // mail.forward_message_mode could be 1, if the user migrated from 4.x
+    // 1 (forward as quoted) is obsolete, so we treat is as forward inline
+    // since that is more like forward as quoted then forward as attachment
+    if (forwardType === kMsgForwardAsAttachment)
+      MsgForwardAsAttachment(event);
+    else
+      MsgForwardAsInline(event);
+  }
+}

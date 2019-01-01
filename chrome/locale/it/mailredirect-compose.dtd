@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "Reindirizza i messaggi selezionati">
 <!ENTITY addressButton.label "Rubrica">
 <!ENTITY addressButton.tooltip "Apri la rubrica">
-<!ENTITY throbberItem.title " ">
+<!ENTITY throbberItem.title "Indicatore di attività">
 <!ENTITY throbber.tooltip "Visita il sito web di &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
@@ -37,7 +37,7 @@
 
 <!ENTITY customizeToolbar.label "Personalizza…">
 <!ENTITY customizeToolbar.accesskey "P">
-<!ENTITY showBounceToolbarCmd.label "Reindirizza">
+<!ENTITY showBounceToolbarCmd.label "Barra di reindirizzamento">
 <!ENTITY showBounceToolbarCmd.accesskey "i">
 <!ENTITY showStatusbarCmd.label "Barra di stato">
 <!ENTITY showStatusbarCmd.accesskey "t">
@@ -53,6 +53,7 @@
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
+   
 <!ENTITY headersSpace.style "width: 12em;">
 
 <!ENTITY resendFromAddr.label "Account:">

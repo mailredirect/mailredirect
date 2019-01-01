@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Уколико означите ову опцију, копија преусмерене е-поруке ће бити смештена у послате поруке. \nНапомена: Ова опција неће радити ако сте у подешавањима наместили да се послате поруке уопште не чувају.">
 
+<!ENTITY addToForwardAs.label "??Add Redirect to Forward As menus and buttons??">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "??By adding Redirect to the Forward As menus and buttons you group all forwarding actions under one item.\nYou can remove the buttons from the toolbars by customizing them and by checking the option below, you can hide the separate menu items because they have become redundant??">
+
+<!ENTITY hideRedirectMenuitems.label "??Hide Redirect menu item from Message, Application and context menus??">
+<!ENTITY hideRedirectMenuitems.accesskey "H">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "??Hides the separate Redirect menu items from the Message, Application and context menus??">
+
 <!ENTITY concurrentConnections.label "Број истовремених SMTP веза:">
 <!ENTITY concurrentConnections.accesskey "Б">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

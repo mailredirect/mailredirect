@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Hvis denne indstilling er valgt, anbringes en kopi af en omdirigeret meddelelse i mappen Sendt. Hvis indstillingen ikke er valgt, anbringes der ingen kopi af en omdirigeret meddelelse i nogen mapper.\nBemærk: Hvis denne indstilling er valgt og dine indstillinger for kontoen, der bruges til omdirigering, er sat til 'ikke at gemme sendte meddelelser', gemmes der heller ingen kopi af en omdirigeret meddelelse.">
 
+<!ENTITY addToForwardAs.label "Tilføj ‘Omdiriger’ til menuen ‘Videresend som’ og knapper">
+<!ENTITY addToForwardAs.accesskey "f">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Ved at tilføje ‘Omdiriger’ til menuerne ‘Videresend som’ og til knapper, samler du alle videresend-handlinger under ét punkt.\nDu kan fjerne knapperne fra værktøjslinjerne ved at tilpasse dem, og ved at sætte flueben i indstillingen nedenunder, kan du skjule menupunkterne, da der er blevet overflødige.">
+
+<!ENTITY hideRedirectMenuitems.label "Skjul menupunktet ‘Omdiriger’ i menuen Meddelelse, programmenuen og genvejsmenuer">
+<!ENTITY hideRedirectMenuitems.accesskey "k">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Skjuler menupunktet ‘Omdiriger’ i menuen Meddelelse, i programmenuen og i genvejsmenuer.">
+
 <!ENTITY concurrentConnections.label "Antal samtidige SMTP-forbindelser:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "Standardtilstand:">
 <!ENTITY defaultMode.accesskey "S">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Vælg, hvordan du vil omdirigere meddelelser som standard\nDenne indstilling virker kun, når du ikke har angivet nogle standardmodtagere.">
+<!ENTITY defaultMode.tooltip "Vælg, hvordan du vil omdirigere meddelelser som standard.\nDenne indstilling virker kun, når du ikke har angivet nogle standardmodtagere.">
 <!ENTITY defaultModeResendTo.label "Omdiriger til">
 <!ENTITY defaultModeResendCc.label "Omdiriger kopi til (Cc)">
 <!ENTITY defaultModeResendBcc.label "Omdiriger skjult kopi til (Bcc)">

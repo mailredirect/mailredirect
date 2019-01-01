@@ -1,9 +1,19 @@
 <!ENTITY mailredirectSettings.title "Üzenet átirányítás beállítások">
 
-<!ENTITY copyToSentMails.label "Helyez egy másolat az átirányít üzenetből kerül az elküldött mappához?">
+<!ENTITY copyToSentMails.label "Üzenet átirányításkor az elküldött elemek mappába másolat elhelyezése?">
 <!ENTITY copyToSentMails.accesskey "á">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Ha ez az opció be van jelölve másolatát átirányított üzenet kerül az Elküldött mappába. Ha az opció nincs bejelölve másolata átirányított üzenet nem másolható bármelyik mappába.\nMegjegyzés: Ha ez az opció be van jelölve, és a beállítások a használt fiók átirányítása a „ne mentse az elküldött üzenetek minden” példányát átirányított üzenetek nem kerülnek mentésre sem.">
+
+<!ENTITY addToForwardAs.label "Átirányítás továbbítás módja menük és gombok hozzáadása">
+<!ENTITY addToForwardAs.accesskey "o">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Ha az átirányítás menükhöz és gombokhoz kapcsolja az átirányítást, az összes továbbítási műveletet egy elem alatt csoportosítja.\nA gombokat eltávolíthatja az eszköztárakból testreszabással és az alábbi opcióval ellenőrizheti, elrejtheti az önálló menüpontokat, mert feleslegessé váltak.">
+
+<!ENTITY hideRedirectMenuitems.label "Az átirányítás elrejtése menüpont az üzenet, az alkalmazás és a környezeti menük között">
+<!ENTITY hideRedirectMenuitems.accesskey "y">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Elrejti az elkülönített átirányítás menüelemeket az üzenet, az alkalmazás és a környezeti menük között.">
 
 <!ENTITY concurrentConnections.label "Számú egyidejű SMTP kapcsolatok:">
 <!ENTITY concurrentConnections.accesskey "S">
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "Alapértelmezett mód:">
 <!ENTITY defaultMode.accesskey "A">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Válassza ki, hogyan szeretné irányítani üzenetek alapértelmezés szerint\nEz a beállítás csak akkor van hatása, ha nem adott semmilyen alapértelmezett címzettet.">
+<!ENTITY defaultMode.tooltip "Válassza ki, hogyan szeretné átirányítani az üzeneteket alapértelmezés szerint.\nEz a beállítás csak akkor érvényesül, ha nem adott meg alapértelmezett címzettet.">
 <!ENTITY defaultModeResendTo.label "Címzett újraküldés">
 <!ENTITY defaultModeResendCc.label "Másolat újraküldés">
 <!ENTITY defaultModeResendBcc.label "Rejtett másolat újraküldés">

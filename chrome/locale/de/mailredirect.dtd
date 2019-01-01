@@ -3,3 +3,7 @@
 <!ENTITY bounceCommand.tooltip "Ausgewählte Nachrichten umleiten">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
+
+<!ENTITY forwardAsRedirect.label "Umleitung">
+<!ENTITY forwardAsRedirect.accesskey "U">
+<!ENTITY forwardAsRedirect.tooltip "Ausgewählte Nachricht umleiten">

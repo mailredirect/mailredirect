@@ -1,5 +1,6 @@
 #!/bin/bash
 # babelzilla
+DEST=babelzilla
 if [ "$(uname)" == "Linux" ]
 then
   cd $(dirname .)/..
@@ -8,11 +9,11 @@ else
 fi
 [ -d xpi ] || mkdir xpi
 cd xpi
-rm -fr babelzilla/
-rsync -a --exclude-from=../code/make-exclude.txt --exclude 'locale/*' ../code/* babelzilla/
-mkdir -p babelzilla/chrome/locale/en-US/
-rsync -a ../code/chrome/locale/en-US/* babelzilla/chrome/locale/en-US/
-cd babelzilla
+rm -fr ${DEST}/
+rsync -a --exclude-from=../code/make-exclude.txt --exclude 'locale/*' ../code/* ${DEST}/
+mkdir -p ${DEST}/chrome/locale/en-US/
+rsync -a ../code/chrome/locale/en-US/* ${DEST}/chrome/locale/en-US/
+cd ${DEST}
 echo install.rdf > mailredirect.txt
 echo chrome.manifest >> mailredirect.txt
 find chrome -type f | sort >> mailredirect.txt

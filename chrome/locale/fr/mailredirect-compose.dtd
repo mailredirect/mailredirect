@@ -32,8 +32,8 @@
 <!ENTITY closeCmd.modifiers "accel">
 <!ENTITY messengerCmd.key "1">
 <!ENTITY messengerCmd.modifiers "accel">
-<!ENTITY addressBookCmd.key "2">
-<!ENTITY addressBookCmd.modifiers "accel">
+<!ENTITY addressBookCmd.key "B">
+<!ENTITY addressBookCmd.modifiers "accel, shift">
 
 <!ENTITY customizeToolbar.label "Personnaliser…">
 <!ENTITY customizeToolbar.accesskey "P">

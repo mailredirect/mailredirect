@@ -1,9 +1,19 @@
 <!ENTITY mailredirectSettings.title "Options de l'extension MailRedirect">
 
-<!ENTITY copyToSentMails.label "Placer une copie du message redirigé dans le dossier Envoyés">
-<!ENTITY copyToSentMails.accesskey "a">
+<!ENTITY copyToSentMails.label "Placer une copie du message redirigé dans le dossier Envoyés ?">
+<!ENTITY copyToSentMails.accesskey "r">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Si cette option est cochée, une copie du message redirigé est placée dans le dossier Envoyés. Si cette option n'est pas cochée, le message redirigé n'est pas copié.\nRemarque : si cette option est cochée et que le compte utilisé pour la redirection a pour paramètre 'ne pas faire de copie des messages envoyés', aucune copie du message redirigé ne sera enregistrée.">
+
+<!ENTITY addToForwardAs.label "Ajouter Rediriger aux menus et boutons Transférer">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "En ajoutant Rediriger aux menus et boutons de transférer, vous regroupez toutes les actions de transfert en un même point. \nVous pouvez supprimer les boutons dans les barres d’outils en les personnalisant et en cochant l’option ci-dessous, vous pouvez masquer les éléments de menu distincts parce qu’ils sont devenus redondants.">
+
+<!ENTITY hideRedirectMenuitems.label "Cacher le menu de Rediriger du menu contextuel et des menus Messages et Outils">
+<!ENTITY hideRedirectMenuitems.accesskey "h">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Cacher les entrées de menu spécifiques de Rediriger hors du menu contextuel et des menus Messages et Outils.">
 
 <!ENTITY concurrentConnections.label "Nombre de connexions SMTP simultanées :">
 <!ENTITY concurrentConnections.accesskey "N">
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "Mode par défaut :">
 <!ENTITY defaultMode.accesskey "M">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Choisissez de quelle manière vous voulez rediriger les messages par défaut\nCe paramètre n'aura d'effet que si vous n'avez pas précisé les destinataires par défaut.">
+<!ENTITY defaultMode.tooltip "Choisissez de quelle manière vous voulez rediriger les messages par défaut.\nCe paramètre n'aura d'effet que si vous n'avez pas précisé les destinataires par défaut.">
 <!ENTITY defaultModeResendTo.label "Ré-envoyer">
 <!ENTITY defaultModeResendCc.label "Ré-envoyer en copie">
 <!ENTITY defaultModeResendBcc.label "Ré-envoyer en copie cachée">

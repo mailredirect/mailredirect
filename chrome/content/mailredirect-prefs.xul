@@ -21,6 +21,8 @@
   <prefpane>
     <preferences>
       <preference id="pref_copyToSentMail" name="extensions.mailredirect.copyToSentMail" type="bool"/>
+      <preference id="pref_addToForwardAs" name="extensions.mailredirect.addToForwardAs" type="bool"/>
+      <preference id="pref_hideRedirectMenuitems" name="extensions.mailredirect.hideRedirectMenuitems" type="bool"/>
       <preference id="pref_concurrentConnections" name="extensions.mailredirect.concurrentConnections" type="int"/>
       <preference id="pref_defaultResendTo" name="extensions.mailredirect.defaultResentTo" type="string"/>
       <preference id="pref_defaultResendCc" name="extensions.mailredirect.defaultResentCc" type="string"/>
@@ -35,10 +37,26 @@
 
     <hbox>
       <vbox>
-        <checkbox preference="pref_copyToSentMail" id="copyToSentMail"
+        <checkbox id="copyToSentMail" preference="pref_copyToSentMail"
                   label="&copyToSentMails.label;"
                   accesskey="&copyToSentMails.accesskey;"
                   tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"/>
+
+        <separator id="addToForwardAsSeparator" class="thin"/>
+
+        <checkbox id="addToForwardAs" preference="pref_addToForwardAs"
+                  label="&addToForwardAs.label;"
+                  accesskey="&addToForwardAs.accesskey;"
+                  oncommand="MailredirectPrefs.updateHideMenuitems();"
+                  tooltip="xToolTip" xtooltiptext="&addToForwardAs.tooltip;"/>
+
+        <separator id="hideRedirectMenuitemsSeparator" class="thin"/>
+
+        <checkbox id="hideRedirectMenuitems" preference="pref_hideRedirectMenuitems"
+                  label="&hideRedirectMenuitems.label;"
+                  accesskey="&hideRedirectMenuitems.accesskey;"
+                  tooltip="xToolTip" xtooltiptext="&hideRedirectMenuitems.tooltip;"
+                  class="indent"/>
 
         <separator class="thin"/>
 

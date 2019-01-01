@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Bu seçenek seçildiğinde yönlendirilen mesajın kopyası Gönderilenler klasörüne saklanır. Seçilmezse hiç bir klasöre kopyalanmaz.\nNot: Bu seçenek seçildiğinde ve yönlendirme için kullanılan hesabınız 'gönderilen mesajları hiç saklama' biçimindeyse yönlendirilen mesajların kopyası da saklanmayacaktır.">
 
+<!ENTITY addToForwardAs.label "Yeniden Gönder menü ve tuşlarına Yönlendir ekle">
+<!ENTITY addToForwardAs.accesskey "Y">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Yeniden Gönder menü ve tuşlarına Yönlendir eklediğinizde tüm yeniden gönderme eylemlerini tek bir yerde toplarsınız.\nTuşları özelleştirerek ve aşağıdaki seçeneği seçerek tuşları araç çubuğundan kaldırabilirsiniz; Gereksiz olacaklarından dolayı alt menü öğelerini gizleyebilirsiniz.">
+
+<!ENTITY hideRedirectMenuitems.label "Mesaj, Uygulama ve içerik menülerinde Yönlendir menü öğesini gizle">
+<!ENTITY hideRedirectMenuitems.accesskey "g">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Mesaj, Uygulama ve içerik menülerinde Yönlendir alt menü öğelerini gizler.">
+
 <!ENTITY concurrentConnections.label "Eşzamanlı SMTP bağlantılarının sayısı:">
 <!ENTITY concurrentConnections.accesskey "E">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

@@ -3,3 +3,7 @@
 <!ENTITY bounceCommand.tooltip "Nukreipti pažymėtus laiškus kitu adresu">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
+
+<!ENTITY forwardAsRedirect.label "Nukreipti">
+<!ENTITY forwardAsRedirect.accesskey "N">
+<!ENTITY forwardAsRedirect.tooltip "Nukreipti pažymėtą laišką kitu adresu">

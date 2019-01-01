@@ -3,3 +3,7 @@
 <!ENTITY bounceCommand.tooltip "Reindirizza i messaggi selezionati">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
+
+<!ENTITY forwardAsRedirect.label "Reindirizza…">
+<!ENTITY forwardAsRedirect.accesskey "R">
+<!ENTITY forwardAsRedirect.tooltip "Reindirizza il messaggio selezionato">

@@ -10,6 +10,7 @@
   -moz-box-ordinal-group: 0;
   cursor: default;
   margin-inline-end: 0;
+  margin-inline-start: 5px;
   margin-bottom: 1px;
   width: 0;
   height: 16px;
@@ -21,4 +22,19 @@
 .addressingWidgetCell:hover > .aw-menulist:not([open="true"]) + .deleteAddress {
   margin-inline-end: 3px;
   width: 16px;
+}
+
+/* :::::: Close button icons ::::: */
+
+.close-icon {
+  list-style-image: url("chrome://mailredirect/skin/close.png");
+  -moz-image-region: rect(0px, 20px, 20px, 0px);
+}
+
+.close-icon:hover {
+  -moz-image-region: rect(0, 40px, 20px, 20px);
+}
+
+.close-icon:hover:active {
+  -moz-image-region: rect(0, 60px, 20px, 40px);
 }

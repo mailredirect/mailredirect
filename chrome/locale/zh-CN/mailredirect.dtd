@@ -3,3 +3,7 @@
 <!ENTITY bounceCommand.tooltip "重定向选中的消息">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
+
+<!ENTITY forwardAsRedirect.label "重定向">
+<!ENTITY forwardAsRedirect.accesskey "R">
+<!ENTITY forwardAsRedirect.tooltip "重定向选中的消息">

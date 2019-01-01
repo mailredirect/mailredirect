@@ -3,3 +3,7 @@
 <!ENTITY bounceCommand.tooltip "Mengarahkan pesan-pesan yang dipilih">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
+
+<!ENTITY forwardAsRedirect.label "Redirect">
+<!ENTITY forwardAsRedirect.accesskey "R">
+<!ENTITY forwardAsRedirect.tooltip "Mengarahkan pesan-pesan yang dipilih">

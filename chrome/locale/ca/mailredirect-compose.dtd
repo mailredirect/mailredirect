@@ -22,11 +22,11 @@
 <!ENTITY addressBookCmd.accesskey "a">
 
 <!ENTITY bounceButton.label "Redirigir">
-<!ENTITY bounceButton.tooltip "Missatges de redirecció">
+<!ENTITY bounceButton.tooltip "Redirigir missatges">
 <!ENTITY addressButton.label "Llibreta d'adreces">
-<!ENTITY addressButton.tooltip "Vés a la llibreta d'adreces">
+<!ENTITY addressButton.tooltip "Ves a la llibreta d'adreces">
 <!ENTITY throbberItem.title "Indicador d'activitat">
-<!ENTITY throbber.tooltip "Vés a la pàgina inicial de &vendorShortName;">
+<!ENTITY throbber.tooltip "Ves a la pàgina inicial de &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY closeCmd.modifiers "accel">
@@ -42,7 +42,7 @@
 <!ENTITY showStatusbarCmd.label "Barra d'estat">
 <!ENTITY showStatusbarCmd.accesskey "s">
 
-<!ENTITY addressSidebar.label "Barra latera de contactes">
+<!ENTITY addressSidebar.label "Barra lateral de contactes">
 <!ENTITY addressSidebar.accesskey "o">
 <!ENTITY addressesSidebarTitle.label "Contactes">
 <!ENTITY addressSidebarButton.label "Contactes">
@@ -53,15 +53,14 @@
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
-<!ENTITY headersSpace.style "width: 9em;">
+<!ENTITY headersSpace.style "width: 13em;">
 
 <!ENTITY resendFromAddr.label "Reenviar-De:">
 <!ENTITY resendFromAddr.accesskey "R">
 
 <!ENTITY resendToAddr.label "Reenviar-A:">
-<!ENTITY resendCcAddr.label "Reenviar-Cc:">
-<!ENTITY resendBccAddr.label "Reenviar-Cco:">
-
+<!ENTITY resendCcAddr.label "Reenviar-Còpia:">
+<!ENTITY resendBccAddr.label "Reenviar-Còpia oculta:">
 <!ENTITY bounceMailsLabel.label "Es redireccionaran els següents correus:">
 
 <!ENTITY subject.label "Assumpte">

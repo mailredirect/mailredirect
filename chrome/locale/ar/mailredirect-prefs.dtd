@@ -1,9 +1,19 @@
-<!ENTITY mailredirectSettings.title "إعدادات إعادة توجيه البريد">
+<!ENTITY mailredirectSettings.title "إعدادات ”إعادة توجيه البريد“">
 
-<!ENTITY copyToSentMails.label "وضع نسخة من البريد المُعاد توجيهه في مجلد البريد المُرسل؟">
+<!ENTITY copyToSentMails.label "أتريد وضع نسخة من البريد المُعاد توجيهه في مجلد البريد المُرسل؟">
 <!ENTITY copyToSentMails.accesskey "س">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "عند تحديد هذا الخيار، ستوضع نسخة من الرسالة المعاد توجيهها في مجلد المُرسَل. عند عدم تحديده، لن توضع نسخة من الرسالة في أي مجلد.\nلاحظ أن في حالة تحديد هذا الخيار و كانت إعدادات الحساب المستخدم تفعّل ”لا تحفظ الرسائل المُرسلة“، فلن تحفظ أي رسائل.">
+
+<!ENTITY addToForwardAs.label "أضِف ”إعادة التوجيه“ إلى قوائم وأزرار ”مرِّر كَ‍“">
+<!ENTITY addToForwardAs.accesskey "ض">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "بإضافة ”إعادة التوجيه“ إلى قوائم وأزرار ”مرِّر كَ‍“، ستكون جمعت كل إجراءات التمرير في عنصر واحد.\nيمكنك إزالة الأزرار من أشرطة الأدوات بتخصيصها، ويمكنك بالتأشير على الخيار أدناه إخفاء عناصر القائمة المنفصلة لأنها أصبحت مكرّرة.">
+
+<!ENTITY hideRedirectMenuitems.label "أخفِ عنصر القائمة ”إعادة التوجيه“ من قوائم الرسالة والتطبيق والقوائم السياقية">
+<!ENTITY hideRedirectMenuitems.accesskey "خ">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "يُخفي عناصر ”إعادة التوجيه“ المنفصلة في قوائم الرسالة والتطبيق والقوائم السياقية.">
 
 <!ENTITY concurrentConnections.label "عدد اتصالات SMTP المتزامنة:">
 <!ENTITY concurrentConnections.accesskey "ع">
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "الوضع المبدئي:">
 <!ENTITY defaultMode.accesskey "ئ">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "اختر كيف تريد إعادة توجيه الرسائل مبدئيًا.\nلا يؤثر هذا الإعداد إلا عندما لا تحدد أي مستلمين مبدئيين.">
+<!ENTITY defaultMode.tooltip "اختر طريقة إعادة توجيه الرسائل مبدئيا.\nيعمل هذا الإعداد إن لم تحدّد أي مستلم مبدئي.">
 <!ENTITY defaultModeResendTo.label "إعادة إرسال-إلى">
 <!ENTITY defaultModeResendCc.label "إعادة إرسال-نسخ">
 <!ENTITY defaultModeResendBcc.label "إعادة إرسال-نسخ عمياء">

@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Activarea acestei opțiuni creează o copie în dosarul mesajelor trimise. Dezactivarea ei retrimite mesajul fără a-l copia în alt dosar.\nNotă: Dacă opțiunea este activată, dar setările contului nu permit păstrarea mesajelor trimise, atunci mesajul nu va fi copiat oricum.">
 
+<!ENTITY addToForwardAs.label "Adaugati Retransmitere in meniurile si butoanele de inaintare">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Prin adaugarea Retransmiterii in meniurile si butanele de Inaintare grupati toate aceste actiuni intr-un loc. Puteti adauga, separa sau elimina butoane prin personalizarea lor apasand butonul de opriuni de mai jos.">
+
+<!ENTITY hideRedirectMenuitems.label "Ascundeti meniul de Redirect din Mesaje,Aplicatii si meniurile de context.">
+<!ENTITY hideRedirectMenuitems.accesskey "H">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Ascundeti meniul separat de Redirect din Mesaje, Aplicatii si meniurle context.">
+
 <!ENTITY concurrentConnections.label "Numărul de conexiuni concurente SMTP:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

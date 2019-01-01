@@ -286,6 +286,8 @@
                       <menuitem value="addr_bcc" label="&resendBccAddr.label;"/>
                     </menupopup>
                   </menulist>
+                  <image class="deleteAddress close-icon"
+                         onclick="awDeleteHit(this.parentNode.nextSibling.querySelector('textbox.textbox-addressingWidget'));"/>
                 </hbox>
                 <hbox class="addressingWidgetCell" flex="1">
                   <textbox id="addressCol2#1" class="plain textbox-addressingWidget uri-element"
@@ -343,10 +345,10 @@
     </vbox>
   </hbox>
 
-  <statusbar id="status-bar" class="chromeclass-status">
-    <statusbarpanel id="statusText" flex="1"/>
-    <statusbarpanel id="statusbar-progresspanel" class="statusbarpanel-progress">
-      <progressmeter id="bounce-progressmeter" class="progressmeter-statusbar" mode="normal" value="0" collapsed="true"/>
+  <statusbar id="status-bar-pre65" class="chromeclass-status">
+    <statusbarpanel id="statusText-pre65" flex="1"/>
+    <statusbarpanel id="statusbar-progresspanel-pre65" class="statusbarpanel-progress">
+      <progressmeter id="bounce-progressmeter-pre65" class="progressmeter-statusbar" mode="normal" value="0" collapsed="true"/>
     </statusbarpanel>
   </statusbar>
 

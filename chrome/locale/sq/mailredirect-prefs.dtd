@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Nëse i vihet shenjë kësaj mundësie, te dosja Të dërguar vendoset një kopje e mesazhit të ridrejtuar. Nëse lihet pa shenjë, nuk ruhet ndonjë kopje e mesazhit të ridrejtuar te ndonjë dosje.\nShënim: As nuk kanë për t'u ruajtur kopje të mesazheve të ridrejtuar, nëse kësaj mundësie i vihet shenjë, por te rregullimet tuaja mbi llogarinë e përdorur për ridrejtim është përzgjedhur 'të mos ruhen fare mesazhet e dërguar' .">
 
+<!ENTITY addToForwardAs.label "Shtojeni Redirect-in te menutë dhe butonat Përcille Si">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Duke e shtuar Redirect-in te menu dhe butona Përcille Si i gruponi krejt veprimet e ridrejtimit nën një vend.\nButonat mund të lëvizni nga panelet përmes përshtatjes së tyre dhe duke i vënë shenjë mundësisë më poshtë mund të fshihni zëra menuje sepse janë  shndërruar në përsëritje.">
+
+<!ENTITY hideRedirectMenuitems.label "Fshihe zërin Redirect te menu Mesazh, Aplikacion dhe menu konteksti">
+<!ENTITY hideRedirectMenuitems.accesskey "F">
+<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "I fsheh zërat Redirect prej menush Mesazh, Aplikacion dhe menu konteksti.">
+
 <!ENTITY concurrentConnections.label "Numër lidhjesh bashkërendëse SMTP:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

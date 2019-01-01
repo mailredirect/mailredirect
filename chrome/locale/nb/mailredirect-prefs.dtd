@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Hvis dette alternativet er avmerket vil omadresserte meldinger plasseres i sendt-mappen. Hvis alternativet ikke er merket kopieers ikke omadressert melding til noen mappe. \nMerk: Hvis dette alternativet er valgt og innstillingene for kontoen som brukes for omadressering er 'ikke å lagre sendte meldinger' vil ikke kopi av omadressert melding lagres heller.">
 
+<!ENTITY addToForwardAs.label "Legg til omdirigering på menyer og knapper">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Ved å legge 'Videresend' til 'Send som'-menyer og knapper, grupperer du alle handlinger for videresending til et element.\nDu kan fjerne knappene fra verktøylinjene ved å tilpasse dem, og ved å merke valget nedenfor kan du skjule de enkelte menyelementene da de ikke har noen mening lenger.">
+
+<!ENTITY hideRedirectMenuitems.label "Skjul meny for videresending fra Melding, Program og kontekstmenyer">
+<!ENTITY hideRedirectMenuitems.accesskey "H">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Skjul de enkelte elementene i meny for videresending fra Melding, Program og kontekstmenyer.">
+
 <!ENTITY concurrentConnections.label "Antall samtidige SMTP-tilkoblinger:">
 <!ENTITY concurrentConnections.accesskey "A">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

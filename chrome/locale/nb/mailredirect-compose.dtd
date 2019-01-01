@@ -38,7 +38,7 @@
 <!ENTITY customizeToolbar.label "Tilpass…">
 <!ENTITY customizeToolbar.accesskey "C">
 <!ENTITY showBounceToolbarCmd.label "Omdiriger verktøylinje">
-<!ENTITY showBounceToolbarCmd.accesskey "o">
+<!ENTITY showBounceToolbarCmd.accesskey "O">
 <!ENTITY showStatusbarCmd.label "Statuslinje">
 <!ENTITY showStatusbarCmd.accesskey "S">
 

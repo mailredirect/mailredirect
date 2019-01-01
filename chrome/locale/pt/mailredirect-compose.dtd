@@ -1,31 +1,31 @@
-<!ENTITY msgMailRedirectWindow.title "Redireccionamento de e-mail">
+<!ENTITY msgMailRedirectWindow.title "Redirecionamento de e-mail">
 
 <!ENTITY fileMenu.label "Ficheiro">
 <!ENTITY fileMenu.accesskey "F">
-<!ENTITY forwardBounce.label "Redireccionar">
+<!ENTITY forwardBounce.label "Redirecionar">
 <!ENTITY forwardBounce.accesskey "i">
 <!ENTITY closeCmd.label "Fechar">
-<!ENTITY closeCmd.accesskey "C">
+<!ENTITY closeCmd.accesskey "c">
 
 <!ENTITY viewMenu.label "Visualizar">
 <!ENTITY viewMenu.accesskey "V">
 <!ENTITY viewToolbarsMenuNew.label "Barras de ferramentas">
-<!ENTITY viewToolbarsMenuNew.accesskey "T">
+<!ENTITY viewToolbarsMenuNew.accesskey "t">
 <!ENTITY menubarCmd.label "Barra de menu">
-<!ENTITY menubarCmd.accesskey "M">
+<!ENTITY menubarCmd.accesskey "m">
 
 <!ENTITY tasksMenu.label "Ferramentas">
-<!ENTITY tasksMenu.accesskey "T">
+<!ENTITY tasksMenu.accesskey "t">
 <!ENTITY messengerCmd.label "Correio e grupos de notícias">
 <!ENTITY messengerCmd.accesskey "n">
 <!ENTITY addressBookCmd.label "Livro de Endereços">
-<!ENTITY addressBookCmd.accesskey "i">
+<!ENTITY addressBookCmd.accesskey "e">
 
-<!ENTITY bounceButton.label "Redireccionar">
-<!ENTITY bounceButton.tooltip "Redireccionar mensagens">
+<!ENTITY bounceButton.label "Redirecionar">
+<!ENTITY bounceButton.tooltip "Redirecionar mensagens">
 <!ENTITY addressButton.label "Livro de Endereços">
 <!ENTITY addressButton.tooltip "Ir para o livro de endereços">
-<!ENTITY throbberItem.title "Indicador de Actividade">
+<!ENTITY throbberItem.title "Indicador de Atividade">
 <!ENTITY throbber.tooltip "Ir para a &vendorShortName; home page">
 
 <!ENTITY closeCmd.key "W">
@@ -37,7 +37,7 @@
 
 <!ENTITY customizeToolbar.label "Personalizar…">
 <!ENTITY customizeToolbar.accesskey "C">
-<!ENTITY showBounceToolbarCmd.label "Barra de Redireccionamento">
+<!ENTITY showBounceToolbarCmd.label "Barra de Redirecionamento">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
 <!ENTITY showStatusbarCmd.label "Barra de status">
 <!ENTITY showStatusbarCmd.accesskey "S">
@@ -46,7 +46,7 @@
 <!ENTITY addressSidebar.accesskey "o">
 <!ENTITY addressesSidebarTitle.label "Contactos">
 <!ENTITY addressSidebarButton.label "Contactos">
-<!ENTITY addressSidebarButton.tooltip "Seleccione um destinatário de um Livro de Endereços">
+<!ENTITY addressSidebarButton.tooltip "Seleciona um destinatário de um Livro de Endereços">
 
 <!ENTITY dialog.dimensions "largura: 92ch; altura: 36em;">
 
@@ -62,7 +62,7 @@
 <!ENTITY resendCcAddr.label "Reenviar-Cc:">
 <!ENTITY resendBccAddr.label "Reenviar-Bcc:">
 
-<!ENTITY bounceMailsLabel.label "Os seguintes e-mails serão redireccionados:">
+<!ENTITY bounceMailsLabel.label "Os seguintes e-mails serão redirecionados:">
 
 <!ENTITY subject.label "Assunto">
 <!ENTITY sender.label "Remetente">

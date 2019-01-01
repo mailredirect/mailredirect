@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Pokud je tato volba zapnutá, kopie přesměrované zprávy se uloží do složky Odeslaná pošta. Pokud je tato volba vypnutá, přesměrované zprávy se nikam neukládají.\nPozn.: Pokud je tato volba zapnutá, ale zároveň je v Nastavení účtu/Kopie &amp; složky zvoleno Neukládat žádné kopie, kopie přesměrovaných zpráv se neuloží.">
 
+<!ENTITY addToForwardAs.label "Přidat Přesměrovat do nabídek a tlačítek Přeposlat jako">
+<!ENTITY addToForwardAs.accesskey "P">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Přidáte-li Přesměrovat do nabídek a tlačítek Přeposlat jako, seskupíte tím do jedné položky všechny činnosti týkající se přeposílání.\nPomocí přizpůsobení můžete odstranit nadbytečná tlačítka z nástrojových lišt a zaškrtnutím níže uvedené volby lze skrýt nadbytečné samostatné položky nabídek.">
+
+<!ENTITY hideRedirectMenuitems.label "Skrýt položku Přesměrovat z nabídek Zpráva, Aplikace a z místních nabídek">
+<!ENTITY hideRedirectMenuitems.accesskey "S">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Skryje samostatnou položku Přesměrovat z nabídek Zpráva, Aplikace a z místních nabídek.">
+
 <!ENTITY concurrentConnections.label "Počet paralelních SMTP spojení:">
 <!ENTITY concurrentConnections.accesskey "P">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

@@ -3,7 +3,12 @@
 "use strict";
 
 Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
-Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
+try {
+  // mailServices.js has been renamed MailServices.jsm in TB63
+  Components.utils.import("resource:///modules/MailServices.jsm");
+} catch(ex) {
+  Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
+}
 
 top.MAX_RECIPIENTS = 1; /* for the initial listitem created in the XUL */
 
@@ -220,8 +225,7 @@ function awAddRecipientsArray(aRecipientType, aAddressArray)
 
   // Push the new recipients into the found empty rows or append new rows when needed.
   let row = 1;
-  for (let address of aAddressArray)
-  {
+  for (let address of aAddressArray) {
     if (emptyRows.length > 0) {
       row = emptyRows.shift();
     } else {
@@ -486,17 +490,7 @@ function _awSetFocus()
 {
   var listbox = document.getElementById("addressingWidget");
   var theNewRow = awGetListItem(top.awRow);
-
-  //Warning: firstVisibleRow is zero base but top.awRow is one base!
-  var firstVisibleRow = listbox.getIndexOfFirstVisibleRow();
-  var numOfVisibleRows = listbox.getNumberOfVisibleRows();
-
-  //Do we need to scroll in order to see the selected row?
-  if (top.awRow <= firstVisibleRow)
-    listbox.scrollToIndex(top.awRow - 1);
-  else if (top.awRow - 1 >= (firstVisibleRow + numOfVisibleRows))
-    listbox.scrollToIndex(top.awRow - numOfVisibleRows);
-
+  listbox.ensureElementIsVisible(theNewRow);
   top.awInputElement.focus();
 }
 

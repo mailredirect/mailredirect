@@ -7,11 +7,18 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 Components.utils.import("resource:///modules/folderUtils.jsm"); // Gecko 2+ (TB3.3)
 Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
-Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
+Components.utils.import("resource:///modules/iteratorUtils.jsm");
+try {
+  // mailServices.js has been renamed MailServices.jsm in TB63
+  Components.utils.import("resource:///modules/MailServices.jsm");
+} catch(ex) {
+  Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
+}
 Components.utils.import("resource://gre/modules/PluralForm.jsm");
 Components.utils.import("resource://gre/modules/AddonManager.jsm");
 try {
   Components.utils.import("resource://gre/modules/AppConstants.jsm"); // Gecko 45+
+  Components.utils.import("resource://gre/modules/LightweightThemeManager.jsm"); // Gecko 60+
 } catch(ex) { };
 
 const Cc = Components.classes, Ci = Components.interfaces;
@@ -44,6 +51,7 @@ var gMessenger;
 // Global variables
 
 var gAppInfoID = null;
+var gAppInfoPlatformVersion = null;
 var gMsgCompose;
 var gWindowLocked;
 var gSendLocked;
@@ -80,6 +88,7 @@ function InitializeGlobalVariables()
   mailredirectRecipients = null;
   aSender = null;
   msgWindow = Cc["@mozilla.org/messenger/msgwindow;1"].createInstance(Ci.nsIMsgWindow);
+  MailServices.mailSession.AddMsgWindow(msgWindow);
 }
 
 InitializeGlobalVariables();
@@ -89,8 +98,9 @@ function ReleaseGlobalVariables()
   gMessenger = null;
   gMsgCompose = null;
   mailredirectRecipients = null;
-  msgWindow = null;
   mstate = null;
+  MailServices.mailSession.RemoveMsgWindow(msgWindow);
+  msgWindow = null;
 }
 
 MailredirectPrefs.init();
@@ -887,7 +897,7 @@ function BounceStartup(aParams)
 
   if (aParams)
     params = aParams;
-  else
+  else {
     if (window.arguments && window.arguments[0]) {
       try {
         if (window.arguments[0] instanceof Ci.nsIMsgComposeParams)
@@ -904,6 +914,7 @@ function BounceStartup(aParams)
       }
 */
     }
+  }
 
   // Set a sane starting width/height for all resolutions on new profiles.
   // Do this before the window loads.
@@ -1093,7 +1104,12 @@ function BounceStartup(aParams)
             if (useOSLocales) {
               var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
                             getService(Ci.mozIOSPreferences);
-              locale = osprefs.getRegionalPrefsLocales()[0];
+              if (typeof(osprefs.regionalPrefsLocales) === "object") {
+                // Thunderbird 64 (Bug 1493220)
+                locale = osprefs.regionalPrefsLocales[0];
+              } else {
+                locale = osprefs.getRegionalPrefsLocales()[0];
+              }
             } else {
               locale = null;
             }
@@ -1141,14 +1157,12 @@ function BounceStartup(aParams)
   setTimeout(function() { awFitDummyRows() }, 0);
 
   window.onresize = function() {
-    // .dump("window.onresize func");
+    // dumper.dump("window.onresize func");
     awFitDummyRows();
   }
 
   // Before and after callbacks for the customizeToolbar code
   var toolbox = document.getElementById("bounce-toolbox");
-  var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-  gAppInfoID = appInfo.ID;
   if (gAppInfoID === THUNDERBIRD_ID) {
     toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
   } else if (gAppInfoID === SEAMONKEY_ID) {
@@ -1193,6 +1207,11 @@ function BounceStartup(aParams)
     if (document.getElementById("sidebar").getAttribute("src") === "")
       setTimeout(toggleAddressPicker, 0);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
   }
+
+  // Initialization for Dark/Light theme (TB60+)
+  try {
+    CompactTheme.init();
+  } catch(ex) { }
 
   // Update the status of the redirect button (in case default recipients are specified)
   updateSendCommands(false);
@@ -1273,8 +1292,15 @@ function BounceLoad()
 
   var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
   gAppInfoID = appInfo.ID;
-  var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
-  if (gAppInfoID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "31.0") < 0) {
+  gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
+  if (gAppInfoPlatformVersion < 65) {
+    // Hide html progress and show old progressmeter
+    var elem = document.getElementById("status-bar");
+    if (elem) elem.setAttribute("collapsed", "true");
+    elem = document.getElementById("status-bar-pre65");
+    elem.removeAttribute("collapsed");
+  }
+  if (gAppInfoID === THUNDERBIRD_ID && gAppInfoPlatformVersion < 31) {
     var textbox = document.getElementById("addressCol2#1");
     textbox.setAttribute("ontextentered", "awRecipientTextCommandPre31(eventParam, this)");
     textbox.removeAttribute("onblur");
@@ -1683,12 +1709,13 @@ function createTempFile()
   try {
     file = Cc["@mozilla.org/file/local;1"].
            createInstance(Ci.nsIFile);
+    file.initWithPath(tmpDir.path);
   } catch(ex) {
     // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
     file = Cc["@mozilla.org/file/local;1"].
            createInstance(Ci.nsILocalFile);
+    file.initWithPath(tmpDir.path);
   }
-  file.initWithPath(tmpDir.path);
   file.appendRelativePath("mailredirect.tmp");
 
   try {
@@ -2165,7 +2192,7 @@ function RealBounceMessage(idx)
           if (ret != leftovers.length) { dumper.dump("!! inBody write error? leftovers len " + leftovers.length + ", written " + ret); }
           leftovers = "";
         }
-     } else {
+      } else {
         // out of header -- read the rest and write to file
         buf = leftovers + aScriptableInputStream.read(aCount);
         leftovers = "";
@@ -2208,40 +2235,37 @@ function RealBounceMessage(idx)
 
 function nsMsgStatusFeedback(idx)
 {
+  // dumper.dump("nsMsgStatusFeedback(" + idx + ")");
   this.URIidx = idx;
+  if (gAppInfoID === THUNDERBIRD_ID) {
+    this.throbber = document.getElementById("throbber-box");
+  } else if (gAppInfoID === SEAMONKEY_ID) {
+    this.throbber = document.getElementById("navigator-throbber");
+  }
+  if (gAppInfoPlatformVersion < 65) {
+    this.statusTextFld = document.getElementById("statusText-pre65");
+    this.statusBar = document.getElementById("bounce-progressmeter-pre65");
+  } else {
+    this.statusTextFld = document.getElementById("statusText");
+    this.statusBar = document.getElementById("bounce-progressmeter");
+  }
+  var treeChildren = document.getElementById("topTreeChildren");
+  if (treeChildren) {
+    var el = treeChildren.getElementsByAttribute("URIidx", this.URIidx);
+    if (el) {
+      if (!this.mailredirectTreeCell) this.mailredirectTreeCell = el[0].lastChild;
+    }
+  }
 }
 
 nsMsgStatusFeedback.prototype =
 {
   // global variables for status / feedback information....
+  throbber: null,
   statusTextFld: null,
   statusBar: null,
-  throbber: null,
   mailredirectTreeCell: null,
   URIidx: -1,
-
-  ensureStatusFields: function() {
-    // dumper.dump("ensureStatusFields");
-    if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
-    if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
-    if (!this.throbber) {
-//      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-      if (gAppInfoID === THUNDERBIRD_ID) {
-        this.throbber = document.getElementById("throbber-box");
-      } else if (gAppInfoID === SEAMONKEY_ID) {
-        this.throbber = document.getElementById("navigator-throbber");
-      }
-    }
-    if (!this.mailredirectTreeCell) {
-      var treeChildren = document.getElementById("topTreeChildren");
-      if (treeChildren) {
-        var el = treeChildren.getElementsByAttribute("URIidx", this.URIidx);
-        if (el) {
-          if (!this.mailredirectTreeCell) this.mailredirectTreeCell = el[0].lastChild;
-        }
-      }
-    }
-  },
 
   updateStatusText: function() {
     // if all StatusStrings are equal show this string
@@ -2251,7 +2275,6 @@ nsMsgStatusFeedback.prototype =
       if (str !== mstate.statusStrings[i]) return;
     }
     // dumper.dump("setting status text to: " + str);
-    this.ensureStatusFields();
     this.statusTextFld.label = str;
   },
 
@@ -2319,8 +2342,7 @@ nsMsgStatusFeedback.prototype =
   },
 
   showProgress: function(percentage) {
-    // dumper.dump("[" + this.URIidx + "] " + "showProgress(" + percentage +")");
-    this.ensureStatusFields();
+    dumper.dump("[" + this.URIidx + "] " + "showProgress(" + percentage +")");
     if (percentage >= 0) {
       this.statusBar.setAttribute("mode", "normal");
       this.statusBar.value = percentage;
@@ -2348,7 +2370,6 @@ nsMsgStatusFeedback.prototype =
     if (aStateFlags & Ci.nsIWebProgressListener.STATE_START) {
       // dumper.dump("onStateChange STATE_START");
       mstate.sendOperationInProgress[this.URIidx] = true;
-      this.ensureStatusFields();
       this.mailredirectTreeCell.setAttribute("mode", "undetermined");
       this.statusBar.setAttribute("mode", "undetermined");
     }
@@ -2356,7 +2377,6 @@ nsMsgStatusFeedback.prototype =
     if (aStateFlags & Ci.nsIWebProgressListener.STATE_STOP) {
       // dumper.dump("onStateChange STATE_STOP");
       mstate.sendOperationInProgress[this.URIidx] = false;
-      this.ensureStatusFields();
       this.statusBar.setAttribute("mode", "normal");
       this.statusBar.setAttribute("value", 0);
       this.mailredirectTreeCell.removeAttribute("mode");
@@ -2368,7 +2388,6 @@ nsMsgStatusFeedback.prototype =
   onProgressChange: function(aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress) {
     // dumper.dump("[" + this.URIidx + "] " + ". onProgressChange(" + aWebProgress + ", " + aRequest.name + ", " + aCurSelfProgress + ", " + aMaxSelfProgress + ", " + aCurTotalProgress + ", " + aMaxTotalProgress + ")");
 
-    this.ensureStatusFields();
     if (aMaxTotalProgress > 0) {
       var percent = (aCurTotalProgress*100)/aMaxTotalProgress;
       if (percent > 100) percent = 100;
@@ -2398,7 +2417,6 @@ nsMsgStatusFeedback.prototype =
     // Looks like it's possible that we get call while the document has been already delete!
     // therefore we need to protect ourself by using try/catch
     try {
-      this.ensureStatusFields();
       this.showStatusString(aMessage);
     } catch (ex) { };
   },
@@ -2412,47 +2430,51 @@ nsMsgStatusFeedback.prototype =
     if (percent > 100) percent = 100;
 
     this.statusBar.setAttribute("value", percent);
-    // dumper.dump("updateStatusBar = " + percent);
+    dumper.dump("updateStatusBar = " + percent);
   }
 };
 
 function nsMeteorsStatus()
 {
+  dumper.dump("nsMeteorsStatus");
+  if (gAppInfoID === THUNDERBIRD_ID) {
+    this.throbber = document.getElementById("throbber-box");
+  } else if (gAppInfoID === SEAMONKEY_ID) {
+    this.throbber = document.getElementById("navigator-throbber");
+  }
+  if (gAppInfoPlatformVersion < 65) {
+    this.statusTextFld = document.getElementById("statusText-pre65");
+    this.statusBar = document.getElementById("bounce-progressmeter-pre65");
+    this.progressBarContainer = document.getElementById("bounce-progressmeter-pre65");
+  } else {
+    this.statusTextFld = document.getElementById("statusText");
+    this.statusBar = document.getElementById("bounce-progressmeter");
+    this.progressBarContainer = document.getElementById("statusbar-progresspanel");
+  }
 }
 
-nsMeteorsStatus.prototype = {
+nsMeteorsStatus.prototype =
+{
   pendingStartRequests: 0,
   startTimeoutID: null,
   stopTimeoutID: null,
   meteorsSpinning: false,
+  throbber: null,
   statusTextFld: null,
   statusBar: null,
-  throbber: null,
-
-  ensureStatusFields: function() {
-    // dumper.dump("ensureStatusFields");
-    if (!this.statusTextFld ) this.statusTextFld = document.getElementById("statusText");
-    if (!this.statusBar) this.statusBar = document.getElementById("bounce-progressmeter");
-    if (!this.throbber) {
-//      var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-      if (gAppInfoID === THUNDERBIRD_ID) {
-        this.throbber = document.getElementById("throbber-box");
-      } else if (gAppInfoID === SEAMONKEY_ID) {
-        this.throbber = document.getElementById("navigator-throbber");
-      }
-    }
-  },
+  progressBarContainer: null,
 
   _startMeteors: function() {
     dumper.dump("_startMeteors");
 
-    this.ensureStatusFields();
     this.meteorsSpinning = true;
     this.startTimeoutID = null;
 
     // Turn progress meter on.
-    this.statusBar.setAttribute("mode", "undetermined");
-    this.statusBar.setAttribute("collapsed", false);
+    if (this.statusBar) {
+      this.statusBar.setAttribute("mode", "undetermined");
+      this.progressBarContainer.removeAttribute("collapsed");
+    }
 
     // start the throbber
     if (this.throbber) this.throbber.setAttribute("busy", true);
@@ -2479,17 +2501,18 @@ nsMeteorsStatus.prototype = {
       msg = get(numMessages, BounceMsgsBundle.getString("sendMessageSuccessfulMsgs"));
     else
       msg = get(numMessages, BounceMsgsBundle.getString("sendMessageFailedMsgs"));
-    this.ensureStatusFields();
     this.statusTextFld.label = msg;
 
     // stop the throbber
     if (this.throbber) this.throbber.setAttribute("busy", false);
 
     // Turn progress meter off.
-    this.statusBar.setAttribute("collapsed", true);
-    this.statusBar.setAttribute("mode", "normal");
-    this.statusBar.value = 0;  // be sure to clear the progress bar
-    this.statusBar.label = "";
+    if (this.statusBar) {
+      this.progressBarContainer.setAttribute("collapsed", "true");
+      this.statusBar.setAttribute("mode", "normal");
+      this.statusBar.value = 0;  // be sure to clear the progress bar
+      this.statusBar.label = "";
+    }
 
     this.meteorsSpinning = false;
     this.stopTimeoutID = null;
@@ -2503,7 +2526,7 @@ nsMeteorsStatus.prototype = {
         for (var i = 0; i < el.length; ++i) {
           try {
             el.removeAttribute("mode");
-          } catch(ex) {}
+          } catch(ex) { }
         }
       }
     }
@@ -2822,7 +2845,12 @@ function toggleAddressPicker()
     // data sources. Only when the user opens the address picker do we set the src url for the sidebar...
     if (sidebarUrl === "") {
       if (gAppInfoID === THUNDERBIRD_ID) {
-        sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
+        // CardBook contact sidebar
+        if (getPref("extensions.cardbook.autocompletion", false) === true) {
+          sidebar.setAttribute("src", "chrome://cardbook/content/contactsSidebar/wdw_cardbookContactsSidebar.xul");
+        } else {
+          sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
+        }
       } else if (gAppInfoID === SEAMONKEY_ID) {
         sidebar.setAttribute("src", "chrome://messenger/content/addressbook/addressbook-panel.xul");
       }
@@ -2871,9 +2899,7 @@ function renameToToResendTo()
           menuitem.setAttribute("hidden", true);
         } else {
           // In bug 236240 the position of Delete and Properties items has changed, so also those of To, Cc, and Bcc
-          var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-          var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
-          if (versionChecker.compare(appInfo.version, "50.0") < 0) {
+          if (gAppInfoPlatformVersion < 50) {
             offset = 2;
           }
         }
@@ -3051,7 +3077,7 @@ function ResolveMailLists()
           // Try/catch because cardForEmailAddress will throw if not implemented.
           try {
             existingCard = abDirectory.cardForEmailAddress(recipient.email);
-          } catch (e) {}
+          } catch (e) { }
 
           if (existingCard) {
             recipient.mProcessed = true;

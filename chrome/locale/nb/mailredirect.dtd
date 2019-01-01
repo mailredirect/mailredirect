@@ -3,3 +3,7 @@
 <!ENTITY bounceCommand.tooltip "Omdiriger valgte meldinger">
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
+
+<!ENTITY forwardAsRedirect.label "Omdiriger">
+<!ENTITY forwardAsRedirect.accesskey "O">
+<!ENTITY forwardAsRedirect.tooltip "Omdiriger valgt melding">

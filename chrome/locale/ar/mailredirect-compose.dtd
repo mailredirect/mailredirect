@@ -2,13 +2,13 @@
 
 <!ENTITY fileMenu.label "ملف">
 <!ENTITY fileMenu.accesskey "م">
-<!ENTITY forwardBounce.label "إعادة توجيه">
-<!ENTITY forwardBounce.accesskey "ج">
+<!ENTITY forwardBounce.label "أعِد التوجيه">
+<!ENTITY forwardBounce.accesskey "ت">
 <!ENTITY closeCmd.label "أغلق">
 <!ENTITY closeCmd.accesskey "غ">
 
-<!ENTITY viewMenu.label "عرض">
-<!ENTITY viewMenu.accesskey "ع">
+<!ENTITY viewMenu.label "منظور">
+<!ENTITY viewMenu.accesskey "ظ">
 <!ENTITY viewToolbarsMenuNew.label "أشرطة الأدوات">
 <!ENTITY viewToolbarsMenuNew.accesskey "ش">
 <!ENTITY menubarCmd.label "شريط القوائم">
@@ -17,7 +17,7 @@
 <!ENTITY tasksMenu.label "أدوات">
 <!ENTITY tasksMenu.accesskey "د">
 <!ENTITY messengerCmd.label "البريد و مجموعات الأخبار">
-<!ENTITY messengerCmd.accesskey "ب">
+<!ENTITY messengerCmd.accesskey "خ">
 <!ENTITY addressBookCmd.label "دفتر العناوين">
 <!ENTITY addressBookCmd.accesskey "ع">
 
@@ -25,7 +25,7 @@
 <!ENTITY bounceButton.tooltip "أعِد توجيه الرسائل">
 <!ENTITY addressButton.label "دفتر العناوين">
 <!ENTITY addressButton.tooltip "انتقل إلى دفتر العناوين">
-<!ENTITY throbberItem.title "مؤشر النشاط">
+<!ENTITY throbberItem.title "مؤشّر النشاط">
 <!ENTITY throbber.tooltip "انتقل إلى صفحة &vendorShortName; الرئيسية">
 
 <!ENTITY closeCmd.key "W">
@@ -62,7 +62,7 @@
 <!ENTITY resendCcAddr.label "إعادة إرسال-نسخ:">
 <!ENTITY resendBccAddr.label "إعادة إرسال-نسخ عمياء:">
 
-<!ENTITY bounceMailsLabel.label "سيعاد توجيه الرسائل التالية:">
+<!ENTITY bounceMailsLabel.label "سيُعاد توجيه الرسائل الآتية:">
 
 <!ENTITY subject.label "الموضوع">
 <!ENTITY sender.label "المرسِل">

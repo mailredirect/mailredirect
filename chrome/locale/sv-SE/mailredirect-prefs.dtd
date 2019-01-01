@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Om alternativet aktiveras kommer en kopia av omdirigerade brev att sparas i mappen Skickat. Om det inte är aktiverat, sparas ingen kopia i någon mapp. \nObs: Om alternativet är aktiverat men inställningen för kontot som används för omdirigering är &quot;spara inga kopior för skickade brev&quot;, så kommer inga omdirigerade brev att sparas.">
 
+<!ENTITY addToForwardAs.label "Lägg till Omdirigera i menyerna och knapparna Vidarebefordra som">
+<!ENTITY addToForwardAs.accesskey "L">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Genom att lägga till Omdirigera i menyerna och knapparna Vidarebefordra grupperar du alla vidarebefordrade åtgärder under ett element.\nDu kan ta bort knapparna från verktygsfältet genom att anpassa dem och markera alternativet nedan, du kan dölja de separata menyelementen eftersom de har blivit överflödiga.">
+
+<!ENTITY hideRedirectMenuitems.label "Dölj menyelementet Omdirigera från Meddelande, Program och högerklicksmenyer">
+<!ENTITY hideRedirectMenuitems.accesskey "D">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Döljer det separata menyelementen för omdirigering från Meddelande, Program och högerklicksmenyer.">
+
 <!ENTITY concurrentConnections.label "Antal samtidiga SMTP-anslutningar:">
 <!ENTITY concurrentConnections.accesskey "n">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

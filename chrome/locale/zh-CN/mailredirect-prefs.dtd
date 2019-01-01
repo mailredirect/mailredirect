@@ -1,9 +1,19 @@
 <!ENTITY mailredirectSettings.title "MailRedirect 设置">
 
-<!ENTITY copyToSentMails.label "在已发送文件夹保存重定向邮件副本？">
+<!ENTITY copyToSentMails.label "重定向的邮件在发件箱中留存副本？">
 <!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "选中此项，将会在已发送文件夹下保存重定向消息的副本。不选此项，不会保存重定向消息的副本到任何文件夹。\n注意：如果选中此项但是重定向消息所在账户的设置是“不保存已发送消息”，那么重定向消息也不会被保存。">
+
+<!ENTITY addToForwardAs.label "添加“重定向”到“转发为”菜单及按钮">
+<!ENTITY addToForwardAs.accesskey "A">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "通过将“重定向”添加到“转发为”菜单及按钮，您可以将所有转发动作归入一个菜单。\n您可以通过“定制”移除它们，或通过下方的选项移除不必要的子项。">
+
+<!ENTITY hideRedirectMenuitems.label "隐藏“消息”、“应用程序”和右键菜单中的“重定向”菜单项">
+<!ENTITY hideRedirectMenuitems.accesskey "H">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "“消息”、“应用程序”和右键菜单中的仅有“重定向”菜单时不作为子项">
 
 <!ENTITY concurrentConnections.label "SMTP 并发连接数：">
 <!ENTITY concurrentConnections.accesskey "N">
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "默认模式：">
 <!ENTITY defaultMode.accesskey "m">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "选择你希望的邮件重定向默认方式\n此设置仅在你未设置默认联系人时有效。">
+<!ENTITY defaultMode.tooltip "选择默认情况下的重定向方式。\n此设置仅在您未指定任何默认收件人时有效。">
 <!ENTITY defaultModeResendTo.label "重定向收件人">
 <!ENTITY defaultModeResendCc.label "重定向抄送">
 <!ENTITY defaultModeResendBcc.label "重定向密送">

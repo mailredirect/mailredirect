@@ -5,6 +5,16 @@
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Si marca esta opción, una copia de los mensajes redirigidos se guardará en la carpeta de Enviados. Si no la marca, no se guardará copia en ninguna carpeta.\nNota: Si marca esta opción pero la cuenta están predispuesta para no guardar ningún mensaje enviado, tampoco se guardará copia de los mensajes redirigidos.">
 
+<!ENTITY addToForwardAs.label "Añadir Redirigir a Reenviar como menús y botones.">
+<!ENTITY addToForwardAs.accesskey "g">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Al agregar &quot;Redirigir&quot; a los menúes y botones de Reenviar se agrupan todas las acciones de reenvío en un solo elemento.\nPuede eliminar los botones de las barras de herramientas al personalizarlos y al marcar la opción a continuación, puede ocultar los elementos de menú separados porque se han vuelto redundantes.">
+
+<!ENTITY hideRedirectMenuitems.label "Ocultar &quot;Redirigir&quot; de los menúes de Mensaje, Aplicación y contexto.">
+<!ENTITY hideRedirectMenuitems.accesskey "O">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Oculta los elementos de &quot;Redirigir&quot; que están separados de los menúes de Mensaje, Aplicación y contexto.">
+
 <!ENTITY concurrentConnections.label "Número de conexiones SMTP simultáneas:">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->

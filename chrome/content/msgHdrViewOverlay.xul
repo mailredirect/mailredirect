@@ -3,6 +3,8 @@
 <!DOCTYPE overlay [
   <!ENTITY % msgHdrViewOverlayDTD SYSTEM "chrome://mailredirect/locale/msgHdrViewOverlay.dtd">
   %msgHdrViewOverlayDTD;
+  <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
+  %mailredirectDTD;
 ]>
 
 <?xml-stylesheet href="chrome://mailredirect-os/skin/messageHeader.css" type="text/css"?>
@@ -17,6 +19,14 @@
                    observes="cmd_mailredirect"
                    class="toolbarbutton-1 msgHeaderView-button hdrMailredirectButton" />
   </toolbarpalette>
+
+  <menupopup id="hdrForwardDropdown">
+    <menuitem id="hdrForwardAsRedirectMenu"
+      label="&bounceCommand.label;"
+      tooltiptext="&forwardAsRedirect.tooltip;"
+      insertafter="hdrForwardAsAttachmentMenu"
+      command="cmd_mailredirect"/>
+  </menupopup>
 
   <toolbar id="header-view-toolbar"
            defaultset="hdrReplyToSenderButton,hdrSmartReplyButton,hdrForwardButton,hdrMailredirectButton,hdrArchiveButton,hdrJunkButton,hdrTrashButton,otherActionsButton"/>

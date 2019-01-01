@@ -35,7 +35,7 @@
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
 
-<!ENTITY customizeToolbar.label "自訂 ...">
+<!ENTITY customizeToolbar.label "自訂…">
 <!ENTITY customizeToolbar.accesskey "C">
 <!ENTITY showBounceToolbarCmd.label "重新導向工具列">
 <!ENTITY showBounceToolbarCmd.accesskey "o">
@@ -55,7 +55,7 @@
      label -->
 <!ENTITY headersSpace.style "width: 9em;">
 
-<!ENTITY resendFromAddr.label "重寄來源：">
+<!ENTITY resendFromAddr.label "重寄寄件者:">
 <!ENTITY resendFromAddr.accesskey "R">
 
 <!ENTITY resendToAddr.label "重寄收件者：">

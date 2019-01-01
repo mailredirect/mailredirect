@@ -1,9 +1,19 @@
 <!ENTITY mailredirectSettings.title "Налаштування MailRedirect">
 
-<!ENTITY copyToSentMails.label "Зберігати копію перенаправленого листа в надісланих?">
+<!ENTITY copyToSentMails.label "Зберігати копію перенаправленого листа в теці надісланих?">
 <!ENTITY copyToSentMails.accesskey "З">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Якщо встановлено цю опцію, копія перенаправленого листа зберігається в теці надісланих повідомлень. Якщо цю опцію не активовано, перенаправлене повідомлення не копіюється до жодної з тек.\nПримітка: Якщо ця опція активована і ваш обліковий запис має налаштування не зберігати надіслані повідомлення, копії перенаправлених повідомлень також не будуть зберігатися.">
+
+<!ENTITY addToForwardAs.label "Додати функцію Перенаправити до меню і кнопок Переслати">
+<!ENTITY addToForwardAs.accesskey "о">
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
+<!ENTITY addToForwardAs.tooltip "Додаючи функцію Перенаправити до меню і кнопок Переслати, ви групуєте всі елементи пересилання в одному місці.\nВи можете вилучити кнопки з панелей інструментів, налаштувавши їх та встановивши опції внизу, ви можете приховати окремі елементи меню, тому що вони стали зайвими.">
+
+<!ENTITY hideRedirectMenuitems.label "Приховати елемент меню Перенаправити з повідомлення, програми і контекстних меню">
+<!ENTITY hideRedirectMenuitems.accesskey "х">
+<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.tooltip "Приховує окремі елементи меню Перенаправити з повідомлення, програми і контекстних меню.">
 
 <!ENTITY concurrentConnections.label "Кількість паралельних з'єднань SMTP:">
 <!ENTITY concurrentConnections.accesskey "К">
@@ -27,7 +37,7 @@
 <!ENTITY defaultMode.label "Типовий режим:">
 <!ENTITY defaultMode.accesskey "м">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Встановіть типовий режим перенаправлення повідомлень.\nЦе налаштування діє лише, коли ви не зазначили типових адресатів.">
+<!ENTITY defaultMode.tooltip "Оберіть, як ви хочете типово перенаправляти повідомлення.\nЦе налаштування діє лише, якщо ви не зазначили будь-яких інших типових отримувачів.">
 <!ENTITY defaultModeResendTo.label "Кому">
 <!ENTITY defaultModeResendCc.label "Копія">
 <!ENTITY defaultModeResendBcc.label "Прихована копія">

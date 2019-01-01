@@ -3,7 +3,10 @@
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
 
-<!DOCTYPE window SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
+<!DOCTYPE window [
+  <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
+  %mailredirectPrefsDTD;
+]>
 
 <!-- This is the overlay that adds "Mail Redirect" entry to the prefs. -->
 
