@@ -79,6 +79,9 @@ echo icon.png >> mailredirect.txt
 echo LICENSE >> mailredirect.txt
 echo README >> mailredirect.txt
 version=$(grep em:version install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
+cp -p manifest.json manifest.tmp
+cat manifest.tmp | sed -e "s/\$version/${version}/" > manifest.json
+rm manifest.tmp
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
 zip -r -D -9 mailredirect-${version}-sm+tb.xpi -@ < mailredirect.txt
 rm mailredirect.txt

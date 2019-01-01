@@ -82,6 +82,9 @@ grep \<em:update -A 2 install.rdf > make-grep.txt
 grep -v -f make-grep.txt ../../code/install.rdf > install.rdf
 rm make-grep.txt
 version=$(grep em:version install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
+grep -v update_url manifest.json > manifest.tmp
+cat manifest.tmp | sed -e "s/\(\"strict_min_version\".*\),/\1/" -e "s/\$version/${version}/" > manifest.json
+rm manifest.tmp
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
 zip -r -D -9 mailredirect-${version}-sm+tb.xpi -@ < mailredirect.txt
 rm mailredirect.txt
