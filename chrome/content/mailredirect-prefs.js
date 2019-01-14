@@ -168,8 +168,9 @@ window.MailredirectPrefs = {
                        createInstance(Ci.nsIMsgAttachment);
       var tempUri = Services.io.newFileURI(tempFile);
       if (tempUri instanceof Ci.nsIFileURL) {
-        if (tempUri.file.exists())
+        if (tempUri.file.exists()) {
           attachment.size = tempUri.file.fileSize;
+        }
         attachment.url = tempUri.spec;
       } else {
         // resolveURI does all the magic around working out what the
@@ -179,8 +180,9 @@ window.MailredirectPrefs = {
         let uri = commandLine.resolveURI(tempFile.path);
         // If uri is for a file and it exists set the attachment size.
         if (uri instanceof Ci.nsIFileURL) {
-          if (uri.file.exists())
+          if (uri.file.exists()) {
             attachment.size = uri.file.fileSize;
+          }
           attachment.url = uri.spec;
         }
       }
@@ -263,7 +265,8 @@ window.MailredirectPrefs = {
         profileIcon.append("default");
         profileIcon.append(iconFilename);
 
-        if (!profileIcon.exists()) {  // Icon doesn't exist, so extension isn't unpacked
+        if (!profileIcon.exists()) {
+          // Icon doesn't exist, so extension isn't unpacked
           allExist = false;
           let chromeIcon = Cc["@mozilla.org/file/directory_service;1"].
                            getService(Ci.nsIProperties).
@@ -272,7 +275,8 @@ window.MailredirectPrefs = {
           chromeIcon.append("default");
           chromeIcon.append(iconFilename);
 
-          if (!chromeIcon.exists()) { // Icon doesn't exist in program folder, so copy it
+          if (!chromeIcon.exists()) {
+            // Icon doesn't exist in program folder, so copy it
             var file;
 
             try {
@@ -292,7 +296,8 @@ window.MailredirectPrefs = {
               aFileOutputStream.init(file, -1, -1, 0);
               copyFile("chrome://mailredirect-icons/content/default/" + iconFilename, aFileOutputStream);
 
-              if (!chromeIcon.exists()) { // Icon still doesn't exist
+              if (!chromeIcon.exists()) {
+                // Icon still doesn't exist
                 Components.utils.reportError(chromeIcon.path + " still doesn't exist");
                 allCopied = false;
               }

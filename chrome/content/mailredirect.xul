@@ -19,15 +19,14 @@
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect.js"/>
 
+  <commandset id="mailToolbarItems">
+    <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
+  </commandset>
+
   <keyset id="mailKeys">
     <key id="key_mailredirect" key="&bounceMsgCmd.key;" modifiers="&bounceMsgCmd.modifiers;"
-      oncommand="goDoCommand('cmd_mailredirect')"/>
+      oncommand="goDoCommand('cmd_mailredirect')" />
   </keyset>
-
-  <commandset id="mailToolbarItems">
-    <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')"
-      insertafter="button_forward"/>
-  </commandset>
 
   <menupopup id="messageMenuPopup">
     <menuitem id="MailredirectMenuItem"

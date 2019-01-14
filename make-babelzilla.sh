@@ -15,6 +15,7 @@ mkdir -p ${DEST}/chrome/locale/en-US/
 rsync -a ../code/chrome/locale/en-US/* ${DEST}/chrome/locale/en-US/
 cd ${DEST}
 echo install.rdf > mailredirect.txt
+echo manifest.json >> mailredirect.txt
 echo chrome.manifest >> mailredirect.txt
 find chrome -type f | sort >> mailredirect.txt
 echo defaults/ >> mailredirect.txt

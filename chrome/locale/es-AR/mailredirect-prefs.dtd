@@ -1,12 +1,12 @@
 <!ENTITY mailredirectSettings.title "Configuración MailRedirect">
 
-<!ENTITY copyToSentMails.label "¿Poner una copia del correo reexpedido en la Carpeta de Enviados?">
+<!ENTITY copyToSentMails.label "¿Quiere poner una copia del correo reexpedido en la Carpeta de Enviados?">
 <!ENTITY copyToSentMails.accesskey "c">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Si esta opción está marcada, una copia del mensaje redirigido se coloca en la carpeta Enviados. Si la opción está desactivada,  no se copia el mensaje redirigido en ninguna carpeta\nNota:. Si esta opción está activada y la configuración de la cuenta utilizada para redireccionar es 'no guardar los mensajes enviados en absoluto&quot;, la copia de los mensajes redireccionados no se pueden guardar.">
 
-<!ENTITY addToForwardAs.label "??Add Redirect to Forward As menus and buttons??">
-<!ENTITY addToForwardAs.accesskey "A">
+<!ENTITY addToForwardAs.label "Agregar Reenviar como menús y botones">
+<!ENTITY addToForwardAs.accesskey "R">
 <!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
 <!ENTITY addToForwardAs.tooltip "??By adding Redirect to the Forward As menus and buttons you group all forwarding actions under one item.\nYou can remove the buttons from the toolbars by customizing them and by checking the option below, you can hide the separate menu items because they have become redundant??">
 

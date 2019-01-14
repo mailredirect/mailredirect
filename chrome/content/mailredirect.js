@@ -1,4 +1,4 @@
-// author: Pawel Krzesniak
+// authors: Pawel Krzesniak, Ronald Wahl, Onno Ekker
 
 "use strict";
 
@@ -35,25 +35,28 @@ window.MailredirectExtension = {
       selectedURIs = mailWindow.GetSelectedMessages();
       folder = GetLoadedMsgFolder();
     }
-    if (folder)
+    if (folder) {
       server = folder.server;
+    }
 
     var currentIdentity = {key: null};
-    if (server && (server.type === "imap" || server.type === "pop3"))
+    if (server && (server.type === "imap" || server.type === "pop3")) {
       currentIdentity = getIdentityForServer(server);
+    }
 
-    if (MailredirectExtension.appInfo.ID === THUNDERBIRD_ID)
+    if (MailredirectExtension.appInfo.ID === THUNDERBIRD_ID) {
       window.openDialog("chrome://mailredirect/content/mailredirect-compose-thunderbird.xul", "_blank",
           "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
           selectedURIs, currentIdentity.key);
-    else if (MailredirectExtension.appInfo.ID === SEAMONKEY_ID)
+    } else if (MailredirectExtension.appInfo.ID === SEAMONKEY_ID) {
       window.openDialog("chrome://mailredirect/content/mailredirect-compose-seamonkey.xul", "_blank",
           "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
           selectedURIs, currentIdentity.key);
+    }
   },
 
-  MailredirectController : {
-    supportsCommand : function(aCommand)
+  MailredirectController: {
+    supportsCommand: function(aCommand)
     {
       switch(aCommand) {
         case "cmd_mailredirect":
@@ -73,10 +76,11 @@ window.MailredirectExtension = {
                                    getService(Ci.nsIWindowMediator);
               var currWindow = windowMediator.getMostRecentWindow("");
               var currWindowType = currWindow.document.documentElement.getAttribute("windowtype");
-              if (currWindowType === "mail:messageWindow")
+              if (currWindowType === "mail:messageWindow") {
                 return true;
-              else if (currWindowType === "mail:3pane")
+              } else if (currWindowType === "mail:3pane") {
                 return (GetNumSelectedMessages() > 0 && !gFolderDisplay.selectedMessageIsFeed);
+              }
             } else {
               Components.utils.reportError("MailredirectController cannot determine isCommandEnabled state for cmd_mailredirect, because gFolderDisplay is not yet initialized");
             }
@@ -90,8 +94,9 @@ window.MailredirectExtension = {
     {
       // if the user invoked a key short cut then it is possible that we got here for a command which is
       // really disabled. kick out if the command should be disabled.
-      if (!this.isCommandEnabled(aCommand))
+      if (!this.isCommandEnabled(aCommand)) {
         return;
+      }
 
       switch(aCommand) {
         case "cmd_mailredirect":
@@ -114,8 +119,9 @@ window.MailredirectExtension = {
     observe: function(subject, topic, state)
     {
       // Sanity check
-      if (topic !== "network:offline-status-changed")
+      if (topic !== "network:offline-status-changed") {
         return;
+      }
       MailredirectExtension.isOffline = (state === "offline");
       goUpdateCommand("cmd_mailredirect");
     }
@@ -148,8 +154,9 @@ window.MailredirectExtension = {
 
   MultimessageClick: function(event)
   {
-    if (event.button === 0)
+    if (event.button === 0) {
       goDoCommand("cmd_mailredirect")
+    }
   },
 
   AddRedirectButtonToElement: function(el)
@@ -227,8 +234,9 @@ window.MailredirectExtension = {
     observe: function(subject, topic, data)
     {
       // Sanity check
-      if (topic !== "nsPref:changed")
+      if (topic !== "nsPref:changed") {
         return;
+      }
 
       switch(data) {
         case "addToForwardAs":
@@ -286,11 +294,13 @@ window.MailredirectExtension = {
     let menuitem = document.getElementById("MailredirectMenuItem");
     if (hideRedirectMenuitems) {
       submenuitem.setAttribute("key", "key_mailredirect");
-      if (menuitem.hasAttribute("key"))
+      if (menuitem.hasAttribute("key")) {
         menuitem.removeAttribute("key");
+      }
     } else {
-      if (submenuitem.hasAttribute("key"))
+      if (submenuitem.hasAttribute("key")) {
         submenuitem.removeAttribute("key");
+      }
       menuitem.setAttribute("key", "key_mailredirect");
     }
   },
@@ -298,17 +308,20 @@ window.MailredirectExtension = {
   InstallListeners: function(event)
   {
     var el = document.getElementById("threadTree");
-    if (el !== null)
+    if (el !== null) {
       el.addEventListener("select", MailredirectExtension.UpdateCommand, false);
+    }
 
     el = document.getElementById("mailContext");
-    if (el !== null)
+    if (el !== null) {
       el.addEventListener("popupshowing", MailredirectExtension.FillMailContextMenu, false);
+    }
 
     // I've got to perform some tricks for multimessage redirect button, because it is in an iframe
     el = document.getElementById("multimessage");
-    if (el !== null)
+    if (el !== null) {
       MailredirectExtension.AddRedirectButtonToElement(el);
+    }
   },
 
   addButtonToMultimessageView: function(event)
@@ -321,18 +334,21 @@ window.MailredirectExtension = {
   UninstallListeners: function(event)
   {
     var el = document.getElementById("threadTree");
-    if (el !== null)
+    if (el !== null) {
       el.removeEventListener("select", MailredirectExtension.UpdateCommand, false);
+    }
 
     el = document.getElementById("mailContext");
-    if (el !== null)
+    if (el !== null) {
       el.removeEventListener("popupshowing", MailredirectExtension.FillMailContextMenu, false);
+    }
 
     el = document.getElementById("multimessage");
     if (el !== null) {
       el = el.contentDocument.getElementById("hdrMailredirectButton");
-      if (el !== null)
+      if (el !== null) {
         el.removeEventListener("click", MailredirectExtension.MultimessageClick, false);
+      }
     }
   },
 
@@ -412,7 +428,7 @@ function InitMessageForward(aPopup)
 function MsgForwardMessage(event)
 {
   var kMsgForwardAsAttachment = 0;
-  if (event.target.id !== "button-ForwardAsRedirect") {
+  if (event === null || event.target.id !== "button-ForwardAsRedirect") {
     var forwardType = 0;
     try {
       forwardType = Services.prefs.getIntPref("mail.forward_message_mode");
@@ -422,9 +438,10 @@ function MsgForwardMessage(event)
     // mail.forward_message_mode could be 1, if the user migrated from 4.x
     // 1 (forward as quoted) is obsolete, so we treat is as forward inline
     // since that is more like forward as quoted then forward as attachment
-    if (forwardType === kMsgForwardAsAttachment)
+    if (forwardType === kMsgForwardAsAttachment) {
       MsgForwardAsAttachment(event);
-    else
+    } else {
       MsgForwardAsInline(event);
+    }
   }
 }

@@ -28,8 +28,9 @@ MailredirectDebug.Dump.prototype =
     {
       if (topic === "nsPref:changed") {
         if (prefName === prefString) {
-          if (this.mydump)
+          if (this.mydump) {
             this.mydump.init();
+          }
         }
       }
     }
