@@ -46,9 +46,6 @@
     <em:translator>Chan Chris Lo Man &amp; Peter Pin-Guang Chen (zh-TW)</em:translator>
     <em:homepageURL>https://mailredirect.sourceforge.io/</em:homepageURL>
     <em:updateURL>https://mailredirect.sourceforge.io/updates.json</em:updateURL>
-    <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeCTk1UeuneGxy0g3bJcUoSfF+CNTfNrnmsSKYGtLv
-                  wgfcecW2i0tuV52U8EcQ1nfGuDZtvuHJiu1rdn57G3BsVfTwwyfxY35w7Kjk4/J7HtB/+3EPyV81PT+f
-                  lO5YT/F4yeO+k5MiAWsIb6Re2RF1ildra4lqxY+va4uDQuXJ3wIDAQAB</em:updateKey>
     <em:optionsURL>chrome://mailredirect/content/mailredirect-prefs.xul</em:optionsURL>
     <em:optionsType>3</em:optionsType>
     <em:localized>

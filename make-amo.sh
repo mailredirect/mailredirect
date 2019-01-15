@@ -78,7 +78,7 @@ echo defaults/ >> mailredirect.txt
 echo icon.png >> mailredirect.txt
 echo LICENSE >> mailredirect.txt
 echo README >> mailredirect.txt
-grep \<em:update -A 2 install.rdf > make-grep.txt
+grep \<em:update install.rdf > make-grep.txt
 grep -v -f make-grep.txt ../../code/install.rdf > install.rdf
 rm make-grep.txt
 version=$(grep em:version install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
