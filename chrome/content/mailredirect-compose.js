@@ -1146,7 +1146,7 @@ function BounceStartup(aParams)
               var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
                             getService(Ci.mozIOSPreferences);
               if (typeof(osprefs.regionalPrefsLocales) === "object") {
-                // Thunderbird 64 (Bug 1493220)
+                // Thunderbird 64 (Bug 1493220 - Migrate mozIOSPreferences to use Array<>)
                 locale = osprefs.regionalPrefsLocales[0];
               } else {
                 locale = osprefs.getRegionalPrefsLocales()[0];
@@ -1701,7 +1701,12 @@ var mailredirectDragObserver = {
                   if (useOSLocales) {
                     var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
                                   getService(Ci.mozIOSPreferences);
-                    locale = osprefs.getRegionalPrefsLocales()[0];
+                    if (typeof(osprefs.regionalPrefsLocales) === "object") {
+                      // Thunderbird 64 (Bug 1493220 - Migrate mozIOSPreferences to use Array<>)
+                      locale = osprefs.regionalPrefsLocales[0];
+                    } else {
+                      locale = osprefs.getRegionalPrefsLocales()[0];
+                    }
                   } else {
                     locale = null;
                   }
