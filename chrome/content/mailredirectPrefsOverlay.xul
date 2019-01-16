@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
-<?xml-stylesheet href="chrome://communicator/skin/communicator.css" type="text/css"?>
-
 <!DOCTYPE window [
   <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
   %mailredirectPrefsDTD;
