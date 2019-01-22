@@ -8,7 +8,7 @@
   },
   "manifest_version": 2,
   "name": "Mail Redirect",
-  "version": "$version",
+  "version": "0.10.2a2",
   "author": "Onno Ekker",
   "icons": {
     "32": "icon.png"

@@ -3,14 +3,16 @@
 DEST=amo
 if [ "$(uname)" == "Linux" ]
 then
+  SRC=$(basename "$(dirname "$(readlink -f "${0}")")")
   cd $(dirname .)/..
 else
+  SRC=$(basename "$(dirname "$(cygpath -u $(cygpath -m -s "${0}"))")")
   cd $(dirname $(cygpath -u $(cygpath -m -s "${0}")))/..
 fi
 [ -d xpi ] || mkdir xpi
 cd xpi
 rm -fr ${DEST}/
-rsync -a --exclude-from=../code/make-exclude.txt ../code/* ${DEST}/
+rsync -a --exclude-from=../${SRC}/make-exclude.txt ../${SRC}/* ${DEST}/
 cd ${DEST}/chrome/locale
 for locale in *
 do
@@ -18,7 +20,7 @@ do
   then
     for file in ${locale}/*.*
     do
-      echo ${file}
+      echo -n -e "                                        \r${file}"
       if [ "${file##*.}" == "properties" ]
       then
         # Add missing strings as empty string
@@ -30,6 +32,7 @@ do
         grep -q '=$' ${file}      # Check if file has untranslated strings
         if [ $? -eq 0 ]
         then
+          echo -n -e "\n"
           while read line
           do
             if expr index "${line}" '=' > /dev/null
@@ -55,6 +58,7 @@ do
         grep -q '""' ${file}      # Check if file has untranslated strings
         if [ $? -eq 0 ]
         then
+          echo -n -e "\n"
           while read line
           do
             if expr match "${line}" '<!ENTITY' > /dev/null
@@ -69,6 +73,7 @@ do
     done
   fi
 done
+echo -n -e "                                        \r"
 cd ../..
 echo install.rdf > mailredirect.txt
 echo manifest.json >> mailredirect.txt
@@ -79,11 +84,12 @@ echo icon.png >> mailredirect.txt
 echo LICENSE >> mailredirect.txt
 echo README >> mailredirect.txt
 grep \<em:update install.rdf > make-grep.txt
-grep -v -f make-grep.txt ../../code/install.rdf > install.rdf
+grep -v -f make-grep.txt ../../${SRC}/install.rdf > install.rdf
 rm make-grep.txt
 version=$(grep em:version install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
 grep -v update_url manifest.json > manifest.tmp
-cat manifest.tmp | sed -e "s/\(\"strict_min_version\".*\),/\1/" -e "s/\$version/${version}/" > manifest.json
+# Remove comma from strict_min_version line, because next line (update_url) has been removed
+cat manifest.tmp | sed -e "s/\(\"strict_min_version\".*\),/\1/" -e "s/\"version\": \".*\"/\"version\": \"${version}\"/" > manifest.json
 rm manifest.tmp
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
 zip -r -D -9 mailredirect-${version}-sm+tb.xpi -@ < mailredirect.txt

@@ -5,7 +5,7 @@
     <em:id>{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}</em:id>
     <em:type>2</em:type>
     <em:name>Mail Redirect</em:name>
-    <em:version>0.10.2a1</em:version>
+    <em:version>0.10.2a2</em:version>
     <em:unpack>true</em:unpack>
     <em:description>Allow to redirect (a.k.a. &quot;remail&quot;) mail messages to other recipients.</em:description>
     <em:creator>Paweł Krześniak</em:creator>
@@ -24,7 +24,7 @@
     <em:translator>Sami Kuusisto (fi)</em:translator>
     <em:translator>Laurent Malgras &amp; Goofy (fr)</em:translator>
     <em:translator>Óvári (hu)</em:translator>
-    <em:translator>quincy87 (id)</em:translator>
+    <em:translator>quincy87 &amp; Mienz Louveinski (id)</em:translator>
     <em:translator>Luana Di Muzio &amp; Leopoldo Saggin (it)</em:translator>
     <em:translator>matsumoto &amp; Masahiko Imanaka (ja)</em:translator>
     <em:translator>Rimas Kudelis (lt)</em:translator>
