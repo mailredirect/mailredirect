@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Ascundeti meniul de Redirect din Mesaje,Aplicatii si meniurile de context.">
 <!ENTITY hideRedirectMenuitems.accesskey "H">
-<!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Ascundeti meniul separat de Redirect din Mesaje, Aplicatii si meniurle context.">
 
 <!ENTITY concurrentConnections.label "Numărul de conexiuni concurente SMTP:">

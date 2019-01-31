@@ -18,7 +18,7 @@
 
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
 
-  <prefpane>
+  <prefpane id="paneRedirect">
     <preferences>
       <preference id="pref_copyToSentMail" name="extensions.mailredirect.copyToSentMail" type="bool"/>
       <preference id="pref_addToForwardAs" name="extensions.mailredirect.addToForwardAs" type="bool"/>

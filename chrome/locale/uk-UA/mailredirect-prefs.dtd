@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Приховати елемент меню Перенаправити з повідомлення, програми і контекстних меню">
 <!ENTITY hideRedirectMenuitems.accesskey "х">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Приховує окремі елементи меню Перенаправити з повідомлення, програми і контекстних меню.">
 
 <!ENTITY concurrentConnections.label "Кількість паралельних з'єднань SMTP:">

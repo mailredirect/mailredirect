@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "リダイレクトメニュー項目を [メッセージ] メニュー、[アプリケーション] メニュー、コンテキストメニューから隠す">
 <!ENTITY hideRedirectMenuitems.accesskey "H">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "別のリダイレクトメニュー項目を [メッセージ] メニュー、[アプリケーション] メニュー、コンテキストメニューから隠します。">
 
 <!ENTITY concurrentConnections.label "同時 SMTP 接続数:">

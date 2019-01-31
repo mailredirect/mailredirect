@@ -21,6 +21,8 @@ const Cc = Components.classes, Ci = Components.interfaces;
 
 window.MailredirectPrefs = {
 
+  mInitialized: false,
+
   onload: function()
   {
     MailredirectPrefs.init();
@@ -30,20 +32,24 @@ window.MailredirectPrefs = {
 
   init: function()
   {
-    var prefService = Cc["@mozilla.org/preferences-service;1"].
-                      getService(Ci.nsIPrefService);
-    var defaultBranch = prefService.getDefaultBranch("extensions.mailredirect.");
-    defaultBranch.setBoolPref("addToForwardAs", true);
-    defaultBranch.setBoolPref("hideRedirectMenuitems", false);
-    defaultBranch.setIntPref("concurrentConnections", 5);
-    defaultBranch.setCharPref("defaultResentTo", "");
-    defaultBranch.setCharPref("defaultResentCc", "");
-    defaultBranch.setCharPref("defaultResentBcc", "");
-    defaultBranch.setCharPref("defaultMode", "addr_to");
-    defaultBranch.setBoolPref("debug", false);
-    defaultBranch.setIntPref("addresswidget.numRowsShownDefault", 3);
-    defaultBranch.setBoolPref("firstrun.button-contacts", false);
-    defaultBranch.setBoolPref("firstrun.unpack-icon", false);
+    if (!MailredirectPrefs.mInitialized) {
+      var prefService = Cc["@mozilla.org/preferences-service;1"].
+                        getService(Ci.nsIPrefService);
+      var defaultBranch = prefService.getDefaultBranch("extensions.mailredirect.");
+      defaultBranch.setBoolPref("addToForwardAs", true);
+      defaultBranch.setBoolPref("hideRedirectMenuitems", false);
+      defaultBranch.setIntPref("concurrentConnections", 5);
+      defaultBranch.setCharPref("defaultResentTo", "");
+      defaultBranch.setCharPref("defaultResentCc", "");
+      defaultBranch.setCharPref("defaultResentBcc", "");
+      defaultBranch.setCharPref("defaultMode", "addr_to");
+      defaultBranch.setBoolPref("debug", false);
+      defaultBranch.setIntPref("addresswidget.numRowsShownDefault", 3);
+      defaultBranch.setBoolPref("firstrun.button-contacts", false);
+      defaultBranch.setBoolPref("firstrun.unpack-icon", false);
+
+      MailredirectPrefs.mInitialized = true;
+    }
   },
 
   updateHideMenuitems: function()

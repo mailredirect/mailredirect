@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Skjul menupunktet ‘Omdiriger’ i menuen Meddelelse, programmenuen og genvejsmenuer">
 <!ENTITY hideRedirectMenuitems.accesskey "k">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Skjuler menupunktet ‘Omdiriger’ i menuen Meddelelse, i programmenuen og i genvejsmenuer.">
 
 <!ENTITY concurrentConnections.label "Antal samtidige SMTP-forbindelser:">

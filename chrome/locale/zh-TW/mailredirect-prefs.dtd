@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "從訊息、應用程式與右鍵選單中隱藏重新導向選單項目">
 <!ENTITY hideRedirectMenuitems.accesskey "H">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "從訊息、應用程式與右鍵選單中隱藏多餘的重新導向選單項目。">
 
 <!ENTITY concurrentConnections.label "SMTP 並行連接數目：">

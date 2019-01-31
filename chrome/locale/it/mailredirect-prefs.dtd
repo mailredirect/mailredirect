@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Nasconde la voce Reindirizza dai menu Messaggio, Applicazione e dal menu contestuale">
 <!ENTITY hideRedirectMenuitems.accesskey "N">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Nasconde le singole voci del menu Reindirizza dai menu Messaggio, Applicazione e dal menu contestuale">
 
 <!ENTITY concurrentConnections.label "Numero di connessioni SMTP simultanee:">

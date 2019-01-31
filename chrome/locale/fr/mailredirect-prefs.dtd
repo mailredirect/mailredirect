@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Cacher le menu de Rediriger du menu contextuel et des menus Messages et Outils">
 <!ENTITY hideRedirectMenuitems.accesskey "h">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Cacher les entrées de menu spécifiques de Rediriger hors du menu contextuel et des menus Messages et Outils.">
 
 <!ENTITY concurrentConnections.label "Nombre de connexions SMTP simultanées :">

@@ -6,13 +6,12 @@
 <!ENTITY copyToSentMails.tooltip "Als deze optie is aangevinkt, wordt een kopie van geheradresseerde berichten in de map Verzonden geplaatst. Als deze optie niet is aangevinkt, wordt er geen kopie van geheradresseerde berichten bewaard.\nNB Als deze optie is aangevinkt en de account die voor heradressering wordt gebruikt op ‘geen kopie plaatsen’ is ingesteld, wordt er ook geen kopie van geheradresseerde berichten opgeslagen.">
 
 <!ENTITY addToForwardAs.label "‘Heradresseren’ toevoegen aan ‘Doorsturen als’ menu’s en knoppen">
-<!ENTITY addToForwardAs.accesskey "t">
+<!ENTITY addToForwardAs.accesskey "H">
 <!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
 <!ENTITY addToForwardAs.tooltip "Door ‘Heradresseren’ aan de ‘Doorsturen als’ menu’s en knoppen toe te voegen, groepeert u alle doorstuuracties bij elkaar.\nU kunt de knoppen van de taakbalken verwijderen door de taakbalk aan te passen en door onderstaande optie aan te vinken, kunt u de losse menu-items verbergen, omdat deze redundant zijn geworden.">
 
 <!ENTITY hideRedirectMenuitems.label "Menu-item `Heradresseren’ verbergen in bericht-, applicatie- en context-menu’s">
-<!ENTITY hideRedirectMenuitems.accesskey "H">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
+<!ENTITY hideRedirectMenuitems.accesskey "M">
 <!ENTITY hideRedirectMenuitems.tooltip "Verbergt het menu-item ‘Heradresseren’ in de bericht-, applicatie- en contextmenu’s.">
 
 <!ENTITY concurrentConnections.label "Aantal gelijktijdige SMTP-verbindingen:">
@@ -35,7 +34,7 @@
 <!ENTITY defaultResendBcc.tooltip "Kommagescheiden lijst van e-mailadressen.">
 
 <!ENTITY defaultMode.label "Standaardmodus:">
-<!ENTITY defaultMode.accesskey "m">
+<!ENTITY defaultMode.accesskey "t">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Kiezen hoe u berichten standaard wilt heradresseren\nDeze instelling heeft alleen effect als u geen standaardontvangers hebt opgegeven.">
 <!ENTITY defaultModeResendTo.label "Heradresseer-Aan">

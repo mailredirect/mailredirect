@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "??Hide Redirect menu item from Message, Application and context menus??">
 <!ENTITY hideRedirectMenuitems.accesskey "H">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "??Hides the separate Redirect menu items from the Message, Application and context menus??">
 
 <!ENTITY concurrentConnections.label "Број истовремених SMTP веза:">

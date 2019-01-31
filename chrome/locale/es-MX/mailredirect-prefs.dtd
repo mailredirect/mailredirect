@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Ocultar &quot;Redirigir&quot; de los menúes de Mensaje, Aplicación y contexto.">
 <!ENTITY hideRedirectMenuitems.accesskey "O">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Oculta los elementos de &quot;Redirigir&quot; que están separados de los menúes de Mensaje, Aplicación y contexto.">
 
 <!ENTITY concurrentConnections.label "Número de conexiones SMTP simultáneas:">

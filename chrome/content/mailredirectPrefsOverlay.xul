@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- This is the overlay that adds "Mail Redirect" entry to the prefs. -->
+
 <!DOCTYPE window [
   <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
   %mailredirectPrefsDTD;
 ]>
-
-<!-- This is the overlay that adds "Mail Redirect" entry to the prefs. -->
 
 <overlay id="mailRedirectPrefsOverlay"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">

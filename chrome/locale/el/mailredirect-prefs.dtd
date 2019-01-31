@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Απόκρυψη στοιχείου μενού &quot;Ανακατεύθυνση&quot; από μήνυμα, εφαρμογή και μενού περιεχομένου">
 <!ENTITY hideRedirectMenuitems.accesskey "κ">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Αποκρύπτει τα ξεχωριστά στοιχεία μενού &quot;Ανακατεύθυνση&quot; από μήνυμα, εφαρμογή και μενού περιεχομένου.">
 
 <!ENTITY concurrentConnections.label "Αριθμός ταυτόχρονων συνδέσεων SMTP:">

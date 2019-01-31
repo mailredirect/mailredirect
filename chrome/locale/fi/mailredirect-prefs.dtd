@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Piilota uudelleenohjaus-valikkokohde, viestistä sekä sovellus- ja pikavalikoista">
 <!ENTITY hideRedirectMenuitems.accesskey "H">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Piilottaa uudelleenohjaus-valikkokohteen, viestistä sekä sovellus- ja pikavalikoista.">
 
 <!ENTITY concurrentConnections.label "Yhtäaikaisten SMTP-yhteyksien määrä:">

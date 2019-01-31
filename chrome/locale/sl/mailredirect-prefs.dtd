@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Skrij predmet menija Preusmeri iz menija Sporočilo, ter programskega in vsebinskega menija.">
 <!ENTITY hideRedirectMenuitems.accesskey "S">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Skrije posamezne predmete menija Preusmeri iz menija Sporočilo, ter programskega in vsebinskega menija.">
 
 <!ENTITY concurrentConnections.label "Število sočasnih povezav SMTP:">

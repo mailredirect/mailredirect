@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Скрыть пункт меню «Перенаправить» из меню «Сообщение», «Приложение» и контекстных меню">
 <!ENTITY hideRedirectMenuitems.accesskey "ы">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Скрывает отдельные пункты меню «Перенаправить» из меню «Сообщение», «Приложение» и контекстных меню.">
 
 <!ENTITY concurrentConnections.label "Количество конкурирующих соединений по протоколу SMTP:">

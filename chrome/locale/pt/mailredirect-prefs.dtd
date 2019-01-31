@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "Ocultar o item de menu de redirecionamento de Mensagem, Aplicação e menus de contexto">
 <!ENTITY hideRedirectMenuitems.accesskey "O">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "Oculta os itens separados de menu de redirecionamento da Mensagem, Aplicação e menus de contexto.">
 
 <!ENTITY concurrentConnections.label "Número de conexões SMTP simultâneas:">
@@ -53,4 +52,3 @@
 
 <!-- for seamonkey -->
 <!ENTITY mailredirectSettings.label "Redirecionamento de e-mail">
-

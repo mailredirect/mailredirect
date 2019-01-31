@@ -10,7 +10,8 @@ overlay  chrome://messenger/content/messenger.xul            chrome://mailredire
 overlay  chrome://messenger/content/messageWindow.xul        chrome://mailredirect/content/mailredirect.xul platformversion>=61
 overlay  chrome://global/content/customizeToolbar.xul        chrome://mailredirect/content/mailredirectCustomizeToolbar.xul platformversion<=58.0b3
 overlay  chrome://messenger/content/customizeToolbar.xul     chrome://mailredirect/content/mailredirectCustomizeToolbar.xul platformversion>=59.0a1
-overlay  chrome://communicator/content/pref/preferences.xul  chrome://mailredirect/content/mailredirectPrefsOverlay.xul
+# Add options to Seamonkey prefs
+overlay  chrome://communicator/content/pref/preferences.xul  chrome://mailredirect/content/mailredirectPrefsOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
 
 override  chrome://mailredirect/content/aw.js  chrome://mailredirect/content/awPre31.js  platformversion<31.0
 
@@ -51,9 +52,9 @@ locale  mailredirect  zh-TW  chrome/locale/zh-TW/
 
 skin  mailredirect     classic/1.0  chrome/skin/shared/
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/aero/      application={3550f703-e582-4d05-9a08-453d09bdfdc6}
-skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/windows/   application={3550f703-e582-4d05-9a08-453d09bdfdc6} os=WINNT osversion<6.1
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/aeroPre58/ application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion<58  os=WINNT osversion>=6.1
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/aeroPre45/ application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion<45  os=WINNT osversion>=6.1
+skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/windows/   application={3550f703-e582-4d05-9a08-453d09bdfdc6} os=WINNT osversion<6.1
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/unix/      application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion>=58 os=Linux
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/unixPre58/ application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion<58  os=Linux
 skin  mailredirect-os  classic/1.0  chrome/skin/classic/thunderbird/unixPre45/ application={3550f703-e582-4d05-9a08-453d09bdfdc6} appversion<45  os=Linux

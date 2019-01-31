@@ -12,7 +12,6 @@
 
 <!ENTITY hideRedirectMenuitems.label "أخفِ عنصر القائمة ”إعادة التوجيه“ من قوائم الرسالة والتطبيق والقوائم السياقية">
 <!ENTITY hideRedirectMenuitems.accesskey "خ">
-<!-- LOCALIZATION NOTE (hideRedirectMenuitems.tooltip): do not translate \n -->
 <!ENTITY hideRedirectMenuitems.tooltip "يُخفي عناصر ”إعادة التوجيه“ المنفصلة في قوائم الرسالة والتطبيق والقوائم السياقية.">
 
 <!ENTITY concurrentConnections.label "عدد اتصالات SMTP المتزامنة:">
