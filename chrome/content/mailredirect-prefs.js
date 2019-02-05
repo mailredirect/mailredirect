@@ -96,8 +96,12 @@ window.MailredirectPrefs = {
 
         var fileStream = Cc["@mozilla.org/network/file-output-stream;1"].
                          createInstance(Ci.nsIFileOutputStream);
-
         fileStream.init(file, -1, -1, null);
+
+        var charset = "UTF-8";
+        var converter = Cc["@mozilla.org/intl/converter-output-stream;1"].
+                        createInstance(Ci.nsIConverterOutputStream);
+        converter.init(fileStream, charset, 0, 0x0000);
 
         // for every nsIConsoleMessage save it to file
         var consoleService = Cc["@mozilla.org/consoleservice;1"].
@@ -109,8 +113,9 @@ window.MailredirectPrefs = {
         for (var i = 0; i < messagesArray.length; ++i) {
           var m = messagesArray[i].message;
           m = (i+1) + ". " + m.replace(/^\s*[\n]+|[\n]+\s*$/g, "") + "\n";
-          fileStream.write(m, m.length);
+          converter.writeString(m);
         }
+        converter.close();
         fileStream.close();
       }
     }
@@ -138,6 +143,11 @@ window.MailredirectPrefs = {
                    createInstance(Ci.nsIFileOutputStream);
       fileStream.init(tempFile, -1, -1, 0);
 
+      var charset = "UTF-8";
+      var converter = Cc["@mozilla.org/intl/converter-output-stream;1"].
+                      createInstance(Ci.nsIConverterOutputStream);
+      converter.init(fileStream, charset, 0, 0x0000);
+
       // for every nsIConsoleMessage save it to file
       var consoleService = Cc["@mozilla.org/consoleservice;1"].
                            getService(Ci.nsIConsoleService);
@@ -148,8 +158,9 @@ window.MailredirectPrefs = {
       for (var i = 0; i < messagesArray.length; ++i) {
         var m = messagesArray[i].message;
         m = (i+1) + ". " + m.replace(/^\s*[\n]+|[\n]+\s*$/g, "") + "\n";
-        fileStream.write(m, m.length);
+        converter.writeString(m);
       }
+      converter.close();
       fileStream.close();
 
       // Set up parameters and fields to use for the compose window.
