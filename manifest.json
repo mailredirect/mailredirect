@@ -7,8 +7,10 @@
     }
   },
   "manifest_version": 2,
-  "name": "Mail Redirect",
-  "version": "0.10.2",
+  "default_locale": "en",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "0.10.3a1",
   "author": "Onno Ekker",
   "icons": {
     "32": "icon.png"

@@ -74,10 +74,21 @@ do
   fi
 done
 echo -n -e "                                        \r"
+for locale in *
+do
+  file="${locale}/mailredirect.properties"
+  name=$(grep "\.name=" $file | sed -e "s/^.*\.name=//" | sed -e "s/\"/\\\\\\\\\"/g" -e "s/\&/\\\\\&/g")
+  description=$(grep "\.description=" $file | sed -e "s/^.*\.description=//" | sed -e "s/\"/\\\\\\\\\"/g" -e "s/\&/\\\\\&/g")
+  mkdir ../../_locales/${locale}
+  cat ../../_locales/template/messages.json | sed -e "s/__MSG_extensionName__/${name}/" -e "s/__MSG_extensionDescription__/${description}/" > ../../_locales/${locale}/messages.json
+  touch -r $file ../../_locales/${locale} ../../_locales/${locale}/messages.json
+done
+rm -r ../../_locales/template
 cd ../..
 echo install.rdf > mailredirect.txt
 echo manifest.json >> mailredirect.txt
 echo chrome.manifest >> mailredirect.txt
+find _locales -type f | sort >> mailredirect.txt
 find chrome -type f | sort >> mailredirect.txt
 echo defaults/ >> mailredirect.txt
 echo icon.png >> mailredirect.txt
@@ -94,4 +105,7 @@ rm manifest.tmp
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
 zip -r -D -9 mailredirect-${version}-sm+tb.xpi -@ < mailredirect.txt
 rm mailredirect.txt
-read -p "Press any key to continue . . . " -n 1
+if [ "$(uname)" != "Linux" ]
+then
+  read -p "Press any key to continue . . . " -n 1
+fi

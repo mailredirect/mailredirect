@@ -16,9 +16,11 @@ rsync -a --exclude-from=../${SRC}/make-exclude.txt --exclude 'locale/*' ../${SRC
 mkdir -p ${DEST}/chrome/locale/en-US/
 rsync -a ../${SRC}/chrome/locale/en-US/* ${DEST}/chrome/locale/en-US/
 cd ${DEST}
+rm -r _locales/template
 echo install.rdf > mailredirect.txt
 echo manifest.json >> mailredirect.txt
 echo chrome.manifest >> mailredirect.txt
+find _locales -type f | sort >> mailredirect.txt
 find chrome -type f | sort >> mailredirect.txt
 echo defaults/ >> mailredirect.txt
 echo icon.png >> mailredirect.txt
@@ -31,4 +33,7 @@ rm manifest.tmp
 rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
 zip -r -D -9 mailredirect-${version}-sm+tb.xpi -@ < mailredirect.txt
 rm mailredirect.txt
-read -p "Press any key to continue . . . " -n 1
+if [ "$(uname)" != "Linux" ]
+then
+  read -p "Press any key to continue . . . " -n 1
+fi
