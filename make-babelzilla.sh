@@ -16,7 +16,6 @@ rsync -a --exclude-from=../${SRC}/make-exclude.txt --exclude 'locale/*' ../${SRC
 mkdir -p ${DEST}/chrome/locale/en-US/
 rsync -a ../${SRC}/chrome/locale/en-US/* ${DEST}/chrome/locale/en-US/
 cd ${DEST}
-rm -r _locales/template
 echo install.rdf > mailredirect.txt
 echo manifest.json >> mailredirect.txt
 echo chrome.manifest >> mailredirect.txt

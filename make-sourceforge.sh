@@ -80,10 +80,9 @@ do
   name=$(grep "\.name=" $file | sed -e "s/^.*\.name=//" | sed -e "s/\"/\\\\\\\\\"/g" -e "s/\&/\\\\\&/g")
   description=$(grep "\.description=" $file | sed -e "s/^.*\.description=//" | sed -e "s/\"/\\\\\\\\\"/g" -e "s/\&/\\\\\&/g")
   mkdir ../../_locales/${locale}
-  cat ../../_locales/template/messages.json | sed -e "s/__MSG_extensionName__/${name}/" -e "s/__MSG_extensionDescription__/${description}/" > ../../_locales/${locale}/messages.json
+  cat ../../../../${SRC}/make-messages.json | sed -e "s/__MSG_extensionName__/${name}/" -e "s/__MSG_extensionDescription__/${description}/" > ../../_locales/${locale}/messages.json
   touch -r $file ../../_locales/${locale} ../../_locales/${locale}/messages.json
 done
-rm -r ../../_locales/template
 cd ../..
 echo install.rdf > mailredirect.txt
 echo manifest.json >> mailredirect.txt
