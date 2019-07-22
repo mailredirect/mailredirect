@@ -1,24 +1,25 @@
 {
+  "manifest_version": 2,
   "applications": {
     "gecko": {
       "id": "{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}",
-      "strict_min_version": "60.0",
+      "strict_min_version": "67.0a1",
       "update_url": "https://mailredirect.sourceforge.io/updates.json"
     }
   },
-  "manifest_version": 2,
-  "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "0.10.3a1",
   "author": "Onno Ekker",
-  "icons": {
-    "32": "icon.png"
-  },
+  "version": "0.10.3",
+  "homepage_url": "https://mailredirect.sourceforge.io/",
   "legacy": {
     "options": {
       "page": "chrome://mailredirect/content/mailredirect-prefs.xul",
-      "open_in_tab": false
+      "open_in_tab": true
     }
+  },
+  "default_locale": "en",
+  "icons": {
+    "32": "icon.png"
   }
 }

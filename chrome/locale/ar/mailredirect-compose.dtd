@@ -16,10 +16,12 @@
 
 <!ENTITY tasksMenu.label "أدوات">
 <!ENTITY tasksMenu.accesskey "د">
-<!ENTITY messengerCmd.label "البريد و مجموعات الأخبار">
-<!ENTITY messengerCmd.accesskey "خ">
+<!ENTITY messengerCmd.label "البريد و مجموعات الأخبار">
+<!ENTITY messengerCmd.accesskey "ب">
 <!ENTITY addressBookCmd.label "دفتر العناوين">
 <!ENTITY addressBookCmd.accesskey "ع">
+<!ENTITY preferencesCmd.label "الخيارات">
+<!ENTITY preferencesCmd.accesskey "خ">
 
 <!ENTITY bounceButton.label "أعِد التوجيه">
 <!ENTITY bounceButton.tooltip "أعِد توجيه الرسائل">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "خصّص…">
 <!ENTITY customizeToolbar.accesskey "خ">

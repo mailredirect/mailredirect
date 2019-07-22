@@ -6,20 +6,20 @@
 ]>
 
 <overlay id="mailredirectMessengerOverlay"
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <menupopup id="appmenu_messageMenuPopup">
     <menuitem id="appmenu_mailredirect"
-      label="&bounceCommand.label;"
-      insertafter="appmenu_forwardAsMenu,appmenu_forwardAsAttachments"
-      observes="cmd_mailredirect" />
+              label="&bounceCommand.label;"
+              insertafter="appmenu_forwardAsMenu,appmenu_forwardAsAttachments"
+              observes="cmd_mailredirect" />
   </menupopup>
 
   <menupopup id="appmenu_forwardAsPopup">
     <menuitem id="appmenu_forwardAsMailredirect"
-      label="&forwardAsRedirect.label;"
-      insertafter="appmenu_forwardAsAttachment"
-      observes="cmd_mailredirect" />
+              label="&forwardAsRedirect.label;"
+              insertafter="appmenu_forwardAsAttachment"
+              observes="cmd_mailredirect" />
   </menupopup>
 
 </overlay>

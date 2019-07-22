@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "Yönlendir">
+
 <!ENTITY mailredirectSettings.title "E-posta-Yönlendirme Ayarları">
 
 <!ENTITY copyToSentMails.label "Gönderilenler klasöründe yönlendirilen mesajın kopyasını sakla">
@@ -7,7 +9,7 @@
 
 <!ENTITY addToForwardAs.label "Yeniden Gönder menü ve tuşlarına Yönlendir ekle">
 <!ENTITY addToForwardAs.accesskey "Y">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
 <!ENTITY addToForwardAs.tooltip "Yeniden Gönder menü ve tuşlarına Yönlendir eklediğinizde tüm yeniden gönderme eylemlerini tek bir yerde toplarsınız.\nTuşları özelleştirerek ve aşağıdaki seçeneği seçerek tuşları araç çubuğundan kaldırabilirsiniz; Gereksiz olacaklarından dolayı alt menü öğelerini gizleyebilirsiniz.">
 
 <!ENTITY hideRedirectMenuitems.label "Mesaj, Uygulama ve içerik menülerinde Yönlendir menü öğesini gizle">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "E-posta ile gönder">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "E-posta Yönlendir">

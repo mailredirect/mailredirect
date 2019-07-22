@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Adresų knyga">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Nuostatos">
+<!ENTITY preferencesCmd.accesskey "N">
 
 <!ENTITY bounceButton.label "Nukreipti">
 <!ENTITY bounceButton.tooltip "Nukreipti laiškus">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Tvarkyti…">
 <!ENTITY customizeToolbar.accesskey "T">

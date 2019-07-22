@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "MailRedirect - Einstellungen">
+<!ENTITY mailredirectSettings.label2 "Umleitung">
+
+<!ENTITY mailredirectSettings.title "Mail Redirect - Einstellungen">
 
 <!ENTITY copyToSentMails.label "Kopie umgeleiteter Nachricht im Ordner 'Gesendet' ablegen">
 <!ENTITY copyToSentMails.accesskey "K">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "h">
 <!ENTITY sendViaEmail.label "Als E-Mail versenden">
 <!ENTITY sendViaEmail.accesskey "E">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Nachricht umleiten">

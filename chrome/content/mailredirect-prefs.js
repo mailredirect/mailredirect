@@ -2,17 +2,25 @@
 
 (function() {
 
-Components.utils.import("resource://gre/modules/Services.jsm");
-Components.utils.import("resource://gre/modules/NetUtil.jsm");
-try {
-  // mailServices.js has been renamed MailServices.jsm in TB63
-  Components.utils.import("resource:///modules/MailServices.jsm");
-} catch(ex) {
-  Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
+var Services, NetUtil, MailServices, AppConstants;
+if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function") {
+  // New way of importing in TB67+
+  var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+  var { NetUtil } = ChromeUtils.import("resource://gre/modules/NetUtil.jsm");
+  try {
+    var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm"); // TB63+
+  } catch(ex) {
+    var { MailServices } = ChromeUtils.import("resource:///modules/mailServices.js");
+  }
+  var { AppConstants } = ChromeUtils.import("resource://gre/modules/AppConstants.jsm");
+} else {
+  var { Services } = Components.utils.import("resource://gre/modules/Services.jsm", null);
+  var { NetUtil } = Components.utils.import("resource://gre/modules/NetUtil.jsm", null);
+  var { MailServices } = Components.utils.import("resource:///modules/mailServices.js", null); // Gecko 5+ (TB5)
+  try {
+    var { AppConstants } = Components.utils.import("resource://gre/modules/AppConstants.jsm", null); // Gecko 45+
+  } catch(ex) { };
 }
-try {
-  Components.utils.import("resource://gre/modules/AppConstants.jsm"); // Gecko 45+
-} catch(ex) { };
 
 const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
 const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
@@ -23,7 +31,7 @@ window.MailredirectPrefs = {
 
   mInitialized: false,
 
-  onload: function()
+  onpaneload: function()
   {
     MailredirectPrefs.init();
     MailredirectPrefs.updateHideMenuitems();
@@ -45,6 +53,7 @@ window.MailredirectPrefs = {
       defaultBranch.setCharPref("defaultMode", "addr_to");
       defaultBranch.setBoolPref("debug", false);
       defaultBranch.setIntPref("addresswidget.numRowsShownDefault", 3);
+      defaultBranch.setBoolPref("addUserAgent", false);
       defaultBranch.setBoolPref("firstrun.button-contacts", false);
       defaultBranch.setBoolPref("firstrun.unpack-icon", false);
 
@@ -55,8 +64,8 @@ window.MailredirectPrefs = {
   updateHideMenuitems: function()
   {
     var addToForwardAs = document.getElementById("addToForwardAs");
-    var hideMenuitems = document.getElementById("hideRedirectMenuitems");
-    hideMenuitems.disabled = !addToForwardAs.checked;
+    var hideRedirectMenuitems = document.getElementById("hideRedirectMenuitems");
+    hideRedirectMenuitems.disabled = !addToForwardAs.checked;
   },
 
   updateDefaultMode: function()
@@ -74,12 +83,12 @@ window.MailredirectPrefs = {
   {
     const nsIFilePicker = Ci.nsIFilePicker;
 
-    var strbundle = document.getElementById("bundle_mailredirect-prefs");
+    let strbundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-prefs.properties");
 
     // open filePicker
-    var filePicker = Cc["@mozilla.org/filepicker;1"].
+    let filePicker = Cc["@mozilla.org/filepicker;1"].
                      createInstance(nsIFilePicker);
-    filePicker.init(window, strbundle.getString("saveFile2"), nsIFilePicker.modeSave);
+    filePicker.init(window, strbundle.GetStringFromName("saveFile2"), nsIFilePicker.modeSave);
     filePicker.appendFilters(nsIFilePicker.filterText);
     filePicker.appendFilters(nsIFilePicker.filterAll);
     filePicker.defaultString = "errorconsole.txt";
@@ -210,9 +219,9 @@ window.MailredirectPrefs = {
       MailServices.compose.OpenComposeWindowWithParams(null, params);
     } catch (ex) {
       Components.utils.reportError(ex);
-      var PrefsBundle = document.getElementById("bundle_mailredirect-prefs");
-      var errorTitle = PrefsBundle.getString("tempFileErrorDlogTitle");
-      var errorMsg = PrefsBundle.getString("tempFileErrorDlogMessage");
+      let prefsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-prefs.properties");
+      let errorTitle = prefsBundle.GetStringFromName("tempFileErrorDlogTitle");
+      let errorMsg = prefsBundle.GetStringFromName("tempFileErrorDlogMessage");
       Services.prompt.alert(window, errorTitle, errorMsg);
     }
   },
@@ -329,6 +338,16 @@ window.MailredirectPrefs = {
         Services.prefs.setBoolPref(firstRunPref, true);
       }
     }
+  }
+}
+
+var _orgOpenAddonPrefs = window.openAddonPrefs;
+
+window.openAddonPrefs = function() {
+  if (arguments[0] === "chrome://mailredirect/content/mailredirect-prefs.xul") {
+    openOptionsDialog("paneRedirect");
+  } else {
+    var rv = _orgOpenAddonPrefs.apply(window, arguments);
   }
 }
 

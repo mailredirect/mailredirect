@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect-prefs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-shared/skin/mailredirect-prefs.css" type="text/css"?>
 
 <!DOCTYPE overlay [
   <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
   %mailredirectPrefsDTD;
 ]>
 
-<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="mailRedirectPrefsMozOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
 
   <prefpane id="mailredirect_pane"
-            label="&mailredirectSettings.label;"
+            label="&mailredirectSettings.label2;"
             script="chrome://mailredirect/content/mailredirect-prefs.js"
-            onpaneload="MailredirectPrefs.onload();">
+            onpaneload="MailredirectPrefs.onpaneload();">
 
     <preferences>
       <preference id="pref_copyToSentMail" name="extensions.mailredirect.copyToSentMail" type="bool"/>
@@ -25,10 +27,6 @@
       <preference id="pref_defaultMode" name="extensions.mailredirect.defaultMode" type="string"/>
       <preference id="pref_debug" name="extensions.mailredirect.debug" type="bool"/>
     </preferences>
-
-    <stringbundleset id="stringbundleset">
-      <stringbundle id="bundle_mailredirect-prefs" src="chrome://mailredirect/locale/mailredirect-prefs.properties"/>
-    </stringbundleset>
 
     <hbox>
       <vbox>

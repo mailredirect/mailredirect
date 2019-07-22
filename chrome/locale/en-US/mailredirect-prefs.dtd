@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "MailRedirect Settings">
+<!ENTITY mailredirectSettings.label2 "Redirecting">
+
+<!ENTITY mailredirectSettings.title "Mail Redirect Settings">
 
 <!ENTITY copyToSentMails.label "Place a copy of redirected mail in Sent folder?">
 <!ENTITY copyToSentMails.accesskey "P">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Turn on/off debugging for mailredirect extension. Logs are directed to the Error Console.">
+<!ENTITY debug.tooltip "Turn on/off debugging for the Mail Redirect extension. Logs are directed to the Error Console.">
 
 <!ENTITY saveConsoleContent.label2 "Save Error Console content…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Send via email">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

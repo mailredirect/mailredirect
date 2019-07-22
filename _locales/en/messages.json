@@ -4,6 +4,6 @@
     "description": "If you do translate this string, please append the original add-on name in parenthesis: (Mail Redirect)"
   },
   "extensionDescription": {
-    "message": "Allow to redirect (a.k.a. &quot;remail&quot;) mail messages to other recipients."
+    "message": "Allow to redirect (a.k.a. \"remail\") mail messages to other recipients."
   }
 }

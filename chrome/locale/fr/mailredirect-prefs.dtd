@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Options de l'extension MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Rediriger">
+
+<!ENTITY mailredirectSettings.title "Options de l'extension Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Placer une copie du message redirigé dans le dossier Envoyés ?">
 <!ENTITY copyToSentMails.accesskey "r">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Débogage">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Activer/Désactiver le débogueur de l'extension MailRedirect. Logs envoyés vers la Console JavaScript.">
+<!ENTITY debug.tooltip "Activer/Désactiver le débogueur de l'extension Mail Redirect. Logs envoyés vers la Console JavaScript.">
 
 <!ENTITY saveConsoleContent.label2 "Enregistrer le contenu de la console d'erreurs…">
 <!ENTITY saveConsoleContent.accesskey2 "E">
 <!ENTITY sendViaEmail.label "Envoyer par courrier électronique">
 <!ENTITY sendViaEmail.accesskey "n">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

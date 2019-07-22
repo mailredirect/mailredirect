@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "Α">
 <!ENTITY addressBookCmd.label "Βιβλίο διευθύνσεων">
 <!ENTITY addressBookCmd.accesskey "Δ">
+<!ENTITY preferencesCmd.label "Επιλογές">
+<!ENTITY preferencesCmd.accesskey "λ">
 
 <!ENTITY bounceButton.label "Ανακατεύθυνση">
 <!ENTITY bounceButton.tooltip "Ανακατεύθυνση μηνυμάτων">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Προσαρμογή…">
 <!ENTITY customizeToolbar.accesskey "Π">

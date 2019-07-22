@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "MailRedirect -asetukset">
+<!ENTITY mailredirectSettings.label2 "Uudelleenohjaa">
+
+<!ENTITY mailredirectSettings.title "Mail Redirect-asetukset">
 
 <!ENTITY copyToSentMails.label "Jätä kopio uudelleenohjatusta lähetetyt-kansioon?">
 <!ENTITY copyToSentMails.accesskey "J">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "T">
 <!ENTITY sendViaEmail.label "Lähetä sähköpostilla">
 <!ENTITY sendViaEmail.accesskey "t">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Sähköpostin uudelleenohjaus">

@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Налаштування MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Перенаправлення">
+
+<!ENTITY mailredirectSettings.title "Налаштування Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Зберігати копію перенаправленого листа в теці надісланих?">
 <!ENTITY copyToSentMails.accesskey "З">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "З">
 <!ENTITY sendViaEmail.label "Надіслати електронною поштою">
 <!ENTITY sendViaEmail.accesskey "е">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Перенаправлення пошти">

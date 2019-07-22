@@ -3,30 +3,32 @@
 <!ENTITY fileMenu.label "Датотека">
 <!ENTITY fileMenu.accesskey "Д">
 <!ENTITY forwardBounce.label "Преусмери">
-<!ENTITY forwardBounce.accesskey "П">
+<!ENTITY forwardBounce.accesskey "р">
 <!ENTITY closeCmd.label "Затвори">
 <!ENTITY closeCmd.accesskey "З">
 
 <!ENTITY viewMenu.label "Приказ">
-<!ENTITY viewMenu.accesskey "р">
+<!ENTITY viewMenu.accesskey "П">
 <!ENTITY viewToolbarsMenuNew.label "Траке са алаткама">
 <!ENTITY viewToolbarsMenuNew.accesskey "Т">
-<!ENTITY menubarCmd.label "Трака са менијем">
+<!ENTITY menubarCmd.label "Трака менија">
 <!ENTITY menubarCmd.accesskey "м">
 
 <!ENTITY tasksMenu.label "Алатке">
 <!ENTITY tasksMenu.accesskey "А">
-<!ENTITY messengerCmd.label "Пошта и новинске групе">
-<!ENTITY messengerCmd.accesskey "п">
+<!ENTITY messengerCmd.label "Пошта и дискусионе групе">
+<!ENTITY messengerCmd.accesskey "П">
 <!ENTITY addressBookCmd.label "Именик">
 <!ENTITY addressBookCmd.accesskey "И">
+<!ENTITY preferencesCmd.label "Опције">
+<!ENTITY preferencesCmd.accesskey "О">
 
 <!ENTITY bounceButton.label "Преусмери">
-<!ENTITY bounceButton.tooltip "Преусмерите поруке">
-<!ENTITY addressButton.label "Адресар">
-<!ENTITY addressButton.tooltip "Отворите адресар">
-<!ENTITY throbberItem.title "Показатељ активности">
-<!ENTITY throbber.tooltip "Идите на почетну страницу &vendorShortName;">
+<!ENTITY bounceButton.tooltip "Преусмери поруке">
+<!ENTITY addressButton.label "Именик">
+<!ENTITY addressButton.tooltip "Иди у именик">
+<!ENTITY throbberItem.title "Индикатор активности">
+<!ENTITY throbber.tooltip "Иди на веб-страницу &vendorShortName;">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY closeCmd.modifiers "accel">
@@ -34,11 +36,14 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Прилагоди…">
 <!ENTITY customizeToolbar.accesskey "П">
 <!ENTITY showBounceToolbarCmd.label "Трака за преусмеравање">
-<!ENTITY showBounceToolbarCmd.accesskey "Т">
+<!ENTITY showBounceToolbarCmd.accesskey "р">
 <!ENTITY showStatusbarCmd.label "Статусна трака">
 <!ENTITY showStatusbarCmd.accesskey "С">
 
@@ -46,23 +51,23 @@
 <!ENTITY addressSidebar.accesskey "к">
 <!ENTITY addressesSidebarTitle.label "Контакти">
 <!ENTITY addressSidebarButton.label "Контакти">
-<!ENTITY addressSidebarButton.tooltip "Изаберите примаоца из адресар">
+<!ENTITY addressSidebarButton.tooltip "Изабери примаоца из именика">
 
 <!ENTITY dialog.dimensions "width: 92ch; height: 36em;">
 
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
-<!ENTITY headersSpace.style "width: 25em;">
+<!ENTITY headersSpace.style "width: 9em;">
 
-<!ENTITY resendFromAddr.label "Поново пошаљи-пошиљалац:">
-<!ENTITY resendFromAddr.accesskey "А">
+<!ENTITY resendFromAddr.label "Од:">
+<!ENTITY resendFromAddr.accesskey "О">
 
-<!ENTITY resendToAddr.label "Поново пошаљи-прималац:">
-<!ENTITY resendCcAddr.label "Поново пошаљи-додатни примаоци:">
-<!ENTITY resendBccAddr.label "Поново пошаљи-додатни сакривени примаоци:">
+<!ENTITY resendToAddr.label "Коме:">
+<!ENTITY resendCcAddr.label "Копија:">
+<!ENTITY resendBccAddr.label "Скривена копија:">
 
-<!ENTITY bounceMailsLabel.label "Следеће е-поруке ће бити преусмерене:">
+<!ENTITY bounceMailsLabel.label "Следећи имејлови ће се преусмерити:">
 
 <!ENTITY subject.label "Наслов">
 <!ENTITY sender.label "Пошиљалац">

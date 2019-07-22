@@ -20,9 +20,11 @@
 <!ENTITY messengerCmd.accesskey "H">
 <!ENTITY addressBookCmd.label "Adressbuch">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Einstellungen">
+<!ENTITY preferencesCmd.accesskey "E">
 
 <!ENTITY bounceButton.label "Umleiten">
-<!ENTITY bounceButton.tooltip "Nachricht umleiten">
+<!ENTITY bounceButton.tooltip "Nachrichten umleiten">
 <!ENTITY addressButton.label "Adressbuch">
 <!ENTITY addressButton.tooltip "Adressbuch öffnen">
 <!ENTITY throbberItem.title "Aktivitätsindikator">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Anpassen…">
 <!ENTITY customizeToolbar.accesskey "A">

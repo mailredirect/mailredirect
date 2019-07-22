@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Opzioni di MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Reindirizza">
+
+<!ENTITY mailredirectSettings.title "Opzioni di Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Lasciare una copia del messaggio reindirizzato nella cartella Posta inviata?">
 <!ENTITY copyToSentMails.accesskey "c">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Attiva/disattiva il debug">
 <!ENTITY debug.accesskey "d">
-<!ENTITY debug.tooltip "Attiva/disattiva il debug degli errori per MailRedirect. La registrazione degli errori verrà salvata nella console JavaScript">
+<!ENTITY debug.tooltip "Attiva/disattiva il debug degli errori per Mail Redirect. La registrazione degli errori verrà salvata nella console JavaScript">
 
 <!ENTITY saveConsoleContent.label2 "Salva il contenuto della console degli errori…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Invia tramite e-mail">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

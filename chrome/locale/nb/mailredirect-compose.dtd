@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "E">
 <!ENTITY addressBookCmd.label "Adressebok">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Innstillinger">
+<!ENTITY preferencesCmd.accesskey "I">
 
 <!ENTITY bounceButton.label "Omdiriger">
 <!ENTITY bounceButton.tooltip "Omdiriger meldinger">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Tilpass…">
 <!ENTITY customizeToolbar.accesskey "C">

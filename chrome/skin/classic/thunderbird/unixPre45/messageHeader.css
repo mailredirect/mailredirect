@@ -1,5 +1,5 @@
 .hdrMailredirectButton, toolbarpaletteitem[place="palette"] #hdrMailredirectButton {
-  list-style-image: url("chrome://mailredirect-os/skin/button-redirect.svg");
+  list-style-image: url("chrome://mailredirect/skin/button-redirect.svg");
 }
 
 .hdrMailredirectButton[disabled="true"] {

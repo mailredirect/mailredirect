@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Adres Defteri">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Seçenekler">
+<!ENTITY preferencesCmd.accesskey "S">
 
 <!ENTITY bounceButton.label "Yönlendir">
 <!ENTITY bounceButton.tooltip "Mesajları yönlendir">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Özelleştir…">
 <!ENTITY customizeToolbar.accesskey "Ö">

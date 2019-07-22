@@ -9,6 +9,18 @@ const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
+var MailUtils;
+
+if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function") {
+  try {
+    var { MailUtils } = ChromeUtils.import("resource:///modules/MailUtils.jsm");
+  } catch(ex) {
+    var { MailUtils } = ChromeUtils.import("resource:///modules/MailUtils.js");
+  }
+} else {
+  var { MailUtils } = Components.utils.import("resource:///modules/MailUtils.js", null);
+}
+
 window.MailredirectExtension = {
 
   appInfo: Cc["@mozilla.org/xre/app-info;1"].
@@ -41,7 +53,11 @@ window.MailredirectExtension = {
 
     var currentIdentity = {key: null};
     if (server && (server.type === "imap" || server.type === "pop3")) {
-      currentIdentity = getIdentityForServer(server);
+      if (typeof MailUtils.getIdentityForServer === "function") {
+        currentIdentity = MailUtils.getIdentityForServer(server);
+      } else {
+        currentIdentity = getIdentityForServer(server);
+      }
     }
 
     if (MailredirectExtension.appInfo.ID === THUNDERBIRD_ID) {
@@ -162,10 +178,12 @@ window.MailredirectExtension = {
   AddRedirectButtonToElement: function(el)
   {
     var head = el.contentDocument.getElementsByTagName("head").item(0);
-    var newEl = document.createElement("link");
+    var newEl = (typeof document.createXULElement === "function")
+      ? document.createXULElement("link")
+      : document.createElement("link");
     newEl.setAttribute("rel", "stylesheet");
     newEl.setAttribute("type", "text/css");
-    newEl.setAttribute("href", "chrome://mailredirect-os/skin/messageHeader.css");
+    newEl.setAttribute("href", "chrome://mailredirect/skin/messageHeader.css");
     head.appendChild(newEl);
 
     var hdrMailredirectButton = document.getElementById("hdrMailredirectButton");
@@ -202,7 +220,9 @@ window.MailredirectExtension = {
       var oldEl = el && el.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
       if (parentEl !== null && oldEl !== null) {
         // Thunderbird 10+
-        var newEl = document.createElement("toolbarbutton");
+        var newEl = (typeof document.createXULElement === "function")
+          ? document.createXULElement("toolbarbutton")
+          : document.createElement("toolbarbutton");
         newEl.setAttribute("id", "hdrMailredirectButton");
         newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
         if (hdrMailredirectButton !== null) {
@@ -216,7 +236,9 @@ window.MailredirectExtension = {
         var parentEl = el && el.getElementsByTagName("hbox").item(0); // buttonhbox
         var oldEl = el && el.getElementsByTagName("button").item(0); // archive
         if (parentEl !== null && oldEl !== null) {
-          var newEl = document.createElement("button");
+          var newEl = (typeof document.createXULElement === "function")
+            ? document.createXULElement("button")
+            : document.createElement("button");
           newEl.setAttribute("id", "hdrMailredirectButton");
           newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
           if (hdrMailredirectButton !== null) {
@@ -384,7 +406,7 @@ window.MailredirectExtension = {
     observerService.removeObserver(MailredirectExtension.OfflineObserver, "network:offline-status-changed");
     window.prefBranch.removeObserver("", MailredirectExtension.PrefObserver);
   }
-};
+}
 
 window.MailredirectPrefs.init();
 
@@ -413,7 +435,7 @@ function InitMessageForward(aPopup)
   var kMsgForwardAsAttachment = 0;
   var forwardType = Services.prefs.getIntPref("mail.forward_message_mode");
 
-  if (forwardType != kMsgForwardAsAttachment) {
+  if (forwardType !== kMsgForwardAsAttachment) {
     // forward inline is the first menuitem
     aPopup.firstChild.setAttribute("default", "true");
     aPopup.getElementsByTagName("menuitem")[1].removeAttribute("default");

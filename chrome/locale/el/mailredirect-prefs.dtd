@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Ρυθμίσεις MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Ανακατεύθυνση">
+
+<!ENTITY mailredirectSettings.title "Ρυθμίσεις Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Τοποθέτηση ενός αντιγράφου του ανακατευθυνόμενου e-mail στο φάκελο &quot;Απεσταλμένα&quot;;">
 <!ENTITY copyToSentMails.accesskey "Τ">
@@ -15,7 +17,7 @@
 <!ENTITY hideRedirectMenuitems.tooltip "Αποκρύπτει τα ξεχωριστά στοιχεία μενού &quot;Ανακατεύθυνση&quot; από μήνυμα, εφαρμογή και μενού περιεχομένου.">
 
 <!ENTITY concurrentConnections.label "Αριθμός ταυτόχρονων συνδέσεων SMTP:">
-<!ENTITY concurrentConnections.accesskey "δ">
+<!ENTITY concurrentConnections.accesskey "Α">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
 <!ENTITY concurrentConnections.tooltip "Η επιλογή καθορίζει τον αριθμό των συνδέσεων που θα δημιουργηθούν στο διακομιστή SMTP σας κατά την αποστολή μηνυμάτων. Γενικά, αυτό σάς επιτρέπει να αυξήσετε την απόδοση της διαδικασίας αποστολής όταν επιλέγετε να ανακατευθύνετε ένα μεγάλο αριθμό μηνυμάτων.\nΣημείωση: Αν ρυθμίσετε αυτή την παράμετρο σε μηδέν, δεν θα υπάρχει όριο ταυτόχρονων συνδέσεων - να σημειωθεί ότι αυτό θα μπορούσε να επηρεάσει την σταθερότητα του διακομιστή SMTP σας ή η αποστολή ορισμένων μηνυμάτων θα μπορούσε να αποτύχει. Σε περίπτωση προβλήματος, ορίσετε αυτή την τιμή σε ένα.">
 
@@ -25,12 +27,12 @@
 <!ENTITY defaultResendTo.accesskey "Π">
 <!ENTITY defaultResendTo.tooltip "Λίστα διευθύνσεων e-mail διαχωρισμένες με κόμμα.">
 
-<!ENTITY defaultResendCc.label "Εκ νέου αποστολή-Κοινοποίηση (Cc):">
-<!ENTITY defaultResendCc.accesskey "Ρ">
+<!ENTITY defaultResendCc.label "Εκ νέου αποστολή-Κοινοποίηση:">
+<!ENTITY defaultResendCc.accesskey "σ">
 <!ENTITY defaultResendCc.tooltip "Λίστα διευθύνσεων e-mail διαχωρισμένες με κόμμα.">
 
-<!ENTITY defaultResendBcc.label "Εκ νέου αποστολή-Κρυφή κοινοποίηση (Bcc):">
-<!ENTITY defaultResendBcc.accesskey "σ">
+<!ENTITY defaultResendBcc.label "Εκ νέου αποστολή-Κρυφή κοινοποίηση:">
+<!ENTITY defaultResendBcc.accesskey "Ρ">
 <!ENTITY defaultResendBcc.tooltip "Λίστα διευθύνσεων e-mail διαχωρισμένες με κόμμα.">
 
 <!ENTITY defaultMode.label "Προεπιλεγμένη λειτουργία:">
@@ -38,17 +40,14 @@
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Επιλέξτε πώς θέλετε να ανακατευθύνονται τα μηνύματά σας από προεπιλογή\nΑυτή η ρύθμιση ενεργοποιείται μόνο όταν δεν έχετε καθορίσει προεπιλεγμένους παραλήπτες.">
 <!ENTITY defaultModeResendTo.label "Εκ νέου αποστολή-Προς">
-<!ENTITY defaultModeResendCc.label "Εκ νέου αποστολή-Κοινοποίηση (Cc)">
-<!ENTITY defaultModeResendBcc.label "Εκ νέου αποστολή-Κρυφή κοινοποίηση (Bcc)">
+<!ENTITY defaultModeResendCc.label "Εκ νέου αποστολή-Κοινοποίηση">
+<!ENTITY defaultModeResendBcc.label "Εκ νέου αποστολή-Κρυφή κοινοποίηση">
 
 <!ENTITY debug.label "Εντοπισμός σφαλμάτων">
 <!ENTITY debug.accesskey "Ε">
-<!ENTITY debug.tooltip "Ενεργοποίηση/απενεργοποίηση εντοπισμού σφαλμάτων για την επέκταση mailredirect. Τα αρχεία καταγραφής κατευθύνονται στην κονσόλα σφαλμάτων.">
+<!ENTITY debug.tooltip "Ενεργοποίηση/απενεργοποίηση εντοπισμού σφαλμάτων για την επέκταση Mail Redirect. Τα αρχεία καταγραφής κατευθύνονται στην κονσόλα σφαλμάτων.">
 
 <!ENTITY saveConsoleContent.label2 "Αποθήκευση περιεχομένου κονσόλας σφαλμάτων…">
 <!ENTITY saveConsoleContent.accesskey2 "Α">
 <!ENTITY sendViaEmail.label "Αποστολή μέσω e-mail">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

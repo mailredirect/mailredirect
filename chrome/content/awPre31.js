@@ -25,7 +25,13 @@ function awGetNumberOfCols()
 {
   if (gNumberOfCols === 0) {
     var listbox = document.getElementById("addressingWidget");
-    var listCols = listbox.getElementsByTagName("treecol");
+    // var listCols = listbox.getElementsByTagName("treecol");
+    var listCols;
+    if (gAppInfoID === THUNDERBIRD_ID) {
+      listCols = listbox.getElementsByTagName("treecol");
+    } else {
+      listCols = listbox.getElementsByTagName("listcol");
+    }
     gNumberOfCols = listCols.length;
     if (!gNumberOfCols) {
       // if no cols defined, that means we have only one!
@@ -51,7 +57,12 @@ function awInitializeNumberOfRowsShown()
   // visibility of recipient rows per awNumRowsShownDefault and prevents scrollbar
   // on empty Address Widget, depending on OS screen resolution dpi scaling
   // (> 100%; thresholds differ).
-  let extraHeight = 2;
+  let extraHeight;
+  if (gAppInfoID === THUNDERBIRD_ID) {
+    extraHeight = 2;
+  } else {
+    extraHeight = 4;
+  }
 
   // Set minimum number of rows shown for address widget, per hardwired
   // rows="1" attribute of addressingWidget, to prevent resizing the
@@ -59,11 +70,12 @@ function awInitializeNumberOfRowsShown()
   // This lets users shrink the address widget to one row (with delicate UX)
   // and thus maximize the space available for composition body,
   // especially on small screens.
-  msgHeadersToolbar.minHeight = msgHeadersToolbar.boxObject.height;
+  let toolbarRect = msgHeadersToolbar.getBoundingClientRect();
+  msgHeadersToolbar.minHeight = toolbarRect.height;
 
   // Set default number of rows shown for address widget.
   addressingWidget.setAttribute("rows", awNumRowsShownDefault);
-  addressingWidget.height = awNumRowsShownDefault * addressingWidgetItem.boxObject.height +
+  addressingWidget.height = awNumRowsShownDefault * addressingWidgetItem.getBoundingClientRect().height +
     extraHeight;
 
   // Update addressingWidget internals.
@@ -93,8 +105,8 @@ function awGetSelectItemIndex(itemData)
   if (selectElementIndexTable === null) {
     selectElementIndexTable = new Object();
     var selectElem = document.getElementById("addressCol1#1");
-    for (var i = 0; i < selectElem.childNodes[0].childNodes.length; i++) {
-      var aData = selectElem.childNodes[0].childNodes[i].getAttribute("value");
+    for (var i = 0; i < selectElem.menupopup.childNodes.length; i++) {
+      var aData = selectElem.menupopup.childNodes[i].getAttribute("value");
       selectElementIndexTable[aData] = i;
     }
   }
@@ -164,14 +176,18 @@ function awSetInputAndPopupId(inputElem, popupElem, rowNumber)
   inputElem.setAttribute("aria-labelledby", popupElem.id);
 }
 
-function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, rowNumber)
+function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, rowNumber, aNotifyRecipientsChanged)
 {
+  if (aNotifyRecipientsChanged === undefined) {
+    aNotifyRecipientsChanged = true;
+  }
+
   inputValue = inputValue.trimLeft();
 
   inputElem.setAttribute("value", inputValue);
   inputElem.value = inputValue;
 
-  popupElem.selectedItem = popupElem.childNodes[0].childNodes[awGetSelectItemIndex(popupValue)];
+  popupElem.selectedItem = popupElem.menupopup.childNodes[awGetSelectItemIndex(popupValue)];
 
   if (rowNumber >= 0) {
     awSetInputAndPopupId(inputElem, popupElem, rowNumber);
@@ -179,7 +195,9 @@ function awSetInputAndPopupValue(inputElem, inputValue, popupElem, popupValue, r
 
   _awSetAutoComplete(popupElem, inputElem);
 
-  onRecipientsChanged(true);
+  if (aNotifyRecipientsChanged) {
+    onRecipientsChanged(true);
+  }
 }
 
 function _awSetInputAndPopup(inputValue, popupValue, parentNode, templateNode)
@@ -251,10 +269,20 @@ function awDeleteRow(rowToDelete)
 
 function awClickEmptySpace(target, setFocus)
 {
-  if (document.getElementById("addressCol2#1").disabled ||
-      target === null ||
-      target.localName !== "hbox") {
-    return;
+  if (gAppInfoID === THUNDERBIRD_ID) {
+    if (document.getElementById("addressCol2#1").disabled ||
+        target === null ||
+        target.localName !== "hbox") {
+      return;
+    }
+  } else {
+    if (document.getElementById("addressCol2#1").disabled ||
+        target === null ||
+        (target.localName !== "listboxbody" &&
+         target.localName !== "listcell" &&
+         target.localName !== "listitem")) {
+      return;
+    }
   }
 
   var lastInput = awGetInputElement(top.MAX_RECIPIENTS);
@@ -263,7 +291,7 @@ function awClickEmptySpace(target, setFocus)
     awAppendNewRow(setFocus);
   } else {
     if (setFocus) {
-      awSetFocus(top.MAX_RECIPIENTS, lastInput);
+      awSetFocusTo(lastInput);
     }
   }
 }
@@ -279,15 +307,25 @@ function awReturnHit(inputElement)
     }
   } else {
     nextInput.select();
-    awSetFocus(row+1, nextInput);
+    awSetFocusTo(nextInput);
   }
 }
 
-function awDeleteHit(inputElement)
+function awDeleteAddressOnClick(deleteAddressElement)
 {
+  awDeleteHit(deleteAddressElement.parentNode.parentNode
+                                  .querySelector("textbox.textbox-addressingWidget"),
+                                  true);
+}
+
+function awDeleteHit(inputElement, deleteForward)
+{
+  if (deleteForward === undefined) {
+    deleteForward = false;
+  }
   var row = awGetRowByInputElement(inputElement);
 
-  /* 1. don't delete the row if it's the last one remaining, just reset it! */
+  // Don't delete the row if it's the last one remaining, just reset it.
   if (top.MAX_RECIPIENTS <= 1) {
     inputElement.value = "";
     onRecipientsChanged(true);
@@ -295,18 +333,40 @@ function awDeleteHit(inputElement)
     return;
   }
 
-  /* 2. Set the focus to the previous field if possible */
-  if (row > 1) {
-    awSetFocus(row - 1, awGetInputElement(row - 1))
+  // Set the focus to the input field of the next/previous row according to
+  // the direction of deleting if possible.
+  // Note: awSetFocusTo() is asynchronous, i.e. we'll focus after row removal.
+  if (!deleteForward && row > 1 ||
+      deleteForward && row == top.MAX_RECIPIENTS) {
+    // We're deleting backwards, but not the first row,
+    // or forwards on the last row: Focus previous row.
+    awSetFocusTo(awGetInputElement(row - 1));
   } else {
-    // We have to cheat a little bit because the focus will
-    // be set asynchronously after we delete the current row,
-    // therefore the row number still the same!
-    awSetFocus(1, awGetInputElement(2))
+    // We're deleting forwards, but not the last row,
+    // or backwards on the first row: Focus next row.
+    awSetFocusTo(awGetInputElement(row + 1));
   }
 
-  /* 3. Delete the row */
+  // Delete the row.
   awDeleteRow(row);
+}
+
+// If we add a menulist to the DOM, it has some child nodes added to it
+// by the menulist custom element. If we then clone the menulist and add
+// it to the DOM again, more child nodes are added and we end up with
+// bug 1525828. This function clones any menulist as it originally was.
+function _menulistFriendlyClone(element)
+{
+  let clone = element.cloneNode(false);
+  if (element.localName === "menulist") {
+    clone.appendChild(element.menupopup.cloneNode(true));
+    return clone;
+  }
+  for (let i = 0; i < element.children.length; i++) {
+    let child = element.children[i];
+    clone.appendChild(_menulistFriendlyClone(child));
+  }
+  return clone;
 }
 
 function awAppendNewRow(setFocus)
@@ -318,7 +378,7 @@ function awAppendNewRow(setFocus)
     var lastRecipientType = awGetPopupElement(top.MAX_RECIPIENTS).selectedItem.getAttribute("value");
 
     var nextDummy = awGetNextDummyRow();
-    var newNode = listitem1.cloneNode(true);
+    var newNode = _menulistFriendlyClone(listitem1);
     if (nextDummy) {
       listbox.replaceChild(newNode, nextDummy);
     } else {
@@ -371,7 +431,7 @@ function awAppendNewRow(setFocus)
 
     // focus on new input widget
     if (setFocus && input[0]) {
-      awSetFocus(top.MAX_RECIPIENTS, input[0]);
+      awSetFocusTo(input[0]);
     }
   }
 }
@@ -393,7 +453,13 @@ function awGetListItem(row)
   var listbox = document.getElementById("addressingWidget");
 
   if (listbox && row > 0) {
-    var listitems = listbox.getElementsByTagName("richlistitem");
+    // var listitems = listbox.getElementsByTagName("richlistitem");
+    var listitems;
+    if (gAppInfoID === THUNDERBIRD_ID) {
+      listitems = listbox.getElementsByTagName("richlistitem");
+    } else {
+      listitems = listbox.getElementsByTagName("listitem");
+    }
     if (listitems && listitems.length >= row) {
       return listitems[row-1];
     }
@@ -407,7 +473,9 @@ function awGetRowByInputElement(inputElement)
   if (inputElement) {
     var listitem = inputElement.parentNode.parentNode;
     while (listitem) {
-      if (listitem.localName === "richlistitem") {
+      // if (listitem.localName === "richlistitem")
+      if (listitem.localName === "richlistitem" ||
+          listitem.localName === "listitem") {
         ++row;
       }
       listitem = listitem.previousSibling;
@@ -415,8 +483,6 @@ function awGetRowByInputElement(inputElement)
   }
   return row;
 }
-
-// remove row
 
 function awRemoveRow(row)
 {
@@ -426,6 +492,27 @@ function awRemoveRow(row)
   awFitDummyRows();
 
   top.MAX_RECIPIENTS--;
+}
+
+/**
+ * Set focus to the specified element, typically a recipient input element.
+ * We do this asynchronously to allow other processes like adding or removing rows
+ * to complete before shifting focus.
+ *
+ * @param element  the element to receive focus asynchronously
+ */
+function awSetFocusTo(element)
+{
+  // Remember the (input) element to focus for asynchronous focusing, so that we
+  // play safe if this gets called again and the original element gets removed
+  // before we can focus it.
+  top.awInputToFocus = element;
+  setTimeout(_awSetFocusTo, 0);
+}
+
+function _awSetFocusTo()
+{
+  top.awInputToFocus.focus();
 }
 
 function awRemoveNodeAndChildren(parent, nodeToRemove)
@@ -444,25 +531,14 @@ function _awSetFocus()
 {
   var listbox = document.getElementById("addressingWidget");
   var theNewRow = awGetListItem(top.awRow);
-
-  //Warning: firstVisibleRow is zero base but top.awRow is one base!
-  var firstVisibleRow = listbox.getIndexOfFirstVisibleRow();
-  var numOfVisibleRows = listbox.getNumberOfVisibleRows();
-
-  //Do we need to scroll in order to see the selected row?
-  if (top.awRow <= firstVisibleRow) {
-    listbox.scrollToIndex(top.awRow - 1);
-  } else if (top.awRow - 1 >= (firstVisibleRow + numOfVisibleRows)) {
-    listbox.scrollToIndex(top.awRow - numOfVisibleRows);
-  }
-
+  listbox.ensureElementIsVisible(theNewRow);
   top.awInputElement.focus();
 }
 
 function awTabFromRecipient(element, event)
 {
   // If we are the last element in the listbox, we don't want to create a new row.
-  if (element == awGetInputElement(top.MAX_RECIPIENTS)) {
+  if (element === awGetInputElement(top.MAX_RECIPIENTS)) {
     top.doNotCreateANewRow = true;
   }
 
@@ -523,6 +599,7 @@ function DropOnAddressingWidget(event)
     if (!dataObj) {
       continue;
     }
+
     // pull the address out of the data object
     var address = dataObj.data.substring(0, len.value);
     if (!address) {
@@ -559,27 +636,27 @@ function awRecipientTextCommandPre31(userAction, element)
   }
 }
 
-function awRecipientKeyPress(event, element)
+function awRecipientKeyPress(event, inputElement)
 {
   switch(event.keyCode) {
     case KeyEvent.DOM_VK_UP:
-      awArrowHit(element, -1);
+      awArrowHit(inputElement, -1);
       break;
     case KeyEvent.DOM_VK_DOWN:
-      awArrowHit(element, 1);
+      awArrowHit(inputElement, 1);
       break;
     case KeyEvent.DOM_VK_RETURN:
     case KeyEvent.DOM_VK_TAB:
       // if the user text contains a comma or a line return, ignore
       // str.contains is new to ECMAScript 6
-      // if (element.value.contains(","))
-      if (element.value.search(",") !== -1) {
-        var addresses = element.value;
-        element.value = ""; // clear out the current line so we don't try to autocomplete it..
-        parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(element)).selectedItem.getAttribute("value"));
+      // if (inputElement.value.contains(","))
+      if (inputElement.value.search(",") !== -1) {
+        var addresses = inputElement.value;
+        inputElement.value = ""; // clear out the current line so we don't try to autocomplete it..
+        parseAndAddAddresses(addresses, awGetPopupElement(awGetRowByInputElement(inputElement)).selectedItem.getAttribute("value"));
       } else {
-        if (event.keyCode == KeyEvent.DOM_VK_TAB) {
-          awTabFromRecipient(element, event);
+        if (event.keyCode === KeyEvent.DOM_VK_TAB) {
+          awTabFromRecipient(inputElement, event);
         }
       }
 
@@ -594,42 +671,25 @@ function awArrowHit(inputElement, direction)
     var nextInput = awGetInputElement(row);
 
     if (nextInput) {
-      awSetFocus(row, nextInput);
+      awSetFocusTo(nextInput);
     } else if (inputElement.value) {
       awAppendNewRow(true);
     }
   }
 }
 
-function awRecipientKeyDown(event, element)
+function awRecipientKeyDown(event, inputElement)
 {
   switch(event.keyCode) {
     case KeyEvent.DOM_VK_DELETE:
     case KeyEvent.DOM_VK_BACK_SPACE:
-      if (!element.value) {
-        awDeleteHit(element);
+      if (!inputElement.value) {
+        awDeleteHit(inputElement);
       }
+
       // We need to stop the event else the listbox will receive it and the
       // function awKeyDown will be executed!
       event.stopPropagation();
-      break;
-  }
-}
-
-function awKeyDown(event, listboxElement)
-{
-  switch(event.keyCode) {
-    case KeyEvent.DOM_VK_DELETE:
-    case KeyEvent.DOM_VK_BACK_SPACE:
-      /* Warning, the listboxElement.selectedItems will change everytime we delete a row */
-      var selItems = listboxElement.selectedItems;
-      var length = listboxElement.selectedItems.length;
-      for (var i = 1; i <= length; i++) {
-        var inputs = listboxElement.selectedItems[0].getElementsByTagName(awInputElementName());
-        if (inputs && inputs.length === 1) {
-          awDeleteHit(inputs[0]);
-        }
-      }
       break;
   }
 }
@@ -657,13 +717,13 @@ function awFitDummyRows()
 function awCreateOrRemoveDummyRows()
 {
   let listbox = document.getElementById("addressingWidget");
-  let listboxHeight = listbox.boxObject.height;
+  let listboxHeight = listbox.getBoundingClientRect().height;
 
   // remove rows to remove scrollbar
   let kids = listbox.querySelectorAll("[_isDummyRow]");
   for (let i = kids.length-1; gAWContentHeight > listboxHeight && i >= 0; --i) {
     gAWContentHeight -= gAWRowHeight;
-    listbox.removeChild(kids[i]);
+    kids[i].remove();
   }
 
   // add rows to fill space
@@ -678,7 +738,13 @@ function awCreateOrRemoveDummyRows()
 function awCalcContentHeight()
 {
   var listbox = document.getElementById("addressingWidget");
-  var items = listbox.getElementsByTagName("richlistitem");
+  // var items = listbox.getElementsByTagName("richlistitem");
+  var items;
+  if (gAppInfoID === THUNDERBIRD_ID) {
+    var items = listbox.getElementsByTagName("richlistitem");
+  } else {
+    var items = listbox.getElementsByTagName("listitem");
+  }
 
   gAWContentHeight = 0;
   if (items.length > 0) {
@@ -686,7 +752,7 @@ function awCalcContentHeight()
     // find the first listitem with a boxObject and use it as precedent
     var i = 0;
     do {
-      gAWRowHeight = items[i].boxObject.height;
+      gAWRowHeight = items[i].getBoundingClientRect().height;
       ++i;
     } while (i < items.length && !gAWRowHeight);
     gAWContentHeight = gAWRowHeight*items.length;
@@ -696,12 +762,14 @@ function awCalcContentHeight()
 function awCreateDummyItem(aParent)
 {
   var listbox = document.getElementById("addressingWidget");
-  var item = listbox.getElementsByTagName("richlistitem")[0];
+  // var item = listbox.getElementsByTagName("richlistitem")[0];
+  var item = listbox.getElementsByClassName("addressingWidgetItem")[0]; // Works both for Thunderbird and SeaMonkey
 
-  var titem = document.createElement("richlistitem");
+  // var titem = document.createElement("richlistitem");
+  var titem = document.createElement(item.tagName);
   titem.setAttribute("_isDummyRow", "true");
   titem.setAttribute("class", "dummy-row");
-  titem.style.height = item.boxObject.height + "px";
+  titem.style.height = item.getBoundingClientRect().height + "px";
 
   for (let i = 0; i < awGetNumberOfCols(); i++) {
     let cell = awCreateDummyCell(titem);
@@ -942,7 +1010,8 @@ AutomatedAutoCompleteHandler.prototype =
 }
 
 // Returns the load context for the current window
-function getLoadContext() {
+function getLoadContext()
+{
   return window.QueryInterface(Ci.nsIInterfaceRequestor)
                .getInterface(Ci.nsIWebNavigation)
                .QueryInterface(Ci.nsILoadContext);

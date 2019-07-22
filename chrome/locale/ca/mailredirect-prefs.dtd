@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Configuració MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Redirigir">
+
+<!ENTITY mailredirectSettings.title "Configuració Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Desar una còpia del correu redirigit a la carpeta d'Enviats?">
 <!ENTITY copyToSentMails.accesskey "D">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Depurar">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Activar o desactivar la depuració de l'extensió MailRedirect. El registre és dirigit a la consola d'error.">
+<!ENTITY debug.tooltip "Activar o desactivar la depuració de l'extensió Mail Redirect. El registre és dirigit a la consola d'error.">
 
 <!ENTITY saveConsoleContent.label2 "Desar el contingut de la consola d'errors...">
 <!ENTITY saveConsoleContent.accesskey2 "D">
 <!ENTITY sendViaEmail.label "Enviar via correu">
 <!ENTITY sendViaEmail.accesskey "c">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

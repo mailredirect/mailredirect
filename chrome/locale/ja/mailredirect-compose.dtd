@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "M">
 <!ENTITY addressBookCmd.label "アドレス帳">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "オプション">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "リダイレクト">
 <!ENTITY bounceButton.tooltip "メッセージをリダイレクトします">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "カスタマイズ...">
 <!ENTITY customizeToolbar.accesskey "C">

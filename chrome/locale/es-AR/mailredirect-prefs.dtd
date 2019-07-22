@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Configuración MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Reenviar">
+
+<!ENTITY mailredirectSettings.title "Configuración Mail Redirect">
 
 <!ENTITY copyToSentMails.label "¿Quiere poner una copia del correo reexpedido en la Carpeta de Enviados?">
 <!ENTITY copyToSentMails.accesskey "c">
@@ -34,7 +36,7 @@
 <!ENTITY defaultResendBcc.tooltip "Lista separada por comas de direcciones de correo electrónico.">
 
 <!ENTITY defaultMode.label "Modo por defecto:">
-<!ENTITY defaultMode.accesskey "m">
+<!ENTITY defaultMode.accesskey "M">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
 <!ENTITY defaultMode.tooltip "Elija cómo quiere redirigir los mensajes de forma predeterminada \nEste ajuste sólo tiene efecto cuando no se ha especificado ningún destinatario por defecto.">
 <!ENTITY defaultModeResendTo.label "Reenviar-A">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Apagar on/off debugging para mailredirect extension. Bitácoras están dirigidas a la Consola de JavaScript.">
+<!ENTITY debug.tooltip "Apagar on/off debugging para Mail Redirect extension. Bitácoras están dirigidas a la Consola de JavaScript.">
 
 <!ENTITY saveConsoleContent.label2 "Guardar el contenido de la Consola de Error…">
 <!ENTITY saveConsoleContent.accesskey2 "G">
 <!ENTITY sendViaEmail.label "Enviar por email">
 <!ENTITY sendViaEmail.accesskey "E">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Redireccionar Correo">

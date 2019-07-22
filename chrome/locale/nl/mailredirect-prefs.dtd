@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "Heradresseren">
+
 <!ENTITY mailredirectSettings.title "Mail Redirect-instellingen">
 
 <!ENTITY copyToSentMails.label "Kopie van geheradresseerde berichten in map Verzonden plaatsen?">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "I">
 <!ENTITY sendViaEmail.label "Verzenden via e-mail">
 <!ENTITY sendViaEmail.accesskey "V">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Bericht heradresseren">

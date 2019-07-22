@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "C">
 <!ENTITY addressBookCmd.label "Carnet d'adresses">
 <!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY preferencesCmd.label "Options">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "Rediriger">
 <!ENTITY bounceButton.tooltip "Rediriger les messages">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Personnaliser…">
 <!ENTITY customizeToolbar.accesskey "P">

@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "o">
 <!ENTITY addressBookCmd.label "Libreta de direcciones">
 <!ENTITY addressBookCmd.accesskey "L">
+<!ENTITY preferencesCmd.label "Opciones">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "Redirigir">
 <!ENTITY bounceButton.tooltip "Redirigir mensajes">
@@ -34,15 +36,18 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Personalizar…">
 <!ENTITY customizeToolbar.accesskey "P">
 <!ENTITY showBounceToolbarCmd.label "Barra de herramientas de redirección">
-<!ENTITY showBounceToolbarCmd.accesskey "o">
+<!ENTITY showBounceToolbarCmd.accesskey "r">
 <!ENTITY showStatusbarCmd.label "Barra de estado">
 <!ENTITY showStatusbarCmd.accesskey "s">
 
-<!ENTITY addressSidebar.label "Panel lateral de contactos">
+<!ENTITY addressSidebar.label "Barra lateral de contactos">
 <!ENTITY addressSidebar.accesskey "o">
 <!ENTITY addressesSidebarTitle.label "Contactos">
 <!ENTITY addressSidebarButton.label "Contactos">

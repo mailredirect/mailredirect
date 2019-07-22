@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Inställningar för MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Omdirigera">
+
+<!ENTITY mailredirectSettings.title "Inställningar för Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Lägg till en kopia av omdirigerade brev i mappen Skickat?">
 <!ENTITY copyToSentMails.accesskey "L">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Skicka via e-post">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

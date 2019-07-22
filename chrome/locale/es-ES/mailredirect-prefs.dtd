@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Opciones de MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Redirigir">
+
+<!ENTITY mailredirectSettings.title "Opciones de Mail Redirect">
 
 <!ENTITY copyToSentMails.label "¿Desea guardar copia de los mensajes redirigidos en la carpeta Enviados?">
 <!ENTITY copyToSentMails.accesskey "c">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "G">
 <!ENTITY sendViaEmail.label "Enviar por correo">
 <!ENTITY sendViaEmail.accesskey "E">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

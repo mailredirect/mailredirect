@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "Nukreipimas">
+
 <!ENTITY mailredirectSettings.title "Laiškų nukreipimo nuostatos">
 
 <!ENTITY copyToSentMails.label "Įrašyti nukreipiamų laiškų kopijas išsiųstų laiškų aplanke">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "š">
 <!ENTITY sendViaEmail.label "Išsiųsti el. paštu">
 <!ENTITY sendViaEmail.accesskey "I">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Laiškų nukreipimas">

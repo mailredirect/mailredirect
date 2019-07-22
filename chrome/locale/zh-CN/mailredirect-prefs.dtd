@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "MailRedirect 设置">
+<!ENTITY mailredirectSettings.label2 "重定向">
+
+<!ENTITY mailredirectSettings.title "Mail Redirect 设置">
 
 <!ENTITY copyToSentMails.label "重定向的邮件在发件箱中留存副本？">
 <!ENTITY copyToSentMails.accesskey "P">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "通过邮件发送">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

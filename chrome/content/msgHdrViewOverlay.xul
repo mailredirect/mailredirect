@@ -7,9 +7,10 @@
   %mailredirectDTD;
 ]>
 
-<?xml-stylesheet href="chrome://mailredirect-os/skin/messageHeader.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect/skin/messageHeader.css" type="text/css"?>
 
-<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="mailRedirectMsgHdrOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <toolbarpalette id="header-view-toolbar-palette">
     <toolbarbutton id="hdrMailredirectButton"
@@ -22,10 +23,10 @@
 
   <menupopup id="hdrForwardDropdown">
     <menuitem id="hdrForwardAsRedirectMenu"
-      label="&bounceCommand.label;"
-      tooltiptext="&forwardAsRedirect.tooltip;"
-      insertafter="hdrForwardAsAttachmentMenu"
-      command="cmd_mailredirect"/>
+              label="&bounceCommand.label;"
+              tooltiptext="&forwardAsRedirect.tooltip;"
+              insertafter="hdrForwardAsAttachmentMenu"
+              command="cmd_mailredirect"/>
   </menupopup>
 
   <toolbar id="header-view-toolbar"

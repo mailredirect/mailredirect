@@ -4,19 +4,19 @@
 /* ..... subject column ..... */
 
 treechildren::-moz-tree-image(subjectCol, kw-redirected) {
-  list-style-image: url("chrome://mailredirect-os/skin/message-mail-redirected.png ");
+  list-style-image: url("chrome://mailredirect/skin/message-mail-redirected.png ");
 }
 
 treechildren::-moz-tree-image(subjectCol, forwarded, kw-redirected) {
-  list-style-image: url("chrome://mailredirect-os/skin/message-mail-forwarded-redirected.png");
+  list-style-image: url("chrome://mailredirect/skin/message-mail-forwarded-redirected.png");
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, kw-redirected) {
-  list-style-image: url("chrome://mailredirect-os/skin/message-mail-replied-redirected.png");
+  list-style-image: url("chrome://mailredirect/skin/message-mail-replied-redirected.png");
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, forwarded, kw-redirected) {
-  list-style-image: url("chrome://mailredirect-os/skin/message-mail-replied-forw-redirected.png");
+  list-style-image: url("chrome://mailredirect/skin/message-mail-replied-forw-redirected.png");
 }
 
 /* IMPORTANT: make sure our style rules for news articles always come after the message replied/forward style rules.
@@ -24,5 +24,5 @@ treechildren::-moz-tree-image(subjectCol, replied, forwarded, kw-redirected) {
    by adding more qualifiers to our CSS */
 
 treechildren::-moz-tree-image(subjectCol, news, kw-redirected) {
-  list-style-image: url("chrome://mailredirect-os/skin/message-news-redirected.png");
+  list-style-image: url("chrome://mailredirect/skin/message-news-redirected.png");
 }

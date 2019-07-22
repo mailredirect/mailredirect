@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "Перенаправить">
+
 <!ENTITY mailredirectSettings.title "Настройки Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Копировать перенаправленные сообщения в папку Отправленные?">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "C">
 <!ENTITY sendViaEmail.label "Послать по почте">
 <!ENTITY sendViaEmail.accesskey "л">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

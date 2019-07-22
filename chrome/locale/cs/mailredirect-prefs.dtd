@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Možnosti rozšíření MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Přesměrovat">
+
+<!ENTITY mailredirectSettings.title "Možnosti rozšíření Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Uložit kopii přesměrované pošty od složky Odeslaná pošta?">
 <!ENTITY copyToSentMails.accesskey "c">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Ladit">
 <!ENTITY debug.accesskey "d">
-<!ENTITY debug.tooltip "Zapnout/vypnout ladění rozšíření MailRedirect. Ladící hlášky jsou zapisovány do konzole JavaScriptu.">
+<!ENTITY debug.tooltip "Zapnout/vypnout ladění rozšíření Mail Redirect. Ladící hlášky jsou zapisovány do konzole JavaScriptu.">
 
 <!ENTITY saveConsoleContent.label2 "Uložit obsah chybové konzole…">
 <!ENTITY saveConsoleContent.accesskey2 "U">
 <!ENTITY sendViaEmail.label "Odeslat e-mailem">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

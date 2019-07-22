@@ -1,9 +1,11 @@
-<!ENTITY mailredirectSettings.title "MailRedirect 設定">
+<!ENTITY mailredirectSettings.label2 "重新導向">
+
+<!ENTITY mailredirectSettings.title "Mail Redirect 設定">
 
 <!ENTITY copyToSentMails.label "是否要將已重新導向的郵件副本放在寄件匣中？">
 <!ENTITY copyToSentMails.accesskey "P">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "當此選項被選取時，已重新導向的訊息的副本會被放在已寄送資料夾。當此選項未被選取時，已重新導向的訊息的副本將不會被複製至任何資料夾。\n附註：如果此選項被選取時，你用作重新導向的帳戶的設定是「不儲存任何已傳送訊息」，那麼已重新導向的訊息的副本亦不會被儲存。">
+<!ENTITY copyToSentMails.tooltip "若選取此選項，已重新導向的訊息的副本會被放在「寄件備份」信件匣；未選取此選項時，已重新導向的訊息的副本則不會被複製至任何資料夾。\n附註: 如果選取此選項，而重新導向的帳號設定為「不儲存任何已傳送的訊息」，那麼不會儲存已重新導向的訊息副本。">
 
 <!ENTITY addToForwardAs.label "將「重新導向」新增到「轉寄為」選單與按鈕中">
 <!ENTITY addToForwardAs.accesskey "A">
@@ -14,10 +16,10 @@
 <!ENTITY hideRedirectMenuitems.accesskey "H">
 <!ENTITY hideRedirectMenuitems.tooltip "從訊息、應用程式與右鍵選單中隱藏多餘的重新導向選單項目。">
 
-<!ENTITY concurrentConnections.label "SMTP 並行連接數目：">
+<!ENTITY concurrentConnections.label "SMTP 同時連線數: ">
 <!ENTITY concurrentConnections.accesskey "N">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "此選項會指定傳送訊息時建立到你的 SMTP 伺服器的連接數目。一般來說，當你選擇去重新導向大量訊息，這允許你提升傳送的效能。\n附註：如果你設定此參數為零，那麼並行連接數目將套用為無限制 - 請注意，這會影響你 SMTP 伺服器的穩定性或者導致部分訊息傳送失敗。如有任何問題，請設定此值為一。">
+<!ENTITY concurrentConnections.tooltip "可透過此選項指定傳送訊息時，要與 SMTP 伺服器建立的連線數。一般來說，若要重新導向大量訊息，加大數值可提升效能。\n註：若您將此參數設為 0，將不會限制連線數；請注意，這可能會造成 SMTP 伺服器的不穩定或部分訊息傳送失敗。若遇到任何問題，請將此值設回 1。">
 
 <!ENTITY defaultRecipientsGroup.label "預設收件者">
 
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "經由電子郵件寄送">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

@@ -1,18 +1,20 @@
-<!ENTITY mailredirectSettings.title "Možnosti rozšírenia MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Presmerovať">
+
+<!ENTITY mailredirectSettings.title "Možnosti rozšírenia Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Uložiť kópiu presmerovanej pošty do priečinka Odoslaná pošta?">
 <!ENTITY copyToSentMails.accesskey "k">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Pokiaľ je táto voľba zapnutá, kópia presmerovanej správy sa uloží do priečinku Odoslaná pošta. Pokiaľ je táto voľba vypnutá, presmerované správy sa nikde neukladajú.\nPozn.: Pokiaľ je táto voľba zapnutá, ale zároveň nie je v Nastaveniach účtov / Kópie &amp; priečinky - vyznačená možnosť: Uložiť kópiu do… , kópie presmerovaných správ sa nebudú ukladať.">
 
-<!ENTITY addToForwardAs.label "??Add Redirect to Forward As menus and buttons??">
-<!ENTITY addToForwardAs.accesskey "A">
+<!ENTITY addToForwardAs.label "Pridať Presmerovanie do menu Odoslať ďalej ako">
+<!ENTITY addToForwardAs.accesskey "e">
 <!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
-<!ENTITY addToForwardAs.tooltip "??By adding Redirect to the Forward As menus and buttons you group all forwarding actions under one item.\nYou can remove the buttons from the toolbars by customizing them and by checking the option below, you can hide the separate menu items because they have become redundant??">
+<!ENTITY addToForwardAs.tooltip "Pridaním položky Presmerovanie do menu Odoslať ďalej ako zoskupíte všetky možnosti odoslania ďalej.\nMôžete odstrániť tlačidlá z panelu nástrojov ich prispôsobením. Pomocou voľby nižšie môžete skryť samostatné položky Presmerovania v menu pretože potom budú nadbytočné.">
 
-<!ENTITY hideRedirectMenuitems.label "??Hide Redirect menu item from Message, Application and context menus??">
-<!ENTITY hideRedirectMenuitems.accesskey "H">
-<!ENTITY hideRedirectMenuitems.tooltip "??Hides the separate Redirect menu items from the Message, Application and context menus??">
+<!ENTITY hideRedirectMenuitems.label "Skryť Presmerovanie z kontextových menu a menu Správa a Aplikačného menu">
+<!ENTITY hideRedirectMenuitems.accesskey "m">
+<!ENTITY hideRedirectMenuitems.tooltip "Skryje samostatnú položku Presmerovanie z kontextových menu a menu Správa a Aplikačného menu">
 
 <!ENTITY concurrentConnections.label "Počet paralelných SMTP spojení:">
 <!ENTITY concurrentConnections.accesskey "S">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Ladiť">
 <!ENTITY debug.accesskey "L">
-<!ENTITY debug.tooltip "Zapnúť / vypnúť ladenie MailRedirect. Komentáre o ladení sú zapisované do konzoly JavaScript.">
+<!ENTITY debug.tooltip "Zapnúť / vypnúť ladenie Mail Redirect. Komentáre o ladení sú zapisované do konzoly JavaScript.">
 
 <!ENTITY saveConsoleContent.label2 "Uložiť obsah chybovej konzoly…">
 <!ENTITY saveConsoleContent.accesskey2 "U">
 <!ENTITY sendViaEmail.label "Odoslať cez e-mail">
 <!ENTITY sendViaEmail.accesskey "O">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

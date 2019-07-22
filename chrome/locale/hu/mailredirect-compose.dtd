@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "L">
 <!ENTITY addressBookCmd.label "Címjegyzék">
 <!ENTITY addressBookCmd.accesskey "C">
+<!ENTITY preferencesCmd.label "Beállítások">
+<!ENTITY preferencesCmd.accesskey "B">
 
 <!ENTITY bounceButton.label "Átirányítás">
 <!ENTITY bounceButton.tooltip "Üzenet átirányítás">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Testreszabás…">
 <!ENTITY customizeToolbar.accesskey "T">

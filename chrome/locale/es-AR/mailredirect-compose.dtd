@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "o">
 <!ENTITY addressBookCmd.label "Libreta de direcciones">
 <!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY preferencesCmd.label "Opciones">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "Reexpedir">
 <!ENTITY bounceButton.tooltip "Reexpedir mensages">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Personalizar…">
 <!ENTITY customizeToolbar.accesskey "C">

@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "C">
 <!ENTITY addressBookCmd.label "Agendă de contacte">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Opțiuni">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "Retrimite">
 <!ENTITY bounceButton.tooltip "Retrimite mesajele">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "2">
 <!ENTITY addressBookCmd.modifiers "accel">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Personalizează">
 <!ENTITY customizeToolbar.accesskey "C">

@@ -4,6 +4,6 @@
 <!ENTITY bounceMsgCmd.key "B">
 <!ENTITY bounceMsgCmd.modifiers "accel">
 
-<!ENTITY forwardAsRedirect.label "Presmerovať">
-<!ENTITY forwardAsRedirect.accesskey "P">
-<!ENTITY forwardAsRedirect.tooltip "Presmeruje vybrané správy">
+<!ENTITY forwardAsRedirect.label "Presmerovanie">
+<!ENTITY forwardAsRedirect.accesskey "e">
+<!ENTITY forwardAsRedirect.tooltip "Presmerovať vybranú správu">

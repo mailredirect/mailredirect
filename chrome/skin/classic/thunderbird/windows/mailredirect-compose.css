@@ -1,14 +1,14 @@
-#bounceTree treechildren::-moz-tree-row(odd) {
+#threadTree treechildren::-moz-tree-row(odd) {
   background-image: url("chrome://messenger/skin/icons/row.png");
   background-position: bottom;
   background-repeat: repeat-x;
 }
 
-#bounceTree treechildren::-moz-tree-row(notsent) {
+#threadTree treechildren::-moz-tree-row(notsent) {
   background-color: red;
 }
 
-#bounceTree treechildren::-moz-tree-cell-text(notsent) {
+#threadTree treechildren::-moz-tree-cell-text(notsent) {
   color: white;
 }
 
@@ -33,7 +33,7 @@
 /* :::::: Close button icons ::::: */
 
 .close-icon {
-  list-style-image: url("chrome://mailredirect/skin/close-small.png");
+  list-style-image: url("chrome://mailredirect-shared/skin/close-small.png");
   -moz-image-region: rect(0px, 16px, 16px, 0px);
 }
 

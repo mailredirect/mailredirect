@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "Преадресиране">
+
 <!ENTITY mailredirectSettings.title "Настройки на Преадресиране на писма">
 
 <!ENTITY copyToSentMails.label "Копиране на преадресираните писма в папка Изпратени?">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Отстраняване на дефекти">
 <!ENTITY debug.accesskey "д">
-<!ENTITY debug.tooltip "Включване/изключване на отстраняване на дефекти от разширението mailredirect. Дневниците с действията на разширението се пренасочват към конзолата за грешки.">
+<!ENTITY debug.tooltip "Включване/изключване на отстраняване на дефекти от разширението Mail Redirect. Дневниците с действията на разширението се пренасочват към конзолата за грешки.">
 
 <!ENTITY saveConsoleContent.label2 "Запазване на съдържанието на конзолата за грешки…">
 <!ENTITY saveConsoleContent.accesskey2 "З">
 <!ENTITY sendViaEmail.label "Изпращане по имейла">
 <!ENTITY sendViaEmail.accesskey "п">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Преадресиране на писма">

@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "Átirányítás">
+
 <!ENTITY mailredirectSettings.title "Üzenet átirányítás beállítások">
 
 <!ENTITY copyToSentMails.label "Üzenet átirányításkor az elküldött elemek mappába másolat elhelyezése?">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "t">
 <!ENTITY sendViaEmail.label "Email küldés keresztül">
 <!ENTITY sendViaEmail.accesskey "E">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Üzenet átirányítás beállítások">

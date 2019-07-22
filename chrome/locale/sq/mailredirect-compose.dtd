@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "o">
 <!ENTITY addressBookCmd.label "Libër Adresash">
 <!ENTITY addressBookCmd.accesskey "L">
+<!ENTITY preferencesCmd.label "Mundësi">
+<!ENTITY preferencesCmd.accesskey "M">
 
 <!ENTITY bounceButton.label "Ridrejtoni">
 <!ENTITY bounceButton.tooltip "Ridrejtoni mesazhe">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Përshtateni…">
 <!ENTITY customizeToolbar.accesskey "P">

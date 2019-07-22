@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Książka adresowa">
 <!ENTITY addressBookCmd.accesskey "a">
+<!ENTITY preferencesCmd.label "Opcje">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "Wyślij">
 <!ENTITY bounceButton.tooltip "Wyślij wiadomości">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "2">
 <!ENTITY addressBookCmd.modifiers "accel">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Dostosuj…">
 <!ENTITY customizeToolbar.accesskey "D">

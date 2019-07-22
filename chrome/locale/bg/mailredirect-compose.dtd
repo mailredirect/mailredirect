@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "г">
 <!ENTITY addressBookCmd.label "Адресник">
 <!ENTITY addressBookCmd.accesskey "а">
+<!ENTITY preferencesCmd.label "Настройки">
+<!ENTITY preferencesCmd.accesskey "Н">
 
 <!ENTITY bounceButton.label "Преадресиране">
 <!ENTITY bounceButton.tooltip "Преадресиране на писма">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Настройки…">
 <!ENTITY customizeToolbar.accesskey "н">

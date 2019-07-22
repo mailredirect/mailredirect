@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Adresář">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Možnosti">
+<!ENTITY preferencesCmd.accesskey "M">
 
 <!ENTITY bounceButton.label "Přesměrovat">
 <!ENTITY bounceButton.tooltip "Přesměruje zprávy">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Přizpůsobit…">
 <!ENTITY customizeToolbar.accesskey "z">

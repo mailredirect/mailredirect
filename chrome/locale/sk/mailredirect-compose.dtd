@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "P">
 <!ENTITY addressBookCmd.label "Adresár">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Možnosti">
+<!ENTITY preferencesCmd.accesskey "M">
 
 <!ENTITY bounceButton.label "Presmerovať">
 <!ENTITY bounceButton.tooltip "Presmerovať správy">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "2">
 <!ENTITY addressBookCmd.modifiers "accel">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Prispôsobenie…">
 <!ENTITY customizeToolbar.accesskey "r">
@@ -53,7 +58,7 @@
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
-<!ENTITY headersSpace.style "width: 17em;">
+<!ENTITY headersSpace.style "width: 18em;">
 
 <!ENTITY resendFromAddr.label "Znovu odoslať - Od:">
 <!ENTITY resendFromAddr.accesskey "O">

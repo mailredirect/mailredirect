@@ -38,11 +38,11 @@
 }
 
 
-#bounceTree treechildren::-moz-tree-row(notsent) {
+#threadTree treechildren::-moz-tree-row(notsent) {
   background-color: red;
 }
 
-#bounceTree treechildren::-moz-tree-cell-text(notsent) {
+#threadTree treechildren::-moz-tree-cell-text(notsent) {
   color: white;
 }
 
@@ -77,7 +77,7 @@
 .close-icon {
   -moz-appearance: none;
   -moz-context-properties: fill, fill-opacity;
-  list-style-image: url("chrome://mailredirect/skin/close.svg");
+  list-style-image: url("chrome://mailredirect-shared/skin/close.svg");
   color: inherit;
   fill: currentColor;
   fill-opacity: 0;

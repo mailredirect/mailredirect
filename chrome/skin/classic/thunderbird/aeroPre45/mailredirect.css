@@ -1,5 +1,5 @@
 #mailredirect-toolbarbutton {
-  list-style-image: url("chrome://mailredirect-os/skin/mailredirect.png");
+  list-style-image: url("chrome://mailredirect/skin/mailredirect.png");
 }
 
 /* Default icons have a built-in glow, so they are 18*18px even in small mode,

@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Rregullime për MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Ridrejtim">
+
+<!ENTITY mailredirectSettings.title "Rregullime për Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Të vendoset te dosja Të Dërguar një kopje e mesazhit të ridrejtuar?">
 <!ENTITY copyToSentMails.accesskey "v">
@@ -7,7 +9,7 @@
 
 <!ENTITY addToForwardAs.label "Shtojeni Redirect-in te menutë dhe butonat Përcille Si">
 <!ENTITY addToForwardAs.accesskey "A">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
 <!ENTITY addToForwardAs.tooltip "Duke e shtuar Redirect-in te menu dhe butona Përcille Si i gruponi krejt veprimet e ridrejtimit nën një vend.\nButonat mund të lëvizni nga panelet përmes përshtatjes së tyre dhe duke i vënë shenjë mundësisë më poshtë mund të fshihni zëra menuje sepse janë  shndërruar në përsëritje.">
 
 <!ENTITY hideRedirectMenuitems.label "Fshihe zërin Redirect te menu Mesazh, Aplikacion dhe menu konteksti">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Diagnostikoni">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Aktivizoni/çaktivizoni diagnostikimin për zgjerimin mailredirect. Regjistrimet dërgohen te Konsola JavaScript.">
+<!ENTITY debug.tooltip "Aktivizoni/çaktivizoni diagnostikimin për zgjerimin Mail Redirect. Regjistrimet dërgohen te Konsola JavaScript.">
 
 <!ENTITY saveConsoleContent.label2 "Ruani lëndë Konsole Gabimesh...">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Dërgoje përmes email-i">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Ridrejtim Mesazhesh">

@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "MailRedirect - Indstillinger">
+<!ENTITY mailredirectSettings.label2 "Omdiriger">
+
+<!ENTITY mailredirectSettings.title "Mail Redirect - Indstillinger">
 
 <!ENTITY copyToSentMails.label "Anbring en kopi af omdirigeret mail i mappen Sendt?">
 <!ENTITY copyToSentMails.accesskey "A">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Slå fejlfinding til/fra for udvidelsen MailRedirect. Log sendes til fejlkonsollen.">
+<!ENTITY debug.tooltip "Slå fejlfinding til/fra for udvidelsen Mail Redirect. Log sendes til fejlkonsollen.">
 
 <!ENTITY saveConsoleContent.label2 "Gem indholdet af fejlkonsollen…">
 <!ENTITY saveConsoleContent.accesskey2 "G">
 <!ENTITY sendViaEmail.label "Send som mail">
 <!ENTITY sendViaEmail.accesskey "m">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

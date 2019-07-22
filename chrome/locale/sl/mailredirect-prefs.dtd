@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Nastavitve MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Preusmeri">
+
+<!ENTITY mailredirectSettings.title "Nastavitve Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Vstavi kopijo preusmerjene pošte v mapo Poslano">
 <!ENTITY copyToSentMails.accesskey "V">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Pošlji preko e-pošte">
 <!ENTITY sendViaEmail.accesskey "P">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

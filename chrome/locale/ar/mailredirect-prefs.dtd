@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "إعادة توجيه البريد">
+
 <!ENTITY mailredirectSettings.title "إعدادات ”إعادة توجيه البريد“">
 
 <!ENTITY copyToSentMails.label "أتريد وضع نسخة من البريد المُعاد توجيهه في مجلد البريد المُرسل؟">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "ح">
 <!ENTITY sendViaEmail.label "أرسل عبر البريد الإلكتروني">
 <!ENTITY sendViaEmail.accesskey "س">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "إعادة توجيه البريد">

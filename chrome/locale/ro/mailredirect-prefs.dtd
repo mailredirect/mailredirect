@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "Retrimite">
+
 <!ENTITY mailredirectSettings.title "Setări de retrimitere a mesajelor">
 
 <!ENTITY copyToSentMails.label "Păstrați o copie în dosarul mesajelor trimise?">
@@ -7,7 +9,7 @@
 
 <!ENTITY addToForwardAs.label "Adaugati Retransmitere in meniurile si butoanele de inaintare">
 <!ENTITY addToForwardAs.accesskey "A">
-<!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
+<!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
 <!ENTITY addToForwardAs.tooltip "Prin adaugarea Retransmiterii in meniurile si butanele de Inaintare grupati toate aceste actiuni intr-un loc. Puteti adauga, separa sau elimina butoane prin personalizarea lor apasand butonul de opriuni de mai jos.">
 
 <!ENTITY hideRedirectMenuitems.label "Ascundeti meniul de Redirect din Mesaje,Aplicatii si meniurile de context.">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Trimite prin e-mail">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Retrimite mesaje">

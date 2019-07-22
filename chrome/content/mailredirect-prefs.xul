@@ -3,18 +3,18 @@
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
 <?xml-stylesheet type="text/css" href="chrome://messenger/skin/preferences/preferences.css"?>
-<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect-prefs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-shared/skin/mailredirect-prefs.css" type="text/css"?>
 
 <!DOCTYPE prefwindow [
   <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
   %mailredirectPrefsDTD;
 ]>
 
-<prefwindow xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+<prefwindow id="mailredirect"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             xmlns:html="http://www.w3.org/1999/xhtml"
-            id="mailredirect"
             title="&mailredirectSettings.title;"
-            onload="MailredirectPrefs.onload();">
+            onload="MailredirectPrefs.onpaneload();">
 
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
 
@@ -30,10 +30,6 @@
       <preference id="pref_defaultMode" name="extensions.mailredirect.defaultMode" type="string"/>
       <preference id="pref_debug" name="extensions.mailredirect.debug" type="bool"/>
     </preferences>
-
-    <stringbundleset id="stringbundleset">
-      <stringbundle id="bundle_mailredirect-prefs" src="chrome://mailredirect/locale/mailredirect-prefs.properties"/>
-    </stringbundleset>
 
     <hbox>
       <vbox>

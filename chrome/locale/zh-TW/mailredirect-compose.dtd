@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "M">
 <!ENTITY addressBookCmd.label "通訊錄">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "選項">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "重新導向">
 <!ENTITY bounceButton.tooltip "重新導向訊息">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "自訂…">
 <!ENTITY customizeToolbar.accesskey "C">

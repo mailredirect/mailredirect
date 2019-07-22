@@ -1,3 +1,5 @@
+<!ENTITY mailredirectSettings.label2 "リダイレクト">
+
 <!ENTITY mailredirectSettings.title "Mail Redirect の設定">
 
 <!ENTITY copyToSentMails.label "リダイレクトしたメールのコピーを送信済みトレイに保存する">
@@ -49,6 +51,3 @@
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "メールで送信">
 <!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

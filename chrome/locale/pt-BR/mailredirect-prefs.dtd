@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Configurações do MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Redirecionamento">
+
+<!ENTITY mailredirectSettings.title "Configurações do Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Enviar cópia do e-mail redirecionado para a pasta Itens Enviados?">
 <!ENTITY copyToSentMails.accesskey "r">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Depurar">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Ativar/desativar a depuração para a extensão MailRedirect. Os logs serão direcionados para a Console JavaScript.">
+<!ENTITY debug.tooltip "Ativar/desativar a depuração para a extensão Mail Redirect. Os logs serão direcionados para a Console JavaScript.">
 
 <!ENTITY saveConsoleContent.label2 "Salvar conteúdo da Console de Erro…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Enviar por e-mail">
 <!ENTITY sendViaEmail.accesskey "E">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">

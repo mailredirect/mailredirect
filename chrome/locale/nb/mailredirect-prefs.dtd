@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "MailRedirect innstillinger">
+<!ENTITY mailredirectSettings.label2 "Omdiriger">
+
+<!ENTITY mailredirectSettings.title "Mail Redirect innstillinger">
 
 <!ENTITY copyToSentMails.label "Legg en kopi av omadressert post i sendt-mappen?">
 <!ENTITY copyToSentMails.accesskey "L">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Feilsøk">
 <!ENTITY debug.accesskey "F">
-<!ENTITY debug.tooltip "Slå på/av feilsøking for mailredirect-utvidelsen. Loggene sendes til JavaScript-konsoll.">
+<!ENTITY debug.tooltip "Slå på/av feilsøking for Mail Redirect-utvidelsen. Loggene sendes til JavaScript-konsoll.">
 
 <!ENTITY saveConsoleContent.label2 "Lagre Feilkonsollets innhold…">
 <!ENTITY saveConsoleContent.accesskey2 "e">
 <!ENTITY sendViaEmail.label "Sende via e-post">
 <!ENTITY sendViaEmail.accesskey "v">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Post omdirigering">

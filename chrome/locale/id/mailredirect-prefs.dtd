@@ -1,4 +1,6 @@
-<!ENTITY mailredirectSettings.title "Pengaturan MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Redirect">
+
+<!ENTITY mailredirectSettings.title "Pengaturan Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Tempat salinan surat diarahkan dalam folder Terkirim?">
 <!ENTITY copyToSentMails.accesskey "T">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Debug">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Mengaktifkan/menonaktifkan debug perpanjangan mailredirect. Log diarahkan ke kesalahan konsol.">
+<!ENTITY debug.tooltip "Mengaktifkan/menonaktifkan debug perpanjangan Mail Redirect. Log diarahkan ke kesalahan konsol.">
 
 <!ENTITY saveConsoleContent.label2 "Simpan Kesalahan Konsol konten…">
 <!ENTITY saveConsoleContent.accesskey2 "S">
 <!ENTITY sendViaEmail.label "Kirim Melalui Email">
 <!ENTITY sendViaEmail.accesskey "E">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Redirect">

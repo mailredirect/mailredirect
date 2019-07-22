@@ -20,6 +20,8 @@
 <!ENTITY messengerCmd.accesskey "m">
 <!ENTITY addressBookCmd.label "Adresboek">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Opties">
+<!ENTITY preferencesCmd.accesskey "O">
 
 <!ENTITY bounceButton.label "Heradresseren">
 <!ENTITY bounceButton.tooltip "Berichten heradresseren">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Aanpassen…">
 <!ENTITY customizeToolbar.accesskey "A">
@@ -53,7 +58,7 @@
 <!-- LOCALIZATION NOTE headersSpace.style is for aligning the Resend-From:, Resend-To:,
      Resend-Cc: and Resend-Bcc: rows. It should be larger than the largest Header
      label -->
-<!ENTITY headersSpace.style "width: 12em;">
+<!ENTITY headersSpace.style "width: 11em;">
 
 <!ENTITY resendFromAddr.label "Heradresseer-Van:">
 <!ENTITY resendFromAddr.accesskey "H">

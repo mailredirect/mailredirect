@@ -1,5 +1,5 @@
 .hdrMailredirectButton {
-  list-style-image: url("chrome://mailredirect/skin/mail-toolbar.svg#redirect-flat");
+  list-style-image: url("chrome://mailredirect-shared/skin/mail-toolbar.svg#redirect-flat");
 }
 
 toolbar[brighttext] .hdrMailredirectButton {

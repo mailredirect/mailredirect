@@ -20,13 +20,15 @@
 <!ENTITY messengerCmd.accesskey "m">
 <!ENTITY addressBookCmd.label "Buku Alamat">
 <!ENTITY addressBookCmd.accesskey "A">
+<!ENTITY preferencesCmd.label "Pengaturan">
+<!ENTITY preferencesCmd.accesskey "P">
 
 <!ENTITY bounceButton.label "Redirect">
 <!ENTITY bounceButton.tooltip "Redirect pesan">
 <!ENTITY addressButton.label "Buku Alamat">
 <!ENTITY addressButton.tooltip "Pergi ke buku alamat">
 <!ENTITY throbberItem.title "Indikator Aktivitas">
-<!ENTITY throbber.tooltip "Pergi ke &amp; vendorShortName; halaman utama">
+<!ENTITY throbber.tooltip "Pergi ke &vendorShortName; halaman utama">
 
 <!ENTITY closeCmd.key "W">
 <!ENTITY closeCmd.modifiers "accel">
@@ -34,6 +36,9 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "B">
 <!ENTITY addressBookCmd.modifiers "accel, shift">
+<!-- For SeaMonkey -->
+<!ENTITY quitApplicationCmd.key "Q">
+<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Ubahsuai…">
 <!ENTITY customizeToolbar.accesskey "U">

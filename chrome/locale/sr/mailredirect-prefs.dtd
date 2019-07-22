@@ -1,54 +1,53 @@
-<!ENTITY mailredirectSettings.title "Поставке Mail Redirect-а">
+<!ENTITY mailredirectSettings.label2 "Преусмеравање">
 
-<!ENTITY copyToSentMails.label "Смести копију преусмерене е-поруке у послате поруке">
-<!ENTITY copyToSentMails.accesskey "С">
+<!ENTITY mailredirectSettings.title "Подешавања Mail Redirect-а">
+
+<!ENTITY copyToSentMails.label "Копирај преусмерене имејлове у фасциклу „Послате”">
+<!ENTITY copyToSentMails.accesskey "К">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
-<!ENTITY copyToSentMails.tooltip "Уколико означите ову опцију, копија преусмерене е-поруке ће бити смештена у послате поруке. \nНапомена: Ова опција неће радити ако сте у подешавањима наместили да се послате поруке уопште не чувају.">
+<!ENTITY copyToSentMails.tooltip "Ако означите ову опцију, копија преусмерене поруке ће се сместити у фасциклу „Послате”. \nНапомена: Ова опција неће радити ако сте у подешавањима означили да се послате поруке уопште не чувају.">
 
-<!ENTITY addToForwardAs.label "??Add Redirect to Forward As menus and buttons??">
-<!ENTITY addToForwardAs.accesskey "A">
+<!ENTITY addToForwardAs.label "Додај „Преусмери” у меније и дугмад одељка „Проследи као”">
+<!ENTITY addToForwardAs.accesskey "Д">
 <!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
-<!ENTITY addToForwardAs.tooltip "??By adding Redirect to the Forward As menus and buttons you group all forwarding actions under one item.\nYou can remove the buttons from the toolbars by customizing them and by checking the option below, you can hide the separate menu items because they have become redundant??">
+<!ENTITY addToForwardAs.tooltip "Додавањем „Преусмери” у меније и дугмад одељка „Проследи као”, груписаћете све радње за прослеђивање под једном ставком.\nДугмад из трака са алаткама можете уклонити у подешавањима, а можете и сакрити засебне ставке менија означавањем опције испод.">
 
-<!ENTITY hideRedirectMenuitems.label "??Hide Redirect menu item from Message, Application and context menus??">
-<!ENTITY hideRedirectMenuitems.accesskey "H">
-<!ENTITY hideRedirectMenuitems.tooltip "??Hides the separate Redirect menu items from the Message, Application and context menus??">
+<!ENTITY hideRedirectMenuitems.label "Сакриј ставку „Преусмери” из менија „Порука”, „Апликација” и контекстуалних менија">
+<!ENTITY hideRedirectMenuitems.accesskey "С">
+<!ENTITY hideRedirectMenuitems.tooltip "Скрива засебне ставке „Преусмери” из менија „Порука”, „Апликација” и контекстуалних менија.">
 
 <!ENTITY concurrentConnections.label "Број истовремених SMTP веза:">
 <!ENTITY concurrentConnections.accesskey "Б">
 <!-- LOCALIZATION NOTE (concurrentConnections.tooltip): do not translate \n -->
-<!ENTITY concurrentConnections.tooltip "Овом опцијом одређујете број веза које ће бити успостављене са SMTP сервером при слању порука. Њоме можете убрзати слање приликом преусмеравања великог броја порука.\nНапомена: Нула означава да нема ограничења по питању истовремених веза. Будите опрезни јер тиме можете да угрозите стабилност SMTP сервера, а може доћи и до неуспешног слања појединих порука. У случају да буде проблема, поставите ову вредност на један.">
+<!ENTITY concurrentConnections.tooltip "Овом опцијом одређујете број истовремених веза са SMTP сервером при слању порука. Помоћу ње можете убрзати процес приликом преусмеравања великог броја порука.\nНапомена: Нула означава да нема ограничења по питању истовремених веза. Имајте на уму да тиме можете угрозити стабилност SMTP сервера. Препоручена вредност у случају проблема је један.">
 
 <!ENTITY defaultRecipientsGroup.label "Подразумевани примаоци">
 
-<!ENTITY defaultResendTo.label "Поново пошаљи-прималац">
-<!ENTITY defaultResendTo.accesskey "П">
-<!ENTITY defaultResendTo.tooltip "Списак е-адреса одвојених запетама.">
+<!ENTITY defaultResendTo.label "Коме:">
+<!ENTITY defaultResendTo.accesskey "о">
+<!ENTITY defaultResendTo.tooltip "Списак имејл-адреса раздвојених зарезом.">
 
-<!ENTITY defaultResendCc.label "Поново пошаљи-додатни примаоци:">
-<!ENTITY defaultResendCc.accesskey "C">
-<!ENTITY defaultResendCc.tooltip "Списак е-адреса одвојених запетама.">
+<!ENTITY defaultResendCc.label "Копија:">
+<!ENTITY defaultResendCc.accesskey "п">
+<!ENTITY defaultResendCc.tooltip "Списак имејл-адреса раздвојених зарезом.">
 
-<!ENTITY defaultResendBcc.label "Поново пошаљи-додатни сакривени примаоци:">
-<!ENTITY defaultResendBcc.accesskey "B">
-<!ENTITY defaultResendBcc.tooltip "Списак е-адреса одвојених запетама.">
+<!ENTITY defaultResendBcc.label "Скривена копија">
+<!ENTITY defaultResendBcc.accesskey "и">
+<!ENTITY defaultResendBcc.tooltip "Списак имејл-адреса раздвојених зарезом.">
 
 <!ENTITY defaultMode.label "Подразумевани режим:">
-<!ENTITY defaultMode.accesskey "д">
+<!ENTITY defaultMode.accesskey "ж">
 <!-- LOCALIZATION NOTE (defaultMode.tooltip): do not translate \n -->
-<!ENTITY defaultMode.tooltip "Изаберите подразумевани начин преусмеравања порука\nОва поставка ступа на снагу само ако нисте навели подразумеване примаоце.">
-<!ENTITY defaultModeResendTo.label "Поново пошаљи-прималац">
-<!ENTITY defaultModeResendCc.label "Поново пошаљи-додатни примаоци">
-<!ENTITY defaultModeResendBcc.label "Поново пошаљи-додатни сакривени примаоци">
+<!ENTITY defaultMode.tooltip "Изаберите подразумевани начин преусмеравања порука.\nОва опција има утицаја само ако нису наведени подразумевани примаоци.">
+<!ENTITY defaultModeResendTo.label "Коме">
+<!ENTITY defaultModeResendCc.label "Копија">
+<!ENTITY defaultModeResendBcc.label "Скривена копија">
 
 <!ENTITY debug.label "Отклањање грешака">
 <!ENTITY debug.accesskey "г">
-<!ENTITY debug.tooltip "Омогућите или онемогућите отклањање грешака из додатка Mail Redirect. Евиденције ће бити пренете JavaScript конзоли.">
+<!ENTITY debug.tooltip "Укључите или искључите отклањање грешака за додатак Mail Redirect. Евиденције ће се исписати у конзоли са грешкама.">
 
-<!ENTITY saveConsoleContent.label2 "Чување садржаја из Конзола са грешкама…">
-<!ENTITY saveConsoleContent.accesskey2 "S">
-<!ENTITY sendViaEmail.label "Пошаљи електронском поштом">
-<!ENTITY sendViaEmail.accesskey "e">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Mail Redirect">
+<!ENTITY saveConsoleContent.label2 "Сачувај садржај из конзоле са грешкама…">
+<!ENTITY saveConsoleContent.accesskey2 "г">
+<!ENTITY sendViaEmail.label "Пошаљи имејлом">
+<!ENTITY sendViaEmail.accesskey "ш">

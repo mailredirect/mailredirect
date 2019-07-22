@@ -1,18 +1,20 @@
-<!ENTITY mailredirectSettings.title "Configurações MailRedirect">
+<!ENTITY mailredirectSettings.label2 "Redirecionamento">
+
+<!ENTITY mailredirectSettings.title "Configurações Mail Redirect">
 
 <!ENTITY copyToSentMails.label "Colocar uma cópia do e-mail redirecionado na pasta Itens enviados?">
 <!ENTITY copyToSentMails.accesskey "r">
 <!-- LOCALIZATION NOTE (copyToSentMails.tooltip): do not translate \n -->
 <!ENTITY copyToSentMails.tooltip "Se esta opção estiver marcada a cópia da mensagem redirecionada é colocada na pasta Itens enviados. Se a opção estiver desmarcada, uma cópia da mensagem redirecionada não é copiada para nenhuma pasta.\nNota: Se esta opção estiver marcada e as configurações para a conta usada para redirecionar são 'não gravar mensagens enviadas de qualquer modo' a cópia das mensagens redirecionadas não serão gravadas também.">
 
-<!ENTITY addToForwardAs.label "Adicionar redirecionamento para Encaminhar como menus e botões">
+<!ENTITY addToForwardAs.label "Adicionar Redirecionar para Encaminhar como menus e botões">
 <!ENTITY addToForwardAs.accesskey "A">
 <!-- LOCALIZATION NOTE (addToForwardAs.tooltip): do not translate \n -->
 <!ENTITY addToForwardAs.tooltip "Ao adicionar o redirecionamento para Encaminhar como menus e botões agrupas todas as ações de encaminhar sob um item. \nPodes remover os botões das barras de ferramentas, personalizando-os e ao marcar a opção abaixo, podes ocultar os itens separados de menu porque eles tornaram-se redundantes.">
 
-<!ENTITY hideRedirectMenuitems.label "Ocultar o item de menu de redirecionamento de Mensagem, Aplicação e menus de contexto">
+<!ENTITY hideRedirectMenuitems.label "Ocultar o item de menu Redirecionamento de Mensagem, Aplicação e menus de contexto">
 <!ENTITY hideRedirectMenuitems.accesskey "O">
-<!ENTITY hideRedirectMenuitems.tooltip "Oculta os itens separados de menu de redirecionamento da Mensagem, Aplicação e menus de contexto.">
+<!ENTITY hideRedirectMenuitems.tooltip "Oculta os itens separados de menu Redirecionamento da Mensagem, Aplicação e menus de contexto.">
 
 <!ENTITY concurrentConnections.label "Número de conexões SMTP simultâneas:">
 <!ENTITY concurrentConnections.accesskey "N">
@@ -43,12 +45,9 @@
 
 <!ENTITY debug.label "Depurar">
 <!ENTITY debug.accesskey "D">
-<!ENTITY debug.tooltip "Ativar/desativar a depuração para a extensão mailredirect. Os logs serão direcionados para a Consola de Erro.">
+<!ENTITY debug.tooltip "Ativar/desativar a depuração para a extensão Mail Redirect. Os logs serão direcionados para a Consola de Erro.">
 
 <!ENTITY saveConsoleContent.label2 "Gravar o conteúdo da Consola de Erro…">
 <!ENTITY saveConsoleContent.accesskey2 "G">
 <!ENTITY sendViaEmail.label "Enviar via e-mail">
 <!ENTITY sendViaEmail.accesskey "E">
-
-<!-- for seamonkey -->
-<!ENTITY mailredirectSettings.label "Redirecionamento de e-mail">

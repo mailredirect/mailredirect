@@ -5,21 +5,34 @@
 const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
 const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
-Components.utils.import("resource:///modules/folderUtils.jsm"); // Gecko 2+ (TB3.3)
-Components.utils.import("resource://gre/modules/Services.jsm"); // Gecko 2+ (TB3.3)
-Components.utils.import("resource:///modules/iteratorUtils.jsm");
-try {
-  // mailServices.js has been renamed MailServices.jsm in TB63
-  Components.utils.import("resource:///modules/MailServices.jsm");
-} catch(ex) {
-  Components.utils.import("resource:///modules/mailServices.js"); // Gecko 5+ (TB5)
+var allAccountsSorted, Services, fixIterator, toArray, MailServices, PluralForm, AddonManager, AppConstants, LightweightThemeManager;
+
+if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function") {
+  // New way of importing in TB67+, available from TB60+
+  var { allAccountsSorted } = ChromeUtils.import("resource:///modules/folderUtils.jsm");
+  var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+  var { fixIterator, toArray } = ChromeUtils.import("resource:///modules/iteratorUtils.jsm");
+  try {
+    var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm"); // TB63+
+  } catch(ex) {
+    var { MailServices } = ChromeUtils.import("resource:///modules/mailServices.js");
+  }
+  var { PluralForm } = ChromeUtils.import("resource://gre/modules/PluralForm.jsm");
+  var { AddonManager } = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
+  var { AppConstants } = ChromeUtils.import("resource://gre/modules/AppConstants.jsm");
+  var { LightweightThemeManager } = ChromeUtils.import("resource://gre/modules/LightweightThemeManager.jsm");
+} else {
+  var { allAccountsSorted } = Components.utils.import("resource:///modules/folderUtils.jsm", null); // Gecko 2+ (TB3.3)
+  var { Services } = Components.utils.import("resource://gre/modules/Services.jsm", null); // Gecko 2+ (TB3.3)
+  var { fixIterator, toArray } = Components.utils.import("resource:///modules/iteratorUtils.jsm", null);
+  var { MailServices } = Components.utils.import("resource:///modules/mailServices.js", null); // Gecko 5+ (TB5)
+  var { PluralForm } = Components.utils.import("resource://gre/modules/PluralForm.jsm", null);
+  var { AddonManager } = Components.utils.import("resource://gre/modules/AddonManager.jsm", null);
+  try {
+    var { AppConstants } = Components.utils.import("resource://gre/modules/AppConstants.jsm", null); // Gecko 45+
+    var { LightweightThemeManager } = Components.utils.import("resource://gre/modules/LightweightThemeManager.jsm", null); // Gecko 60+
+  } catch(ex) { }
 }
-Components.utils.import("resource://gre/modules/PluralForm.jsm");
-Components.utils.import("resource://gre/modules/AddonManager.jsm");
-try {
-  Components.utils.import("resource://gre/modules/AppConstants.jsm"); // Gecko 45+
-  Components.utils.import("resource://gre/modules/LightweightThemeManager.jsm"); // Gecko 60+
-} catch(ex) { };
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
@@ -55,6 +68,7 @@ var gAppInfoPlatformVersion = null;
 var gMsgCompose;
 var gWindowLocked;
 var gSendLocked;
+var gMsgHeadersToolbarElement;
 var gAccountManager;
 var gSessionAdded;
 var gCurrentAutocompleteDirectory;
@@ -75,7 +89,7 @@ var mstate = {
   sendOperationInProgress: null,
   msgSendObj: null,
   size: 0
-};
+}
 
 function InitializeGlobalVariables()
 {
@@ -103,7 +117,7 @@ function ReleaseGlobalVariables()
   msgWindow = null;
 }
 
-MailredirectPrefs.init();
+window.MailredirectPrefs.init();
 
 var dumper = new MailredirectDebug.Dump();
 
@@ -138,7 +152,7 @@ function clearMState()
     mstate.msgSendObj[i] = null;
   }
 
-  // clear treeitems status in bounceTree
+  // clear treeitems status in threadTree
   var treeChildren = document.getElementById("topTreeChildren");
   // dumper.dump("treeChildren=" + treeChildren);
   if (treeChildren) {
@@ -240,7 +254,7 @@ function updateAllItems(aDisable)
         // list so only act on it if it still has the "stateBeforeSend"
         // attribute.
         if (commandItem.hasAttribute("stateBeforeSend")) {
-          setDisabledState(commandItem, commandItem.getAttribute("stateBeforeSend") == "true");
+          setDisabledState(commandItem, commandItem.getAttribute("stateBeforeSend") === "true");
           commandItem.removeAttribute("stateBeforeSend");
         }
       }
@@ -303,19 +317,19 @@ function CheckValidEmailAddress(aMsgCompFields)
         : (aMsgCompFields.to.match(/^\s*$/) &&
            aMsgCompFields.cc.match(/^\s*$/) &&
            aMsgCompFields.bcc.match(/^\s*$/))) {
-    var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
-    var errorTitle;
-    var errorMsg;
+    let composeMsgsBundle = Services.strings.createBundle("chrome://messenger/locale/messengercompose/composeMsgs.properties");
+    let errorTitle;
+    let errorMsg;
     if (gAppInfoID === THUNDERBIRD_ID) {
-      errorTitle = composeMsgsBundle.getString("addressInvalidTitle");
+      errorTitle = composeMsgsBundle.GetStringFromName("addressInvalidTitle");
     } else {
-      errorTitle = composeMsgsBundle.getString("sendMsgTitle");
+      errorTitle = composeMsgsBundle.GetStringFromName("sendMsgTitle");
     }
     try {
-      errorMsg = composeMsgsBundle.getString("noRecipients");
+      errorMsg = composeMsgsBundle.GetStringFromName("noRecipients");
     } catch(ex) {
       // Entity 12511 was renamed to addressInvalid in TB38
-      errorMsg = composeMsgsBundle.getString("12511");
+      errorMsg = composeMsgsBundle.GetStringFromName("12511");
     }
     Services.prompt.alert(window, errorTitle, errorMsg);
 
@@ -366,7 +380,7 @@ function CheckValidEmailAddress(aMsgCompFields)
       });
     }
     return (aAddress.length > 0 &&
-            ((!aAddress.includes("@", 1) && aAddress.toLowerCase() != "postmaster") ||
+            ((!aAddress.includes("@", 1) && aAddress.toLowerCase() !== "postmaster") ||
               aAddress.endsWith("@")));
   }
   if (isInvalidAddress(aMsgCompFields.to)) {
@@ -378,15 +392,15 @@ function CheckValidEmailAddress(aMsgCompFields)
   }
 
   if (invalidStr) {
-    var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
-    var errorTitle;
+    let composeMsgsBundle = Services.strings.createBundle("chrome://messenger/locale/messengercompose/composeMsgs.properties");
+    let errorTitle;
     if (gAppInfoID === THUNDERBIRD_ID) {
-      errorTitle = composeMsgsBundle.getString("addressInvalidTitle");
+      errorTitle = composeMsgsBundle.GetStringFromName("addressInvalidTitle");
     } else {
-      errorTitle = composeMsgsBundle.getString("sendMsgTitle");
+      errorTitle = composeMsgsBundle.GetStringFromName("sendMsgTitle");
     }
     Services.prompt.alert(window, errorTitle,
-                          composeMsgsBundle.getFormattedString("addressInvalid",
+                          composeMsgsBundle.formatStringFromName("addressInvalid",
                           [invalidStr], 1));
     return false;
   }
@@ -763,7 +777,9 @@ function FillIdentityList(menulist)
       // or previous account.
       if (!firstAccountWithIdentities) {
         // only if this is not the first account shown
-        let separator = document.createElement("menuseparator");
+        let separator = (typeof document.createXULElement === "function")
+          ? document.createXULElement("menuseparator")
+          : document.createElement("menuseparator");
         menulist.menupopup.appendChild(separator);
       }
       accountHadSeparator = needSeparator;
@@ -822,8 +838,8 @@ function setupAutocomplete()
 
 function fromKeyPress(event)
 {
-  if (event.keyCode == KeyEvent.DOM_VK_RETURN) {
-    awSetFocus(1, awGetInputElement(1));
+  if (event.keyCode === KeyEvent.DOM_VK_RETURN) {
+    awSetFocusTo(awGetInputElement(1));
   }
 }
 
@@ -903,6 +919,14 @@ function GetMsgHdrForUri(msg_uri)
   }
 
   return hdr;
+}
+
+function GetMsgHeadersToolbarElement()
+{
+  if (!gMsgHeadersToolbarElement)
+    gMsgHeadersToolbarElement = document.getElementById("MsgHeadersToolbar");
+
+  return gMsgHeadersToolbarElement;
 }
 
 function BounceStartup(aParams)
@@ -986,10 +1010,10 @@ function BounceStartup(aParams)
   }
 
   // " <>" is an empty identity, and most likely not valid
-  if (!params.identity || params.identity.identityName == " <>") {
+  if (!params.identity || params.identity.identityName === " <>") {
     // no pre selected identity, so use the default account
     let identities = MailServices.accounts.defaultAccount.identities;
-    if (identities.length == 0) {
+    if (identities.length === 0) {
       identities = MailServices.accounts.allIdentities;
     }
     if (identities.queryElementAt) {
@@ -1009,8 +1033,8 @@ function BounceStartup(aParams)
       if (msgHdr) {
         msgSubject = msgHdr.mime2DecodedSubject;
         if (msgSubject) {
-          let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-          document.title = BounceMsgsBundle.getString("mailredirectWindowTitlePrefix") + " " + msgSubject;
+          let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
+          document.title = bounceMsgsBundle.GetStringFromName("mailredirectWindowTitlePrefix") + " " + msgSubject;
         }
       }
     }
@@ -1036,7 +1060,7 @@ function BounceStartup(aParams)
 
   gMsgCompose = MailServices.compose.initCompose(params, window);
 
-  // fill bounceTree with information about bounced mails
+  // fill threadTree with information about bounced mails
 
   if (mstate.selectedURIs) {
     var aTree = document.getElementById("topTreeChildren");
@@ -1064,7 +1088,9 @@ function BounceStartup(aParams)
     var today = new Date();
 
     for (let i = 0; i < mstate.size; ++i) {
-      var aRow = document.createElement("treerow");
+      var aRow = (typeof document.createXULElement === "function")
+        ? document.createXULElement("treerow")
+        : document.createElement("treerow");
       aRow.setAttribute("messageURI", mstate.selectedURIs[i]);
       aRow.setAttribute("URIidx", i);
       aRow.setAttribute("disableonsend", true);
@@ -1108,16 +1134,22 @@ function BounceStartup(aParams)
         }
       }
 
-      var aCell = document.createElement("treecell");
+      var aCell = (typeof document.createXULElement === "function")
+        ? document.createXULElement("treecell")
+        : document.createElement("treecell");
       aCell.setAttribute("label", msgSubject);
       aCell.setAttribute("properties", propertiesString);
       aRow.appendChild(aCell);
 
-      var aCell = document.createElement("treecell");
+      aCell = (typeof document.createXULElement === "function")
+        ? document.createXULElement("treecell")
+        : document.createElement("treecell");
       aCell.setAttribute("label", msgAuthor);
       aRow.appendChild(aCell);
 
-      var aCell = document.createElement("treecell");
+      aCell = (typeof document.createXULElement === "function")
+        ? document.createXULElement("treecell")
+        : document.createElement("treecell");
       var dateString = "";
       if (msgDate) {
         var date = new Date();
@@ -1186,7 +1218,9 @@ function BounceStartup(aParams)
       aCell.setAttribute("label", dateString);
       aRow.appendChild(aCell);
 
-      var aItem = document.createElement("treeitem");
+      var aItem = (typeof document.createXULElement === "function")
+        ? document.createXULElement("treeitem")
+        : document.createElement("treeitem");
       aItem.appendChild(aRow);
       aTree.appendChild(aItem);
     }
@@ -1238,7 +1272,11 @@ function BounceStartup(aParams)
       }
       toolbar.insertItem("button-contacts", before);
       toolbar.setAttribute("currentset", toolbar.currentSet);
-      document.persist(toolbar.id, "currentset");
+      if (typeof Services.xulStore === "object" && typeof Services.xulStore.persist === "function") {
+        Services.xulstore.persist(toolbar, "currentset");
+      } else {
+        document.persist(toolbar.id, "currentset");
+      }
     }
   }
 
@@ -1319,7 +1357,7 @@ function BounceLoad()
         }
       }
     }
-  };
+  }
   AddonManager.getAddonByID("cardbook@vigneau.philippe", cardbookCallback);
 
   // copy toolbar appearance settings from mail3pane
@@ -1341,9 +1379,11 @@ function BounceLoad()
     // Hide html progress and show old progressmeter
     var elem = document.getElementById("status-bar");
     if (elem) {
+      elem.setAttribute("id", "status-bar-65plus");
       elem.setAttribute("collapsed", "true");
     }
     elem = document.getElementById("status-bar-pre65");
+    elem.setAttribute("id", "status-bar");
     elem.removeAttribute("collapsed");
   }
   if (gAppInfoID === THUNDERBIRD_ID && gAppInfoPlatformVersion < 31) {
@@ -1430,9 +1470,9 @@ function BounceLoad()
   }
   catch (ex) {
     Components.utils.reportError(ex);
-    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-    var errorTitle = BounceMsgsBundle.getString("initErrorDlogTitle");
-    var errorMsg = BounceMsgsBundle.getString("initErrorDlogMessage");
+    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
+    let errorTitle = bounceMsgsBundle.GetStringFromName("initErrorDlogTitle");
+    let errorMsg = bounceMsgsBundle.GetStringFromName("initErrorDlogMessage");
     Services.prompt.alert(window, errorTitle, errorMsg);
     DoCommandClose();
     return;
@@ -1441,10 +1481,9 @@ function BounceLoad()
 
 function AdjustFocus()
 {
-  var numOfRecipients = awGetNumberOfRecipients();
-  var element = document.getElementById("addressCol2#" + numOfRecipients);
+  let element = awGetInputElement(awGetNumberOfRecipients());
   if (element.value === "") {
-    awSetFocus(numOfRecipients, element);
+    awSetFocusTo(element);
   }
 }
 
@@ -1519,21 +1558,21 @@ function DoForwardBounceWithCheck()
 
   if (warn) {
     var checkValue = {value: false};
-    let BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-    let pluralRule = BounceMsgsBundle.getString("pluralRule");
+    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
+    let pluralRule = bounceMsgsBundle.GetStringFromName("pluralRule");
     let [get, numForms] = PluralForm.makeGetter(pluralRule);
     let selectedCount = mstate.size;
-    let textValue = BounceMsgsBundle.getString("sendMessageCheckWindowTitleMsgs");
+    let textValue = bounceMsgsBundle.GetStringFromName("sendMessageCheckWindowTitleMsgs");
     let windowTitle = PluralForm.get(selectedCount, textValue);
-    textValue = BounceMsgsBundle.getString("sendMessageCheckLabelMsgs");
+    textValue = bounceMsgsBundle.GetStringFromName("sendMessageCheckLabelMsgs");
     let label = get(selectedCount, textValue);
 
     var buttonPressed = Services.prompt.confirmEx(window, windowTitle, label,
       (Services.prompt.BUTTON_TITLE_IS_STRING * Services.prompt.BUTTON_POS_0) +
       (Services.prompt.BUTTON_TITLE_CANCEL * Services.prompt.BUTTON_POS_1),
-      BounceMsgsBundle.getString("sendMessageCheckSendButtonLabel"),
+      bounceMsgsBundle.GetStringFromName("sendMessageCheckSendButtonLabel"),
       null, null,
-      BounceMsgsBundle.getString("CheckMsg"),
+      bounceMsgsBundle.GetStringFromName("CheckMsg"),
       checkValue);
     if (buttonPressed !== 0) {
       return;
@@ -1557,16 +1596,16 @@ function DoForwardBounce()
         : (msgCompFields.to.match(/^\s*$/) &&
            msgCompFields.cc.match(/^\s*$/) &&
            msgCompFields.bcc.match(/^\s*$/))) {
-    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-    var errorTitle = BounceMsgsBundle.getString("noRecipientsTitle");
-    var errorMsg = BounceMsgsBundle.getFormattedString("noRecipientsMessage", [""]);
+    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
+    let errorTitle = bounceMsgsBundle.GetStringFromName("noRecipientsTitle");
+    let errorMsg = bounceMsgsBundle.GetStringFromName("noRecipientsMessage");
     Services.prompt.alert(window, errorTitle, errorMsg);
     return;
   }
   if (mstate.size === 0) {
-    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
-    var errorTitle = BounceMsgsBundle.getString("noMessagesTitle");
-    var errorMsg = BounceMsgsBundle.getFormattedString("noMessagesMessage", [""]);
+    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
+    let errorTitle = bounceMsgsBundle.GetStringFromName("noMessagesTitle");
+    let errorMsg = bounceMsgsBundle.GetStringFromName("noMessagesMessage");
     Services.prompt.alert(window, errorTitle, errorMsg);
     return;
   }
@@ -1621,7 +1660,9 @@ var mailredirectDragObserver = {
             mstate.selectedURIs.push(rawData);
             dumper.dump("[" + i + "] " + mstate.selectedURIs[i]);
 
-            var aRow = document.createElement("treerow");
+            var aRow = (typeof document.createXULElement === "function")
+              ? document.createXULElement("treerow")
+              : document.createElement("treerow");
             aRow.setAttribute("messageURI", rawData);
             aRow.setAttribute("URIidx", i);
             aRow.setAttribute("disableonsend", true);
@@ -1664,16 +1705,22 @@ var mailredirectDragObserver = {
               }
             }
 
-            var aCell = document.createElement("treecell");
+            var aCell = (typeof document.createXULElement === "function")
+              ? document.createXULElement("treecell")
+              : document.createElement("treecell");
             aCell.setAttribute("label", msgSubject);
             aCell.setAttribute("properties", propertiesString);
             aRow.appendChild(aCell);
 
-            var aCell = document.createElement("treecell");
+            aCell = (typeof document.createXULElement === "function")
+              ? document.createXULElement("treecell")
+              : document.createElement("treecell");
             aCell.setAttribute("label", msgAuthor);
             aRow.appendChild(aCell);
 
-            var aCell = document.createElement("treecell");
+            aCell = (typeof document.createXULElement === "function")
+              ? document.createXULElement("treecell")
+              : document.createElement("treecell");
             var dateString = "";
             if (msgDate) {
               var date = new Date();
@@ -1742,7 +1789,9 @@ var mailredirectDragObserver = {
             aCell.setAttribute("label", dateString);
             aRow.appendChild(aCell);
 
-            var aItem = document.createElement("treeitem");
+            var aItem = (typeof document.createXULElement === "function")
+              ? document.createXULElement("treeitem")
+              : document.createElement("treeitem");
             aItem.appendChild(aRow);
             aTree.appendChild(aItem);
           }
@@ -1914,11 +1963,7 @@ function getRecipients(onlyemails)
       // dumper.dump("numAddresses[" + recipType + "]= " + numAddresses);
 
       for (var i = 0; i < numAddresses; ++i) {
-        mailredirectRecipients[recipType][i] = {
-          email: emails.value[i],
-          name: names.value[i],
-          fullname: fullnames.value[i]
-        };
+        mailredirectRecipients[recipType][i] = { email: emails.value[i], name: names.value[i], fullname: fullnames.value[i] };
       }
     }
     ResolveMailLists();
@@ -2025,13 +2070,13 @@ function getResentHeaders()
     resenthdrs += encodeMimeHeader("Resent-CC: " + msgCompFields.cc + "\r\n");
   }
   if (!msgCompFields.to && !msgCompFields.cc) {
-    var composeMsgsBundle = document.getElementById("bundle_composeMsgs");
-    var undisclosedRecipients;
+    let composeMsgsBundle = Services.strings.createBundle("chrome://messenger/locale/messengercompose/composeMsgs.properties");
+    let undisclosedRecipients;
     try {
-      undisclosedRecipients = composeMsgsBundle.getString("undisclosedRecipients");
+      undisclosedRecipients = composeMsgsBundle.GetStringFromName("undisclosedRecipients");
     } catch(ex) {
       // Entity 12566 was renamed to undisclosedRecipients in TB30
-      undisclosedRecipients = composeMsgsBundle.getString("12566");
+      undisclosedRecipients = composeMsgsBundle.GetStringFromName("12566");
     }
     resenthdrs += encodeMimeHeader("Resent-To: " + undisclosedRecipients + ":;" + "\r\n");
   }
@@ -2042,9 +2087,13 @@ function getResentHeaders()
   if (msgID) {
     resenthdrs += "Resent-Message-ID: " + msgID + "\r\n";
   }
-  var useragent = getUserAgent();
-  if (useragent) {
-    resenthdrs += "Resent-User-Agent: " + useragent + "\r\n";
+  // The Resent-User-Agent header isn't standard, so don't add it by default
+  // but only if this (hidden) pref is set
+  if (getPref("extensions.mailredirect.addUserAgent", false) === true) {
+    var useragent = getUserAgent();
+    if (useragent) {
+      resenthdrs += "Resent-User-Agent: " + useragent + "\r\n";
+    }
   }
   // dumper.dump("resent-headers\n" + resenthdrs);
   return resenthdrs;
@@ -2194,8 +2243,18 @@ function RealBounceMessage(idx)
       // dumper.dump("abc");
     },
 
+    // onDataAvailable lost its context argument in bug 1525319
+    // Syntax function(...args) not available before Thunderbird 17, so shift arguments
     onDataAvailable: function(aRequest, aContext, aInputStream, aOffset, aCount) {
-      //dumper.dump("aCopyListener.onDataAvailable(" + aRequest + ", " + aContext + ", "+aInputStream + ", " + aOffset + ", " + aCount + ")");
+      if (aContext instanceof Ci.nsIInputStream) {
+        aCount = aOffset;
+        aOffset = aInputStream;
+        aInputStream = aContext;
+        aContext = undefined;
+        //dumper.dump("aCopyListener.onDataAvailable(" + aRequest + ", " + aInputStream + ", " + aOffset + ", " + aCount + ")");
+      } else {
+        //dumper.dump("aCopyListener.onDataAvailable(" + aRequest + ", " + aContext + ", " + aInputStream + ", " + aOffset + ", " + aCount + ")");
+      }
       aScriptableInputStream.init(aInputStream);
 
       if (inHeader) {
@@ -2302,7 +2361,7 @@ function RealBounceMessage(idx)
           // convert all possible line terminations to CRLF (required by RFC822)
           leftovers = leftovers.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
           ret = aFileOutputStream.write(leftovers, leftovers.length);
-          if (ret != leftovers.length) {
+          if (ret !== leftovers.length) {
             dumper.dump("!! inBody write error? leftovers len " + leftovers.length + ", written " + ret);
           }
           leftovers = "";
@@ -2314,13 +2373,13 @@ function RealBounceMessage(idx)
         // convert all possible line terminations to CRLF (required by RFC822)
         buf = buf.replace(/\r\n|\n\r|\r|\n/g, "\r\n");
         ret = aFileOutputStream.write(buf, buf.length);
-        if (ret != buf.length) {
+        if (ret !== buf.length) {
           dumper.dump("!! inBody write error? buf len " + buf.length + ", written " + ret);
         }
         buf = "";
       }
     }
-  };
+  }
 
   var msgService = messenger.messageServiceFromURI(uri);
 
@@ -2377,8 +2436,7 @@ function nsMsgStatusFeedback(idx)
   }
 }
 
-nsMsgStatusFeedback.prototype =
-{
+nsMsgStatusFeedback.prototype = {
   // global variables for status / feedback information....
   throbber: null,
   statusTextFld: null,
@@ -2559,9 +2617,9 @@ nsMsgStatusFeedback.prototype =
     }
 
     this.statusBar.setAttribute("value", percent);
-    dumper.dump("updateStatusBar = " + percent);
+    //dumper.dump("updateStatusBar = " + percent);
   }
-};
+}
 
 function nsMeteorsStatus()
 {
@@ -2582,8 +2640,7 @@ function nsMeteorsStatus()
   }
 }
 
-nsMeteorsStatus.prototype =
-{
+nsMeteorsStatus.prototype = {
   pendingStartRequests: 0,
   startTimeoutID: null,
   stopTimeoutID: null,
@@ -2614,7 +2671,7 @@ nsMeteorsStatus.prototype =
   _stopMeteors: function() {
     dumper.dump("_stopMeteors");
 
-    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
 
     // if all mails successfully
     var success = true;
@@ -2625,13 +2682,13 @@ nsMeteorsStatus.prototype =
     dumper.dump("_stopMeteors: successfully sent all messages? " + success);
 
     let numMessages = mstate.size;
-    let pluralRule = BounceMsgsBundle.getString("pluralRule");
+    let pluralRule = bounceMsgsBundle.GetStringFromName("pluralRule");
     let [get, numForms] = PluralForm.makeGetter(pluralRule);
     var msg;
     if (success) {
-      msg = get(numMessages, BounceMsgsBundle.getString("sendMessageSuccessfulMsgs"));
+      msg = get(numMessages, bounceMsgsBundle.GetStringFromName("sendMessageSuccessfulMsgs"));
     } else {
-      msg = get(numMessages, BounceMsgsBundle.getString("sendMessageFailedMsgs"));
+      msg = get(numMessages, bounceMsgsBundle.GetStringFromName("sendMessageFailedMsgs"));
     }
     this.statusTextFld.label = msg;
 
@@ -2665,15 +2722,14 @@ nsMeteorsStatus.prototype =
       }
     }
   }
-};
+}
 
 function nsMsgSendListener(idx)
 {
   this.URIidx = idx;
 }
 
-nsMsgSendListener.prototype =
-{
+nsMsgSendListener.prototype = {
   URIidx: -1,
   mailredirectTreeRow: null,
   mailredirectTreeCell: null,
@@ -2800,7 +2856,7 @@ nsMsgSendListener.prototype =
   },
 
   OnStopCopy: function(aStatus) {
-    dumper.dump("[" + this.URIidx + "] " + "(msgCopyServiceListener) msgSendListener.OnStopCopy(" + aStatus + ")");
+    // dumper.dump("[" + this.URIidx + "] " + "(msgCopyServiceListener) msgSendListener.OnStopCopy(" + aStatus + ")");
     /*
     if (aStatus) {
       // mstate.successfulSent[this.URIidx] = false;
@@ -2809,7 +2865,7 @@ nsMsgSendListener.prototype =
     }
     */
   }
-};
+}
 
 var MailredirectWindowController = {
   supportsCommand: function(command) {
@@ -2833,7 +2889,7 @@ var MailredirectWindowController = {
       case "cmd_mailredirect_close":
         return true;
       case "cmd_mailredirect_delete":
-        var tree = document.getElementById("bounceTree");
+        var tree = document.getElementById("threadTree");
         var treeChildren = document.getElementById("topTreeChildren");
         return tree && !treeChildren.disabled && tree.view.selection.getRangeCount();
       default:
@@ -2862,7 +2918,7 @@ var MailredirectWindowController = {
         break;
       case "cmd_mailredirect_delete":
         var start = {}, end = {};
-        var tree = document.getElementById("bounceTree");
+        var tree = document.getElementById("threadTree");
         var treeChildren = document.getElementById("topTreeChildren");
         var numRanges = tree.view.selection.getRangeCount();
         for (var t = numRanges; t > 0; t--) {
@@ -2887,7 +2943,7 @@ var MailredirectWindowController = {
   onEvent: function(event) {
     // dumper.dump("onEvent(" + event + ")");
   }
-};
+}
 
 function RemoveDupAddresses()
 {
@@ -2947,30 +3003,29 @@ function SwitchElementFocus(event)
   var focusedElement = WhichElementHasFocus();
   var msgIdentityElement = document.getElementById("msgIdentity");
   var addressingWidget = document.getElementById("addressingWidget");
-  var bounceTree = document.getElementById("bounceTree");
+  var threadTree = document.getElementById("threadTree");
 
   if (event.shiftKey) {
     if (focusedElement === msgIdentityElement) {
-      bounceTree.focus();
+      threadTree.focus();
     } else if (focusedElement === addressingWidget) {
       msgIdentityElement.focus();
     } else {
-      var element = document.getElementById("addressCol2#" + awGetNumberOfRecipients());
-      awSetFocus(awGetNumberOfRecipients(), element);
+      awSetFocusTo(awGetInputElement(awGetNumberOfRecipients()));
     }
   } else {
     if (focusedElement === msgIdentityElement) {
-      var element = document.getElementById("addressCol2#" + awGetNumberOfRecipients());
-      awSetFocus(awGetNumberOfRecipients(), element);
+      awSetFocusTo(awGetInputElement(awGetNumberOfRecipients()));
     } else if (focusedElement === addressingWidget) {
-      bounceTree.focus();
+      threadTree.focus();
     } else {
       msgIdentityElement.focus();
     }
   }
 }
 
-function sidebarCloseButtonOnCommand() {
+function sidebarCloseButtonOnCommand()
+{
   toggleAddressPicker();
 }
 
@@ -3030,7 +3085,7 @@ function renameToToResendTo()
   if (el === null) {
     setTimeout(function() { renameToToResendTo() }, 100);
   } else {
-    var BounceMsgsBundle = document.getElementById("bundle_mailredirect");
+    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
     if (gAppInfoID === THUNDERBIRD_ID) {
       var cardProperties = el.contentDocument.getElementById("cardProperties");
       if (cardProperties === null) {
@@ -3050,28 +3105,28 @@ function renameToToResendTo()
           }
         }
         var menuitems = cardProperties.getElementsByTagName("menuitem");
-        menuitems.item(offset).setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelTB"));
-        menuitems.item(offset).setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeyTB"));
+        menuitems.item(offset).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToContextMenuLabelTB"));
+        menuitems.item(offset).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToContextMenuAccesskeyTB"));
         menuitems.item(offset).setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
-        menuitems.item(offset+1).setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelTB"));
-        menuitems.item(offset+1).setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeyTB"));
+        menuitems.item(offset+1).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcContextMenuLabelTB"));
+        menuitems.item(offset+1).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcContextMenuAccesskeyTB"));
         menuitems.item(offset+1).setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
-        menuitems.item(offset+2).setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelTB"));
-        menuitems.item(offset+2).setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeyTB"));
+        menuitems.item(offset+2).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccContextMenuLabelTB"));
+        menuitems.item(offset+2).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccContextMenuAccesskeyTB"));
         menuitems.item(offset+2).setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
 
         var button = el.contentDocument.getElementById("toButton");
-        button.setAttribute("label", BounceMsgsBundle.getString("resendToButtonLabel"));
-        button.setAttribute("accesskey", BounceMsgsBundle.getString("resendToButtonAccesskey"));
+        button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToButtonLabel"));
+        button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToButtonAccesskey"));
         button.setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
         button = el.contentDocument.getElementById("ccButton");
-        button.setAttribute("label", BounceMsgsBundle.getString("resendCcButtonLabel"));
-        button.setAttribute("accesskey", BounceMsgsBundle.getString("resendCcButtonAccesskey"));
+        button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcButtonLabel"));
+        button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcButtonAccesskey"));
         button.setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
         button = el.contentDocument.getElementById("bccButton");
-        button.setAttribute("label", BounceMsgsBundle.getString("resendBccButtonLabel"));
+        button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccButtonLabel"));
         button.setAttribute("crop", "center");
-        button.setAttribute("accesskey", BounceMsgsBundle.getString("resendBccButtonAccesskey"));
+        button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccButtonAccesskey"));
         button.setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
 
         // Move bccButton down
@@ -3079,13 +3134,24 @@ function renameToToResendTo()
           var spacer = button.previousSibling;
           spacer.parentNode.removeChild(spacer);
           var hboxCc = button.parentNode;
-          var hboxBcc = document.createElement("hbox");
-          hboxBcc.appendChild(document.createElement("spring"));
-          hboxBcc.childNodes[0].setAttribute("flex", 1);
-          hboxBcc.appendChild(button);
-          hboxBcc.appendChild(document.createElement("spring"));
-          hboxBcc.childNodes[2].setAttribute("flex", 1);
-          hboxCc.parentNode.insertBefore(hboxBcc, hboxCc.nextSibling);
+          var hboxBcc;
+          if (typeof document.createXULElement === "function") {
+            hboxBcc = document.createXULElement("hbox");
+            hboxBcc.appendChild(document.createXULElement("spring"));
+            hboxBcc.childNodes[0].setAttribute("flex", 1);
+            hboxBcc.appendChild(button);
+            hboxBcc.appendChild(document.createXULElement("spring"));
+            hboxBcc.childNodes[2].setAttribute("flex", 1);
+            hboxCc.parentNode.insertBefore(hboxBcc, hboxCc.nextSibling);
+          } else {
+            hboxBcc = document.createElement("hbox");
+            hboxBcc.appendChild(document.createElement("spring"));
+            hboxBcc.childNodes[0].setAttribute("flex", 1);
+            hboxBcc.appendChild(button);
+            hboxBcc.appendChild(document.createElement("spring"));
+            hboxBcc.childNodes[2].setAttribute("flex", 1);
+            hboxCc.parentNode.insertBefore(hboxBcc, hboxCc.nextSibling);
+          }
         }
       }
     } else if (gAppInfoID === SEAMONKEY_ID) {
@@ -3094,14 +3160,14 @@ function renameToToResendTo()
         setTimeout(function() { renameToToResendTo() }, 100);
       } else {
         parent.document.documentElement.setAttribute("windowtype", "msgcompose"); // Make AbPanelLoad believe this is a msgcompose window so it displays the right menuitems
-        popup.childNodes[0].setAttribute("label", BounceMsgsBundle.getString("resendToContextMenuLabelSM"));
-        popup.childNodes[0].setAttribute("accesskey", BounceMsgsBundle.getString("resendToContextMenuAccesskeySM"));
+        popup.childNodes[0].setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToContextMenuLabelSM"));
+        popup.childNodes[0].setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToContextMenuAccesskeySM"));
         popup.childNodes[0].setAttribute("oncommand", "AbPanelAdd(\"addr_to\");");
-        popup.childNodes[1].setAttribute("label", BounceMsgsBundle.getString("resendCcContextMenuLabelSM"));
-        popup.childNodes[1].setAttribute("accesskey", BounceMsgsBundle.getString("resendCcContextMenuAccesskeySM"));
+        popup.childNodes[1].setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcContextMenuLabelSM"));
+        popup.childNodes[1].setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcContextMenuAccesskeySM"));
         popup.childNodes[1].setAttribute("oncommand", "AbPanelAdd(\"addr_cc\");");
-        popup.childNodes[2].setAttribute("label", BounceMsgsBundle.getString("resendBccContextMenuLabelSM"));
-        popup.childNodes[2].setAttribute("accesskey", BounceMsgsBundle.getString("resendBccContextMenuAccesskeySM"));
+        popup.childNodes[2].setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccContextMenuLabelSM"));
+        popup.childNodes[2].setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccContextMenuAccesskeySM"));
         popup.childNodes[2].setAttribute("oncommand", "AbPanelAdd(\"addr_bcc\");");
         for (var i = 0; i < 4; i++) {
           popup.childNodes[i].hidden = false;
@@ -3338,6 +3404,12 @@ function GetMailListAddresses(name, mailListArray)
   return undefined;
 }
 
+
+function getBounceToolbox()
+{
+  return document.getElementById("bounce-toolbox");
+}
+
 function BounceToolboxCustomizeInit()
 {
   if (document.commandDispatcher.focusedWindow === content) {
@@ -3345,27 +3417,28 @@ function BounceToolboxCustomizeInit()
   }
   updateEditableFields(true);
   GetMsgHeadersToolbarElement().setAttribute("moz-collapsed", true);
-  document.getElementById("compose-toolbar-sizer").setAttribute("moz-collapsed", true);
-  document.getElementById("content-frame").setAttribute("moz-collapsed", true);
+  document.getElementById("bounce-toolbar-sizer").setAttribute("moz-collapsed", true);
+  document.getElementById("appcontent").setAttribute("moz-collapsed", true);
   toolboxCustomizeInit("mail-menubar");
 }
 
 function BounceToolboxCustomizeDone(aToolboxChanged)
 {
-  toolboxCustomizeDone("mail-menubar", getMailToolbox(), aToolboxChanged);
+  toolboxCustomizeDone("mail-menubar", getBounceToolbox(), aToolboxChanged);
   GetMsgHeadersToolbarElement().removeAttribute("moz-collapsed");
-  document.getElementById("compose-toolbar-sizer").removeAttribute("moz-collapsed");
-  document.getElementById("content-frame").removeAttribute("moz-collapsed");
+  document.getElementById("bounce-toolbar-sizer").removeAttribute("moz-collapsed");
+  document.getElementById("appcontent").removeAttribute("moz-collapsed");
   updateEditableFields(false);
   SetMsgBodyFrameFocus();
 }
 
 function BounceToolboxCustomizeChange(aEvent)
 {
-  toolboxCustomizeChange(getMailToolbox(), aEvent);
+  toolboxCustomizeChange(getBounceToolbox(), aEvent);
 }
 
-function getPref(aPrefName, aIsComplex) {
+function getPref(aPrefName, aIsComplex)
+{
   if (aIsComplex) {
     return Services.prefs.getComplexValue(aPrefName, Ci.nsISupportsString).data;
   }
