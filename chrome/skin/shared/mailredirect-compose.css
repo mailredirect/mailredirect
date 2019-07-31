@@ -1,8 +1,3 @@
-.statusText {
-  display: -moz-inline-block;
-  display: inline-block;
-}
-
 /* ::::: addressing widget ::::: */
 
 .aw-firstColBox,
@@ -36,4 +31,21 @@
 .aw-menulist[focused="true"] {
   background: var(--toolbarbutton-active-background);
   border-color: var(--toolbarbutton-active-bordercolor);
+}
+
+/* ::::: thread tree ::::: */
+
+#threadTree treechildren::-moz-tree-row(notsent) {
+  background-color: #D70022;
+}
+
+#threadTree treechildren::-moz-tree-cell-text(notsent) {
+  color: white;
+}
+
+/* ::::: status ::::: */
+
+.statusText {
+  display: -moz-inline-block;
+  display: inline-block;
 }

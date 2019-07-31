@@ -10,7 +10,7 @@
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
   "author": "Onno Ekker",
-  "version": "0.10.3",
+  "version": "0.10.4a1",
   "homepage_url": "https://mailredirect.sourceforge.io/",
   "legacy": {
     "options": {

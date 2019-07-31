@@ -1,12 +1,3 @@
-#threadTree treechildren::-moz-tree-row(notsent) {
-  background-color: red;
-}
-
-#threadTree treechildren::-moz-tree-cell-text(notsent) {
-  color: white;
-}
-
-
 /* ::::: addressing widget ::::: */
 
 @media (-moz-windows-default-theme) {

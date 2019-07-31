@@ -37,15 +37,6 @@
   --toolbarbutton-checkedhover-backgroundcolor: var(--lwt-toolbarbutton-hover-background, rgba(85%, 85%, 85%, .25));
 }
 
-
-#threadTree treechildren::-moz-tree-row(notsent) {
-  background-color: red;
-}
-
-#threadTree treechildren::-moz-tree-cell-text(notsent) {
-  color: white;
-}
-
 #bounceContentBox {
   background-color: -moz-dialog;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) inset;

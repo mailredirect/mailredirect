@@ -4,14 +4,6 @@
   background-repeat: repeat-x;
 }
 
-#threadTree treechildren::-moz-tree-row(notsent) {
-  background-color: red;
-}
-
-#threadTree treechildren::-moz-tree-cell-text(notsent) {
-  color: white;
-}
-
 .deleteAddress {
   -moz-box-ordinal-group: 0;
   cursor: default;

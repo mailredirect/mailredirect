@@ -1,5 +1,5 @@
 #threadTree treechildren::-moz-tree-row(notsent) {
-  background-color: red;
+  background-color: #D70022;
 }
 
 #threadTree treechildren::-moz-tree-cell-text(notsent) {
