@@ -345,7 +345,14 @@ var _orgOpenAddonPrefs = window.openAddonPrefs;
 
 window.openAddonPrefs = function() {
   if (arguments[0] === "chrome://mailredirect/content/mailredirect-prefs.xul") {
-    openOptionsDialog("paneRedirect");
+    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+    var gAppInfoID = appInfo.ID;
+    var gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
+    if (gAppInfoPlatformVersion < 70) {
+      openOptionsDialog("paneRedirect");
+    } else {
+      openOptionsDialog("paneCompose", "redirectCategory");
+    }
   } else {
     var rv = _orgOpenAddonPrefs.apply(window, arguments);
   }

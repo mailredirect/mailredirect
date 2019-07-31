@@ -3453,3 +3453,12 @@ function getPref(aPrefName, aIsComplex)
       return null;
   }
 }
+
+function toRedirectOptions()
+{
+  if (gAppInfoPlatformVersion < 70) {
+    openOptionsDialog("paneRedirect");
+  } else {
+    openOptionsDialog("paneCompose", "redirectCategory");
+  }
+}

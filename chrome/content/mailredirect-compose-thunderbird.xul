@@ -205,7 +205,7 @@
                 oncommand="toAddressBook();" id="tasksMenuAddressBook"
                 class="menuitem-iconic icon-addressbook16 menu-iconic" />
               <menuitem id="menu_preferences" label="&preferencesCmd.label;" accesskey="&preferencesCmd.accesskey;"
-                oncommand="openOptionsDialog('paneRedirect');" />
+                oncommand="toRedirectOptions();" />
             </menupopup>
           </menu>
         </menubar>

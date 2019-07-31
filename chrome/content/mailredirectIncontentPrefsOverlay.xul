@@ -109,7 +109,7 @@
           </rows>
         </grid>
 
-        <separator class="thick"/>
+        <separator class="thin"/>
 
         <hbox align="center">
           <label control="defaultMode"
@@ -126,6 +126,8 @@
             </menupopup>
           </menulist>
         </hbox>
+
+        <separator class="thick"/>
 
         <hbox>
           <checkbox preference="extensions.mailredirect.debug" id="debug"
