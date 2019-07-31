@@ -77,7 +77,7 @@
               <column/>
             </columns>
             <rows>
-              <row>
+              <row align="center">
                 <label control="defaultResendTo"
                        value="&defaultResendTo.label;"
                        accesskey="&defaultResendTo.accesskey;"
@@ -89,7 +89,7 @@
                          tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
               </row>
 
-              <row>
+              <row align="center">
                 <label control="defaultResendCc"
                        value="&defaultResendCc.label;"
                        accesskey="&defaultResendCc.accesskey;"
@@ -101,7 +101,7 @@
                          tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
               </row>
 
-              <row>
+              <row align="center">
                 <label control="defaultResendBcc"
                        value="&defaultResendBcc.label;"
                        accesskey="&defaultResendBcc.accesskey;"
