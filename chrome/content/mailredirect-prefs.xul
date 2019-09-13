@@ -56,7 +56,7 @@
 
         <separator class="thin"/>
 
-        <hbox>
+        <hbox align="center">
           <label control="concurrentConnections"
                  value="&concurrentConnections.label;"
                  accesskey="&concurrentConnections.accesskey;"
@@ -136,7 +136,7 @@
 
         <separator class="thick"/>
 
-        <hbox>
+        <hbox align="center">
           <checkbox preference="pref_debug" id="debug"
                     label="&debug.label;"
                     accesskey="&debug.accesskey;"

@@ -14,140 +14,138 @@
          xmlns:html="http://www.w3.org/1999/xhtml">
 
   <!-- In-content prefs Thunderbird >= 70.0a1 -->
+  <prefpane id="paneCompose">
+    <hbox id="redirectCategory"
+          class="subcategory"
+          data-category="paneCompose">
+      <html:h1>&mailredirectSettings.label2;</html:h1>
+    </hbox>
 
-    <prefpane id="paneCompose">
-      <hbox id="redirectCategory"
-            class="subcategory"
-            data-catgeory="paneCompose">
-        <html:h1>&mailredirectSettings.label2;</html:h1>
-      </hbox>
+    <groupbox id="redirectGroup" data-category="paneCompose">
+      <separator class="thin"/>
 
-      <groupbox id="redirectGroup" data-category="paneCompose">
-        <separator class="thin"/>
+      <checkbox id="copyToSentMail" preference="extensions.mailredirect.copyToSentMail"
+                label="&copyToSentMails.label;"
+                accesskey="&copyToSentMails.accesskey;"
+                tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"/>
 
-        <checkbox id="copyToSentMail" preference="extensions.mailredirect.copyToSentMail"
-                  label="&copyToSentMails.label;"
-                  accesskey="&copyToSentMails.accesskey;"
-                  tooltip="xToolTip" xtooltiptext="&copyToSentMails.tooltip;"/>
+      <separator id="addToForwardAsSeparator" class="thin"/>
 
-        <separator id="addToForwardAsSeparator" class="thin"/>
+      <checkbox id="addToForwardAs" preference="extensions.mailredirect.addToForwardAs"
+                label="&addToForwardAs.label;"
+                accesskey="&addToForwardAs.accesskey;"
+                oncommand="MailredirectPrefs.updateHideMenuitems();"
+                tooltip="xToolTip" xtooltiptext="&addToForwardAs.tooltip;"/>
 
-        <checkbox id="addToForwardAs" preference="extensions.mailredirect.addToForwardAs"
-                  label="&addToForwardAs.label;"
-                  accesskey="&addToForwardAs.accesskey;"
-                  oncommand="MailredirectPrefs.updateHideMenuitems();"
-                  tooltip="xToolTip" xtooltiptext="&addToForwardAs.tooltip;"/>
+      <separator id="hideRedirectMenuitemsSeparator" class="thin"/>
 
-        <separator id="hideRedirectMenuitemsSeparator" class="thin"/>
+      <checkbox id="hideRedirectMenuitems" preference="extensions.mailredirect.hideRedirectMenuitems"
+                label="&hideRedirectMenuitems.label;"
+                accesskey="&hideRedirectMenuitems.accesskey;"
+                tooltip="xToolTip" xtooltiptext="&hideRedirectMenuitems.tooltip;"
+                class="indent"/>
 
-        <checkbox id="hideRedirectMenuitems" preference="extensions.mailredirect.hideRedirectMenuitems"
-                  label="&hideRedirectMenuitems.label;"
-                  accesskey="&hideRedirectMenuitems.accesskey;"
-                  tooltip="xToolTip" xtooltiptext="&hideRedirectMenuitems.tooltip;"
-                  class="indent"/>
+      <separator class="thin"/>
 
-        <separator class="thin"/>
-
-        <hbox>
-          <label control="concurrentConnections"
-                 value="&concurrentConnections.label;"
-                 accesskey="&concurrentConnections.accesskey;"
+      <hbox align="center">
+        <label control="concurrentConnections"
+               value="&concurrentConnections.label;"
+               accesskey="&concurrentConnections.accesskey;"
+               tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
+        <textbox id="concurrentConnections"
+                 preference="extensions.mailredirect.concurrentConnections"
+                 size="3"
                  tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
-          <textbox id="concurrentConnections"
-                   preference="extensions.mailredirect.concurrentConnections"
-                   size="3"
-                   tooltip="xToolTip" xtooltiptext="&concurrentConnections.tooltip;"/>
-        </hbox>
-      </groupbox>
+      </hbox>
+    </groupbox>
 
-      <groupbox id="defaultRecipientsGroup" data-category="paneCompose">
-        <label><html:h2>&defaultRecipientsGroup.label;</html:h2></label>
+    <groupbox id="redirectDefaultRecipientsGroup" data-category="paneCompose">
+      <label><html:h2>&defaultRecipientsGroup.label;</html:h2></label>
 
-        <separator class="thin"/>
+      <separator class="thin"/>
 
-        <grid>
-          <columns>
-            <column/>
-            <column/>
-          </columns>
-          <rows>
-            <row align="center">
-              <label control="defaultResendTo"
-                     value="&defaultResendTo.label;"
-                     accesskey="&defaultResendTo.accesskey;"
+      <grid>
+        <columns>
+          <column/>
+          <column/>
+        </columns>
+        <rows>
+          <row align="center">
+            <label control="defaultResendTo"
+                   value="&defaultResendTo.label;"
+                   accesskey="&defaultResendTo.accesskey;"
+                   tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
+            <textbox id="defaultResendTo"
+                     preference="extensions.mailredirect.defaultResentTo"
+                     size="48"
+                     onchange="MailredirectPrefs.updateDefaultMode();"
                      tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
-              <textbox id="defaultResendTo"
-                       preference="extensions.mailredirect.defaultResentTo"
-                       size="48"
-                       onchange="MailredirectPrefs.updateDefaultMode();"
-                       tooltip="xToolTip" xtooltiptext="&defaultResendTo.tooltip;"/>
-            </row>
+          </row>
 
-            <row align="center">
-              <label control="defaultResendCc"
-                     value="&defaultResendCc.label;"
-                     accesskey="&defaultResendCc.accesskey;"
+          <row align="center">
+            <label control="defaultResendCc"
+                   value="&defaultResendCc.label;"
+                   accesskey="&defaultResendCc.accesskey;"
+                   tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
+            <textbox id="defaultResendCc"
+                     preference="extensions.mailredirect.defaultResentCc"
+                     size="48"
+                     onchange="MailredirectPrefs.updateDefaultMode();"
                      tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
-              <textbox id="defaultResendCc"
-                       preference="extensions.mailredirect.defaultResentCc"
-                       size="48"
-                       onchange="MailredirectPrefs.updateDefaultMode();"
-                       tooltip="xToolTip" xtooltiptext="&defaultResendCc.tooltip;"/>
-            </row>
+          </row>
 
-            <row align="center">
-              <label control="defaultResendBcc"
-                     value="&defaultResendBcc.label;"
-                     accesskey="&defaultResendBcc.accesskey;"
+          <row align="center">
+            <label control="defaultResendBcc"
+                   value="&defaultResendBcc.label;"
+                   accesskey="&defaultResendBcc.accesskey;"
+                   tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
+            <textbox id="defaultResendBcc"
+                     preference="extensions.mailredirect.defaultResentBcc"
+                     size="48"
+                     onchange="MailredirectPrefs.updateDefaultMode();"
                      tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
-              <textbox id="defaultResendBcc"
-                       preference="extensions.mailredirect.defaultResentBcc"
-                       size="48"
-                       onchange="MailredirectPrefs.updateDefaultMode();"
-                       tooltip="xToolTip" xtooltiptext="&defaultResendBcc.tooltip;"/>
-            </row>
-          </rows>
-        </grid>
+          </row>
+        </rows>
+      </grid>
 
-        <separator class="thin"/>
+      <separator class="thin"/>
 
-        <hbox align="center">
-          <label control="defaultMode"
-                 value="&defaultMode.label;"
-                 accesskey="&defaultMode.accesskey;"
-                 tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;"/>
-          <menulist id="defaultMode"
-                    preference="extensions.mailredirect.defaultMode"
-                    tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;">
-            <menupopup>
-              <menuitem value="addr_to" label="&defaultModeResendTo.label;"/>
-              <menuitem value="addr_cc" label="&defaultModeResendCc.label;"/>
-              <menuitem value="addr_bcc" label="&defaultModeResendBcc.label;"/>
-            </menupopup>
-          </menulist>
-        </hbox>
+      <hbox align="center">
+        <label control="defaultMode"
+               value="&defaultMode.label;"
+               accesskey="&defaultMode.accesskey;"
+               tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;"/>
+        <menulist id="defaultMode"
+                  preference="extensions.mailredirect.defaultMode"
+                  tooltip="xToolTip" xtooltiptext="&defaultMode.tooltip;">
+          <menupopup>
+            <menuitem value="addr_to" label="&defaultModeResendTo.label;"/>
+            <menuitem value="addr_cc" label="&defaultModeResendCc.label;"/>
+            <menuitem value="addr_bcc" label="&defaultModeResendBcc.label;"/>
+          </menupopup>
+        </menulist>
+      </hbox>
+    </groupbox>
 
-        <separator class="thick"/>
-
-        <hbox>
-          <checkbox preference="extensions.mailredirect.debug" id="debug"
-                    label="&debug.label;"
-                    accesskey="&debug.accesskey;"
-                    tooltip="xToolTip" xtooltiptext="&debug.tooltip;"/>
-          <button id="saveConsoleContent"
-                  class="dialog"
-                  accesskey="&saveConsoleContent.accesskey2;"
-                  label="&saveConsoleContent.label2;"
-                  oncommand="MailredirectPrefs.saveConsoleContent();"/>
-          <button id="sendViaEmail"
-                  class="dialog"
-                  accesskey="&sendViaEmail.accesskey;"
-                  label="&sendViaEmail.label;"
-                  oncommand="MailredirectPrefs.sendViaEmail();"/>
-        </hbox>
-
-      </groupbox>
-    </prefpane>
+    <groupbox id="redirectDebugGroup" data-category="paneCompose">
+      <hbox align="center">
+        <checkbox preference="extensions.mailredirect.debug" id="debug"
+                  label="&debug.label;"
+                  accesskey="&debug.accesskey;"
+                  tooltip="xToolTip" xtooltiptext="&debug.tooltip;"/>
+        <button id="saveConsoleContent"
+                class="dialog"
+                accesskey="&saveConsoleContent.accesskey2;"
+                label="&saveConsoleContent.label2;"
+                oncommand="MailredirectPrefs.saveConsoleContent();"/>
+        <button id="sendViaEmail"
+                class="dialog"
+                accesskey="&sendViaEmail.accesskey;"
+                label="&sendViaEmail.label;"
+                oncommand="MailredirectPrefs.sendViaEmail();"/>
+      </hbox>
+    </groupbox>
+  </prefpane>
 
   <!-- In-content prefs Thunderbird < 70.0a1 -->
   <deck id="paneDeck">
@@ -184,7 +182,7 @@
 
             <separator class="thin"/>
 
-            <hbox>
+            <hbox align="center">
               <label control="concurrentConnections"
                      value="&concurrentConnections.label;"
                      accesskey="&concurrentConnections.accesskey;"
@@ -264,7 +262,7 @@
 
             <separator class="thick"/>
 
-            <hbox>
+            <hbox align="center">
               <checkbox preference="extensions.mailredirect.debug" id="debug"
                         label="&debug.label;"
                         accesskey="&debug.accesskey;"

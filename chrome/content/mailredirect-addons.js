@@ -3,6 +3,12 @@
 var MailredirectAddonOptions = {
   guid: "{CC3C233D-6668-41bc-AAEB-F3A1D1D594F5}",
   handleEvent: function(aEvent) {
+    // Global variables
+    var gListView;
+
+    if (gListView === undefined)
+      return;
+
     var item = gListView.getListItemForID(this.guid);
     if (!item)
       return;

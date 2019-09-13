@@ -247,12 +247,24 @@ window.MailredirectPrefs = {
   {
     function copyFile(aURL, aSink) {
       let uri = Services.io.newURI(aURL);
-      let channel = Services.io.newChannelFromURI2(uri,
+      let channel;
+      try {
+        // TB68+ (In bug 1529252 the 2 was removed from this service)
+        channel = Services.io.newChannelFromURI(uri,
+                                                null,
+                                                Services.scriptSecurityManager.getSystemPrincipal(),
+                                                null,
+                                                Components.interfaces.nsILoadInfo.SEC_REQUIRE_SAME_ORIGIN_DATA_INHERITS,
+                                                Components.interfaces.nsIContentPolicy.TYPE_OTHER);
+      } catch(ex) {
+        // TB60
+        channel = Services.io.newChannelFromURI2(uri,
                                                    null,
                                                    Services.scriptSecurityManager.getSystemPrincipal(),
                                                    null,
                                                    Components.interfaces.nsILoadInfo.SEC_REQUIRE_SAME_ORIGIN_DATA_INHERITS,
                                                    Components.interfaces.nsIContentPolicy.TYPE_OTHER);
+      }
 
       NetUtil.asyncFetch(channel, function(aInputStream, aResult) {
         if (!Components.isSuccessCode(aResult)) {

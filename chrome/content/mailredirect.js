@@ -177,76 +177,76 @@ window.MailredirectExtension = {
 
   AddRedirectButtonToElement: function(el)
   {
-    var head = el.contentDocument.getElementsByTagName("head").item(0);
-    var newEl = (typeof document.createXULElement === "function")
-      ? document.createXULElement("link")
-      : document.createElement("link");
-    newEl.setAttribute("rel", "stylesheet");
-    newEl.setAttribute("type", "text/css");
-    newEl.setAttribute("href", "chrome://mailredirect/skin/messageHeader.css");
-    head.appendChild(newEl);
-
-    var hdrMailredirectButton = document.getElementById("hdrMailredirectButton");
-    if (hdrMailredirectButton === null) {
-      // The CompactHeader extension can hide the hdrMailredirectButton and add a copy of
-      // the mailredirect-toolbarbutton button from the Mail toolbar to the msgHeaderViewDeck
-      hdrMailredirectButton = document.getElementById("msgHeaderViewDeck").getElementsByClassName("customize-header-toolbar-mailredirect-toolbarbutton").item(0);
-    }
-    if (hdrMailredirectButton === null) {
-      // Try the mail toolbar header button when the message hader redirect button is not found
-      hdrMailredirectButton = document.getElementById("mailredirect-toolbarbutton");
-    }
-    if (hdrMailredirectButton !== null) {
-      // Only create a redirect button for multimessage view if one is found on message header or toolbar
-      var disabled = hdrMailredirectButton.getAttribute("disabled");
-      var label = hdrMailredirectButton.getAttribute("label");
-      var image = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("list-style-image");
-      var region = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("-moz-image-region");
-      if (disabled && region !== "auto") {
-        // Calculate the right region...
-        // Disabled: -moz-image-region: rect(32px, 16px, 48px, 0px);
-        // Normal: -moz-image-region: rect(16px, 16px, 32px, 0px);
-        // Normal is always the rect above Disabled
-        let coords = region.replace("rect(", "").replace("px)", "").replace("px", "", "g").split(", ");
-        if (coords[0] !== "0") {
-          coords[0] = coords[0].toString() - coords[1].toString();
-          coords[2] = coords[2].toString() - coords[1].toString();
-          region = "rect(" + coords[0] + "px, " + coords[1] + "px, " + coords[2] + "px, " + coords[3] + "px)";
-        }
+    if (el.contentDocument.getElementById("multimessageHdrMailredirectButton") === null) {
+      var hdrMailredirectButton = document.getElementById("hdrMailredirectButton");
+      if (hdrMailredirectButton === null) {
+        // The CompactHeader extension can hide the hdrMailredirectButton and add a copy of
+        // the mailredirect-toolbarbutton button from the Mail toolbar to the msgHeaderViewDeck
+        hdrMailredirectButton = document.getElementById("msgHeaderViewDeck").getElementsByClassName("customize-header-toolbar-mailredirect-toolbarbutton").item(0);
       }
-      // headingwrapper was renamed to heading_wrapper in tb32 (bug 942638 patch part 5 v5)
-      el = el.contentDocument.getElementById("heading_wrapper") || el.contentDocument.getElementById("headingwrapper");
-      var parentEl = el && el.getElementsByTagName("toolbar").item(0); // header-view-toolbar
-      var oldEl = el && el.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
-      if (parentEl !== null && oldEl !== null) {
-        // Thunderbird 10+
+      if (hdrMailredirectButton === null) {
+        // Try the mail toolbar header button when the message hader redirect button is not found
+        hdrMailredirectButton = document.getElementById("mailredirect-toolbarbutton");
+      }
+      if (hdrMailredirectButton !== null) {
+        // Only create a redirect button for multimessage view if one is found on message header or toolbar
+        var head = el.contentDocument.getElementsByTagName("head").item(0);
         var newEl = (typeof document.createXULElement === "function")
-          ? document.createXULElement("toolbarbutton")
-          : document.createElement("toolbarbutton");
-        newEl.setAttribute("id", "hdrMailredirectButton");
-        newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
-        if (hdrMailredirectButton !== null) {
-          newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
-          newEl.setAttribute("label", label);
+          ? document.createXULElement("link")
+          : document.createElement("link");
+        newEl.setAttribute("rel", "stylesheet");
+        newEl.setAttribute("media", "screen");
+        newEl.setAttribute("type", "text/css");
+        newEl.setAttribute("href", "chrome://mailredirect/skin/messageHeader.css");
+        head.appendChild(newEl);
+
+        var disabled = hdrMailredirectButton.getAttribute("disabled");
+        var label = hdrMailredirectButton.getAttribute("label");
+        var image = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("list-style-image");
+        var region = window.getComputedStyle(hdrMailredirectButton, null).getPropertyValue("-moz-image-region");
+        if (disabled && region !== "auto") {
+          // Calculate the right region...
+          // Disabled: -moz-image-region: rect(32px, 16px, 48px, 0px);
+          // Normal: -moz-image-region: rect(16px, 16px, 32px, 0px);
+          // Normal is always the rect above Disabled
+          let coords = region.replace("rect(", "").replace("px)", "").replace("px", "", "g").split(", ");
+          if (coords[0] !== "0") {
+            coords[0] = coords[0].toString() - coords[1].toString();
+            coords[2] = coords[2].toString() - coords[1].toString();
+            region = "rect(" + coords[0] + "px, " + coords[1] + "px, " + coords[2] + "px, " + coords[3] + "px)";
+          }
         }
-        newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
-        var insEl = parentEl.insertBefore(newEl, oldEl);
-      } else {
-        // Thunderbird 10-
-        var parentEl = el && el.getElementsByTagName("hbox").item(0); // buttonhbox
-        var oldEl = el && el.getElementsByTagName("button").item(0); // archive
-        if (parentEl !== null && oldEl !== null) {
+        var body = el.contentDocument.getElementsByTagName("body").item(0);
+        var oldEl = body && el.contentDocument.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
+        if (oldEl !== null) {
+          // Thunderbird 10+ has toolbarbuttons
           var newEl = (typeof document.createXULElement === "function")
-            ? document.createXULElement("button")
-            : document.createElement("button");
-          newEl.setAttribute("id", "hdrMailredirectButton");
+            ? document.createXULElement("toolbarbutton")
+            : document.createElement("toolbarbutton");
+          newEl.setAttribute("id", "multimessageHdrMailredirectButton");
           newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
           if (hdrMailredirectButton !== null) {
             newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
             newEl.setAttribute("label", label);
           }
           newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
-          var insEl = parentEl.insertBefore(newEl, oldEl);
+          var insEl = oldEl.parentNode.insertBefore(newEl, oldEl);
+        } else {
+          // Thunderbird 10-
+          var oldEl = body && body.getElementsByTagName("button").item(0); // archive
+          if (oldEl !== null) {
+            var newEl = (typeof document.createXULElement === "function")
+              ? document.createXULElement("button")
+              : document.createElement("button");
+            newEl.setAttribute("id", "multimessageHdrMailredirectButton");
+            newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
+            if (hdrMailredirectButton !== null) {
+              newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
+              newEl.setAttribute("label", label);
+            }
+            newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
+            var insEl = oldEl.parentNode.insertBefore(newEl, oldEl);
+          }
         }
       }
     }
@@ -343,6 +343,23 @@ window.MailredirectExtension = {
     el = document.getElementById("multimessage");
     if (el !== null) {
       MailredirectExtension.AddRedirectButtonToElement(el);
+    }
+
+    // Move Redirect toolbarbutton to the right place in appmenu for TB 68+
+    // (Can't do that directly from xul, because vbox is anonymous)
+    var panelview = document.getElementById("appMenu-messageView");
+    if (panelview !== null) {
+      let item = document.getElementById("appmenu_mailredirect");
+      let insertAfter = document.getElementById("appmenu_forwardAsMenu");
+      if (item !== insertAfter.nextSibling) {
+        insertAfter.parentNode.insertBefore(item, insertAfter.nextSibling);
+      }
+
+      item = document.getElementById("appmenu_forwardAsMailredirect");
+      insertAfter = document.getElementById("appmenu_forwardAsAttachment");
+      if (item !== insertAfter.nextSibling) {
+        insertAfter.parentNode.insertBefore(item, insertAfter.nextSibling);
+      }
     }
   },
 

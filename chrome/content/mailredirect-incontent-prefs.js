@@ -62,12 +62,18 @@ window.MailredirectIncontentPrefs = {
           }
         }
 
-        // For Thunderbird 68.* hide Redirect category from the Composition pane
+        // For Thunderbird 68.* remove Redirect category from the Composition pane
         let redirectCategory = document.getElementById("redirectCategory");
-        redirectCategory.collapsed = true;
-        let nextNode = redirectCategory;
-        while (nextNode = nextNode.nextSibling) {
-          nextNode.collapsed = true;
+        if (redirectCategory) {
+          let nextNode;
+          while ((nextNode = redirectCategory.nextSibling)) {
+            if (!nextNode.hasAttribute("id") || !nextNode.getAttribute("id").startsWith("redirect")) {
+              // Found a node not inserted by Mail Redirect, so quit
+              break;
+            }
+            nextNode.remove();
+          }
+          redirectCategory.remove();
         }
       }
 

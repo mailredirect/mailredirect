@@ -1044,25 +1044,25 @@ AutomatedAutoCompleteHandler.prototype =
         /* XXX This used to work, until switching to the new toolkit broke it
            We should fix it see bug 456550.
         if (typeof String.prototype.includes !== "function") {
-      	  // dumper.dump("autoCompleteNextAddress defineProperty includes");
-      	  Object.defineProperty(String.prototype, "includes", {
-      	    enumerable: false,
-      	    configurable: true,
-      	    writable: false,
-      	    value: function() {
-      	      "use strict";
-      	      var start = 0;
-      	      if (typeof arguments[1] === "number") {
-            		start = arguments[1];
-      	      }
-      	      if (this.length < arguments[0].length + start) {
-            		return false;
-      	      } else {
-      		      return this.indexOf(arguments[0], start) !== -1;
-      	      }
-      	    }
-      	  });
-      	}
+          // dumper.dump("autoCompleteNextAddress defineProperty includes");
+          Object.defineProperty(String.prototype, "includes", {
+            enumerable: false,
+            configurable: true,
+            writable: false,
+            value: function() {
+              "use strict";
+              var start = 0;
+              if (typeof arguments[1] === "number") {
+                start = arguments[1];
+              }
+              if (this.length < arguments[0].length + start) {
+                return false;
+              } else {
+                return this.indexOf(arguments[0], start) !== -1;
+              }
+            }
+          });
+        }
         if (!this.namesToComplete[this.indexIntoNames].includes("@")) {
           // don't autocomplete if address has an @ sign in it
           // make sure total session count is updated before we kick off ANY actual searches

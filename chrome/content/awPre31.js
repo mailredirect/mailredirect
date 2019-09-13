@@ -399,10 +399,9 @@ function awAppendNewRow(setFocus)
         //this copies the autocomplete sessions list from recipient#1
         input[0].syncSessions(document.getElementById("addressCol2#1"));
 
-    	  // also clone the showCommentColumn setting
-    	  //
-  	   input[0].showCommentColumn =
-	        document.getElementById("addressCol2#1").showCommentColumn;
+        // also clone the showCommentColumn setting
+        //
+        input[0].showCommentColumn = document.getElementById("addressCol2#1").showCommentColumn;
       }
 
       // We always clone the first row.  The problem is that the first row
