@@ -1334,6 +1334,10 @@ function BounceLoad()
   var mail3paneWindow = windowMediator.getMostRecentWindow("mail:3pane");
   var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
 
+  var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+  gAppInfoID = appInfo.ID;
+  gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
+
   setupAutocomplete();
 
   // Check to see if CardBook is installed in order to modify autocomplete
@@ -1341,11 +1345,11 @@ function BounceLoad()
     if (aAddon !== null && aAddon.isActive) {
       var cardbookAutocompletion = getPref("extensions.cardbook.autocompletion");
       if (cardbookAutocompletion) {
+        var cardbookExclusive = getPref("extensions.cardbook.exclusive");
         var listitem = 1;
         var textbox = document.getElementById("addressCol2#" + listitem);
         while (textbox !== null) {
           // listitems can already be cloned, so we need to adjust them all
-          var cardbookExclusive = getPref("extensions.cardbook.exclusive");
           if (cardbookExclusive) {
             textbox.setAttribute("autocompletesearch", "addrbook-cardbook");
           } else {
@@ -1358,23 +1362,13 @@ function BounceLoad()
       }
     }
   }
-  AddonManager.getAddonByID("cardbook@vigneau.philippe", cardbookCallback);
 
-  // copy toolbar appearance settings from mail3pane
-  if (mail3paneWindow) {
-    var aBounceToolbar = document.getElementById("bounceToolbar");
-    if (aBounceToolbar) {
-      var mailBar = mail3paneWindow.document.getElementById("mail-bar");
-      if (mailBar) {
-        aBounceToolbar.setAttribute("iconsize", mailBar.getAttribute("iconsize"));
-        aBounceToolbar.setAttribute("mode", mailBar.getAttribute("mode"));
-      }
-    }
+  if (gAppInfoPlatformVersion < 61) {
+    AddonManager.getAddonByID("cardbook@vigneau.philippe", cardbookCallback);
+  } else {
+    AddonManager.getAddonByID("cardbook@vigneau.philippe").then(addon => { cardbookCallback(addon); });
   }
 
-  var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-  gAppInfoID = appInfo.ID;
-  gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
   if (gAppInfoPlatformVersion < 65) {
     // Hide html progress and show old progressmeter
     var elem = document.getElementById("status-bar");
@@ -1390,6 +1384,18 @@ function BounceLoad()
     var textbox = document.getElementById("addressCol2#1");
     textbox.setAttribute("ontextentered", "awRecipientTextCommandPre31(eventParam, this)");
     textbox.removeAttribute("onblur");
+  }
+
+  // copy toolbar appearance settings from mail3pane
+  if (mail3paneWindow) {
+    var aBounceToolbar = document.getElementById("bounceToolbar");
+    if (aBounceToolbar) {
+      var mailBar = mail3paneWindow.document.getElementById("mail-bar");
+      if (mailBar) {
+        aBounceToolbar.setAttribute("iconsize", mailBar.getAttribute("iconsize"));
+        aBounceToolbar.setAttribute("mode", mailBar.getAttribute("mode"));
+      }
+    }
   }
 
   awInitializeNumberOfRowsShown();
