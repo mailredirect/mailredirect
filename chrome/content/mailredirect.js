@@ -235,7 +235,7 @@ window.MailredirectExtension = {
           // Thunderbird 10-
           var parentEl = body && body.getElementsByTagName("hbox").item(0); // buttonhbox
           var oldEl = body && body.getElementsByTagName("button").item(0); // archive
-          if (patentEl !== null && oldEl !== null && typeof document.createElement === "function") {
+          if (parentEl !== null && oldEl !== null && typeof document.createElement === "function") {
             var newEl = document.createElement("button");
             newEl.setAttribute("id", "multimessageHdrMailredirectButton");
             newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");

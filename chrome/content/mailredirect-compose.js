@@ -1366,7 +1366,9 @@ function BounceLoad()
   if (gAppInfoPlatformVersion < 61) {
     AddonManager.getAddonByID("cardbook@vigneau.philippe", cardbookCallback);
   } else {
-    AddonManager.getAddonByID("cardbook@vigneau.philippe").then(addon => { cardbookCallback(addon); });
+    // Although this is executed in TB >= 61, I need to write arrow function backwards compatible with ECMAScript 5, in order not to crash in TB <24
+    // AddonManager.getAddonByID("cardbook@vigneau.philippe").then(addon => { cardbookCallback(addon); });
+    AddonManager.getAddonByID("cardbook@vigneau.philippe").then(function(addon) { return cardbookCallback(addon); });
   }
 
   if (gAppInfoPlatformVersion < 65) {
