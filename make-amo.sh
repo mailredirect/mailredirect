@@ -91,6 +91,7 @@ find _locales -type f | sort >> mailredirect.txt
 find chrome -type f | sort >> mailredirect.txt
 echo defaults/ >> mailredirect.txt
 echo icon.png >> mailredirect.txt
+echo icon64.png >> mailredirect.txt
 echo LICENSE >> mailredirect.txt
 echo README >> mailredirect.txt
 grep \<em:update install.rdf > make-grep.txt

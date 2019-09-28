@@ -18,7 +18,7 @@
       "open_in_tab": true
     }
   },
-  "default_locale": "en",
+  "default_locale": "en-US",
   "icons": {
     "32": "icon.png",
     "64": "icon64.png"
