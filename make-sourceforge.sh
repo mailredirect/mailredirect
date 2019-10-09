@@ -12,9 +12,9 @@ fi
 [ -d xpi ] || mkdir xpi
 cd xpi
 rm -fr ${DEST}/
-rsync -a --exclude-from=../${SRC}/make-exclude.txt ../${SRC}/* ${DEST}/
+rsync -a --exclude-from=../${SRC}/make-exclude.txt --exclude '_locales/*' ../${SRC}/* ${DEST}/
 cd ${DEST}/chrome/locale
-for locale in en-US
+for locale in *
 do
   if [ "${locale}" != "en-US" ]
   then
