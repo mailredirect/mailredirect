@@ -60,7 +60,7 @@
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-compose.js" />
   <script type="application/javascript" src="chrome://mailredirect/content/aw.js" />
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-customization.js" />
-  <script type="application/javascript" src="chrome://messenger/content/customizable-toolbar.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/customizable-toolbar.js"/>
 
   <!-- drag and drop -->
   <script type="application/javascript" src="chrome://global/content/nsDragAndDrop.js" />
