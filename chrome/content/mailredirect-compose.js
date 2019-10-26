@@ -1565,7 +1565,7 @@ function ExitFullscreenMode()
 {
   // On OS X we need to deliberately exit full screen mode before closing.
   if (typeof AppConstants !== "undefined") {
-    if (AppConstants.platformIsMac) {
+    if (AppConstants.platform === "mac") {
       window.fullscreen = false;
     }
   } else {
