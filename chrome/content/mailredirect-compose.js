@@ -1388,7 +1388,6 @@ function BounceLoad()
     if (aAddon !== null) {
       let cardbookExclusive = false;
       if (aAddon.filter(function(e) { return e.id === "cardbook@vigneau.philippe" && e.isActive; }).length > 0) {
-        dumper.dump("cardbook is active");
         var cardbookAutocompletion = getPref("extensions.cardbook.autocompletion");
         if (cardbookAutocompletion) {
           cardbookExclusive = getPref("extensions.cardbook.exclusive");
@@ -1408,7 +1407,6 @@ function BounceLoad()
         }
       }
       if (!cardbookExclusive && aAddon.filter(function(e) { return e.id === "tbsync@jobisoft.de" && e.isActive; }).length > 0) {
-        dumper.dump("tbsync is active and cardbook is not exclusive");
         var listitem = 1;
         var textbox = document.getElementById("addressCol2#" + listitem);
         while (textbox !== null) {
