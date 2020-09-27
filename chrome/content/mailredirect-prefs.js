@@ -2,28 +2,10 @@
 
 (function() {
 
-var Services, NetUtil, MailServices, AppConstants;
-if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function") {
-  // New way of importing in TB67+
-  var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
-  var { NetUtil } = ChromeUtils.import("resource://gre/modules/NetUtil.jsm");
-  try {
-    var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm"); // TB63+
-  } catch(ex) {
-    var { MailServices } = ChromeUtils.import("resource:///modules/mailServices.js");
-  }
-  var { AppConstants } = ChromeUtils.import("resource://gre/modules/AppConstants.jsm");
-} else {
-  var { Services } = Components.utils.import("resource://gre/modules/Services.jsm", null);
-  var { NetUtil } = Components.utils.import("resource://gre/modules/NetUtil.jsm", null);
-  var { MailServices } = Components.utils.import("resource:///modules/mailServices.js", null); // Gecko 5+ (TB5)
-  try {
-    var { AppConstants } = Components.utils.import("resource://gre/modules/AppConstants.jsm", null); // Gecko 45+
-  } catch(ex) { };
-}
-
-const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
-const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var { NetUtil } = ChromeUtils.import("resource://gre/modules/NetUtil.jsm");
+var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm");
+var { AppConstants } = ChromeUtils.import("resource://gre/modules/AppConstants.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
@@ -95,14 +77,7 @@ window.MailredirectPrefs = {
 
     let filePickerCallback = function filePickerCallbackDone(aResult) {
       if (aResult === nsIFilePicker.returnOK || aResult === nsIFilePicker.returnReplace) {
-        var file;
-        try {
-          file = filePicker.file.QueryInterface(Ci.nsIFile);
-        } catch(ex) {
-          // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
-          file = filePicker.file.QueryInterface(Ci.nsILocalFile);
-        }
-
+        var file = filePicker.file.QueryInterface(Ci.nsIFile);
         var fileStream = Cc["@mozilla.org/network/file-output-stream;1"].
                          createInstance(Ci.nsIFileOutputStream);
         fileStream.init(file, -1, -1, null);
@@ -115,10 +90,7 @@ window.MailredirectPrefs = {
         // for every nsIConsoleMessage save it to file
         var consoleService = Cc["@mozilla.org/consoleservice;1"].
                              getService(Ci.nsIConsoleService);
-        var messagesArray = {};
-        // Retrieve the message array in a compatible way for both Gecko prior
-        // to 19 and Gecko 19 or later
-        var messagesArray = consoleService.getMessageArray(messagesArray, {}) || messagesArray.value;
+        var messagesArray = consoleService.getMessageArray() || [];
         for (var i = 0; i < messagesArray.length; ++i) {
           var m = messagesArray[i].message;
           m = (i+1) + ". " + m.replace(/^\s*[\n]+|[\n]+\s*$/g, "") + "\n";
@@ -129,15 +101,7 @@ window.MailredirectPrefs = {
       }
     }
 
-    try {
-      // Gecko 17+: Open the dialog asynchronously
-      filePicker.open(filePickerCallback);
-    } catch (ex) {
-      // Deprecated since Gecko 17: Display the file picker dialog
-      if (filePicker.show() !== Ci.nsIFilePicker.returnCancel) {
-        filePickerCallback(nsIFilePicker.returnOK);
-      }
-    }
+    filePicker.open(filePickerCallback);
   },
 
   sendViaEmail: function()
@@ -157,13 +121,10 @@ window.MailredirectPrefs = {
                       createInstance(Ci.nsIConverterOutputStream);
       converter.init(fileStream, charset, 0, 0x0000);
 
-      // for every nsIConsoleMessage save it to file
+      // for every nsIConsoleMessage write it to the output stream
       var consoleService = Cc["@mozilla.org/consoleservice;1"].
                            getService(Ci.nsIConsoleService);
-      var messagesArray = {};
-      // Retrieve the message array in a compatible way for both Gecko prior
-      // to 19 and Gecko 19 or later
-      var messagesArray = consoleService.getMessageArray(messagesArray, {}) || messagesArray.value;
+      var messagesArray = consoleService.getMessageArray() || [];
       for (var i = 0; i < messagesArray.length; ++i) {
         var m = messagesArray[i].message;
         m = (i+1) + ". " + m.replace(/^\s*[\n]+|[\n]+\s*$/g, "") + "\n";
@@ -248,23 +209,12 @@ window.MailredirectPrefs = {
     function copyFile(aURL, aSink) {
       let uri = Services.io.newURI(aURL);
       let channel;
-      try {
-        // TB68+ (In bug 1529252 the 2 was removed from this service)
-        channel = Services.io.newChannelFromURI(uri,
-                                                null,
-                                                Services.scriptSecurityManager.getSystemPrincipal(),
-                                                null,
-                                                Components.interfaces.nsILoadInfo.SEC_REQUIRE_SAME_ORIGIN_DATA_INHERITS,
-                                                Components.interfaces.nsIContentPolicy.TYPE_OTHER);
-      } catch(ex) {
-        // TB60
-        channel = Services.io.newChannelFromURI2(uri,
-                                                   null,
-                                                   Services.scriptSecurityManager.getSystemPrincipal(),
-                                                   null,
-                                                   Components.interfaces.nsILoadInfo.SEC_REQUIRE_SAME_ORIGIN_DATA_INHERITS,
-                                                   Components.interfaces.nsIContentPolicy.TYPE_OTHER);
-      }
+      channel = Services.io.newChannelFromURI(uri,
+                                              null,
+                                              Services.scriptSecurityManager.getSystemPrincipal(),
+                                              null,
+                                              Components.interfaces.nsILoadInfo.SEC_REQUIRE_SAME_ORIGIN_DATA_INHERITS,
+                                              Components.interfaces.nsIContentPolicy.TYPE_OTHER);
 
       NetUtil.asyncFetch(channel, function(aInputStream, aResult) {
         if (!Components.isSuccessCode(aResult)) {
@@ -314,19 +264,10 @@ window.MailredirectPrefs = {
           chromeIcon.append(iconFilename);
 
           if (!chromeIcon.exists()) {
-            // Icon doesn't exist in program folder, so copy it
-            var file;
-
-            try {
-              file = Cc["@mozilla.org/file/local;1"].
-                     createInstance(Ci.nsIFile);
-              file.initWithFile(chromeIcon);
-            } catch(ex) {
-              // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
-              file = Cc["@mozilla.org/file/local;1"].
-                     createInstance(Ci.nsILocalFile);
-              file.initWithFile(chromeIcon);
-            }
+            // Icon doesn't exist in program folder, so try to copy it
+            var file = Cc["@mozilla.org/file/local;1"].
+                       createInstance(Ci.nsIFile);
+            file.initWithFile(chromeIcon);
 
             var aFileOutputStream = Cc["@mozilla.org/network/file-output-stream;1"].
                                     createInstance(Ci.nsIFileOutputStream);
@@ -358,7 +299,6 @@ var _orgOpenAddonPrefs = window.openAddonPrefs;
 window.openAddonPrefs = function() {
   if (arguments[0] === "chrome://mailredirect/content/mailredirect-prefs.xul") {
     var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-    var gAppInfoID = appInfo.ID;
     var gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
     if (gAppInfoPlatformVersion < 70) {
       openOptionsDialog("paneRedirect");

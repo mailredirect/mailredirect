@@ -60,7 +60,7 @@
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-compose.js" />
   <script type="application/javascript" src="chrome://mailredirect/content/aw.js" />
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-customization.js" />
-  <script type="application/javascript" src="chrome://mailredirect/content/customizable-toolbar.js"/>
+  <script type="application/javascript" src="chrome://messenger/content/customizable-toolbar.js"/>
 
   <!-- drag and drop -->
   <script type="application/javascript" src="chrome://global/content/nsDragAndDrop.js" />
@@ -383,12 +383,5 @@
       <html:progress id="bounce-progressmeter" class="progressmeter-statusbar" value="0" max="100" />
     </hbox>
   </hbox>
-
-  <statusbar id="status-bar-pre65" class="chromeclass-status" collapsed="true">
-    <statusbarpanel id="statusText-pre65" flex="1" />
-    <statusbarpanel id="statusbar-progresspanel-pre65" class="statusbarpanel-progress">
-      <progressmeter id="bounce-progressmeter-pre65" class="progressmeter-statusbar" mode="normal" value="0" collapsed="true" />
-    </statusbarpanel>
-  </statusbar>
 
 </window>

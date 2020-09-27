@@ -2,37 +2,14 @@
 
 "use strict";
 
-const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
-const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
-
-var allAccountsSorted, Services, fixIterator, toArray, MailServices, PluralForm, AddonManager, AppConstants, LightweightThemeManager;
-
-if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function") {
-  // New way of importing in TB67+, available from TB60+
-  var { allAccountsSorted } = ChromeUtils.import("resource:///modules/folderUtils.jsm");
-  var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
-  var { fixIterator, toArray } = ChromeUtils.import("resource:///modules/iteratorUtils.jsm");
-  try {
-    var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm"); // TB63+
-  } catch(ex) {
-    var { MailServices } = ChromeUtils.import("resource:///modules/mailServices.js");
-  }
-  var { PluralForm } = ChromeUtils.import("resource://gre/modules/PluralForm.jsm");
-  var { AddonManager } = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
-  var { AppConstants } = ChromeUtils.import("resource://gre/modules/AppConstants.jsm");
-  var { LightweightThemeManager } = ChromeUtils.import("resource://gre/modules/LightweightThemeManager.jsm");
-} else {
-  var { allAccountsSorted } = Components.utils.import("resource:///modules/folderUtils.jsm", null); // Gecko 2+ (TB3.3)
-  var { Services } = Components.utils.import("resource://gre/modules/Services.jsm", null); // Gecko 2+ (TB3.3)
-  var { fixIterator, toArray } = Components.utils.import("resource:///modules/iteratorUtils.jsm", null);
-  var { MailServices } = Components.utils.import("resource:///modules/mailServices.js", null); // Gecko 5+ (TB5)
-  var { PluralForm } = Components.utils.import("resource://gre/modules/PluralForm.jsm", null);
-  var { AddonManager } = Components.utils.import("resource://gre/modules/AddonManager.jsm", null);
-  try {
-    var { AppConstants } = Components.utils.import("resource://gre/modules/AppConstants.jsm", null); // Gecko 45+
-    var { LightweightThemeManager } = Components.utils.import("resource://gre/modules/LightweightThemeManager.jsm", null); // Gecko 60+
-  } catch(ex) { }
-}
+var { allAccountsSorted } = ChromeUtils.import("resource:///modules/folderUtils.jsm");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var { fixIterator, toArray } = ChromeUtils.import("resource:///modules/iteratorUtils.jsm");
+var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm");
+var { PluralForm } = ChromeUtils.import("resource://gre/modules/PluralForm.jsm");
+var { AddonManager } = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
+var { AppConstants } = ChromeUtils.import("resource://gre/modules/AppConstants.jsm");
+var { LightweightThemeManager } = ChromeUtils.import("resource://gre/modules/LightweightThemeManager.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
@@ -63,7 +40,6 @@ var gMessenger;
 
 // Global variables
 
-var gAppInfoID = null;
 var gAppInfoPlatformVersion = null;
 var gMsgCompose;
 var gWindowLocked;
@@ -243,9 +219,7 @@ function updateAllItems(aDisable)
   commandItemCollections.push(document.getElementsByTagName("toolbarbutton"));
   commandItemCollections.push(document.querySelectorAll("[command]"));
   commandItemCollections.push(document.querySelectorAll("[oncommand]"));
-  // for..each doesn't work in Gecko>=55, for..of doesn't work in Gecko<13
-  for (let index in commandItemCollections) {
-    let itemCollection = commandItemCollections[index];
+  for (let itemCollection of commandItemCollections) {
     for (let item = 0; item < itemCollection.length; item++) {
       let commandItem = itemCollection[item];
       if (aDisable) {
@@ -289,11 +263,6 @@ function updateSendCommands(aHaveController)
  */
 function updateSendLock()
 {
-  if (gAppInfoID === SEAMONKEY_ID) {
-    gSendLocked = false;
-    return;
-  }
-
   gSendLocked = true;
   if (!gMsgCompose) {
     return;
@@ -318,26 +287,10 @@ function updateSendLock()
  */
 function CheckValidEmailAddress(aMsgCompFields)
 {
-  // hasRecipients is new to Thunderbird 23
-  if (typeof aMsgCompFields.hasRecipients !== "undefined"
-        ? !aMsgCompFields.hasRecipients
-        : (aMsgCompFields.to.match(/^\s*$/) &&
-           aMsgCompFields.cc.match(/^\s*$/) &&
-           aMsgCompFields.bcc.match(/^\s*$/))) {
+  if (!aMsgCompFields.hasRecipients) {
     let composeMsgsBundle = Services.strings.createBundle("chrome://messenger/locale/messengercompose/composeMsgs.properties");
-    let errorTitle;
-    let errorMsg;
-    if (gAppInfoID === THUNDERBIRD_ID) {
-      errorTitle = composeMsgsBundle.GetStringFromName("addressInvalidTitle");
-    } else {
-      errorTitle = composeMsgsBundle.GetStringFromName("sendMsgTitle");
-    }
-    try {
-      errorMsg = composeMsgsBundle.GetStringFromName("noRecipients");
-    } catch(ex) {
-      // Entity 12511 was renamed to addressInvalid in TB38
-      errorMsg = composeMsgsBundle.GetStringFromName("12511");
-    }
+    let errorTitle = composeMsgsBundle.GetStringFromName("addressInvalidTitle");
+    let errorMsg = composeMsgsBundle.GetStringFromName("noRecipients");
     Services.prompt.alert(window, errorTitle, errorMsg);
 
     return false;
@@ -347,45 +300,6 @@ function CheckValidEmailAddress(aMsgCompFields)
   // Crude check that the to, cc, and bcc fields contain at least one '@'.
   // We could parse each address, but that might be overkill.
   function isInvalidAddress(aAddress) {
-    // str.includes is new to ECMAScript 6
-    if (typeof String.prototype.includes !== "function") {
-      // dumper.dump("defineProperty includes");
-      Object.defineProperty(String.prototype, "includes", {
-        enumerable: false,
-        configurable: true,
-        writable: false,
-        value: function() {
-          "use strict";
-          var start = 0;
-          if (typeof arguments[1] === "number") {
-            start = arguments[1];
-          }
-          if (this.length < arguments[0].length + start) {
-            return false;
-          } else {
-            return this.indexOf(arguments[0], start) !== -1;
-          }
-        }
-      });
-    }
-    // str.endsWith is new to ECMAScript 6
-    if (typeof String.prototype.endsWith !== "function") {
-      // dumper.dump("defineProperty endsWith");
-      Object.defineProperty(String.prototype, "endsWith", {
-        enumerable: false,
-        configurable: true,
-        writable: false,
-        value: function(searchString, position) {
-          var subjectString = this.toString();
-          if (position === undefined || position > subjectString.length) {
-            position = subjectString.length;
-          }
-          position -= searchString.length;
-          var lastIndex = subjectString.indexOf(searchString, position);
-          return lastIndex !== -1 && lastIndex === position;
-        }
-      });
-    }
     return (aAddress.length > 0 &&
             ((!aAddress.includes("@", 1) && aAddress.toLowerCase() !== "postmaster") ||
               aAddress.endsWith("@")));
@@ -400,15 +314,9 @@ function CheckValidEmailAddress(aMsgCompFields)
 
   if (invalidStr) {
     let composeMsgsBundle = Services.strings.createBundle("chrome://messenger/locale/messengercompose/composeMsgs.properties");
-    let errorTitle;
-    if (gAppInfoID === THUNDERBIRD_ID) {
-      errorTitle = composeMsgsBundle.GetStringFromName("addressInvalidTitle");
-    } else {
-      errorTitle = composeMsgsBundle.GetStringFromName("sendMsgTitle");
-    }
+    let errorTitle = composeMsgsBundle.GetStringFromName("addressInvalidTitle");
     Services.prompt.alert(window, errorTitle,
-                          composeMsgsBundle.formatStringFromName("addressInvalid",
-                          [invalidStr], 1));
+                          composeMsgsBundle.formatStringFromName("addressInvalid", [invalidStr], 1));
     return false;
   }
 
@@ -712,26 +620,6 @@ function setupLdapAutocompleteSession()
   gSetupLdapAutocomplete = true;
 }
 
-function queryIArray(aArray, iid)
-{
-  var result = new Array;
-  if (!aArray) {
-    return result;
-  }
-  if (aArray.queryElementAt) {
-    // nsIArray
-    for (let i = 0; i < aArray.length; i++) {
-      result[i] = aArray.queryElementAt(i, iid);
-    }
-  } else {
-    // nsISupportsArray
-    for (let i = 0; i < aArray.Count(); i++) {
-      result[i] = aArray.QueryElementAt(i, iid);
-    }
-  }
-  return result;
-}
-
 function onAddressColCommand(aAddressWidgetId)
 {
   var row = aAddressWidgetId.slice(aAddressWidgetId.lastIndexOf("#") + 1);
@@ -754,12 +642,7 @@ function onRecipientsChanged(aAutomatic)
 function FillIdentityList(menulist)
 {
   var accounts;
-  try {
-    // Function is new to Thunderbird 19
-    accounts = allAccountsSorted(true);
-  } catch (ex) {
-    accounts = queryIArray(gAccountManager.accounts, Ci.nsIMsgAccount);
-  }
+  accounts = allAccountsSorted(true);
 
   let accountHadSeparator = false;
   let firstAccountWithIdentities = true;
@@ -785,9 +668,7 @@ function FillIdentityList(menulist)
       // or previous account.
       if (!firstAccountWithIdentities) {
         // only if this is not the first account shown
-        let separator = (typeof document.createXULElement === "function")
-          ? document.createXULElement("menuseparator")
-          : document.createElement("menuseparator");
+        let separator = document.createXULElement("menuseparator");
         menulist.menupopup.appendChild(separator);
       }
       accountHadSeparator = needSeparator;
@@ -1131,9 +1012,7 @@ function BounceStartup(aParams)
     var today = new Date();
 
     for (let i = 0; i < mstate.size; ++i) {
-      var aRow = (typeof document.createXULElement === "function")
-        ? document.createXULElement("treerow")
-        : document.createElement("treerow");
+      var aRow = document.createXULElement("treerow");
       aRow.setAttribute("messageURI", mstate.selectedURIs[i]);
       aRow.setAttribute("URIidx", i);
       aRow.setAttribute("disableonsend", true);
@@ -1177,22 +1056,16 @@ function BounceStartup(aParams)
         }
       }
 
-      var aCell = (typeof document.createXULElement === "function")
-        ? document.createXULElement("treecell")
-        : document.createElement("treecell");
+      var aCell = document.createXULElement("treecell");
       aCell.setAttribute("label", msgSubject);
       aCell.setAttribute("properties", propertiesString);
       aRow.appendChild(aCell);
 
-      aCell = (typeof document.createXULElement === "function")
-        ? document.createXULElement("treecell")
-        : document.createElement("treecell");
+      aCell = document.createXULElement("treecell");
       aCell.setAttribute("label", msgAuthor);
       aRow.appendChild(aCell);
 
-      aCell = (typeof document.createXULElement === "function")
-        ? document.createXULElement("treecell")
-        : document.createElement("treecell");
+      aCell = document.createXULElement("treecell");
       var dateString = "";
       if (msgDate) {
         var date = new Date();
@@ -1212,58 +1085,34 @@ function BounceStartup(aParams)
             dateFormat = dateFormatThisWeek;
           }
         }
-        if (Services.intl !== undefined &&
-            (typeof Services.intl.DateTimeFormat === "function" ||          // Thunderbird 59.0a1
-             typeof Services.intl.createDateTimeFormat === "function")) {   // Thunderbird 57.0a1
-          if (locale === undefined) {
-            var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
-            if (useOSLocales) {
-              var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
-                            getService(Ci.mozIOSPreferences);
-              if (typeof(osprefs.regionalPrefsLocales) === "object") {
-                // Thunderbird 64 (Bug 1493220 - Migrate mozIOSPreferences to use Array<>)
-                locale = osprefs.regionalPrefsLocales[0];
-              } else {
-                locale = osprefs.getRegionalPrefsLocales()[0];
-              }
-            } else {
-              locale = null;
-            }
-          }
-          var dateOption = {dateStyle: "short", timeStyle: "short"};
-          if (dateFormat === kDateFormatNone) {
-            dateOption = {timeStyle: "short"};
-          } else if (dateFormat === kDateFormatLong) {
-            dateOption = {dateStyle: "long", timeStyle: "short"};
-          } else if (dateFormat === kDateFormatShort) {
-            dateOption = {dateStyle: "short", timeStyle: "short"};
-          } else if (dateFormat === kDateFormatYearMonth) {
-            dateOption = {year: "numeric", month: "2-digit", hour: "numeric", minute: "numeric"};
-          } else if (dateFormat === kDateFormatWeekday) {
-            dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
-          }
-          if (typeof Services.intl.DateTimeFormat === "function") {
-            dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
+        if (locale === undefined) {
+          var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
+          if (useOSLocales) {
+            var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
+                          getService(Ci.mozIOSPreferences);
+            locale = osprefs.regionalPrefsLocales[0];
           } else {
-            dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date);
+            locale = null;
           }
-        } else {
-          if (dateFormatService === undefined) {
-            dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
-                                getService(Ci.nsIScriptableDateFormat);
-          }
-          dateString = dateFormatService.FormatDateTime("",
-            dateFormat, dateFormatService.timeFormatNoSeconds,
-            date.getFullYear(), date.getMonth()+1, date.getDate(),
-            date.getHours(), date.getMinutes(), date.getSeconds());
         }
+        var dateOption = {dateStyle: "short", timeStyle: "short"};
+        if (dateFormat === kDateFormatNone) {
+          dateOption = {timeStyle: "short"};
+        } else if (dateFormat === kDateFormatLong) {
+          dateOption = {dateStyle: "long", timeStyle: "short"};
+        } else if (dateFormat === kDateFormatShort) {
+          dateOption = {dateStyle: "short", timeStyle: "short"};
+        } else if (dateFormat === kDateFormatYearMonth) {
+          dateOption = {year: "numeric", month: "2-digit", hour: "numeric", minute: "numeric"};
+        } else if (dateFormat === kDateFormatWeekday) {
+          dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
+        }
+        dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
       }
       aCell.setAttribute("label", dateString);
       aRow.appendChild(aCell);
 
-      var aItem = (typeof document.createXULElement === "function")
-        ? document.createXULElement("treeitem")
-        : document.createElement("treeitem");
+      var aItem = document.createXULElement("treeitem");
       aItem.appendChild(aRow);
       aTree.appendChild(aItem);
     }
@@ -1282,13 +1131,7 @@ function BounceStartup(aParams)
 
   // Before and after callbacks for the customizeToolbar code
   var toolbox = document.getElementById("bounce-toolbox");
-  if (gAppInfoID === THUNDERBIRD_ID) {
-    toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
-  } else if (gAppInfoID === SEAMONKEY_ID) {
-    toolbox.customizeInit = BounceToolboxCustomizeInit;
-    toolbox.customizeDone = BounceToolboxCustomizeDone;
-    toolbox.customizeChange = BounceToolboxCustomizeChange;
-  }
+  toolbox.customizeDone = function(aEvent) { MailToolboxCustomizeDone(aEvent, "CustomizeMailredirectToolbar"); };
 
   var toolbarset = document.getElementById("customToolbars");
   toolbox.toolbarset = toolbarset;
@@ -1332,11 +1175,6 @@ function BounceStartup(aParams)
     }
   }
 
-  // Initialization for Dark/Light theme (TB60+)
-  try {
-    CompactTheme.init();
-  } catch(ex) { }
-
   // Update the status of the redirect button (in case default recipients are specified)
   updateSendCommands(false);
 }
@@ -1378,7 +1216,6 @@ function BounceLoad()
   var currMsgWindow = windowMediator.getMostRecentWindow("mail:messageWindow");
 
   var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-  gAppInfoID = appInfo.ID;
   gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
 
   setupAutocomplete();
@@ -1419,30 +1256,7 @@ function BounceLoad()
     }
   }
 
-  if (gAppInfoPlatformVersion < 61) {
-    AddonManager.getAddonsByIDs(["cardbook@vigneau.philippe", "tbsync@jobisoft.de"], addonCallback);
-  } else {
-    // Although this is executed in TB >= 61, I need to write arrow function backwards compatible with ECMAScript 5, in order not to crash in TB <24
-    // AddonManager.getAddonsByIDs(["cardbook@vigneau.philippe", "tbsync@jobisoft.de"]).then(addon => { addonCallback(addon); });
-    AddonManager.getAddonsByIDs(["cardbook@vigneau.philippe", "tbsync@jobisoft.de"]).then(function(addon) { return addonCallback(addon); });
-  }
-
-  if (gAppInfoPlatformVersion < 65) {
-    // Hide html progress and show old progressmeter
-    var elem = document.getElementById("status-bar");
-    if (elem) {
-      elem.setAttribute("id", "status-bar-65plus");
-      elem.setAttribute("collapsed", "true");
-    }
-    elem = document.getElementById("status-bar-pre65");
-    elem.setAttribute("id", "status-bar");
-    elem.removeAttribute("collapsed");
-  }
-  if (gAppInfoID === THUNDERBIRD_ID && gAppInfoPlatformVersion < 31) {
-    var textbox = document.getElementById("addressCol2#1");
-    textbox.setAttribute("ontextentered", "awRecipientTextCommandPre31(eventParam, this)");
-    textbox.removeAttribute("onblur");
-  }
+  AddonManager.getAddonsByIDs(["cardbook@vigneau.philippe", "tbsync@jobisoft.de"]).then(addon => { addonCallback(addon); });
 
   // copy toolbar appearance settings from mail3pane
   if (mail3paneWindow) {
@@ -1584,14 +1398,8 @@ function updateEditableFields(aDisable)
 function ExitFullscreenMode()
 {
   // On OS X we need to deliberately exit full screen mode before closing.
-  if (typeof AppConstants !== "undefined") {
-    if (AppConstants.platform === "mac") {
-      window.fullscreen = false;
-    }
-  } else {
-    if (Application.platformIsMac) {
-      window.fullscreen = false;
-    }
+  if (AppConstants.platform === "mac") {
+    window.fullscreen = false;
   }
 }
 
@@ -1651,12 +1459,7 @@ function DoForwardBounce()
 
   let msgCompFields = gMsgCompose.compFields;
   Recipients2CompFields(msgCompFields);
-  // hasRecipients is new to Thunderbird 23
-  if (typeof msgCompFields.hasRecipients !== "undefined"
-        ? !msgCompFields.hasRecipients
-        : (msgCompFields.to.match(/^\s*$/) &&
-           msgCompFields.cc.match(/^\s*$/) &&
-           msgCompFields.bcc.match(/^\s*$/))) {
+  if (!msgCompFields.hasRecipients) {
     let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
     let errorTitle = bounceMsgsBundle.GetStringFromName("noRecipientsTitle");
     let errorMsg = bounceMsgsBundle.GetStringFromName("noRecipientsMessage");
@@ -1721,9 +1524,7 @@ var mailredirectDragObserver = {
             mstate.selectedURIs.push(rawData);
             dumper.dump("[" + i + "] " + mstate.selectedURIs[i]);
 
-            var aRow = (typeof document.createXULElement === "function")
-              ? document.createXULElement("treerow")
-              : document.createElement("treerow");
+            var aRow = document.createXULElement("treerow");
             aRow.setAttribute("messageURI", rawData);
             aRow.setAttribute("URIidx", i);
             aRow.setAttribute("disableonsend", true);
@@ -1766,22 +1567,16 @@ var mailredirectDragObserver = {
               }
             }
 
-            var aCell = (typeof document.createXULElement === "function")
-              ? document.createXULElement("treecell")
-              : document.createElement("treecell");
+            var aCell = document.createXULElement("treecell");
             aCell.setAttribute("label", msgSubject);
             aCell.setAttribute("properties", propertiesString);
             aRow.appendChild(aCell);
 
-            aCell = (typeof document.createXULElement === "function")
-              ? document.createXULElement("treecell")
-              : document.createElement("treecell");
+            aCell = document.createXULElement("treecell");
             aCell.setAttribute("label", msgAuthor);
             aRow.appendChild(aCell);
 
-            aCell = (typeof document.createXULElement === "function")
-              ? document.createXULElement("treecell")
-              : document.createElement("treecell");
+            aCell = document.createXULElement("treecell");
             var dateString = "";
             if (msgDate) {
               var date = new Date();
@@ -1801,58 +1596,34 @@ var mailredirectDragObserver = {
                   dateFormat = dateFormatThisWeek;
                 }
               }
-              if (Services.intl !== undefined &&
-                  (typeof Services.intl.DateTimeFormat === "function" ||          // Thunderbird 59.0a1
-                   typeof Services.intl.createDateTimeFormat === "function")) {   // Thunderbird 57.0a1
-                if (locale === undefined) {
-                  var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
-                  if (useOSLocales) {
-                    var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
-                                  getService(Ci.mozIOSPreferences);
-                    if (typeof(osprefs.regionalPrefsLocales) === "object") {
-                      // Thunderbird 64 (Bug 1493220 - Migrate mozIOSPreferences to use Array<>)
-                      locale = osprefs.regionalPrefsLocales[0];
-                    } else {
-                      locale = osprefs.getRegionalPrefsLocales()[0];
-                    }
-                  } else {
-                    locale = null;
-                  }
-                }
-                var dateOption = {dateStyle: "short", timeStyle: "short"};
-                if (dateFormat === kDateFormatNone) {
-                  dateOption = {timeStyle: "short"};
-                } else if (dateFormat === kDateFormatLong) {
-                  dateOption = {dateStyle: "long", timeStyle: "short"};
-                } else if (dateFormat === kDateFormatShort) {
-                  dateOption = {dateStyle: "short", timeStyle: "short"};
-                } else if (dateFormat === kDateFormatYearMonth) {
-                  dateOption = {year: "numeric", month: "2-digit", hour: "numeric", minute: "numeric"};
-                } else if (dateFormat === kDateFormatWeekday) {
-                  dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
-                }
-                if (typeof Services.intl.DateTimeFormat === "function") {
-                  dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
+              if (locale === undefined) {
+                var useOSLocales = getPref("intl.regional_prefs.use_os_locales");
+                if (useOSLocales) {
+                  var osprefs = Cc["@mozilla.org/intl/ospreferences;1"].
+                                getService(Ci.mozIOSPreferences);
+                  locale = osprefs.regionalPrefsLocales[0];
                 } else {
-                  dateString = Services.intl.createDateTimeFormat(locale, dateOption).format(date);
+                  locale = null;
                 }
-              } else {
-                if (dateFormatService === undefined) {
-                  dateFormatService = Cc["@mozilla.org/intl/scriptabledateformat;1"].
-                                      getService(Ci.nsIScriptableDateFormat);
-                }
-                dateString = dateFormatService.FormatDateTime("",
-                  dateFormat, dateFormatService.timeFormatNoSeconds,
-                  date.getFullYear(), date.getMonth()+1, date.getDate(),
-                  date.getHours(), date.getMinutes(), date.getSeconds());
               }
+              var dateOption = {dateStyle: "short", timeStyle: "short"};
+              if (dateFormat === kDateFormatNone) {
+                dateOption = {timeStyle: "short"};
+              } else if (dateFormat === kDateFormatLong) {
+                dateOption = {dateStyle: "long", timeStyle: "short"};
+              } else if (dateFormat === kDateFormatShort) {
+                dateOption = {dateStyle: "short", timeStyle: "short"};
+              } else if (dateFormat === kDateFormatYearMonth) {
+                dateOption = {year: "numeric", month: "2-digit", hour: "numeric", minute: "numeric"};
+              } else if (dateFormat === kDateFormatWeekday) {
+                dateOption = {weekday: "short", hour: "numeric", minute: "numeric"};
+              }
+              dateString = new Services.intl.DateTimeFormat(locale, dateOption).format(date);
             }
             aCell.setAttribute("label", dateString);
             aRow.appendChild(aCell);
 
-            var aItem = (typeof document.createXULElement === "function")
-              ? document.createXULElement("treeitem")
-              : document.createElement("treeitem");
+            var aItem = document.createXULElement("treeitem");
             aItem.appendChild(aRow);
             aTree.appendChild(aItem);
           }
@@ -1894,18 +1665,9 @@ function createTempFile()
                     getService(Ci.nsIProperties)
   var tmpDir = dirService.get("TmpD", Ci.nsIFile)
 
-  var file;
-
-  try {
-    file = Cc["@mozilla.org/file/local;1"].
-           createInstance(Ci.nsIFile);
-    file.initWithPath(tmpDir.path);
-  } catch(ex) {
-    // Starting with Gecko 14, `nsILocalFile` inherits all functions and attributes from `nsIFile`
-    file = Cc["@mozilla.org/file/local;1"].
-           createInstance(Ci.nsILocalFile);
-    file.initWithPath(tmpDir.path);
-  }
+  var file = Cc["@mozilla.org/file/local;1"].
+             createInstance(Ci.nsIFile);
+  file.initWithPath(tmpDir.path);
   file.appendRelativePath("mailredirect.tmp");
 
   try {
@@ -1926,15 +1688,8 @@ function FileSpecFromLocalFile(localfile)
 
 function encodeMimePartIIStr_UTF8(aHeader, aFieldNameLen)
 {
-  if ((gAppInfoID === THUNDERBIRD_ID && gAppInfoPlatformVersion >= 63) ||
-      (gAppInfoID === SEAMONKEY_ID && gAppInfoPlatformVersion >= 60)) {
-    // This function call changed with bug 1412574 for Thunderbird 63, but SeaMonkey 2.53.1 also uses the new form
-    return MailServices.mimeConverter.encodeMimePartIIStr_UTF8(aHeader, true, aFieldNameLen,
-                                                               Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
-  } else {
-    return MailServices.mimeConverter.encodeMimePartIIStr_UTF8(aHeader, true, "UTF-8", aFieldNameLen,
-                                                               Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
-  }
+  return MailServices.mimeConverter.encodeMimePartIIStr_UTF8(aHeader, true, aFieldNameLen,
+                                                             Ci.nsIMimeConverter.MIME_ENCODED_WORD_SIZE);
 }
 
 function encodeMimeHeader(header)
@@ -1977,13 +1732,7 @@ function encodeMimeHeader(header)
 function getSender()
 {
   if (!aSender) {
-    // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
-    if (typeof MailServices.headerParser.makeMimeHeader === "function") {
-      aSender = MailServices.headerParser.makeMimeHeader([{name: gCurrentIdentity.fullName, email: gCurrentIdentity.email}], 1);
-    } else {
-      aSender = MailServices.headerParser.makeFullAddress(gCurrentIdentity.fullName,
-                                                          gCurrentIdentity.email);
-    }
+    aSender = MailServices.headerParser.makeMimeHeader([{name: gCurrentIdentity.fullName, email: gCurrentIdentity.email}], 1);
   }
   return aSender;
 }
@@ -2139,13 +1888,7 @@ function getResentHeaders()
   }
   if (!msgCompFields.to && !msgCompFields.cc) {
     let composeMsgsBundle = Services.strings.createBundle("chrome://messenger/locale/messengercompose/composeMsgs.properties");
-    let undisclosedRecipients;
-    try {
-      undisclosedRecipients = composeMsgsBundle.GetStringFromName("undisclosedRecipients");
-    } catch(ex) {
-      // Entity 12566 was renamed to undisclosedRecipients in TB30
-      undisclosedRecipients = composeMsgsBundle.GetStringFromName("12566");
-    }
+    let undisclosedRecipients = composeMsgsBundle.GetStringFromName("undisclosedRecipients");
     resenthdrs += encodeMimeHeader("Resent-To: " + undisclosedRecipients + ":;" + "\r\n");
   }
   resenthdrs += "Resent-Date: " + getResentDate() + "\r\n";
@@ -2481,18 +2224,9 @@ function nsMsgStatusFeedback(idx)
 {
   // dumper.dump("nsMsgStatusFeedback(" + idx + ")");
   this.URIidx = idx;
-  if (gAppInfoID === THUNDERBIRD_ID) {
-    this.throbber = document.getElementById("throbber-box");
-  } else if (gAppInfoID === SEAMONKEY_ID) {
-    this.throbber = document.getElementById("navigator-throbber");
-  }
-  if (gAppInfoPlatformVersion < 65) {
-    this.statusTextFld = document.getElementById("statusText-pre65");
-    this.statusBar = document.getElementById("bounce-progressmeter-pre65");
-  } else {
-    this.statusTextFld = document.getElementById("statusText");
-    this.statusBar = document.getElementById("bounce-progressmeter");
-  }
+  this.throbber = document.getElementById("throbber-box");
+  this.statusTextFld = document.getElementById("statusText");
+  this.statusBar = document.getElementById("bounce-progressmeter");
   var treeChildren = document.getElementById("topTreeChildren");
   if (treeChildren) {
     var el = treeChildren.getElementsByAttribute("URIidx", this.URIidx);
@@ -2692,20 +2426,10 @@ nsMsgStatusFeedback.prototype = {
 function nsMeteorsStatus()
 {
   dumper.dump("nsMeteorsStatus");
-  if (gAppInfoID === THUNDERBIRD_ID) {
-    this.throbber = document.getElementById("throbber-box");
-  } else if (gAppInfoID === SEAMONKEY_ID) {
-    this.throbber = document.getElementById("navigator-throbber");
-  }
-  if (gAppInfoPlatformVersion < 65) {
-    this.statusTextFld = document.getElementById("statusText-pre65");
-    this.statusBar = document.getElementById("bounce-progressmeter-pre65");
-    this.progressBarContainer = document.getElementById("bounce-progressmeter-pre65");
-  } else {
-    this.statusTextFld = document.getElementById("statusText");
-    this.statusBar = document.getElementById("bounce-progressmeter");
-    this.progressBarContainer = document.getElementById("statusbar-progresspanel");
-  }
+  this.throbber = document.getElementById("throbber-box");
+  this.statusTextFld = document.getElementById("statusText");
+  this.statusBar = document.getElementById("bounce-progressmeter");
+  this.progressBarContainer = document.getElementById("statusbar-progresspanel");
 }
 
 nsMeteorsStatus.prototype = {
@@ -2869,22 +2593,6 @@ nsMsgSendListener.prototype = {
                       createInstance(Ci.nsIMessenger);
       var msgService = messenger.messageServiceFromURI(mstate.selectedURIs[this.URIidx]);
       var msgHdr = msgService.messageURIToMsgHdr(mstate.selectedURIs[this.URIidx]);
-      /*
-       * redirected status bug
-       *
-       * var keywords = msgHdr.getStringProperty("keywords");
-      if (keywords.length !== 0) {
-        if (! /(?:^| )redirected(?: |$)/.test(keywords)) {
-          keywords += " redirected";
-        }
-      } else {
-        keywords = "redirected";
-      }
-      msgHdr.setStringProperty("keywords", keywords);
-      var msgDb = msgHdr.folder.msgDatabase;
-      msgDb.Commit(1); // msgDb.Commit(MSG_DB_LARGE_COMMIT);
-       */
-
       var msg = Cc["@mozilla.org/array;1"].
                 createInstance(Ci.nsIMutableArray);
       msg.appendElement(msgHdr, false);
@@ -2893,8 +2601,6 @@ nsMsgSendListener.prototype = {
       } catch(e) {
         dumper.dump(e);
       }
-      /* End of bugfix */
-
     }
   },
 
@@ -3109,19 +2815,15 @@ function toggleAddressPicker()
 
     var sidebar = document.getElementById("sidebar");
     var sidebarUrl = sidebar.getAttribute("src");
-    // if we have yet to initialize the src url on the sidebar than go ahead and do so now...
-    // we do this lazily here, so we don't spend time when bringing up the compose window loading the address book
+    // if we have yet to initialize the src url on the sidebar then go ahead and do so now...
+    // we do this lazily here, so we don't spend time when bringing up the redirect window loading the address book
     // data sources. Only when the user opens the address picker do we set the src url for the sidebar...
     if (sidebarUrl === "") {
-      if (gAppInfoID === THUNDERBIRD_ID) {
-        // CardBook contact sidebar
-        if (getPref("extensions.cardbook.autocompletion", false) === true) {
-          sidebar.setAttribute("src", "chrome://cardbook/content/contactsSidebar/wdw_cardbookContactsSidebar.xul");
-        } else {
-          sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
-        }
-      } else if (gAppInfoID === SEAMONKEY_ID) {
-        sidebar.setAttribute("src", "chrome://messenger/content/addressbook/addressbook-panel.xul");
+      // CardBook contact sidebar
+      if (getPref("extensions.cardbook.autocompletion", false) === true) {
+        sidebar.setAttribute("src", "chrome://cardbook/content/contactsSidebar/wdw_cardbookContactsSidebar.xul");
+      } else {
+        sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
       }
       setTimeout(function() { renameToToResendTo() }, 100);
     }
@@ -3154,323 +2856,45 @@ function renameToToResendTo()
     setTimeout(function() { renameToToResendTo() }, 100);
   } else {
     let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
-    if (gAppInfoID === THUNDERBIRD_ID) {
-      var cardProperties = el.contentDocument.getElementById("cardProperties");
-      if (cardProperties === null) {
-        setTimeout(function() { renameToToResendTo() }, 100);
-      } else {
-        var offset = 0;
-        // Add-on sniffing by checking for id that is used by CardBook
-        var menuitem = el.contentDocument.getElementById("replytoEmail");
-        if (menuitem !== null) {
-          menuitem.setAttribute("hidden", true);
-          menuitem = el.contentDocument.getElementById("replytoButton");
-          menuitem.setAttribute("hidden", true);
-        } else {
-          // In bug 236240 the position of Delete and Properties items has changed, so also those of To, Cc, and Bcc
-          if (gAppInfoPlatformVersion < 50) {
-            offset = 2;
-          }
-        }
-        var menuitems = cardProperties.getElementsByTagName("menuitem");
-        menuitems.item(offset).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToContextMenuLabelTB"));
-        menuitems.item(offset).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToContextMenuAccesskeyTB"));
-        menuitems.item(offset).setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
-        menuitems.item(offset+1).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcContextMenuLabelTB"));
-        menuitems.item(offset+1).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcContextMenuAccesskeyTB"));
-        menuitems.item(offset+1).setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
-        menuitems.item(offset+2).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccContextMenuLabelTB"));
-        menuitems.item(offset+2).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccContextMenuAccesskeyTB"));
-        menuitems.item(offset+2).setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
-
-        var button = el.contentDocument.getElementById("toButton");
-        button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToButtonLabel"));
-        button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToButtonAccesskey"));
-        button.setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
-        button = el.contentDocument.getElementById("ccButton");
-        button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcButtonLabel"));
-        button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcButtonAccesskey"));
-        button.setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
-        button = el.contentDocument.getElementById("bccButton");
-        button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccButtonLabel"));
-        button.setAttribute("crop", "center");
-        button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccButtonAccesskey"));
-        button.setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
-
-        // Move bccButton down
-        if (false) {
-          var spacer = button.previousSibling;
-          spacer.parentNode.removeChild(spacer);
-          var hboxCc = button.parentNode;
-          var hboxBcc;
-          if (typeof document.createXULElement === "function") {
-            hboxBcc = document.createXULElement("hbox");
-            hboxBcc.appendChild(document.createXULElement("spring"));
-            hboxBcc.childNodes[0].setAttribute("flex", 1);
-            hboxBcc.appendChild(button);
-            hboxBcc.appendChild(document.createXULElement("spring"));
-            hboxBcc.childNodes[2].setAttribute("flex", 1);
-            hboxCc.parentNode.insertBefore(hboxBcc, hboxCc.nextSibling);
-          } else {
-            hboxBcc = document.createElement("hbox");
-            hboxBcc.appendChild(document.createElement("spring"));
-            hboxBcc.childNodes[0].setAttribute("flex", 1);
-            hboxBcc.appendChild(button);
-            hboxBcc.appendChild(document.createElement("spring"));
-            hboxBcc.childNodes[2].setAttribute("flex", 1);
-            hboxCc.parentNode.insertBefore(hboxBcc, hboxCc.nextSibling);
-          }
-        }
-      }
-    } else if (gAppInfoID === SEAMONKEY_ID) {
-      var popup = el.contentDocument.getElementById("composeMail");
-      if (popup === null) {
-        setTimeout(function() { renameToToResendTo() }, 100);
-      } else {
-        parent.document.documentElement.setAttribute("windowtype", "msgcompose"); // Make AbPanelLoad believe this is a msgcompose window so it displays the right menuitems
-        popup.childNodes[0].setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToContextMenuLabelSM"));
-        popup.childNodes[0].setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToContextMenuAccesskeySM"));
-        popup.childNodes[0].setAttribute("oncommand", "AbPanelAdd(\"addr_to\");");
-        popup.childNodes[1].setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcContextMenuLabelSM"));
-        popup.childNodes[1].setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcContextMenuAccesskeySM"));
-        popup.childNodes[1].setAttribute("oncommand", "AbPanelAdd(\"addr_cc\");");
-        popup.childNodes[2].setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccContextMenuLabelSM"));
-        popup.childNodes[2].setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccContextMenuAccesskeySM"));
-        popup.childNodes[2].setAttribute("oncommand", "AbPanelAdd(\"addr_bcc\");");
-        for (var i = 0; i < 4; i++) {
-          popup.childNodes[i].hidden = false;
-        }
-        popup.childNodes[4].hidden = true;
-      }
-    }
-  }
-}
-
-/*
- * maillists
- *
- * ported from https://dxr.mozilla.org/comm-esr24/source/mailnews/compose/src/nsMsgCompose.cpp#4694
- * (nsMsgCompose::CheckAndPopulateRecipients)
- */
-
-/* Only called in TB < 29 */
-function ResolveMailLists()
-{
-  var stillNeedToSearch = true;
-  var abDirectory;
-  var existingCard;
-  var mailListAddresses;
-  var mailListArray;
-  var addrbookDirArray = GetABDirectories();
-  var nbrAddressbook = addrbookDirArray.length;
-
-  let msgCompFields = gMsgCompose.compFields;
-
-  for (var k = 0; k < nbrAddressbook && stillNeedToSearch; ++k) {
-    // Avoid recursive mailing lists
-    if (abDirectory && (addrbookDirArray[k] === abDirectory)) {
-      stillNeedToSearch = false;
-      break;
-    }
-    abDirectory = addrbookDirArray[k].QueryInterface(Ci.nsIAbDirectory);
-    if (!abDirectory.supportsMailingLists) {
-      continue;
-    }
-
-    // Skip unopened Ubuntuone Address Books
-    if (Ci.nsIAbEDSDirectory && (abDirectory instanceof Ci.nsIAbEDSDirectory) &&
-        abDirectory.QueryInterface(Ci.nsIAbEDSDirectory) && !abDirectory._open) {
-      continue;
-    }
-
-    // Collect all mailing lists defined in this address book
-    mailListArray = BuildMailListArray(abDirectory);
-
-    for (var recipType in mailredirectRecipients) {
-      for (var j = 0; j < mailredirectRecipients[recipType].length; ++j) {
-        var recipient = mailredirectRecipients[recipType][j];
-        recipient.mProcessed = false;
-      }
-    }
-
-    stillNeedToSearch = false;
-    for (var recipType in mailredirectRecipients) {
-      // Note: We check this each time to allow for length changes.
-      for (var j = 0; j < mailredirectRecipients[recipType].length; ++j) {
-        var recipient = mailredirectRecipients[recipType][j];
-        if (!recipient.mProcessed) {
-          // First check if it's a mailing list
-          var mailListAddresses = GetMailListAddresses(recipient.fullname, mailListArray);
-          if (mailListAddresses) {
-            // Always populate
-            for (var nbrAddresses = mailListAddresses.length; nbrAddresses > 0; nbrAddresses--) {
-              existingCard = mailListAddresses.queryElementAt(nbrAddresses - 1, Ci.nsIAbCard);
-
-              var newRecipient;
-              var bIsMailList = existingCard.isMailList;
-              var pDisplayName = existingCard.displayName;
-
-              var email;
-              if (bIsMailList) {
-                email = existingCard.notes;
-              } else {
-                email = existingCard.primaryEmail;
-              }
-              var mAddress;
-              // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
-              if (typeof MailServices.headerParser.makeMimeHeader === "function") {
-                mAddress = MailServices.headerParser.makeMimeHeader([{name: existingCard.displayName, email: email}], 1);
-              } else {
-                mAddress = MailServices.headerParser.makeFullAddress(existingCard.displayName, email);
-              }
-              if (!mAddress) {
-                // Oops, parser problem! I will try to do my best...
-                mAddress = pDisplayName + " <";
-                if (bIsMailList) {
-                  if (email) {
-                    mAddress += email;
-                  } else {
-                    mAddress += pDisplayName;
-                  }
-                } else {
-                  mAddress += email;
-                }
-                mAddress += ">";
-              }
-
-              if (!mAddress) {
-                continue;
-              }
-
-              // Now we need to insert the new address into the list of recipient
-              if (bIsMailList) {
-                stillNeedToSearch = true;
-              } else {
-                var newRecipient = { email: email, name: pDisplayName, fullname: mAddress };
-                newRecipient.mProcessed = true;
-              }
-              mailredirectRecipients[recipType].splice(j + 1, 0, newRecipient);
-            }
-            mailredirectRecipients[recipType].splice(j, 1);
-            --j;
-            continue;
-          }
-
-          if (!abDirectory) {
-            stillNeedToSearch = true;
-            continue;
-          }
-
-          // find a card that contains this e-mail address
-          existingCard = null
-          // Try/catch because cardForEmailAddress will throw if not implemented.
-          try {
-            existingCard = abDirectory.cardForEmailAddress(recipient.email);
-          } catch (e) { }
-
-          if (existingCard) {
-            recipient.mProcessed = true;
-            if (!abDirectory.readOnly) {
-              var popularityValue = existingCard.getProperty("PopularityIndex", "0");
-              var popularityIndex = parseInt(popularityValue);
-
-              if (isNaN(popularityIndex)) {
-                // TB 2 wrote the popularity value as hex, so if we get here,
-                // then we've probably got a hex value. We'll convert it back
-                // to decimal, as that's the best we can do.
-                popularityIndex = parseInt(popularityValue, 16);
-
-                // If its still NaN, just give up, we shouldn't ever get here.
-                if (isNaN(popularityIndex)) {
-                  popularityIndex = 0;
-                }
-              }
-
-              existingCard.setProperty("PopularityIndex", ++popularityIndex);
-              try {
-                abDirectory.modifyCard(existingCard);
-              } catch(ex) {
-                Components.utils.reportError(ex);
-              }
-            }
-          } else {
-            stillNeedToSearch = true;
-          }
-        }
-      }
-    }
-  }
-}
-
-function GetABDirectories()
-{
-  var abManager = Cc["@mozilla.org/abmanager;1"].
-                  getService(Ci.nsIAbManager);
-  var directoriesArray = [];
-  var collectedAddressbook = null;
-
-  var directories = abManager.directories;
-  while (directories.hasMoreElements()) {
-    var directory = directories.getNext().QueryInterface(Ci.nsIAbDirectory);
-    if (directory.isMailList) {
-      continue;
-    }
-    var uri = directory.URI;
-    if (uri === kPersonalAddressbookUri) {
-      directoriesArray.unshift(directory);
+    var cardProperties = el.contentDocument.getElementById("cardProperties");
+    if (cardProperties === null) {
+      setTimeout(function() { renameToToResendTo() }, 100);
     } else {
-      if (uri === kCollectedAddressbookUri) {
-        collectedAddressbook = directory;
-      } else {
-        directoriesArray.push(directory);
+      var offset = 0;
+      // Add-on sniffing by checking for id that is used by CardBook
+      var menuitem = el.contentDocument.getElementById("replytoEmail");
+      if (menuitem !== null) {
+        menuitem.setAttribute("hidden", true);
+        menuitem = el.contentDocument.getElementById("replytoButton");
+        menuitem.setAttribute("hidden", true);
       }
+      var menuitems = cardProperties.getElementsByTagName("menuitem");
+      menuitems.item(offset).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToContextMenuLabelTB"));
+      menuitems.item(offset).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToContextMenuAccesskeyTB"));
+      menuitems.item(offset).setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
+      menuitems.item(offset+1).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcContextMenuLabelTB"));
+      menuitems.item(offset+1).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcContextMenuAccesskeyTB"));
+      menuitems.item(offset+1).setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
+      menuitems.item(offset+2).setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccContextMenuLabelTB"));
+      menuitems.item(offset+2).setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccContextMenuAccesskeyTB"));
+      menuitems.item(offset+2).setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
+
+      var button = el.contentDocument.getElementById("toButton");
+      button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendToButtonLabel"));
+      button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendToButtonAccesskey"));
+      button.setAttribute("oncommand", "addSelectedAddresses(\"addr_to\");");
+      button = el.contentDocument.getElementById("ccButton");
+      button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendCcButtonLabel"));
+      button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendCcButtonAccesskey"));
+      button.setAttribute("oncommand", "addSelectedAddresses(\"addr_cc\");");
+      button = el.contentDocument.getElementById("bccButton");
+      button.setAttribute("label", bounceMsgsBundle.GetStringFromName("resendBccButtonLabel"));
+      button.setAttribute("crop", "center");
+      button.setAttribute("accesskey", bounceMsgsBundle.GetStringFromName("resendBccButtonAccesskey"));
+      button.setAttribute("oncommand", "addSelectedAddresses(\"addr_bcc\");");
     }
   }
-  if (collectedAddressbook) {
-    directoriesArray.push(collectedAddressbook);
-  }
-  return directoriesArray;
 }
-
-/* Only called in TB < 29 */
-function BuildMailListArray(parentDir)
-{
-  var array = [];
-  var subDirectories = parentDir.childNodes;
-  while (subDirectories.hasMoreElements()) {
-    var directory = subDirectories.getNext().QueryInterface(Ci.nsIAbDirectory);
-    if (directory.isMailList) {
-      var listName = directory.dirName;
-      var listDescription = directory.description;
-
-      // from nsMsgMailList constructor
-      var email = !listDescription ? listName : listDescription;
-      var fullAddress;
-      // makeFullAddress was changed to makeMimeHeader in Thunderbird 29 (bug 842632)
-      if (typeof MailServices.headerParser.makeMimeHeader === "function") {
-        fullAddress = MailServices.headerParser.makeMimeHeader([{name: listName, email: email}], 1);
-      } else {
-        fullAddress = MailServices.headerParser.makeFullAddress(listName, email);
-      }
-
-      var list = { email: email, fullName : fullAddress, directory : directory };
-      array.push(list);
-    }
-  }
-  return array;
-}
-
-function GetMailListAddresses(name, mailListArray)
-{
-  for (var i = 0; i < mailListArray.length; ++i) {
-    if (name.toLowerCase() === mailListArray[i].fullName.toLowerCase() ||
-        name.toLowerCase() === mailListArray[i].email.toLowerCase()) {
-      return mailListArray[i].directory.addressLists;
-    }
-  }
-  return undefined;
-}
-
 
 function getBounceToolbox()
 {

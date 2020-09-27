@@ -1,0 +1,9 @@
+{
+  "extensionName": {
+    "message": "Mail Redirect",
+    "description": "If you do translate this string, please append the original add-on name in parenthesis: (Mail Redirect)"
+  },
+  "extensionDescription": {
+    "message": "Dozvoljava preusmjeravanje (ili \"remail\") poruka e-pošte drugim primateljima."
+  }
+}

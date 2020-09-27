@@ -1,0 +1,9 @@
+{
+  "extensionName": {
+    "message": "Mail Redirect",
+    "description": "If you do translate this string, please append the original add-on name in parenthesis: (Mail Redirect)"
+  },
+  "extensionDescription": {
+    "message": "允許重新導向（又稱為「remail」）郵件訊息給其他收件者。"
+  }
+}

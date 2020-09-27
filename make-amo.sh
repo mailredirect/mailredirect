@@ -12,7 +12,7 @@ fi
 [ -d xpi ] || mkdir xpi
 cd xpi
 rm -fr ${DEST}/
-rsync -a --exclude-from=../${SRC}/make-exclude.txt --exclude '_locales/*' ../${SRC}/* ${DEST}/
+rsync -a --exclude-from=../${SRC}/make-exclude.txt ../${SRC}/* ${DEST}/
 cd ${DEST}/chrome/locale
 for locale in *
 do
@@ -74,18 +74,8 @@ do
   fi
 done
 echo -n -e "                                        \r"
-for locale in *
-do
-  file="${locale}/mailredirect.properties"
-  name=$(grep "\.name=" $file | sed -e "s/^.*\.name=//" | sed -e "s/\"/\\\\\\\\\"/g" -e "s/\&/\\\\\&/g")
-  description=$(grep "\.description=" $file | sed -e "s/^.*\.description=//" | sed -e "s/\"/\\\\\\\\\"/g" -e "s/\&/\\\\\&/g")
-  mkdir ../../_locales/${locale}
-  cat ../../../../${SRC}/make-messages.json | sed -e "s/__MSG_extensionName__/${name}/" -e "s/__MSG_extensionDescription__/${description}/" > ../../_locales/${locale}/messages.json
-  touch -r $file ../../_locales/${locale} ../../_locales/${locale}/messages.json
-done
 cd ../..
-echo install.rdf > mailredirect.txt
-echo manifest.json >> mailredirect.txt
+echo manifest.json > mailredirect.txt
 echo chrome.manifest >> mailredirect.txt
 find _locales -type f | sort >> mailredirect.txt
 find chrome -type f | sort >> mailredirect.txt
@@ -94,15 +84,11 @@ echo icon.png >> mailredirect.txt
 echo icon64.png >> mailredirect.txt
 echo LICENSE >> mailredirect.txt
 echo README >> mailredirect.txt
-grep \<em:update install.rdf > make-grep.txt
-grep -v -f make-grep.txt ../../${SRC}/install.rdf > install.rdf
-rm make-grep.txt
-version=$(grep em:version install.rdf | sed -r "s/^[^>]*>//" | sed -r "s/<.*$//")
 grep -v update_url manifest.json > manifest.tmp
 # Remove comma from strict_min_version line, because next line (update_url) has been removed
-cat manifest.tmp | sed -e "s/\(\"strict_min_version\".*\),/\1/" -e "s/\"version\": \".*\"/\"version\": \"${version}\"/" > manifest.json
+cat manifest.tmp | sed -e "s/\(\"strict_min_version\".*\),/\1/" > manifest.json
 rm manifest.tmp
-rm mailredirect-${version}-sm+tb.xpi 2> /dev/null
+version=$(grep "\"version\"" manifest.json | sed -r "s/^.*: \"//; s/\".*$//")
 zip -r -D -9 mailredirect-${version}-sm+tb.xpi -@ < mailredirect.txt
 rm mailredirect.txt
 if [ "$(uname)" != "Linux" ]

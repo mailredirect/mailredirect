@@ -1,0 +1,9 @@
+{
+  "extensionName": {
+    "message": "Üzenet átirányítás (Mail Redirect)",
+    "description": "If you do translate this string, please append the original add-on name in parenthesis: (Mail Redirect)"
+  },
+  "extensionDescription": {
+    "message": "Más címzettnek üzeneteket átirányítás."
+  }
+}

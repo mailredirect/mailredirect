@@ -1,0 +1,9 @@
+{
+  "extensionName": {
+    "message": "Mail Redirect",
+    "description": "If you do translate this string, please append the original add-on name in parenthesis: (Mail Redirect)"
+  },
+  "extensionDescription": {
+    "message": "Maakt het heradresseren (ook wel ‘remailen’) van e-mailberichten naar andere ontvangers mogelijk."
+  }
+}

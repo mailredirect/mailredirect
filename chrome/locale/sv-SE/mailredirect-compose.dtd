@@ -36,9 +36,6 @@
 <!ENTITY messengerCmd.modifiers "accel">
 <!ENTITY addressBookCmd.key "2">
 <!ENTITY addressBookCmd.modifiers "accel">
-<!-- For SeaMonkey -->
-<!ENTITY quitApplicationCmd.key "Q">
-<!ENTITY quitApplicationCmd.modifiers "accel">
 
 <!ENTITY customizeToolbar.label "Anpassa…">
 <!ENTITY customizeToolbar.accesskey "A">

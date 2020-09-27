@@ -1,0 +1,9 @@
+{
+  "extensionName": {
+    "message": "Redirigir correo (Mail Redirect)",
+    "description": "If you do translate this string, please append the original add-on name in parenthesis: (Mail Redirect)"
+  },
+  "extensionDescription": {
+    "message": "Permitir redirigir (o \"rebotar\") mensajes de correo a otros destinatarios."
+  }
+}

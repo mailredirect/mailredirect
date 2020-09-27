@@ -42,15 +42,6 @@ MailredirectDebug.Dump.prototype =
       var prefService = Cc["@mozilla.org/preferences-service;1"].
                         getService(Ci.nsIPrefService);
       this.prefBranch = prefService.getBranch(null);
-      if (!("addObserver" in this.prefBranch)) {
-        // Only necessary prior to Gecko 13
-        try {
-          this.prefBranch = this.prefBranch.QueryInterface(Ci.nsIPrefBranch2);
-        } catch(ex) {
-          // windows doesn't know nsIPrefBranch2 interface
-          this.prefBranch = this.prefBranch.QueryInterface(Ci.nsIPrefBranchInternal);
-        }
-      }
     }
 
     if (!this.aConsoleService) {

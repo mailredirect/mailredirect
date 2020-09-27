@@ -29,14 +29,11 @@ window.MailredirectIncontentPrefs = {
   {
     if (!MailredirectIncontentPrefs.mInitialized) {
       var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-      var gAppInfoID = appInfo.ID;
       var gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
       if (gAppInfoPlatformVersion < 70) {
         // For Thunderbird 68.* add Redirect to selector
         let paneRedirect = document.getElementById("paneRedirect");
-        let buttonRedirect = (typeof document.createXULElement === "function")
-          ? document.createXULElement("radio")
-          : document.createElement("radio");
+        let buttonRedirect = document.createXULElement("radio");
         buttonRedirect.setAttribute("pane", "paneRedirect");
         buttonRedirect.setAttribute("value", "paneRedirect");
         buttonRedirect.setAttribute("label", paneRedirect.getAttribute("label"));

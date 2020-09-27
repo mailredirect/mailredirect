@@ -4,9 +4,6 @@
 
 (function() {
 
-const THUNDERBIRD_ID = "{3550f703-e582-4d05-9a08-453d09bdfdc6}";
-const SEAMONKEY_ID = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
-
 const Cc = Components.classes, Ci = Components.interfaces;
 
 var MailUtils;
@@ -22,9 +19,6 @@ if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function")
 }
 
 window.MailredirectExtension = {
-
-  appInfo: Cc["@mozilla.org/xre/app-info;1"].
-           getService(Ci.nsIXULAppInfo),
 
   isOffline: Cc["@mozilla.org/network/io-service;1"].
              getService(Ci.nsIIOService).
@@ -60,15 +54,9 @@ window.MailredirectExtension = {
       }
     }
 
-    if (MailredirectExtension.appInfo.ID === THUNDERBIRD_ID) {
-      window.openDialog("chrome://mailredirect/content/mailredirect-compose-thunderbird.xul", "_blank",
-          "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
-          selectedURIs, currentIdentity.key);
-    } else if (MailredirectExtension.appInfo.ID === SEAMONKEY_ID) {
-      window.openDialog("chrome://mailredirect/content/mailredirect-compose-seamonkey.xul", "_blank",
-          "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
-          selectedURIs, currentIdentity.key);
-    }
+    window.openDialog("chrome://mailredirect/content/mailredirect-compose-thunderbird.xul", "_blank",
+        "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
+        selectedURIs, currentIdentity.key);
   },
 
   MailredirectController: {
@@ -187,15 +175,13 @@ window.MailredirectExtension = {
         hdrMailredirectButton = document.getElementById("msgHeaderViewDeck").getElementsByClassName("customize-header-toolbar-mailredirect-toolbarbutton").item(0);
       }
       if (hdrMailredirectButton === null) {
-        // Try the mail toolbar header button when the message hader redirect button is not found
+        // Try the mail toolbar header button when the message header redirect button is not found
         hdrMailredirectButton = document.getElementById("mailredirect-toolbarbutton");
       }
       if (hdrMailredirectButton !== null) {
         // Only create a redirect button for multimessage view if one is found on message header or toolbar
         var head = el.contentDocument.getElementsByTagName("head").item(0);
-        var newEl = (typeof document.createXULElement === "function")
-          ? document.createXULElement("link")
-          : document.createElement("link");
+        var newEl = document.createXULElement("link");
         newEl.setAttribute("rel", "stylesheet");
         newEl.setAttribute("media", "screen");
         newEl.setAttribute("type", "text/css");
@@ -222,9 +208,7 @@ window.MailredirectExtension = {
         var oldEl = body && el.contentDocument.getElementsByTagName("toolbarbutton").item(0); // hdrArchiveButton
         if (oldEl !== null) {
           // Thunderbird 10+ has toolbarbuttons
-          var newEl = (typeof document.createXULElement === "function")
-            ? document.createXULElement("toolbarbutton")
-            : document.createElement("toolbarbutton");
+          var newEl = document.createXULElement("toolbarbutton");
           newEl.setAttribute("id", "multimessageHdrMailredirectButton");
           newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
           if (hdrMailredirectButton !== null) {
@@ -233,21 +217,6 @@ window.MailredirectExtension = {
           }
           newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
           var insEl = oldEl.parentNode.insertBefore(newEl, oldEl);
-        } else {
-          // Thunderbird 10-
-          var parentEl = body && body.getElementsByTagName("hbox").item(0); // buttonhbox
-          var oldEl = body && body.getElementsByTagName("button").item(0); // archive
-          if (parentEl !== null && oldEl !== null && typeof document.createElement === "function") {
-            var newEl = document.createElement("button");
-            newEl.setAttribute("id", "multimessageHdrMailredirectButton");
-            newEl.setAttribute("class", "toolbarbutton-1 msgHeaderView-button hdrMailredirectButton");
-            if (hdrMailredirectButton !== null) {
-              newEl.setAttribute("style", "list-style-image: " + image + "; -moz-image-region: " + region + ";");
-              newEl.setAttribute("label", label);
-            }
-            newEl.addEventListener("click", MailredirectExtension.MultimessageClick, false);
-            var insEl = oldEl.parentNode.insertBefore(newEl, oldEl);
-          }
         }
       }
     }
@@ -300,11 +269,6 @@ window.MailredirectExtension = {
     let elementArray = [ "MailredirectMenuItem",
                          "mailContext-mailredirect",
                          "appmenu_mailredirect" ]
-
-    if (!document.getElementById("mailContext-forwardAsMenu")) {
-      // SeaMonkey doesn't have a Forward As context menu, so don't hide the context menu item
-      elementArray.splice(1, 1);
-    }
 
     for (var i = 0; i < elementArray.length; i++) {
       var el = document.getElementById(elementArray[i]);
@@ -401,15 +365,6 @@ window.MailredirectExtension = {
     var prefService = Cc["@mozilla.org/preferences-service;1"].
                       getService(Ci.nsIPrefService);
     window.prefBranch = prefService.getBranch("extensions.mailredirect.");
-    if (!("addObserver" in window.prefBranch)) {
-      // Only necessary prior to Gecko 13
-      try {
-        window.prefBranch = window.prefBranch.QueryInterface(Ci.nsIPrefBranch2);
-      } catch(ex) {
-        // windows doesn't know nsIPrefBranch2 interface
-        window.prefBranch = window.prefBranch.QueryInterface(Ci.nsIPrefBranchInternal);
-      }
-    }
     window.prefBranch.addObserver("", MailredirectExtension.PrefObserver, false);
 
     MailredirectExtension.addToForwardAs = MailredirectPrefs.getPref("extensions.mailredirect.addToForwardAs");
@@ -431,16 +386,10 @@ window.MailredirectPrefs.init();
 window.addEventListener("load", MailredirectExtension.InstallListeners, false);
 window.addEventListener("load", MailredirectExtension.AddObservers, false);
 window.addEventListener("load", MailredirectExtension.SetupController, false);
+window.addEventListener("DOMFrameContentLoaded", MailredirectExtension.addButtonToMultimessageView, true);
 
-var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-var versionChecker = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator);
-if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "36.0") >= 0) {
-  window.addEventListener("DOMFrameContentLoaded", MailredirectExtension.addButtonToMultimessageView, true);
-}
-if (appInfo.ID === THUNDERBIRD_ID && versionChecker.compare(appInfo.version, "60.0") >= 0) {
-  // Starting in Thunderbird 60 add-ons aren't unpacked anymore
-  window.MailredirectPrefs.unpackIcon();
-}
+// Starting in Thunderbird 60 add-ons aren't unpacked anymore
+window.MailredirectPrefs.unpackIcon();
 
 window.addEventListener("unload", MailredirectExtension.UninstallListeners, false);
 window.addEventListener("unload", MailredirectExtension.RemoveObservers, false);

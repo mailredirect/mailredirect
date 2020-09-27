@@ -1,0 +1,9 @@
+{
+  "extensionName": {
+    "message": "إعادة توجيه البريد (Mail Redirect)",
+    "description": "If you do translate this string, please append the original add-on name in parenthesis: (Mail Redirect)"
+  },
+  "extensionDescription": {
+    "message": "يُتيح لك إعادة توجيه رسائل البريد (أي إعادة إرسالها) إلى مستلمين آخرين."
+  }
+}

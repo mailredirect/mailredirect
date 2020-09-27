@@ -2,18 +2,8 @@
 
 "use strict";
 
-if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function") {
-  // New way of importing in TB67+
-  var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
-  try {
-    var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm"); // TB63+
-  } catch(ex) {
-    var { MailServices } = ChromeUtils.import("resource:///modules/mailServices.js");
-  }
-} else {
-  var { Services } = Components.utils.import("resource://gre/modules/Services.jsm", null); // Gecko 2+ (TB3.3)
-  var { MailServices } = Components.utils.import("resource:///modules/mailServices.js", null); // Gecko 5-63 (TB-63)
-}
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm");
 
 top.MAX_RECIPIENTS = 1; /* for the initial listitem created in the XUL */
 
@@ -35,13 +25,7 @@ function awGetNumberOfCols()
 {
   if (gNumberOfCols === 0) {
     var listbox = document.getElementById("addressingWidget");
-    // var listCols = listbox.getElementsByTagName("treecol");
-    var listCols;
-    if (gAppInfoID === THUNDERBIRD_ID) {
-      listCols = listbox.getElementsByTagName("treecol");
-    } else {
-      listCols = listbox.getElementsByTagName("listcol");
-    }
+    var listCols = listbox.getElementsByTagName("treecol");
     gNumberOfCols = listCols.length;
     if (!gNumberOfCols) {
       // if no cols defined, that means we have only one!
@@ -67,12 +51,7 @@ function awInitializeNumberOfRowsShown()
   // visibility of recipient rows per awNumRowsShownDefault and prevents scrollbar
   // on empty Address Widget, depending on OS screen resolution dpi scaling
   // (> 100%; thresholds differ).
-  let extraHeight;
-  if (gAppInfoID === THUNDERBIRD_ID) {
-    extraHeight = 2;
-  } else {
-    extraHeight = 4;
-  }
+  let extraHeight = 2;
 
   // Set minimum number of rows shown for address widget, per hardwired
   // rows="1" attribute of addressingWidget, to prevent resizing the
@@ -337,20 +316,10 @@ function awDeleteRow(rowToDelete)
 
 function awClickEmptySpace(target, setFocus)
 {
-  if (gAppInfoID === THUNDERBIRD_ID) {
-    if (document.getElementById("addressCol2#1").disabled ||
-        target === null ||
-        target.localName !== "hbox") {
-      return;
-    }
-  } else {
-    if (document.getElementById("addressCol2#1").disabled ||
-        target === null ||
-        (target.localName !== "listboxbody" &&
-         target.localName !== "listcell" &&
-         target.localName !== "listitem")) {
-      return;
-    }
+  if (document.getElementById("addressCol2#1").disabled ||
+      target === null ||
+      target.localName !== "hbox") {
+    return;
   }
 
   let lastInput = awGetInputElement(top.MAX_RECIPIENTS);
@@ -515,13 +484,7 @@ function awGetListItem(row)
   var listbox = document.getElementById("addressingWidget");
 
   if (listbox && row > 0) {
-    // var listitems = listbox.getElementsByTagName("richlistitem");
-    var listitems;
-    if (gAppInfoID === THUNDERBIRD_ID) {
-      listitems = listbox.getElementsByTagName("richlistitem");
-    } else {
-      listitems = listbox.getElementsByTagName("listitem");
-    }
+    var listitems = listbox.getElementsByTagName("richlistitem");
     if (listitems && listitems.length >= row) {
       return listitems[row-1];
     }
@@ -535,9 +498,7 @@ function awGetRowByInputElement(inputElement)
   if (inputElement) {
     var listitem = inputElement.parentNode.parentNode;
     while (listitem) {
-      // if (listitem.localName === "richlistitem")
-      if (listitem.localName === "richlistitem" ||
-          listitem.localName === "listitem") {
+      if (listitem.localName === "richlistitem") {
         ++row;
       }
       listitem = listitem.previousSibling;
@@ -838,12 +799,7 @@ function awCalcContentHeight()
 {
   var listbox = document.getElementById("addressingWidget");
   // var items = listbox.getElementsByTagName("richlistitem");
-  var items;
-  if (gAppInfoID === THUNDERBIRD_ID) {
-    var items = listbox.getElementsByTagName("richlistitem");
-  } else {
-    var items = listbox.getElementsByTagName("listitem");
-  }
+  var items = listbox.getElementsByTagName("richlistitem");
 
   gAWContentHeight = 0;
   if (items.length > 0) {
@@ -861,13 +817,9 @@ function awCalcContentHeight()
 function awCreateDummyItem(aParent)
 {
   var listbox = document.getElementById("addressingWidget");
-  // var item = listbox.getElementsByTagName("richlistitem")[0];
-  var item = listbox.getElementsByClassName("addressingWidgetItem")[0]; // Works both for Thunderbird and SeaMonkey
+  var item = listbox.getElementsByTagName("richlistitem")[0];
 
-  // var titem = document.createElement("richlistitem");
-  var titem = (typeof document.createXULElement === "function")
-    ? document.createXULElement(item.tagName)
-    : document.createElement(item.tagName);
+  var titem = document.createXULElement("richlistitem");
   titem.setAttribute("_isDummyRow", "true");
   titem.setAttribute("class", "dummy-row");
   titem.style.height = item.getBoundingClientRect().height + "px";
@@ -890,9 +842,7 @@ function awCreateDummyItem(aParent)
 
 function awCreateDummyCell(aParent)
 {
-  var cell = (typeof document.createXULElement === "function")
-    ? document.createXULElement("hbox")
-    : document.createElement("hbox");
+  var cell = document.createXULElement("hbox");
   cell.setAttribute("class", "addressingWidgetCell dummy-row-cell");
   if (aParent) {
     aParent.appendChild(cell);
