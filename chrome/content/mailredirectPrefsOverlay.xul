@@ -7,7 +7,7 @@
   %mailredirectPrefsDTD;
 ]>
 
-<?xml-stylesheet href="resource://mailredirect-shared/mailredirect-incontent-prefs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-shared/content/mailredirect-incontent-prefs.css" type="text/css"?>
 
 <overlay id="mailRedirectIncontentPrefsOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"

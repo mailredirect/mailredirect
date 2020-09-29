@@ -72,7 +72,7 @@
 .close-icon {
   -moz-appearance: none;
   -moz-context-properties: fill, fill-opacity;
-  list-style-image: url("resource://mailredirect-shared/close.svg");
+  list-style-image: url("chrome://mailredirect-shared/content/close.svg");
   color: inherit;
   fill: currentColor;
   fill-opacity: 0;

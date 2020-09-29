@@ -1,9 +1,9 @@
 radio[pane=paneRedirect] > .radio-check {
-  list-style-image: url("resource://mailredirect-shared/redirect.svg");
+  list-style-image: url("chrome://mailredirect-shared/content/redirect.svg");
 }
 
 radio[pane=paneRedirect] {
-  list-style-image: url("resource://mailredirect-shared/icon.png");
+  list-style-image: url("chrome://mailredirect-shared/content/icon.png");
 }
 
 #xToolTip {
