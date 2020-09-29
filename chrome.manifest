@@ -49,7 +49,7 @@ locale  mailredirect  uk-UA  chrome/locale/uk-UA/
 locale  mailredirect  zh-CN  chrome/locale/zh-CN/
 locale  mailredirect  zh-TW  chrome/locale/zh-TW/
 
-skin  mailredirect-shared  classic/1.0  chrome/skin/shared/
-skin  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/aero/
-skin  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/unix/      os=Linux
-skin  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/mac/       os=Darwin
+resource  mailredirect-shared  classic/1.0  chrome/skin/shared/
+resource  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/aero/
+resource  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/unix/      os=Linux
+resource  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/mac/       os=Darwin

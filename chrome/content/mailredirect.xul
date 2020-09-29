@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect.css" type="text/css"?>
-<?xml-stylesheet href="chrome://mailredirect/skin/mailredirect-subjectCol.css" type="text/css"?>
+<?xml-stylesheet href="resource://mailredirect/mailredirect.css" type="text/css"?>
+<?xml-stylesheet href="resource://mailredirect/mailredirect-subjectCol.css" type="text/css"?>
 
 <!DOCTYPE overlay [
   <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
