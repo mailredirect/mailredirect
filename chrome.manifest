@@ -1,5 +1,4 @@
 content  mailredirect        chrome/content/
-content  mailredirect-icons  chrome/icons/
 
 overlay  chrome://messenger/content/messenger.xul                chrome://mailredirect/content/mailredirectMessengerOverlay.xul
 overlay  chrome://messenger/content/messenger.xul                chrome://mailredirect/content/msgHdrViewOverlay.xul
@@ -49,7 +48,7 @@ locale  mailredirect  uk-UA  chrome/locale/uk-UA/
 locale  mailredirect  zh-CN  chrome/locale/zh-CN/
 locale  mailredirect  zh-TW  chrome/locale/zh-TW/
 
-resource  mailredirect-shared  classic/1.0  chrome/skin/shared/
-resource  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/aero/
-resource  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/unix/      os=Linux
-resource  mailredirect         classic/1.0  chrome/skin/classic/thunderbird/mac/       os=Darwin
+resource  mailredirect-shared  chrome/skin/shared/
+resource  mailredirect         chrome/skin/classic/thunderbird/aero/
+resource  mailredirect         chrome/skin/classic/thunderbird/unix/      os=Linux
+resource  mailredirect         chrome/skin/classic/thunderbird/mac/       os=Darwin

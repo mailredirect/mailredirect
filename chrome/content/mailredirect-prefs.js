@@ -273,7 +273,7 @@ window.MailredirectPrefs = {
                                     createInstance(Ci.nsIFileOutputStream);
             try {
               aFileOutputStream.init(file, -1, -1, 0);
-              copyFile("chrome://mailredirect-icons/content/default/" + iconFilename, aFileOutputStream);
+              copyFile("resource://mailredirect-shared/icons/" + iconFilename, aFileOutputStream);
 
               if (!chromeIcon.exists()) {
                 // Icon still doesn't exist
