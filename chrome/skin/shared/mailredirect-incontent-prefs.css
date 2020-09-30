@@ -1,5 +1,5 @@
 radio[pane=paneRedirect] > .radio-check {
-  list-style-image: url("chrome://mailredirect-shared/content/redirect.svg");
+  list-style-image: url("resource://mailredirect-shared/redirect.svg");
   -moz-context-properties: fill, fill-opacity;
   fill: currentColor;
   fill-opacity: 1;

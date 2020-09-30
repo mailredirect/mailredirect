@@ -3,7 +3,7 @@
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
 <?xml-stylesheet type="text/css" href="chrome://messenger/skin/preferences/preferences.css"?>
-<?xml-stylesheet href="chrome://mailredirect-shared/content/mailredirect-prefs.css" type="text/css"?>
+<?xml-stylesheet href="resource://mailredirect-shared/mailredirect-prefs.css" type="text/css"?>
 
 <!DOCTYPE prefwindow [
   <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
