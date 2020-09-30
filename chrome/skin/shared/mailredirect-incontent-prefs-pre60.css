@@ -1,8 +1,0 @@
-radio[pane=paneRedirect] > .paneButtonIcon {
-  list-style-image: url("resource://mailredirect-shared/icon.svg#redirect");
-}
-
-#xToolTip {
-  -moz-binding: url("chrome://mailredirect/content/xtooltip.xml#xtooltip");
-  padding: 0px !important;
-}

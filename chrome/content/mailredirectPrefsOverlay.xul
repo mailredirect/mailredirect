@@ -9,7 +9,7 @@
 
 <?xml-stylesheet href="resource://mailredirect-shared/mailredirect-incontent-prefs.css" type="text/css"?>
 
-<overlay id="mailRedirectIncontentPrefsOverlay"
+<overlay id="mailredirectPrefsOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">
 

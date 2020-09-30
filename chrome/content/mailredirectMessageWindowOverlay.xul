@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?xml-stylesheet href="resource://mailredirect/mailredirect.css" type="text/css"?>
-<?xml-stylesheet href="resource://mailredirect/mailredirect-subjectCol.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-skin/content/mailredirect.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-skin/content/mailredirect-subjectCol.css" type="text/css"?>
 
 <!DOCTYPE overlay [
   <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
   %mailredirectDTD;
+  <!ENTITY % msgHdrViewOverlayDTD SYSTEM "chrome://mailredirect/locale/msgHdrViewOverlay.dtd">
+  %msgHdrViewOverlayDTD;
 ]>
 
-<overlay id="mailRedirectOverlay"
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+<overlay id="mailredirectMessageWindowOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
 
   <script type="application/javascript" src="chrome://global/content/globalOverlay.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
@@ -75,5 +77,25 @@
       label="&forwardAsRedirect.label;" accesskey="&forwardAsRedirect.accesskey;"
       command="cmd_mailredirect" />
   </menupopup>
+
+  <toolbarpalette id="header-view-toolbar-palette">
+    <toolbarbutton id="hdrMailredirectButton"
+                   label="&hdrMailredirectButton1.label;"
+                   tooltiptext="&hdrMailredirectButton1.tooltip;"
+                   oncommand="cmd_mailredirect(event);RestoreFocusAfterHdrButton();"
+                   observes="cmd_mailredirect"
+                   class="toolbarbutton-1 msgHeaderView-button hdrMailredirectButton" />
+  </toolbarpalette>
+
+  <menupopup id="hdrForwardDropdown">
+    <menuitem id="hdrForwardAsRedirectMenu"
+              label="&bounceCommand.label;"
+              tooltiptext="&forwardAsRedirect.tooltip;"
+              insertafter="hdrForwardAsAttachmentMenu"
+              command="cmd_mailredirect"/>
+  </menupopup>
+
+  <toolbar id="header-view-toolbar"
+           defaultset="hdrReplyToSenderButton,hdrSmartReplyButton,hdrForwardButton,hdrMailredirectButton,hdrArchiveButton,hdrJunkButton,hdrTrashButton,otherActionsButton"/>
 
 </overlay>

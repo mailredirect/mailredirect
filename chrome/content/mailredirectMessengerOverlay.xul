@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?xml-stylesheet href="chrome://mailredirect-skin/content/mailredirect.css" type="text/css"?>
+<?xml-stylesheet href="chrome://mailredirect-skin/content/mailredirect-subjectCol.css" type="text/css"?>
+
 <!DOCTYPE overlay [
   <!ENTITY % mailredirectDTD SYSTEM "chrome://mailredirect/locale/mailredirect.dtd">
   %mailredirectDTD;
+  <!ENTITY % msgHdrViewOverlayDTD SYSTEM "chrome://mailredirect/locale/msgHdrViewOverlay.dtd">
+  %msgHdrViewOverlayDTD;
 ]>
 
 <overlay id="mailredirectMessengerOverlay"
@@ -25,5 +30,90 @@
                    insertafter="appmenu_forwardAsAttachment"
                    observes="cmd_mailredirect" />
   </panelview>
+
+  <script type="application/javascript" src="chrome://global/content/globalOverlay.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
+  <script type="application/javascript" src="chrome://mailredirect/content/mailredirect.js"/>
+
+  <commandset id="mailToolbarItems">
+    <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
+  </commandset>
+
+  <keyset id="mailKeys">
+    <key id="key_mailredirect" key="&bounceMsgCmd.key;" modifiers="&bounceMsgCmd.modifiers;"
+      oncommand="goDoCommand('cmd_mailredirect')" />
+  </keyset>
+
+  <menupopup id="messageMenuPopup">
+    <menuitem id="MailredirectMenuItem"
+      label="&bounceCommand.label;"
+      accesskey="&bounceCommand.accesskey;"
+      insertafter="forwardAsMenu"
+      key="key_mailredirect"
+      command="cmd_mailredirect" />
+  </menupopup>
+
+  <menupopup id="menu_forwardAsPopup">
+    <menuitem id="menu_forwardAsRedirect"
+      label="&forwardAsRedirect.label;"
+      accesskey="&forwardAsRedirect.accesskey;"
+      insertafter="menu_forwardAsAttachment"
+      command="cmd_mailredirect" />
+  </menupopup>
+
+  <toolbarpalette id="MailToolbarPalette">
+    <toolbarbutton id="mailredirect-toolbarbutton" class="toolbarbutton-1" label="&bounceCommand.label;"
+      tooltiptext="&bounceCommand.tooltip;" observes="cmd_mailredirect" insertafter="button-forward" />
+  </toolbarpalette>
+
+  <menupopup id="button-ForwardPopup">
+    <menuitem id="button-ForwardAsRedirect"
+      label="&forwardAsRedirect.label;"
+      tooltiptext="&forwardAsRedirect.tooltip;"
+      insertafter="button-ForwardAsAttachmentMenu,button-forwardAsMenu-forwardAsAttachment"
+      command="cmd_mailredirect" /> <!-- button-forwardAsMenu-forwardAsAttachment is added by Forward add-on -->
+  </menupopup>
+
+  <menupopup id="mailContext">
+    <menuitem id="mailContext-mailredirect"
+      label="&bounceCommand.label;"
+      accesskey="&bounceCommand.accesskey;"
+      insertafter="mailContext-forwardAsMenu,mailContext-forward"
+      insertbefore="mailContext-multiForwardAsAttachment"
+      command="cmd_mailredirect" />
+    <menuitem id="mailContext-multiMailredirect"
+      label="&bounceCommand.label;"
+      accesskey="&bounceCommand.accesskey;"
+      insertafter="mailContext-multiForwardAsAttachment"
+      insertbefore="mailContext-editAsNew"
+      command="cmd_mailredirect" />
+  </menupopup>
+
+  <menupopup id="mailContext-forwardAsPopup">
+    <menuitem id="mailContext-forwardAsMailredirect" insertafter="mailContext-forwardAsAttachment"
+      label="&forwardAsRedirect.label;" accesskey="&forwardAsRedirect.accesskey;"
+      command="cmd_mailredirect" />
+  </menupopup>
+
+  <toolbarpalette id="header-view-toolbar-palette">
+    <toolbarbutton id="hdrMailredirectButton"
+                   label="&hdrMailredirectButton1.label;"
+                   tooltiptext="&hdrMailredirectButton1.tooltip;"
+                   oncommand="cmd_mailredirect(event);RestoreFocusAfterHdrButton();"
+                   observes="cmd_mailredirect"
+                   class="toolbarbutton-1 msgHeaderView-button hdrMailredirectButton" />
+  </toolbarpalette>
+
+  <menupopup id="hdrForwardDropdown">
+    <menuitem id="hdrForwardAsRedirectMenu"
+              label="&bounceCommand.label;"
+              tooltiptext="&forwardAsRedirect.tooltip;"
+              insertafter="hdrForwardAsAttachmentMenu"
+              command="cmd_mailredirect"/>
+  </menupopup>
+
+  <toolbar id="header-view-toolbar"
+           defaultset="hdrReplyToSenderButton,hdrSmartReplyButton,hdrForwardButton,hdrMailredirectButton,hdrArchiveButton,hdrJunkButton,hdrTrashButton,otherActionsButton"/>
 
 </overlay>
