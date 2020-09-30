@@ -7,7 +7,7 @@
   %mailredirectDTD;
 ]>
 
-<?xml-stylesheet href="chrome://mailredirect-skin/content/messageHeader.css" type="text/css"?>
+<?xml-stylesheet href="resource://mailredirect/messageHeader.css" type="text/css"?>
 
 <overlay id="mailRedirectMsgHdrOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
