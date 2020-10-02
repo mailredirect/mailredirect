@@ -6,6 +6,6 @@ radio[pane=paneRedirect] > .radio-check {
 }
 
 #xToolTip {
-  -moz-binding: url("chrome://mailredirect/content/xtooltip.xml#xtooltip");
+  -moz-binding: url("resource://mailredirect-shared/xtooltip.xml#xtooltip");
   padding: 0px !important;
 }
