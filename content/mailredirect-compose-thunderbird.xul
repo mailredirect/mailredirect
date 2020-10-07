@@ -15,7 +15,7 @@
 <?xml-stylesheet href="chrome://messenger/skin/mailWindow1.css" type="text/css"?>
 
 <?xml-stylesheet href="resource://mailredirect-shared/mailredirect-compose.css" type="text/css"?>
-<?xml-stylesheet href="resource://mailredirect/mailredirect-compose.css" type="text/css"?>
+<?xml-stylesheet href="resource://mailredirect-os/mailredirect-compose.css" type="text/css"?>
 <?xml-stylesheet href="chrome://mailredirect-skin/content/mailredirect-subjectCol.css" type="text/css"?>
 
 <!DOCTYPE window [

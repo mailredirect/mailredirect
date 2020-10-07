@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?xml-stylesheet href="resource://mailredirect/mailredirect.css" type="text/css"?>
+<?xml-stylesheet href="resource://mailredirect-os/mailredirect.css" type="text/css"?>
 <?xml-stylesheet href="chrome://mailredirect-skin/content/mailredirect-subjectCol.css" type="text/css"?>
 
 <!DOCTYPE overlay [
@@ -10,8 +10,26 @@
   %msgHdrViewOverlayDTD;
 ]>
 
-<overlay id="mailredirectMessageWindowOverlay"
-         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+<overlay id="mailredirectMessengerOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <!-- Toolbarbuttons are moved to anonymous vbox-es during startup -->
+  <panelview id="appMenu-messageView">
+    <toolbarbutton id="appmenu_mailredirect"
+                   class="subviewbutton subviewbutton-iconic"
+                   label="&bounceCommand.label;"
+                   key="key_mailredirect"
+                   insertafter="appmenu_forwardAsMenu"
+                   observes="cmd_mailredirect" />
+  </panelview>
+
+  <panelview id="appMenu-messageForwardAsView">
+    <toolbarbutton id="appmenu_forwardAsMailredirect"
+                   class="subviewbutton subviewbutton-iconic"
+                   label="&forwardAsRedirect.label;"
+                   insertafter="appmenu_forwardAsAttachment"
+                   observes="cmd_mailredirect" />
+  </panelview>
 
   <script type="application/javascript" src="chrome://global/content/globalOverlay.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-prefs.js"/>
