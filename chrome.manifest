@@ -1,5 +1,10 @@
 content  mailredirect        chrome/content/
 
+# Somehow subjectCol icons don't work with resource, so add the as content
+content  mailredirect-skin   chrome/skin/classic/thunderbird/aero/      os=WINNT
+content  mailredirect-skin   chrome/skin/classic/thunderbird/unix/      os=Linux
+content  mailredirect-skin   chrome/skin/classic/thunderbird/mac/       os=Darwin
+
 overlay  chrome://messenger/content/messenger.xul                chrome://mailredirect/content/mailredirectMessengerOverlay.xul
 overlay  chrome://messenger/content/messageWindow.xul            chrome://mailredirect/content/mailredirectMessageWindowOverlay.xul
 overlay  chrome://messenger/content/customizeToolbar.xul         chrome://mailredirect/content/mailredirectCustomizeToolbarOverlay.xul

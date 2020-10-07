@@ -4,17 +4,17 @@
 /* ..... subject column ..... */
 
 treechildren::-moz-tree-image(subjectCol, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/message-redirected.png");
+  list-style-image: url(resource://mailredirect/message-redirected.png);
 }
 
 treechildren::-moz-tree-image(subjectCol, forwarded, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/message-forwarded-redirected.png");
+  list-style-image: url(resource://mailredirect/message-forwarded-redirected.png);
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/message-replied-redirected.png");
+  list-style-image: url(resource://mailredirect/message-replied-redirected.png);
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, forwarded, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/message-replied-forwarded-redirected.png");
+  list-style-image: url(resource://mailredirect/message-replied-forwarded-redirected.png);
 }

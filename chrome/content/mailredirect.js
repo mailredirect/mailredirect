@@ -185,7 +185,7 @@ window.MailredirectExtension = {
         newEl.setAttribute("rel", "stylesheet");
         newEl.setAttribute("media", "screen");
         newEl.setAttribute("type", "text/css");
-        newEl.setAttribute("href", "resource://mailredirect/messageHeader.css");
+        newEl.setAttribute("href", "resource://mailredirect/mailredirect.css");
         head.appendChild(newEl);
 
         var disabled = hdrMailredirectButton.getAttribute("disabled");

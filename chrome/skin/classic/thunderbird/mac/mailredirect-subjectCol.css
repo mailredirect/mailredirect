@@ -6,53 +6,53 @@
 /* Override normal forwarded (selected) icon because it has the wrong shape (conflicts with redirected icon) */
 
 treechildren::-moz-tree-image(subjectCol, forwarded) {
-  list-style-image: url("resource://mailredirect-shared/symbol-forwarded.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-forwarded.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, forwarded, focus, selected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-forwarded-selected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-forwarded-selected.png) !important;
 }
 
 /* Override normal replied forwarded selected icon because it is too bright */
 
 treechildren::-moz-tree-image(subjectCol, replied, forwarded) {
-  list-style-image: url("resource://mailredirect-shared/symbol-replied-forwarded.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-replied-forwarded.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, forwarded, focus, selected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-replied-forwarded-selected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-replied-forwarded-selected.png) !important;
 }
 
 /* And add redirected icons */
 
 treechildren::-moz-tree-image(subjectCol, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-redirected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-redirected.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, kw-redirected, focus, selected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-redirected-selected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-redirected-selected.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-replied-redirected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-replied-redirected.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, kw-redirected, focus, selected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-replied-redirected-selected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-replied-redirected-selected.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, forwarded, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-forwarded-redirected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-forwarded-redirected.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, forwarded, kw-redirected, focus, selected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-forwarded-redirected-selected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-forwarded-redirected-selected.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, forwarded, kw-redirected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-replied-forwarded-redirected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-replied-forwarded-redirected.png) !important;
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, forwarded, kw-redirected, focus, selected) {
-  list-style-image: url("resource://mailredirect-shared/symbol-replied-forwarded-redirected-selected.png") !important;
+  list-style-image: url(resource://mailredirect/symbol-replied-forwarded-redirected-selected.png) !important;
 }

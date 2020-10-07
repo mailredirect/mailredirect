@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?xml-stylesheet href="resource://mailredirect/mailredirect.css" type="text/css"?>
-<?xml-stylesheet href="resource://mailredirect/messageHeader.css" type="text/css"?>
 <?xml-stylesheet href="resource://mailredirect/mailredirect-compose.css" type="text/css"?>
-<?xml-stylesheet href="resource://mailredirect-shared/mailredirect.css" type="text/css"?>
 
 <overlay id="mailredirectCustomizeToolbarOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">

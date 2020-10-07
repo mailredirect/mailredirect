@@ -1,3 +1,5 @@
-#mailredirect-toolbarbutton, toolbar #mailredirect-toolbarbutton {
+.hdrMailredirectButton,
+#mailredirect-toolbarbutton,
+toolbar #mailredirect-toolbarbutton {
   list-style-image: url("resource://mailredirect-shared/redirect.svg");
 }
