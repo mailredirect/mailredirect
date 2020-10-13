@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "إعادة توجيه">
 <!ENTITY forwardAsRedirect.accesskey "ع">
 <!ENTITY forwardAsRedirect.tooltip "أعِد توجيه الرسالة المحددة">
+
+<!ENTITY hdrMailredirectButton1.label "أعِد التوجيه">
+<!ENTITY hdrMailredirectButton1.tooltip "أعِد توجيه هذه الرسالة">

@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Перенаправить">
 <!ENTITY forwardAsRedirect.accesskey "П">
 <!ENTITY forwardAsRedirect.tooltip "Перенаправить выбранные сообщения">
+
+<!ENTITY hdrMailredirectButton1.label "Перенаправить">
+<!ENTITY hdrMailredirectButton1.tooltip "Перенаправить это сообщение">

@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Ridrejtoje">
 <!ENTITY forwardAsRedirect.accesskey "R">
 <!ENTITY forwardAsRedirect.tooltip "Ridrejtoni mesazhin e përzgjedhur">
+
+<!ENTITY hdrMailredirectButton1.label "Ridrejtojeni">
+<!ENTITY hdrMailredirectButton1.tooltip "Ridrejtojeni këtë mesazh">

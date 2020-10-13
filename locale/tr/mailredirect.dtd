@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Yönlendir">
 <!ENTITY forwardAsRedirect.accesskey "Y">
 <!ENTITY forwardAsRedirect.tooltip "Seçili mesajı Yönlendir">
+
+<!ENTITY hdrMailredirectButton1.label "Yönlendir">
+<!ENTITY hdrMailredirectButton1.tooltip "Bu mesajı yönlendir">

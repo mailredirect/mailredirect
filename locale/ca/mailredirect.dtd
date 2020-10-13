@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Redirigir">
 <!ENTITY forwardAsRedirect.accesskey "R">
 <!ENTITY forwardAsRedirect.tooltip "Redirigir el missatge seleccionat">
+
+<!ENTITY hdrMailredirectButton1.label "Redirigir">
+<!ENTITY hdrMailredirectButton1.tooltip "Redirigir aquest missatge">

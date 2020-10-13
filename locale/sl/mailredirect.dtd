@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Preusmeri">
 <!ENTITY forwardAsRedirect.accesskey "P">
 <!ENTITY forwardAsRedirect.tooltip "Preusmeri izbrano sporočilo">
+
+<!ENTITY hdrMailredirectButton1.label "Preusmeri">
+<!ENTITY hdrMailredirectButton1.tooltip "Preusmeri to sporočilo">

@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "重新導向">
 <!ENTITY forwardAsRedirect.accesskey "R">
 <!ENTITY forwardAsRedirect.tooltip "重新導向選擇的訊息">
+
+<!ENTITY hdrMailredirectButton1.label "重新導向">
+<!ENTITY hdrMailredirectButton1.tooltip "重新導向此訊息">

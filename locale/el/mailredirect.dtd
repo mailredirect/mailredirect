@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Ανακατεύθυνση">
 <!ENTITY forwardAsRedirect.accesskey "Α">
 <!ENTITY forwardAsRedirect.tooltip "Ανακατεύθυνση επιλεγμένου μηνύματος">
+
+<!ENTITY hdrMailredirectButton1.label "Ανακατεύθυνση">
+<!ENTITY hdrMailredirectButton1.tooltip "Ανακατεύθυνση μηνύματος">

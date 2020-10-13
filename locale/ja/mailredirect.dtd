@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "リダイレクト">
 <!ENTITY forwardAsRedirect.accesskey "R">
 <!ENTITY forwardAsRedirect.tooltip "選択したメッセージをリダイレクトします">
+
+<!ENTITY hdrMailredirectButton1.label "リダイレクト">
+<!ENTITY hdrMailredirectButton1.tooltip "このメッセージをリダイレクトします">

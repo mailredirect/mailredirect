@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Omdiriger">
 <!ENTITY forwardAsRedirect.accesskey "O">
 <!ENTITY forwardAsRedirect.tooltip "Omdiriger valgt melding">
+
+<!ENTITY hdrMailredirectButton1.label "Omdiriger">
+<!ENTITY hdrMailredirectButton1.tooltip "Omdiriger denne meldingen">

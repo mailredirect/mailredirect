@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Átirányítás">
 <!ENTITY forwardAsRedirect.accesskey "i">
 <!ENTITY forwardAsRedirect.tooltip "Kijelölt üzenetek átirányítása">
+
+<!ENTITY hdrMailredirectButton1.label "Átirányítás">
+<!ENTITY hdrMailredirectButton1.tooltip "Az üzenet átirányítás küldése">

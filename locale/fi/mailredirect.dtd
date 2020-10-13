@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Uudelleenohjaa">
 <!ENTITY forwardAsRedirect.accesskey "U">
 <!ENTITY forwardAsRedirect.tooltip "Uudelleenohjaa valittu viesti">
+
+<!ENTITY hdrMailredirectButton1.label "Uudelleenohjaa">
+<!ENTITY hdrMailredirectButton1.tooltip "Uudelleenohjaa tämä viesti">

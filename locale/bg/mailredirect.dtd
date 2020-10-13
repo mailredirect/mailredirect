@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Преадресиране">
 <!ENTITY forwardAsRedirect.accesskey "П">
 <!ENTITY forwardAsRedirect.tooltip "Преадресиране на избраните съобщения">
+
+<!ENTITY hdrMailredirectButton1.label "Преадресиране">
+<!ENTITY hdrMailredirectButton1.tooltip "Преадресира писмото">

@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Przekieruj">
 <!ENTITY forwardAsRedirect.accesskey "P">
 <!ENTITY forwardAsRedirect.tooltip "Przekieruj wybraną wiadomość">
+
+<!ENTITY hdrMailredirectButton1.label "Przekieruj">
+<!ENTITY hdrMailredirectButton1.tooltip "Przekieruj tę wiadomość">

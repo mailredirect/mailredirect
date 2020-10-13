@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Heradresseren">
 <!ENTITY forwardAsRedirect.accesskey "H">
 <!ENTITY forwardAsRedirect.tooltip "Geselecteerde bericht heradresseren">
+
+<!ENTITY hdrMailredirectButton.label "Heradresseren">
+<!ENTITY hdrMailredirectButton.tooltip "Dit bericht heradresseren">

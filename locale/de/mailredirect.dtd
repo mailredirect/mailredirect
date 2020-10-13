@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Umleitung">
 <!ENTITY forwardAsRedirect.accesskey "U">
 <!ENTITY forwardAsRedirect.tooltip "Ausgewählte Nachricht umleiten">
+
+<!ENTITY hdrMailredirectButton1.label "Umleiten">
+<!ENTITY hdrMailredirectButton1.tooltip "Nachricht umleiten">

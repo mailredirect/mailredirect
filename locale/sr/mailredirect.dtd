@@ -7,3 +7,6 @@
 <!ENTITY forwardAsRedirect.label "Преусмери">
 <!ENTITY forwardAsRedirect.accesskey "р">
 <!ENTITY forwardAsRedirect.tooltip "Преусмери изабране поруке">
+
+<!ENTITY hdrMailredirectButton1.label "Преусмери">
+<!ENTITY hdrMailredirectButton1.tooltip "Преусмери ову поруку">
