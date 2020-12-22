@@ -27,7 +27,7 @@
       {
         "name": "registerChromeUrl",
         "type": "function",
-        "description": "Register folders which should be available as chrome:// urls (as defined in the legacy chrome.manifest)",
+        "description": "Register files which should be available as chrome urls",
         "parameters": [
           {
             "name": "data",
