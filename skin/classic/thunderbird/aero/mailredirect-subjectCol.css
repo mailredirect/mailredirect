@@ -3,18 +3,40 @@
 
 /* ..... subject column ..... */
 
+treechildren::-moz-tree-image {
+  --forward-icon-color: #268be0;
+  --reply-icon-color: #9c5ccc;
+  --redirect-icon-color: #30bd14; 
+}
+
 treechildren::-moz-tree-image(subjectCol, kw-redirected) {
-  list-style-image: url(resource://mailredirect-os/message-redirected.png);
+  list-style-image: url("resource://mailredirect-shared/redirect.svg");
+  fill: var(--redirect-icon-color);
 }
 
 treechildren::-moz-tree-image(subjectCol, forwarded, kw-redirected) {
-  list-style-image: url(resource://mailredirect-os/message-forwarded-redirected.png);
+  list-style-image: url("resource://mailredirect-shared/forward-redirect.svg");
+  fill: var(--forward-icon-color);
+  stroke: var(--redirect-icon-color);
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, kw-redirected) {
-  list-style-image: url(resource://mailredirect-os/message-replied-redirected.png);
+  list-style-image: url("resource://mailredirect-shared/reply-redirect.svg");
+  fill: var(--reply-icon-color);
+  stroke: var(--redirect-icon-color);
 }
 
 treechildren::-moz-tree-image(subjectCol, replied, forwarded, kw-redirected) {
-  list-style-image: url(resource://mailredirect-os/message-replied-forwarded-redirected.png);
+  list-style-image: url("resource://mailredirect-shared/reply-forward-redirect.svg");
+}
+
+treechildren::-moz-tree-image(subjectCol, selected, focus) {
+  fill: var(--select-focus-text-color);
+  stroke: var(--select-focus-text-color);
+}
+
+treechildren::-moz-tree-image(subjectCol, selected, focus, replied, forwarded, kw-redirected) {
+  list-style-image: url("resource://mailredirect-shared/select-reply-forward-redirect.svg");
+  fill: var(--select-focus-text-color);
+  stroke: var(--select-focus-text-color);
 }

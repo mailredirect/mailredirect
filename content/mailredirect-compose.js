@@ -1,9 +1,10 @@
-// based on https://dxr.mozilla.org/comm-central/source/comm/mail/components/compose/content/MsgComposeCommands.js
+// based on https://searchfox.org/comm-central/source/mail/components/compose/content/MsgComposeCommands.js
 
 "use strict";
 
 var { allAccountsSorted } = ChromeUtils.import("resource:///modules/folderUtils.jsm");
 var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var { Log } = ChromeUtils.import("resource://gre/modules/Log.jsm");
 var { fixIterator, toArray } = ChromeUtils.import("resource:///modules/iteratorUtils.jsm");
 var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm");
 var { PluralForm } = ChromeUtils.import("resource://gre/modules/PluralForm.jsm");
@@ -46,14 +47,10 @@ var gWindowLocked;
 var gSendLocked;
 
 var gMsgIdentityElement;
-var gMsgAddressingWidgetTreeElement;
+var gMsgAddressingWidgetElement;
 var gMsgHeadersToolbarElement;
 var gAccountManager;
-var gSessionAdded;
-var gCurrentAutocompleteDirectory;
 var gCurrentIdentity;
-var gSetupLdapAutocomplete;
-var gLDAPSession;
 var mailredirectRecipients;
 var aSender;
 
@@ -72,14 +69,11 @@ var mstate = {
 
 function InitializeGlobalVariables()
 {
-  gMessenger = Cc["@mozilla.org/messenger;1"].
-               createInstance(Ci.nsIMessenger);
+  gMessenger = Cc["@mozilla.org/messenger;1"].createInstance(Ci.nsIMessenger);
 
   gMsgCompose = null;
   gWindowLocked = false;
-  gMsgIdentityElement = null;
-  gMsgAddressingWidgetTreeElement = null;
-  gSetupLdapAutocomplete = false;
+  gMsgAddressingWidgetElement = null;
   mailredirectRecipients = null;
   aSender = null;
   msgWindow = Cc["@mozilla.org/messenger/msgwindow;1"].createInstance(Ci.nsIMsgWindow);
@@ -93,7 +87,9 @@ function ReleaseGlobalVariables()
   gMessenger = null;
   gMsgCompose = null;
   gMsgIdentityElement = null;
-  gMsgAddressingWidgetTreeElement = null;
+  gMsgAddressingWidgetElement = null;
+  gAccountManager = null;
+  gCurrentIdentity = null;
   mailredirectRecipients = null;
   mstate = null;
   MailServices.mailSession.RemoveMsgWindow(msgWindow);
@@ -268,16 +264,11 @@ function updateSendLock()
     return;
   }
 
+  // Enable send buttons if anything was entered into the recipient fields.
+  // A more thorough check will be performed when a send button is actually clicked.
   let msgCompFields = gMsgCompose.compFields;
   Recipients2CompFields(msgCompFields);
-  // Enabled send buttons if anything was entered into the recipient fields.
-  // A more thorough check will be performed when a send button is actually clicked.
-  // hasRecipients is new to Thunderbird 23
-  gSendLocked = (typeof msgCompFields.hasRecipients !== "undefined"
-    ? !msgCompFields.hasRecipients
-    : (msgCompFields.to.match(/^\s*$/) &&
-       msgCompFields.cc.match(/^\s*$/) &&
-       msgCompFields.bcc.match(/^\s*$/)));
+  gSendLocked = !msgCompFields.hasRecipients;
 }
 
 /**
@@ -337,293 +328,9 @@ function ToggleWindowLock(aDisable)
   updateEditableFields(aDisable);
 }
 
-var directoryServerObserver = {
-  observe: function(subject, topic, value) {
-    try {
-      setupLdapAutocompleteSession();
-    } catch (ex) {
-      // catch the exception and ignore it, so that if LDAP setup
-      // fails, the entire compose window doesn't get horked
-    }
-  }
-}
-
-function AddDirectoryServerObserver(flag)
-{
-  if (flag) {
-    Services.prefs.addObserver("ldap_2.autoComplete.useDirectory",
-                               directoryServerObserver, false);
-    Services.prefs.addObserver("ldap_2.autoComplete.directoryServer",
-                               directoryServerObserver, false);
-  } else {
-    var prefstring = "mail.identity." + gCurrentIdentity.key + ".overrideGlobal_Pref";
-    Services.prefs.addObserver(prefstring, directoryServerObserver, false);
-    prefstring = "mail.identity." + gCurrentIdentity.key + ".directoryServer";
-    Services.prefs.addObserver(prefstring, directoryServerObserver, false);
-  }
-}
-
-function RemoveDirectoryServerObserver(prefstring)
-{
-  if (!prefstring) {
-    Services.prefs.removeObserver("ldap_2.autoComplete.useDirectory", directoryServerObserver);
-    Services.prefs.removeObserver("ldap_2.autoComplete.directoryServer", directoryServerObserver);
-  } else {
-    var str = prefstring + ".overrideGlobal_Pref";
-    Services.prefs.removeObserver(str, directoryServerObserver);
-    str = prefstring + ".directoryServer";
-    Services.prefs.removeObserver(str, directoryServerObserver);
-  }
-}
-
-function AddDirectorySettingsObserver()
-{
-  Services.prefs.addObserver(gCurrentAutocompleteDirectory, directoryServerObserver, false);
-}
-
-function RemoveDirectorySettingsObserver(prefstring)
-{
-  Services.prefs.removeObserver(prefstring, directoryServerObserver);
-}
-
-function setupLdapAutocompleteSession()
-{
-  var autocompleteLdap = false;
-  var autocompleteDirectory = null;
-  var prevAutocompleteDirectory = gCurrentAutocompleteDirectory;
-
-  autocompleteLdap = getPref("ldap_2.autoComplete.useDirectory");
-  if (autocompleteLdap) {
-    autocompleteDirectory = getPref("ldap_2.autoComplete.directoryServer");
-  }
-
-  if (gCurrentIdentity.overrideGlobalPref) {
-    autocompleteDirectory = gCurrentIdentity.directoryServer;
-  }
-
-  // use a temporary to do the setup so that we don't overwrite the
-  // global, then have some problem and throw an exception, and leave the
-  // global with a partially setup session.  we'll assign the temp
-  // into the global after we're done setting up the session
-  //
-  var LDAPSession;
-  if (gLDAPSession) {
-    LDAPSession = gLDAPSession;
-  } else {
-    LDAPSession = Cc["@mozilla.org/autocompleteSession;1?type=ldap"];
-    if (LDAPSession) {
-      try {
-        LDAPSession = LDAPSession.createInstance(Ci.nsILDAPAutoCompleteSession);
-      } catch (ex) {
-        dumper.dump ("ERROR: Cannot get the LDAP autocomplete session:" + ex);}
-    }
-  }
-
-  if (autocompleteDirectory && !Services.io.offline) {
-    // Add observer on the directory server we are autocompleting against
-    // only if current server is different from previous.
-    // Remove observer if current server is different from previous
-    gCurrentAutocompleteDirectory = autocompleteDirectory;
-    if (prevAutocompleteDirectory) {
-      if (prevAutocompleteDirectory !== gCurrentAutocompleteDirectory) {
-        RemoveDirectorySettingsObserver(prevAutocompleteDirectory);
-        AddDirectorySettingsObserver();
-      }
-    } else {
-      AddDirectorySettingsObserver();
-    }
-
-    // fill in the session params if there is a session
-    //
-    if (LDAPSession) {
-      let url = getPref(autocompleteDirectory + ".uri", true);
-
-      LDAPSession.serverURL = Services.io.
-                                       newURI(url, null, null).
-                                       QueryInterface(Ci.nsILDAPURL);
-
-      // get the login to authenticate as, if there is one
-      //
-      try {
-        LDAPSession.login = getPref(autocompleteDirectory + ".auth.dn", true);
-      } catch (ex) {
-        // if we don't have this pref, no big deal
-      }
-
-      try {
-        LDAPSession.saslMechanism = getPref(autocompleteDirectory + ".auth.saslmech", true);
-      } catch (ex) {
-        // don't care if we don't have this pref
-      }
-
-      // set the LDAP protocol version correctly
-      var protocolVersion;
-      try {
-        protocolVersion = getPref(autocompleteDirectory + ".protocolVersion");
-      } catch (ex) {
-        // if we don't have this pref, no big deal
-      }
-      if (protocolVersion === "2") {
-        LDAPSession.version = Ci.nsILDAPConnection.VERSION2;
-      }
-
-      // don't search on non-CJK strings shorter than this
-      //
-      try {
-        LDAPSession.minStringLength = getPref(autocompleteDirectory + ".autoComplete.minStringLength");
-      } catch (ex) {
-        // if this pref isn't there, no big deal.  just let
-        // nsLDAPAutoCompleteSession use its default.
-      }
-
-      // don't search on CJK strings shorter than this
-      //
-      try {
-        LDAPSession.cjkMinStringLength = getPref(autocompleteDirectory + ".autoComplete.cjkMinStringLength");
-      } catch (ex) {
-        // if this pref isn't there, no big deal.  just let
-        // nsLDAPAutoCompleteSession use its default.
-      }
-
-      // we don't try/catch here, because if this fails, we're outta luck
-      //
-      var ldapFormatter = Cc["@mozilla.org/ldap-autocomplete-formatter;1?type=addrbook"].
-                          createInstance(Ci.nsIAbLDAPAutoCompFormatter);
-
-      // override autocomplete name format?
-      //
-      try {
-        ldapFormatter.nameFormat = getPref(autocompleteDirectory + ".autoComplete.nameFormat", true);
-      } catch (ex) {
-        // if this pref isn't there, no big deal.  just let
-        // nsAbLDAPAutoCompFormatter use its default.
-      }
-
-      // override autocomplete mail address format?
-      //
-      try {
-        ldapFormatter.addressFormat = getPref(autocompleteDirectory + ".autoComplete.addressFormat", true);
-      } catch (ex) {
-        // if this pref isn't there, no big deal.  just let
-        // nsAbLDAPAutoCompFormatter use its default.
-      }
-
-      try {
-        // figure out what goes in the comment column, if anything
-        //
-        // 0 = none
-        // 1 = name of addressbook this card came from
-        // 2 = other per-addressbook format
-        //
-        var showComments = getPref("mail.autoComplete.commentColumn");
-
-        switch (showComments) {
-          case 1:
-            // use the name of this directory
-            //
-            ldapFormatter.commentFormat = getPref(autocompleteDirectory + ".description", true);
-            break;
-
-          case 2:
-            // override ldap-specific autocomplete entry?
-            //
-            try {
-              ldapFormatter.commentFormat = getPref(autocompleteDirectory + ".autoComplete.commentFormat", true);
-            } catch (innerException) {
-              // if nothing has been specified, use the ldap
-              // organization field
-              ldapFormatter.commentFormat = "[o]";
-            }
-            break;
-
-          case 0:
-          default:
-            // do nothing
-        }
-      } catch (ex) {
-        // if something went wrong while setting up comments, try and
-        // proceed anyway
-      }
-
-      // set the session's formatter, which also happens to
-      // force a call to the formatter's getAttributes() method
-      // -- which is why this needs to happen after we've set the
-      // various formats
-      //
-      LDAPSession.formatter = ldapFormatter;
-
-      // override autocomplete entry formatting?
-      //
-      try {
-        LDAPSession.outputFormat = getPref(autocompleteDirectory + ".autoComplete.outputFormat", true);
-      } catch (ex) {
-        // if this pref isn't there, no big deal.  just let
-        // nsLDAPAutoCompleteSession use its default.
-      }
-
-      // override default search filter template?
-      //
-      try {
-        LDAPSession.filterTemplate = getPref(autocompleteDirectory + ".autoComplete.filterTemplate", true);
-      } catch (ex) {
-        // if this pref isn't there, no big deal.  just let
-        // nsLDAPAutoCompleteSession use its default
-      }
-
-      // override default maxHits (currently 100)
-      //
-      try {
-        // XXXdmose should really use .autocomplete.maxHits,
-        // but there's no UI for that yet
-        //
-        LDAPSession.maxHits = getPref(autocompleteDirectory + ".maxHits");
-      } catch (ex) {
-        // if this pref isn't there, or is out of range, no big deal.
-        // just let nsLDAPAutoCompleteSession use its default.
-      }
-
-      if (!gSessionAdded) {
-        // if we make it here, we know that session initialization has
-        // succeeded; add the session for all recipients, and
-        // remember that we've done so
-        let maxRecipients = awGetMaxRecipients();
-        for (let i = 1; i <= maxRecipients; i++) {
-          let autoCompleteWidget = document.getElementById("addressCol2#" + i);
-          if (autoCompleteWidget) {
-            autoCompleteWidget.addSession(LDAPSession);
-            // ldap searches don't insert a default entry with the default domain appended to it
-            // so reduce the minimum results for a popup to 2 in this case.
-            autoCompleteWidget.minResultsForPopup = 2;
-          }
-        }
-        gSessionAdded = true;
-      }
-    }
-  } else {
-    if (gCurrentAutocompleteDirectory) {
-      // Remove observer on the directory server since we are not doing Ldap
-      // autocompletion.
-      RemoveDirectorySettingsObserver(gCurrentAutocompleteDirectory);
-      gCurrentAutocompleteDirectory = null;
-    }
-    if (gLDAPSession && gSessionAdded) {
-      let maxRecipients = awGetMaxRecipients();
-      for (let i = 1; i <= maxRecipients; i++) {
-        document.getElementById("addressCol2#" + i).
-                 removeSession(gLDAPSession);
-      }
-      gSessionAdded = false;
-    }
-  }
-
-  gLDAPSession = LDAPSession;
-  gSetupLdapAutocomplete = true;
-}
-
 function onAddressColCommand(aAddressWidgetId)
 {
-  var row = aAddressWidgetId.slice(aAddressWidgetId.lastIndexOf("#") + 1);
-  awSetAutoComplete(row);
+  awSetAutoComplete(aAddressWidgetId.slice(aAddressWidgetId.lastIndexOf('#') + 1));
   updateSendCommands(true);
 }
 
@@ -641,8 +348,7 @@ function onRecipientsChanged(aAutomatic)
 
 function FillIdentityList(menulist)
 {
-  var accounts;
-  accounts = allAccountsSorted(true);
+  let accounts = allAccountsSorted(true);
 
   let accountHadSeparator = false;
   let firstAccountWithIdentities = true;
@@ -677,8 +383,10 @@ function FillIdentityList(menulist)
 
     for (let i = 0; i < identities.length; i++) {
       let identity = identities[i];
-      let item = menulist.appendItem(identity.identityName, identity.key,
+      let item = menulist.appendItem(identity.identityName,
+                                     identity.fullAddress,
                                      server.prettyName);
+      item.setAttribute("identitykey", identity.key);
       item.setAttribute("accountkey", account.key);
       if (i === 0) {
         // Mark the first identity as default.
@@ -690,38 +398,36 @@ function FillIdentityList(menulist)
 
 function getCurrentAccountKey()
 {
-  // get the accounts key
-  var identityList = GetMsgIdentityElement();
+  // Get the account's key
+  let identityList = GetMsgIdentityElement();
   return identityList.selectedItem.getAttribute("accountkey");
+}
+
+function getCurrentIdentityKey()
+{
+  // Get the identity key
+  let identityList = GetMsgIdentityElement();
+  return identityList.selectedItem.getAttribute("identitykey");
 }
 
 function setupAutocomplete()
 {
   var autoCompleteWidget = document.getElementById("addressCol2#1");
 
-  // if the pref is set to turn on the comment column, honor it here.
-  // this element then gets cloned for subsequent rows, so they should
-  // honor it as well
-  //
   try {
+    // Request that input that isn't matched be highlighted.
+    // This element then gets cloned for subsequent rows, so they should
+    // honor it as well
     if (getPref("mail.autoComplete.highlightNonMatches")) {
       autoCompleteWidget.highlightNonMatches = true;
     }
+    // If the pref is set to turn on the comment column, honor it here.
     if (getPref("mail.autoComplete.commentColumn")) {
       autoCompleteWidget.showCommentColumn = true;
     }
   } catch (ex) {
-    // if we can't get this pref, then don't show the columns (which is
-    // what the XUL defaults to)
-  }
-
-  if (!gSetupLdapAutocomplete) {
-    try {
-      setupLdapAutocompleteSession();
-    } catch (ex) {
-      // catch the exception and ignore it, so that if LDAP setup
-      // fails, the entire compose window doesn't end up horked
-    }
+    // if we can't get these prefs, then don't highlight non-matched input
+    // or don't show the comment column
   }
 }
 
@@ -734,47 +440,43 @@ function fromKeyPress(event)
 
 function LoadIdentity(startup)
 {
-  var identityElement = GetMsgIdentityElement();
-  var prevIdentity = gCurrentIdentity;
+  let identityElement = GetMsgIdentityElement();
+  let prevIdentity = gCurrentIdentity;
 
-  if (identityElement) {
-    var idKey = identityElement.value;
-    gCurrentIdentity = gAccountManager.getIdentity(idKey);
+  let idKey = null;
+  let accountKey = null;
+  if (identityElement.selectedItem) {
+    // Set the identity key value on the menu list.
+    idKey = identityElement.selectedItem.getAttribute("identitykey");
+    identityElement.setAttribute("identitykey", idKey);
+    gCurrentIdentity = MailServices.accounts.getIdentity(idKey);
 
-    let accountKey = null;
     // Set the account key value on the menu list.
-    if (identityElement.selectedItem) {
-      accountKey = identityElement.selectedItem.getAttribute("accountkey");
-      identityElement.setAttribute("accountkey", accountKey);
-    }
+    accountKey = identityElement.selectedItem.getAttribute("accountkey");
+    identityElement.setAttribute("accountkey", accountKey);
 
     let maxRecipients = awGetMaxRecipients();
     for (let i = 1; i <= maxRecipients; i++) {
-      let params = "{}";
+      let params;
       if (typeof awGetInputElement(i).searchParam !== "undefined") {
         params = JSON.parse(awGetInputElement(i).searchParam);
+      } else {
+        params = JSON.parse("{}");
       }
       params.idKey = idKey;
       params.accountKey = accountKey;
       awGetInputElement(i).searchParam = JSON.stringify(params);
     }
 
-    if (!startup && prevIdentity && idKey !== prevIdentity.key) {
-      var prefstring = "mail.identity." + prevIdentity.key;
-      RemoveDirectoryServerObserver(prefstring);
+    try {
+      gMsgCompose.identity = gCurrentIdentity;
+    } catch (ex) {
+      dump("### Cannot change the identity: " + ex + "\n");
     }
 
-    AddDirectoryServerObserver(false);
     if (!startup) {
       if (getPref("mail.autoComplete.highlightNonMatches")) {
         document.getElementById("addressCol2#1").highlightNonMatches = true;
-      }
-
-      try {
-        setupLdapAutocompleteSession();
-      } catch (ex) {
-        // catch the exception and ignore it, so that if LDAP setup
-        // fails, the entire compose window doesn't end up horked
       }
     }
   }
@@ -812,20 +514,19 @@ function GetMsgHdrForUri(msg_uri)
 
 function GetMsgIdentityElement()
 {
-  if (!gMsgIdentityElement) {
+  if (!gMsgIdentityElement)
     gMsgIdentityElement = document.getElementById("msgIdentity");
-  }
 
   return gMsgIdentityElement;
 }
 
-function GetMsgAddressingWidgetTreeElement()
+function GetMsgAddressingWidgetElement()
 {
-  if (!gMsgAddressingWidgetTreeElement) {
-    gMsgAddressingWidgetTreeElement = document.getElementById("addressingWidget");
+  if (!gMsgAddressingWidgetElement) {
+    gMsgAddressingWidgetElement = document.getElementById("addressingWidget");
   }
 
-  return gMsgAddressingWidgetTreeElement;
+  return gMsgAddressingWidgetElement;
 }
 
 function GetMsgHeadersToolbarElement()
@@ -882,20 +583,7 @@ function BounceStartup(aParams)
     document.documentElement.setAttribute("screenY", screen.availTop);
   }
 
-  // Workaround for missing inbuilt functionality of <menulist> to restore
-  // visibility when focused and receiving key presses while scrolled out of view.
-  // Note: Unrelated key presses (e.g. access keys for other UI elements)
-  // typically do not fire keyup on the menulist as focus will have shifted.
-  // Some false positives like function or OS keys might occur; we accept that.
-  // Alt+CursorDown will still show the dropdown in the wrong place.
-  let addressingWidget = GetMsgAddressingWidgetTreeElement();
-  addressingWidget.addEventListener("keyup", function(event) {
-    if (event.target.classList.contains("aw-menulist")) {
-      addressingWidget.ensureElementIsVisible(event.target);
-    }
-  });
-
-  var identityList = GetMsgIdentityElement();
+  let identityList = GetMsgIdentityElement();
   if (identityList) {
     FillIdentityList(identityList);
   }
@@ -914,6 +602,9 @@ function BounceStartup(aParams)
       if (args.preselectid) {
         params.identity = getIdentityForKey(args.preselectid);
       }
+      if (args.from) {
+        composeFields.from = args.from;
+      }
       if (args.to) {
         composeFields.to = args.to;
       }
@@ -926,24 +617,68 @@ function BounceStartup(aParams)
     }
   }
 
+  // Detect correct identity when missing or mismatched.
+  // An identity with no email is likely not valid.
+  let from = [];
+  if (params.composeFields.from) {
+    from = MailServices.headerParser.parseEncodedHeader(
+      params.composeFields.from,
+      null
+    );
+  }
+  from =
+    from.length && from[0] && from[0].email
+      ? from[0].email.toLowerCase().trim()
+      : null;
+
   // " <>" is an empty identity, and most likely not valid
-  if (!params.identity || params.identity.identityName === " <>") {
-    // no pre selected identity, so use the default account
-    let identities;
-    if (MailServices.accounts.defaultAccount !== null) {
-      identities = MailServices.accounts.defaultAccount.identities;
-      if (identities.length === 0) {
-        identities = MailServices.accounts.allIdentities;
+  if (!params.identity ||
+      !params.identity.email ||
+      (from && !emailSimilar(from, params.identity.email))) {
+    let identities = MailServices.accounts.allIdentities;
+    let suitableCount = 0;
+
+    // Search for a matching identity.
+    if (from) {
+      for (let ident of identities) {
+        if (ident.email && from == ident.email.toLowerCase()) {
+          if (suitableCount == 0) {
+            params.identity = ident;
+          }
+          suitableCount++;
+          if (suitableCount > 1) {
+            // No need to find more, it's already not unique.
+            break;
+          }
+        }
       }
-      if (identities.queryElementAt) {
-        params.identity = identities.queryElementAt(0, Ci.nsIMsgIdentity);
-      } else {
-        params.identity = identities.QueryElementAt(0, Ci.nsIMsgIdentity);
+    }
+
+    if (!params.identity || !params.identity.email) {
+      let identity = null;
+      // No preset identity and no match, so use the default account.
+      let defaultAccount = MailServices.accounts.defaultAccount;
+      if (defaultAccount) {
+        identity = defaultAccount.defaultIdentity;
       }
+      if (!identity) {
+        // Get the first identity we have in the list.
+        let identitykey = identityList
+          .getItemAtIndex(0)
+          .getAttribute("identitykey");
+        identity = MailServices.accounts.getIdentity(identitykey);
+      }
+      params.identity = identity;
     }
   }
 
-  var preSelectedIdentityKey = null;
+  identityList.selectedItem = identityList.getElementsByAttribute(
+    "identitykey",
+    params.identity.key
+  )[0];
+
+  LoadIdentity(true);
+
   if (window.arguments) {
     mstate.selectedURIs = window.arguments[0];
     if (mstate.selectedURIs) {
@@ -955,32 +690,11 @@ function BounceStartup(aParams)
         if (msgSubject) {
           let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
           document.title = bounceMsgsBundle.GetStringFromName("mailredirectWindowTitlePrefix") + " " + msgSubject;
+          //document.title = messenger.i18n.getMessage("mailredirectWindowTitle", msgSubject, "Thunderbird");
         }
       }
     }
-    preSelectedIdentityKey = window.arguments[1];
   }
-
-  if (!preSelectedIdentityKey) {
-    // No pre-selected identity, so use the default account
-    let identities;
-    if (gAccountManager.defaultAccount !== null) {
-      identities = gAccountManager.defaultAccount.identities;
-    }
-    if (identities === undefined ||
-        (typeof identities.length !== "undefined" && identities.length === 0) ||
-        (typeof identities.Count !== "undefined" && identities.Count() === 0)) {
-      identities = gAccountManager.allIdentities;
-    }
-    if (identities.queryElementAt) {
-      preSelectedIdentityKey = identities.queryElementAt(0, Ci.nsIMsgIdentity).key;
-    } else {
-      preSelectedIdentityKey = identities.QueryElementAt(0, Ci.nsIMsgIdentity).key;
-    }
-  }
-
-  identityList.value = preSelectedIdentityKey;
-  LoadIdentity(true);
 
   gMsgCompose = MailServices.compose.initCompose(params, window);
 
@@ -1171,7 +885,7 @@ function BounceStartup(aParams)
   if (sideBarBox.getAttribute("sidebarVisible") === "true") {
     // if we aren't supposed to have the side bar hidden, make sure it is visible
     if (document.getElementById("sidebar").getAttribute("src") === "") {
-      setTimeout(toggleAddressPicker, 0);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
+      setTimeout(toggleAddressPicker, 100);   // do this on a delay so we don't hurt perf. on bringing up a new bounce window
     }
   }
 
@@ -1219,6 +933,23 @@ function BounceLoad()
   gAppInfoPlatformVersion = parseInt(appInfo.platformVersion.replace(/\..*/,''));
 
   setupAutocomplete();
+
+  try {
+    // This will do migration, or create a new account if we need to.
+    // We also want to open the account wizard if no identities are found
+    var state = verifyAccounts(WizCallback, true);
+    if (state) {
+      BounceStartup(null);
+    }
+  } catch (ex) {
+    Components.utils.reportError(ex);
+    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
+    let errorTitle = bounceMsgsBundle.GetStringFromName("initErrorDlogTitle");
+    let errorMsg = bounceMsgsBundle.GetStringFromName("initErrorDlogMessage");
+    Services.prompt.alert(window, errorTitle, errorMsg);
+    DoCommandClose();
+    return;
+  }
 
   // Check to see if CardBook or TbSync is installed in order to modify autocomplete
   let addonCallback = function(aAddon) {
@@ -1323,8 +1054,6 @@ function BounceLoad()
   }
   awFitDummyRows();
 
-  AddDirectoryServerObserver(true);
-
   try {
     // XXX: We used to set commentColumn on the initial auto complete column after the document has loaded
     // inside of setupAutocomplete. But this happens too late for the first widget and it was never showing
@@ -1334,23 +1063,6 @@ function BounceLoad()
     }
   } catch (ex) {
     // do nothing...
-  }
-
-  try {
-    // This will do migration, or create a new account if we need to.
-    // We also want to open the account wizard if no identities are found
-    var state = verifyAccounts(WizCallback, true);
-    if (state) {
-      BounceStartup(null);
-    }
-  } catch (ex) {
-    Components.utils.reportError(ex);
-    let bounceMsgsBundle = Services.strings.createBundle("chrome://mailredirect/locale/mailredirect-compose.properties");
-    let errorTitle = bounceMsgsBundle.GetStringFromName("initErrorDlogTitle");
-    let errorMsg = bounceMsgsBundle.GetStringFromName("initErrorDlogMessage");
-    Services.prompt.alert(window, errorTitle, errorMsg);
-    DoCommandClose();
-    return;
   }
 }
 
@@ -1364,15 +1076,8 @@ function AdjustFocus()
 
 function BounceUnload()
 {
-  // dumper.dump("\nBounceUnload from XUL\n");
+  // dumper.dump("\nBounceUnload\n");
 
-  RemoveDirectoryServerObserver(null);
-  if (gCurrentIdentity) {
-    RemoveDirectoryServerObserver("mail.identity." + gCurrentIdentity.key);
-  }
-  if (gCurrentAutocompleteDirectory) {
-    RemoveDirectorySettingsObserver(gCurrentAutocompleteDirectory);
-  }
   if (msgWindow) {
     msgWindow.closeWindow();
   }
@@ -1732,7 +1437,15 @@ function encodeMimeHeader(header)
 function getSender()
 {
   if (!aSender) {
-    aSender = MailServices.headerParser.makeMimeHeader([{name: gCurrentIdentity.fullName, email: gCurrentIdentity.email}], 1);
+    let addresses = MailServices.headerParser.makeFromDisplayAddress(
+      document.getElementById("msgIdentity").value
+    );
+    try {
+      // makeMimeHeader changed in TB71 (bug 1562158)
+      aSender = MailServices.headerParser.makeMimeHeader(addresses);
+    } catch(ex) {
+      aSender = MailServices.headerParser.makeMimeHeader(addresses, 1);
+    }
   }
   return aSender;
 }
@@ -1919,14 +1632,7 @@ function RealBounceMessages()
   msgCompFields.from = getSender();
   Recipients2CompFields(msgCompFields);
 
-  if (typeof gMsgCompose.expandMailingLists === "function") {
-    expandRecipients();
-  } else {
-    var recipientsStrings = getRecipients(true);
-    msgCompFields.to = recipientsStrings.resendTo;
-    msgCompFields.cc = recipientsStrings.resendCc;
-    msgCompFields.bcc = recipientsStrings.resendBcc;
-  }
+  expandRecipients();
   // Check if e-mail addresses are complete, in case user turned off
   // autocomplete to local domain.
   if (!CheckValidEmailAddress(msgCompFields)) {
@@ -2744,12 +2450,24 @@ function RemoveDupAddresses()
 function WhichElementHasFocus()
 {
   var msgIdentityElement = GetMsgIdentityElement();
-  var msgAddressingWidgetTreeElement = GetMsgAddressingWidgetTreeElement();
+  var msgAddressingWidgetElement = GetMsgAddressingWidgetElement();
 
-  var currentNode = top.document.commandDispatcher.focusedElement;
+  let currentNode = top.document.commandDispatcher.focusedElement;
+
+  // Special-case Contacts Side Bar's peopleSearchInput so that iteration on
+  // currentNode.parentNode doesn't get stuck on Shadow Root of anonymous input.
+  let peopleSearchInput = sidebarDocumentGetElementById(
+    "peopleSearchInput",
+    "abContactsPanel"
+  );
+  if (currentNode.flattenedTreeParentNode &&
+      currentNode.flattenedTreeParentNode === peopleSearchInput) {
+    currentNode = peopleSearchInput;
+  }
+
   while (currentNode) {
     if (currentNode === msgIdentityElement ||
-        currentNode === msgAddressingWidgetTreeElement) {
+        currentNode === msgAddressingWidgetElement) {
       return currentNode;
     }
 
@@ -2763,7 +2481,7 @@ function WhichElementHasFocus()
 // one element to another in the mail compose window.
 // The default element to switch to when going in either
 // direction (shift or no shift key pressed), is the
-// AddressingWidgetTreeElement.
+// AddressingWidgetElement.
 //
 // The only exception is when the MsgHeadersToolbar is
 // collapsed, then the focus will always be on the body of
@@ -2776,7 +2494,7 @@ function SwitchElementFocus(event)
 
   var focusedElement = WhichElementHasFocus();
   var msgIdentityElement = GetMsgIdentityElement();
-  var addressingWidget = GetMsgAddressingWidgetTreeElement();
+  var addressingWidget = GetMsgAddressingWidgetElement();
   var threadTree = document.getElementById("threadTree");
 
   if (event.shiftKey) {
@@ -2821,9 +2539,17 @@ function toggleAddressPicker()
     if (sidebarUrl === "") {
       // CardBook contact sidebar
       if (getPref("extensions.cardbook.autocompletion", false) === true) {
-        sidebar.setAttribute("src", "chrome://cardbook/content/contactsSidebar/wdw_cardbookContactsSidebar.xul");
+        if (gAppInfoPlatformVersion < 73) {
+          sidebar.setAttribute("src", "chrome://cardbook/content/contactsSidebar/wdw_cardbookContactsSidebar.xul");
+        } else {
+          sidebar.setAttribute("src", "chrome://cardbook/content/contactsSidebar/wdw_cardbookContactsSidebar.xhtml");
+        }
       } else {
-        sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
+        if (gAppInfoPlatformVersion < 73) {
+          sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xul");
+        } else {
+          sidebar.setAttribute("src", "chrome://messenger/content/addressbook/abContactsPanel.xhtml");
+        }
       }
       setTimeout(function() { renameToToResendTo() }, 100);
     }

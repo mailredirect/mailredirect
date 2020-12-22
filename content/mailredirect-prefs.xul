@@ -5,12 +5,12 @@
 <?xml-stylesheet type="text/css" href="chrome://messenger/skin/preferences/preferences.css"?>
 <?xml-stylesheet href="resource://mailredirect-shared/mailredirect-prefs.css" type="text/css"?>
 
-<!DOCTYPE prefwindow [
+<!DOCTYPE dialog [
   <!ENTITY % mailredirectPrefsDTD SYSTEM "chrome://mailredirect/locale/mailredirect-prefs.dtd" >
   %mailredirectPrefsDTD;
 ]>
 
-<prefwindow id="mailredirect"
+<dialog id="mailredirect"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             xmlns:html="http://www.w3.org/1999/xhtml"
             title="&mailredirectSettings.title;"
@@ -161,4 +161,4 @@
   <tooltip id="xToolTip" noautohide="true"
            onpopupshowing="this.label=document.tooltipNode.getAttribute('xtooltiptext');"/>
 
-</prefwindow>
+</dialog>

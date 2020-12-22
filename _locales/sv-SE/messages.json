@@ -5,5 +5,27 @@
   },
   "extensionDescription": {
     "message": "Låter dig omdirigera e-postmeddelanden till andra mottagare."
+  },
+
+  "emptyMailredirectWindowTitle": {
+    "message": "Mail Redirect"
+  },
+  "mailredirectWindowTitle": {
+    "message": "Mail Redirect: $MSG$ - $APP$",
+    "placeholders": {
+      "msg": {
+        "content": "$1",
+        "example": "Subject of the message."
+      },
+      "app": {
+        "content": "$2",
+        "example": "Thunderbird"
+      }
+    }
+  },
+
+  "pluralRule": {
+    "description": "See: https://developer.mozilla.org/en/Localization_and_Plurals",
+    "message": "1"
   }
 }

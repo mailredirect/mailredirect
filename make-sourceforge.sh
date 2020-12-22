@@ -13,7 +13,7 @@ fi
 cd xpi
 rm -fr ${DEST}/
 rsync -a --exclude-from=../${SRC}/make-exclude.txt ../${SRC}/* ${DEST}/
-cd ${DEST}/chrome/locale
+cd ${DEST}/locale
 for locale in *
 do
   if [ "${locale}" != "en-US" ]
@@ -74,12 +74,15 @@ do
   fi
 done
 echo -n -e "                                        \r"
-cd ../..
+cd ..
 echo manifest.json > mailredirect.txt
-echo chrome.manifest >> mailredirect.txt
+echo schema.json >> mailredirect.txt
+echo implementation.js >> mailredirect.txt
+echo background.js >> mailredirect.txt
+find content -type f | sort >> mailredirect.txt
+find locale -type f | sort >> mailredirect.txt
 find _locales -type f | sort >> mailredirect.txt
-find chrome -type f | sort >> mailredirect.txt
-echo defaults/ >> mailredirect.txt
+find skin -type f | sort >> mailredirect.txt
 echo icon.png >> mailredirect.txt
 echo icon64.png >> mailredirect.txt
 echo LICENSE >> mailredirect.txt

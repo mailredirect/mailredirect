@@ -5,9 +5,11 @@
 var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 var { NetUtil } = ChromeUtils.import("resource://gre/modules/NetUtil.jsm");
 var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm");
+const { Log } = ChromeUtils.import("resource://gre/modules/Log.jsm");
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
+/*
 Preferences.addAll([
   { id: "extensions.mailredirect.copyToSentMail", type: "bool" },
   { id: "extensions.mailredirect.addToForwardAs", type: "bool" },
@@ -20,6 +22,7 @@ Preferences.addAll([
   { id: "extensions.mailredirect.debug", type: "bool" },
   { id: "extensions.mailredirect.addresswidget.numRowsShownDefault", type: "int" }
 ]);
+*/
 
 window.MailredirectIncontentPrefs = {
 
@@ -58,20 +61,6 @@ window.MailredirectIncontentPrefs = {
             }
           }
         }
-
-        // For Thunderbird 68.* remove Redirect category from the Composition pane
-        let redirectCategory = document.getElementById("redirectCategory");
-        if (redirectCategory) {
-          let nextNode;
-          while ((nextNode = redirectCategory.nextSibling)) {
-            if (!nextNode.hasAttribute("id") || !nextNode.getAttribute("id").startsWith("redirect")) {
-              // Found a node not inserted by Mail Redirect, so quit
-              break;
-            }
-            nextNode.remove();
-          }
-          redirectCategory.remove();
-        }
       }
 
       window.MailredirectPrefs.onpaneload();
@@ -83,5 +72,3 @@ window.MailredirectIncontentPrefs = {
 }
 
 })();
-
-window.addEventListener("load", MailredirectIncontentPrefs.onload, false);

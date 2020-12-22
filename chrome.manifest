@@ -1,6 +1,6 @@
 content  mailredirect        content/
 
-# Somehow subjectCol icons don't work with resource, so add the as content
+# Somehow subjectCol icons don't work with resource, so add them as content
 content  mailredirect-skin   skin/classic/thunderbird/aero/      os=WINNT
 content  mailredirect-skin   skin/classic/thunderbird/unix/      os=Linux
 content  mailredirect-skin   skin/classic/thunderbird/mac/       os=Darwin

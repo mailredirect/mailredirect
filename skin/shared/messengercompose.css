@@ -1,0 +1,964 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+:root {
+  --lwt-additional-images: none;
+  --lwt-background-alignment: right top;
+  --lwt-background-tiling: no-repeat;
+
+  --toolbar-bgcolor: var(--toolbar-non-lwt-bgcolor);
+  --toolbar-bgimage: var(--toolbar-non-lwt-bgimage);
+  --toolbar-color: var(--toolbar-non-lwt-textcolor);
+}
+
+#sidebar-box .sidebar-header {
+  -moz-appearance: none;
+  height: 30px;
+  text-shadow: none;
+  background-color: -moz-Dialog;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+  color: -moz-dialogText;
+  border-bottom: 1px solid var(--tabs-border-color);
+}
+
+:root[lwt-tree] #sidebar-box .sidebar-header {
+  background-color: var(--toolbar-bgcolor);
+  color: var(--lwt-text-color);
+  border-bottom: 1px solid var(--tabs-border-color);
+}
+
+:root[lwt-tree-brighttext] #sidebar-box .sidebar-header {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+}
+
+/* Styles for the default system dark theme */
+
+:root[lwt-tree] #headers-box {
+  background-color: var(--toolbar-bgcolor) !important;
+  background-image: none !important;
+  color: var(--lwt-text-color);
+  --toolbarbutton-hover-background: var(--lwt-toolbarbutton-hover-background);
+  --toolbarbutton-hover-bordercolor: var(--lwt-toolbarbutton-hover-background);
+
+  --toolbarbutton-active-background: var(--lwt-toolbarbutton-active-background);
+  --toolbarbutton-active-bordercolor: var(--lwt-toolbarbutton-active-background);
+  --toolbarbutton-active-boxshadow: 0 0 0 1px var(--lwt-toolbarbutton-active-background) inset;
+
+  scrollbar-color: rgba(128, 128, 128, 0.5) rgba(230, 230, 235, 0.5);
+}
+
+:root[lwt-tree-brighttext] #headers-box {
+  scrollbar-color: rgba(249, 249, 250, 0.4) rgba(20, 20, 25, 0.3);
+}
+
+:root[lwt-tree] #MsgHeadersToolbar {
+  color: inherit;
+}
+
+:root[lwt-tree] #msgSubject,
+:root[lwt-tree] .address-container {
+  background-color: var(--lwt-toolbar-field-background-color);
+  color: var(--lwt-text-color);
+}
+
+:root[lwt-tree] #msgIdentity:hover,
+:root[lwt-tree] #msgIdentity:focus,
+:root[lwt-tree] #msgIdentity:focus-within,
+:root[lwt-tree] #msgSubject:hover,
+:root[lwt-tree] #msgSubject:focus {
+  color: var(--lwt-toolbar-field-color);
+  border-color: var(--lwt-toolbar-field-border-color);
+  background-color: var(--lwt-toolbar-field-background-color);
+}
+
+:root[lwt-tree] panel[type="autocomplete-richlistbox"] {
+  margin-top: -1px;
+  padding: 2px 0;
+  background: var(--arrowpanel-background);
+  color: var(--arrowpanel-color);
+  border-color: var(--arrowpanel-border-color);
+  scrollbar-color: rgba(128, 128, 128, 0.5) rgba(230, 230, 235, 0.5);
+}
+
+:root[lwt-tree-brighttext] panel[type="autocomplete-richlistbox"] {
+  scrollbar-color: rgba(249, 249, 250, 0.4) rgba(20, 20, 25, 0.3);
+}
+
+:root[lwt-tree] .autocomplete-richlistbox {
+  color: inherit;
+  background-color: inherit;
+}
+
+:root[lwt-tree] .autocomplete-richlistitem[selected] {
+  background-color: var(--autocomplete-popup-highlight-background);
+  color: var(--autocomplete-popup-highlight-color);
+}
+
+:root[lwt-tree] #msgIdentityPopup {
+  -moz-appearance: none;
+  border: 1px solid var(--arrowpanel-border-color);
+  border-radius: var(--toolbarbutton-border-radius);
+  background-color: var(--arrowpanel-background);
+}
+
+:root[lwt-tree] #msgIdentityPopup > menuitem {
+  -moz-appearance: none;
+  color: var(--arrowpanel-color);
+}
+
+:root[lwt-tree] #msgIdentityPopup >  menuitem[_moz-menuactive="true"] {
+  background-color: var(--arrowpanel-dimmed);
+}
+
+:root[lwt-tree] #msgIdentityPopup >  menuitem[selected="true"] {
+  background-color: var(--autocomplete-popup-highlight-background);
+  color: var(--autocomplete-popup-highlight-color);
+}
+
+:root[lwt-tree] #msgIdentityPopup > menuseparator {
+  -moz-appearance: none;
+  border-top: 1px solid var(--arrowpanel-color);
+  opacity: 0.5;
+}
+
+/* Rules to help integrate WebExtension buttons */
+
+.webextension-browser-action > .toolbarbutton-badge-stack > .toolbarbutton-icon {
+  height: 16px;
+  width: 16px;
+}
+
+@media not all and (min-resolution: 1.1dppx) {
+  .webextension-browser-action {
+    list-style-image: var(--webextension-toolbar-image, inherit);
+  }
+
+  toolbar[brighttext] .webextension-browser-action {
+    list-style-image: var(--webextension-toolbar-image-light, inherit);
+  }
+
+  toolbar:not([brighttext]) .webextension-browser-action:-moz-lwtheme {
+    list-style-image: var(--webextension-toolbar-image-dark, inherit);
+  }
+
+  .webextension-browser-action[cui-areatype="menu-panel"] {
+    list-style-image: var(--webextension-menupanel-image, inherit);
+  }
+
+  :root[lwt-popup-brighttext] .webextension-browser-action[cui-areatype="menu-panel"] {
+    list-style-image: var(--webextension-menupanel-image-light, inherit);
+  }
+
+  :root:not([lwt-popup-brighttext]) .webextension-browser-action[cui-areatype="menu-panel"]:-moz-lwtheme {
+    list-style-image: var(--webextension-menupanel-image-dark, inherit);
+  }
+
+  .webextension-menuitem {
+    list-style-image: var(--webextension-menuitem-image, inherit) !important;
+  }
+}
+
+@media (min-resolution: 1.1dppx) {
+  .webextension-browser-action {
+    list-style-image: var(--webextension-toolbar-image-2x, inherit);
+  }
+
+  toolbar[brighttext] .webextension-browser-action {
+    list-style-image: var(--webextension-toolbar-image-2x-light, inherit);
+  }
+
+  toolbar:not([brighttext]) .webextension-browser-action:-moz-lwtheme {
+    list-style-image: var(--webextension-toolbar-image-2x-dark, inherit);
+  }
+
+  .webextension-browser-action[cui-areatype="menu-panel"] {
+    list-style-image: var(--webextension-menupanel-image-2x, inherit);
+  }
+
+  :root[lwt-popup-brighttext] .webextension-browser-action[cui-areatype="menu-panel"] {
+    list-style-image: var(--webextension-menupanel-image-2x-light, inherit);
+  }
+
+  :root:not([lwt-popup-brighttext]) .webextension-browser-action[cui-areatype="menu-panel"]:-moz-lwtheme {
+    list-style-image: var(--webextension-menupanel-image-2x-dark, inherit);
+  }
+
+  .webextension-menuitem {
+    list-style-image: var(--webextension-menuitem-image-2x, inherit) !important;
+  }
+}
+
+#attachmentbucket-sizer {
+  position: relative;
+  z-index: 10;
+  min-width: 0;
+  width: 5px;
+  margin-inline-end: -4px;
+  border-inline-end-width: 0;
+  border-inline-start: 1px solid var(--splitter-color);
+  background-color: transparent;
+}
+
+#attachmentbucket-sizer[state="collapsed"] {
+  border-inline-start-color: transparent;
+  cursor: default;
+}
+
+#attachmentBucket {
+  -moz-appearance: none;
+  border-top: 1px solid var(--splitter-color); /* The same color as the splitters */
+  border-bottom: 1px solid var(--splitter-color);
+  width: 15em;
+  min-width: 15em;
+  padding: 1px;
+}
+
+:root[lwt-tree] #attachmentBucket {
+  background-color: var(--sidebar-background-color);
+  color: var(--sidebar-text-color);
+}
+
+:root[lwt-tree] #attachmentBucket {
+  scrollbar-color: rgba(204,204,204,.5) rgba(230,230,235,.5);
+}
+
+:root[lwt-tree-brighttext] #attachmentBucket {
+  scrollbar-color: rgba(249,249,250,.4) rgba(20,20,25,.3);
+}
+
+:root[lwt-tree] #attachmentBucket .attachmentItem {
+  color: var(--sidebar-text-color) !important;
+}
+
+:root[lwt-tree] #attachmentBucket .attachmentItem[selected="true"] {
+  background: var(--sidebar-highlight-background-color, hsla(0,0%,80%,.6));
+  border-color: var(--sidebar-highlight-background-color, hsla(0,0%,80%,.6));
+  color: var(--sidebar-highlight-text-color, var(--sidebar-text-color)) !important;
+}
+
+:root[lwt-tree-brighttext] #attachmentBucket .attachmentItem[selected="true"] {
+  background: var(--sidebar-highlight-background-color, rgba(249,249,250,.1));
+  border-color: var(--sidebar-highlight-background-color, rgba(249,249,250,.1));
+}
+
+:root[lwt-tree] #attachmentBucket[seltype="multiple"]:focus .attachmentItem[current="true"] {
+  outline: 1px solid var(--sidebar-highlight-background-color, hsla(0,0%,80%,.6));
+}
+
+:root[lwt-tree-brighttext] #attachmentBucket[seltype="multiple"]:focus
+  .attachmentItem[current="true"] {
+  outline: 1px solid var(--sidebar-highlight-background-color, rgba(249,249,250,.1));
+}
+
+#attachmentBucket[orient="vertical"] .attachmentItem {
+  width: 100%;
+}
+
+#attachments-box[collapsed="true"]:not([empty="true"]) + #attachments-placeholder-box {
+  display: -moz-box;
+  width: 32px;
+  background: url("chrome://messenger/skin/icons/attach.svg") center / 32px no-repeat;
+  -moz-context-properties: fill;
+  fill: currentColor;
+}
+
+#attachments-box[collapsed="true"]:not([empty="true"]) + #attachments-placeholder-box:hover {
+  background-color: var(--toolbarbutton-hover-background);
+}
+
+#attachments-box[collapsed="true"]:not([empty="true"]) + #attachments-placeholder-box:hover:active {
+  background-color: var(--toolbarbutton-active-background);
+}
+
+#compose-toolbox > toolbar {
+  /* force iconsize="small" on these toolbars */
+  counter-reset: smallicons;
+}
+
+#compose-toolbox:-moz-lwtheme {
+  -moz-appearance: none;
+  position: relative;
+  color: var(--toolbar-color, inherit);
+}
+
+#compose-toolbox:-moz-lwtheme::after {
+  content: "";
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  top: -1px;
+  width: -moz-available;
+  height: 1px;
+  border-bottom: 1px solid var(--tabs-border-color, transparent);
+}
+
+#composeContentBox {
+  /*
+  * In order to remove the shadow border on left/right edges elegantly,
+  * use left/right margins of -3px. We make up for this by adding 3px
+  * of padding instead.
+  */
+  margin-inline: -3px;
+  padding-inline: 3px;
+}
+
+#appcontent {
+  border-top: 1px solid var(--splitter-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  #appcontent {
+    background-color: #2a2a2e;
+  }
+}
+
+/* :::: primary toolbar buttons :::: */
+
+#button-send {
+  list-style-image: url("chrome://messenger/skin/icons/send.svg");
+}
+
+#button-contacts {
+  list-style-image: url("chrome://messenger/skin/icons/address.svg");
+  -moz-image-region: auto !important;
+}
+
+#spellingButton {
+  list-style-image: url("chrome://messenger/skin/icons/spelling.svg");
+}
+
+#button-attach {
+  list-style-image: url("chrome://messenger/skin/icons/attach.svg");
+}
+
+#button-security {
+  list-style-image: url("chrome://messenger/skin/icons/security.svg");
+}
+
+#button-save {
+  list-style-image: url("chrome://messenger/skin/icons/save.svg");
+}
+
+#quoteButton {
+  list-style-image: url("chrome://messenger/skin/icons/quote.svg");
+}
+
+#button-returnReceipt {
+  list-style-image: url("chrome://messenger/skin/icons/return-receipt.svg");
+}
+
+#cut-button {
+  list-style-image: url("chrome://messenger/skin/icons/cut.svg");
+}
+
+#copy-button {
+  list-style-image: url("chrome://messenger/skin/icons/copy.svg");
+}
+
+#paste-button {
+  list-style-image: url("chrome://messenger/skin/icons/paste.svg");
+}
+
+#button-print {
+  list-style-image: url("chrome://messenger/skin/icons/print.svg");
+}
+
+.menu-description,
+menulist::part(description) {
+  font-style: italic;
+  opacity: 0.55;
+  margin-inline-start: 1ex !important;
+}
+
+.aw-firstColBox,
+#firstcol-addressingWidget {
+  width: 21px;
+  flex-shrink: 0;
+}
+
+.addressingWidgetItem,
+#identityLabel-box {
+  flex-shrink: 0;
+}
+
+/* :::: Format toolbar :::: */
+
+/*
+ * Removed from global.css in bug 1484949. It's needed so the formatting
+ * toolbar is not disabled while a dropdown (paragraph format or font) is active.
+ */
+.toolbar-focustarget {
+  -moz-user-focus: ignore !important;
+}
+
+#FormatToolbar > toolbaritem > menulist {
+  margin-block: 1px;
+}
+
+#FormatToolbar > toolbarbutton > .toolbarbutton-text {
+  display: none;
+}
+
+#FontFaceSelect {
+  max-width: 35ch;
+}
+
+#TextColorButton {
+  margin-block: 2px 9px;
+  margin-inline: 2px 9px;
+}
+
+#TextColorButton[color="mixed"] {
+  background-image: url("chrome://messenger/skin/icons/multicolor.png");
+  background-size: cover;
+}
+
+#BackgroundColorButton {
+  margin-block: 9px 2px;
+  margin-inline: 9px 2px;
+}
+
+/* :::: Reorder Attachments Panel :::: */
+
+#reorderAttachmentsPanel::part(arrowcontent) {
+  --arrowpanel-padding: 4px;
+}
+
+#btn_moveAttachmentTop {
+  list-style-image: url("chrome://messenger/skin/icons/move-top.svg");
+}
+
+#btn_moveAttachmentUp {
+  list-style-image: url("chrome://messenger/skin/icons/move-up.svg");
+}
+
+#btn_moveAttachmentDown {
+  list-style-image: url("chrome://messenger/skin/icons/move-down.svg");
+}
+
+#btn_moveAttachmentBottom {
+  list-style-image: url("chrome://messenger/skin/icons/move-bottom.svg");
+}
+
+#btn_moveAttachmentBundleUp {
+  list-style-image: url("chrome://messenger/skin/icons/move-together.svg");
+}
+
+#btn_sortAttachmentsToggle {
+  list-style-image: url("chrome://messenger/skin/icons/sort.svg");
+}
+
+#btn_sortAttachmentsToggle[sortdirection="descending"] > .toolbarbutton-icon {
+  transform: scaleY(-1);
+}
+
+.autocomplete-richlistitem:hover {
+  background-color: var(--arrowpanel-dimmed);
+}
+
+.autocomplete-richlistitem[selected] {
+  background-color: Highlight;
+  color: HighlightText;
+}
+
+/* :::: autocomplete icons :::: */
+
+.autocomplete-richlistitem > .ac-site-icon {
+  opacity: 0.85;
+}
+
+.autocomplete-richlistitem[type="local-abook"] > .ac-site-icon {
+  list-style-image: url("chrome://messenger/skin/icons/address.svg");
+}
+
+.autocomplete-richlistitem[type="remote-abook"] > .ac-site-icon {
+  list-style-image: url("chrome://messenger/skin/icons/globe.svg");
+}
+
+.autocomplete-richlistitem[type="remote-err"] > .ac-site-icon {
+  list-style-image: url("chrome://global/skin/icons/error.svg");
+}
+
+.autocomplete-richlistitem[type="subscribed-news"] > .ac-site-icon {
+  list-style-image: url("chrome://messenger/skin/icons/newsgroup.svg");
+}
+
+/* :::: attachment notification :::: */
+
+#attachmentReminderText {
+  margin-inline-start: 0;
+  cursor: pointer;
+}
+
+#attachmentKeywords {
+  font-weight: bold;
+  margin-inline-start: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#attachmentNotificationBox > hbox > .messageImage {
+  background-image: url("chrome://messenger/skin/icons/attach.svg");
+}
+
+#signing-status,
+#encryption-status {
+  display: flex;
+  align-items: center;
+}
+
+#identityLabel,
+.address-label-container label {
+  margin-inline-end: 6px;
+  text-align: right;
+}
+
+#msgIdentity {
+  -moz-appearance: none;
+  -moz-box-align: center;
+  font: inherit;
+  margin-inline-end: 10px;
+  border: 1px solid transparent;
+  border-radius: var(--toolbarbutton-border-radius);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 5px);
+  background-size: 9px 7px;
+  background-image: url("chrome://messenger/skin/icons/toolbarbutton-arrow.svg");
+  -moz-context-properties: fill;
+  fill: currentColor;
+  transition: border .2s, box-shadow .2s, background-color .2s;
+}
+
+/* XUL element needs the full [disabled="true"] attribute. */
+#msgIdentity[disabled="true"] {
+  opacity: 0.6;
+}
+
+#msgIdentity:-moz-locale-dir(rtl) {
+  background-position: 5px;
+}
+
+#msgIdentity.addressingWidget-separator::after {
+  display: block;
+  content: '';
+  width: 32px;
+  border-inline-end: 1px solid var(--toolbarbutton-hover-bordercolor);
+  height: 14px;
+}
+
+#msgIdentity::part(text-input) {
+  border-style: none;
+  margin-inline-start: 1px;
+}
+
+#msgSubject {
+  -moz-appearance: none;
+  margin-top: 0;
+  margin-inline: 4px 8px;
+  background-color: -moz-field;
+  border: 1px solid var(--toolbarbutton-hover-bordercolor);
+  border-radius: var(--toolbarbutton-border-radius);
+  padding-block: 0;
+  padding-inline: 4px 2px;
+  transition: border .2s, box-shadow .2s;
+}
+
+.recipients-container {
+  display: block;
+  /* Necessary for unwanted overflow while resizing the message header */
+  height: 0;
+}
+
+.recipients-container.overflow {
+  overflow-y: auto;
+}
+
+.address-row {
+  display: flex;
+  flex: 1;
+  margin-block: 6px;
+  margin-inline-end: 8px;
+  align-items: self-start;
+}
+
+.address-row > .aw-firstColBox {
+  transition: opacity .2s ease;
+  opacity: 0;
+}
+
+.address-row:hover > .aw-firstColBox,
+.address-row:focus > .aw-firstColBox,
+.address-row:focus-within > .aw-firstColBox {
+  opacity: 1;
+}
+
+.address-row.hidden {
+  display: none;
+}
+
+.address-container {
+  flex: 1;
+  margin-inline-start: 4px;
+  margin-inline-end: 0;
+  border: solid 1px var(--toolbarbutton-hover-bordercolor);
+  border-radius: var(--toolbarbutton-border-radius);
+  background-color: -moz-field;
+  transition: border .2s, box-shadow .2s;
+  cursor: text;
+}
+
+.address-container.disable-container {
+  opacity: 0.9;
+}
+
+.address-input {
+  color: inherit;
+  outline: none;
+}
+
+.address-container > .address-input {
+  padding-block: 4px;
+}
+
+.address-container > .address-input:focus {
+  outline: none;
+}
+
+.address-pill {
+  display: flex;
+  align-items: center;
+  border-radius: var(--toolbarbutton-border-radius);
+  margin-inline-end: 3px;
+  margin-block: 2px;
+  padding-inline: 7px;
+  background-color: rgba(0,0,0,0.1);
+  transition: color .2s ease, background-color .2s ease, box-shadow .2s ease,
+    text-shadow .2s ease;
+  -moz-user-focus: normal;
+  cursor: default;
+  box-shadow: inset 0 0 0 1px transparent;
+}
+
+.address-pill label {
+  -moz-user-focus: none;
+  cursor: default;
+  margin-inline: 0;
+}
+
+.address-pill:hover:not(.editing),
+.address-pill:focus:not(.editing) {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 2em rgba(0, 0, 0, 0.1);
+}
+
+.address-pill[selected]:hover:not(.editing),
+.address-pill[selected]:focus:not(.editing) {
+  box-shadow: 0 1px 5px -2px Highlight, inset 0 0 0 1px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 2em rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.address-pill.editing {
+  flex: 1;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px Highlight;
+  min-height: calc(1.25em + 4px); /* needed to not shrink in edit mode */
+}
+
+#MsgHeadersToolbar[brighttext] .address-pill:not(.editing) {
+  background-color: rgba(0,0,0,0.3);
+}
+
+#MsgHeadersToolbar[brighttext] .address-pill:hover:not(.editing),
+#MsgHeadersToolbar[brighttext] .address-pill:focus:not(.editing) {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3),
+    inset 0 0 0 2em rgba(255, 255, 255, 0.1);
+}
+
+#MsgHeadersToolbar[brighttext] .address-pill[selected]:hover:not(.editing),
+#MsgHeadersToolbar[brighttext] .address-pill[selected]:focus:not(.editing) {
+  box-shadow: 0 1px 5px -2px Highlight, inset 0 0 0 1px rgba(255,255,255,0.3),
+    inset 0 0 0 2em rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.address-pill.error {
+  color: #a4000f;
+  background-color: #ffe5e5;
+}
+
+.address-pill.error:hover:not(.editing),
+.address-pill.error:focus:not(.editing) {
+  background-color: rgba(255,0,0,0.15);
+}
+
+#MsgHeadersToolbar[brighttext] .address-pill.error:not(.editing) {
+  color: #e10216;
+  background-color: #3e0006;
+}
+
+#MsgHeadersToolbar[brighttext] .address-pill.error:hover:not(.editing),
+#MsgHeadersToolbar[brighttext] .address-pill.error:focus:not(.editing)  {
+  background-color: #310005;
+}
+
+.address-pill[selected]:not(.editing),
+#MsgHeadersToolbar[brighttext] .address-pill[selected]:not(.editing),
+.address-pill.error[selected]:not(.editing),
+#MsgHeadersToolbar[brighttext] .address-pill.error[selected]:not(.editing) {
+  color: HighlightText;
+  background-color: Highlight;
+}
+
+.address-identity-recipient {
+  margin-inline-end: 8px;
+  display: flex;
+}
+
+.address-extra-recipients label {
+  border-radius: var(--toolbarbutton-border-radius);
+  padding: 2px 4px;
+  margin-block: 0;
+  margin-inline: 12px 6px;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.address-extra-recipients label:not([collapsed]) + label {
+  margin-inline-start: 5px;
+}
+
+.overflow-icon {
+  -moz-appearance: none;
+  -moz-context-properties: fill, fill-opacity;
+  list-style-image: url(chrome://messenger/skin/icons/overflow.svg);
+  color: inherit !important;
+  fill: currentColor;
+  fill-opacity: 1;
+  width: 15px;
+}
+
+label.extra-recipients-label {
+  width: 16px;
+  height: 16px;
+  margin-inline: 6px;
+}
+
+.address-extra-recipients label:hover {
+  cursor: pointer;
+  background: var(--toolbarbutton-hover-background);
+}
+
+.extra-recipients-label image {
+  display: inline;
+  vertical-align: middle;
+}
+
+#extraRecipientsPanel {
+  min-width: 160px;
+  --arrowpanel-padding: 0;
+}
+
+#extraRecipientsPanel label {
+  padding: 4px 8px;
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#extraRecipientsPanel label:hover,
+#extraRecipientsPanel label:focus {
+  background-color: var(--arrowpanel-dimmed);
+}
+
+.aw-firstColBox label:hover .close-icon {
+  fill-opacity: 0.1;
+}
+
+.aw-firstColBox label {
+  margin-block: 4px 0;
+}
+
+.address-extra-recipients label:focus:not(:hover),
+.aw-firstColBox label:focus:not(:hover) image {
+  outline: 2px dashed Highlight;
+}
+
+#msgIdentity:hover,
+#msgSubject:hover,
+.address-container:hover  {
+  border-color: rgba(0,0,0,0.5);
+  background-color: -moz-field;
+}
+
+#MsgHeadersToolbar[brighttext] #msgIdentity:hover,
+#MsgHeadersToolbar[brighttext] #msgSubject:hover,
+#MsgHeadersToolbar[brighttext] .address-container:hover  {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--lwt-toolbar-field-background-color);
+}
+
+#msgIdentity:focus,
+#msgIdentity:focus-within,
+#msgIdentity[focused="true"],
+#msgSubject:focus,
+.drag-address-container,
+.address-container[focused="true"] {
+  border-color: Highlight !important;
+  background-color: -moz-field;
+  outline: none;
+}
+
+#MsgHeadersToolbar[brighttext] #msgIdentity:focus,
+#MsgHeadersToolbar[brighttext] #msgIdentity:focus-within,
+#MsgHeadersToolbar[brighttext] #msgIdentity[focused="true"],
+#MsgHeadersToolbar[brighttext] #msgSubject:focus,
+#MsgHeadersToolbar[brighttext] .address-container[focused="true"] {
+  background-color: var(--lwt-toolbar-field-background-color);
+}
+
+.address-pill::before {
+  display: block;
+  content: '';
+  position: relative;
+  width: 3px;
+  background-color: Highlight;
+  height: 15px;
+  border-radius: 2px;
+  margin-inline: -10px 5px;
+  transition: all .2s ease;
+  transform: scaleY(0);
+}
+
+.drop-indicator::before {
+  transform: scaleY(1);
+}
+
+/* ..... format buttons ..... */
+
+#AbsoluteFontSizeButton {
+  list-style-image: url("chrome://messenger/skin/icons/size.svg");
+}
+
+#DecreaseFontSizeButton {
+  list-style-image: url("chrome://messenger/skin/icons/decrease.svg");
+}
+
+#IncreaseFontSizeButton {
+  list-style-image: url("chrome://messenger/skin/icons/increase.svg");
+}
+
+#boldButton {
+  list-style-image: url("chrome://messenger/skin/icons/bold.svg");
+}
+
+#italicButton {
+  list-style-image: url("chrome://messenger/skin/icons/italics.svg");
+}
+
+#underlineButton {
+  list-style-image: url("chrome://messenger/skin/icons/underline.svg");
+}
+
+#ulButton {
+  list-style-image: url("chrome://messenger/skin/icons/bullet-list.svg");
+}
+
+#olButton {
+  list-style-image: url("chrome://messenger/skin/icons/number-list.svg");
+}
+
+#outdentButton {
+  list-style-image: url("chrome://messenger/skin/icons/outdent.svg");
+}
+
+#indentButton {
+  list-style-image: url("chrome://messenger/skin/icons/indent.svg");
+}
+
+#InsertPopupButton {
+  list-style-image: url("chrome://messenger/skin/icons/image.svg");
+}
+
+#AlignPopupButton {
+  list-style-image: url("chrome://messenger/skin/icons/left-align.svg");
+}
+
+#smileButtonMenu {
+  list-style-image: url("chrome://messenger/skin/icons/smiley.svg");
+}
+
+/* ..... align menu ..... */
+
+#AlignPopup > menuitem {
+  -moz-context-properties: fill;
+  fill: currentColor;
+}
+
+#AlignLeftItem, #AlignPopupButton[state="left"] {
+  list-style-image: url("chrome://messenger/skin/icons/left-align.svg");
+}
+
+#AlignCenterItem, #AlignPopupButton[state="center"] {
+  list-style-image: url("chrome://messenger/skin/icons/center-align.svg");
+}
+
+#AlignRightItem, #AlignPopupButton[state="right"] {
+  list-style-image: url("chrome://messenger/skin/icons/right-align.svg");
+}
+
+#AlignJustifyItem, #AlignPopupButton[state="justify"] {
+  list-style-image: url("chrome://messenger/skin/icons/justify.svg");
+}
+
+/* ..... insert menu ..... */
+
+#InsertPopup > menuitem {
+  -moz-context-properties: fill;
+  fill: currentColor;
+}
+
+#InsertLinkItem {
+  list-style-image: url("chrome://messenger/skin/icons/link.svg");
+}
+
+#InsertAnchorItem {
+  list-style-image: url("chrome://messenger/skin/icons/anchor.svg");
+}
+
+#InsertImageItem {
+  list-style-image: url("chrome://messenger/skin/icons/image.svg");
+}
+
+#InsertHRuleItem {
+  list-style-image: url("chrome://messenger/skin/icons/hline.svg");
+}
+
+#InsertTableItem {
+  list-style-image: url("chrome://messenger/skin/icons/table.svg");
+}
+
+/* OpenPGP and S/MIME encryption and signature status icons */
+
+#signing-status,
+#encryption-status {
+  list-style-image: none;
+  visibility: collapse;
+  -moz-context-properties: fill;
+  fill: currentColor;
+}
+
+#signing-status.signing-msg {
+  list-style-image: url("chrome://messenger/skin/icons/message-signed-ok.svg");
+  visibility: visible;
+}
+
+#encryption-status.encrypting-msg {
+  list-style-image: url("chrome://messenger/skin/icons/connection-secure.svg");
+  visibility: visible;
+}

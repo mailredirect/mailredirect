@@ -1,4 +1,4 @@
-// based on http://dxr.mozilla.org/comm-central/source/comm/mail/components/compose/content/addressingWidgetOverlay.js
+// based on http://searchfox.org/comm-central/source/mail/components/compose/content/addressingWidgetOverlay.js
 
 "use strict";
 
@@ -125,9 +125,10 @@ function Recipients2CompFields(msgCompFields)
   while ((inputField = awGetInputElement(i))) {
     fieldValue = inputField.value;
 
-    if (fieldValue !== "") {
+    if (fieldValue !== undefined && fieldValue !== "") {
       recipientType = awGetPopupElement(i).value;
       recipient = null;
+      dumper.dump("R2C " + recipientType + " >" + fieldValue + "<");
 
       switch (recipientType) {
         case "addr_to"    :
@@ -136,7 +137,7 @@ function Recipients2CompFields(msgCompFields)
           try {
             let headerParser = MailServices.headerParser;
             recipient =
-              headerParser.makeFromDisplayAddress(fieldValue, {}).map(fullValue =>
+              headerParser.makeFromDisplayAddress(fieldValue).map(fullValue =>
                 headerParser.makeMimeAddress(fullValue.name, fullValue.email))
               .join(", ");
           } catch (ex) {
@@ -251,7 +252,7 @@ function awAddRecipientsArray(aRecipientType, aAddressArray)
   } else {
     // Focus the next empty row, if any, or the pre-existing empty last row.
     row = (emptyRows.length > 0) ? emptyRows.shift() : top.MAX_RECIPIENTS;
-    awSetFocus(row, awGetInputElement(row));
+    awSetFocusTo(awGetInputElement(row));
   }
 
   onRecipientsChanged(true);
@@ -541,21 +542,6 @@ function _awSetFocusTo()
 function awRemoveNodeAndChildren(parent, nodeToRemove)
 {
   nodeToRemove.parentNode.removeChild(nodeToRemove);
-}
-
-function awSetFocus(row, inputElement)
-{
-  top.awRow = row;
-  top.awInputElement = inputElement;
-  setTimeout(function() { _awSetFocus() }, 0);
-}
-
-function _awSetFocus()
-{
-  var listbox = document.getElementById("addressingWidget");
-  var theNewRow = awGetListItem(top.awRow);
-  listbox.ensureElementIsVisible(theNewRow);
-  top.awInputElement.focus();
 }
 
 function awGetNumberOfRecipients()

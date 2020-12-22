@@ -1,0 +1,20 @@
+/* ------------------------------------------ */
+/* ::::: message column icons ::::: */
+
+/* ..... subject column ..... */
+
+treechildren::-moz-tree-image(subjectCol, kw-redirected) {
+  list-style-image: url(resource://mailredirect-os/message-redirected.png);
+}
+
+treechildren::-moz-tree-image(subjectCol, forwarded, kw-redirected) {
+  list-style-image: url(resource://mailredirect-os/message-forwarded-redirected.png);
+}
+
+treechildren::-moz-tree-image(subjectCol, replied, kw-redirected) {
+  list-style-image: url(resource://mailredirect-os/message-replied-redirected.png);
+}
+
+treechildren::-moz-tree-image(subjectCol, replied, forwarded, kw-redirected) {
+  list-style-image: url(resource://mailredirect-os/message-replied-forwarded-redirected.png);
+}

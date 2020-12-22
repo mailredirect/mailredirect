@@ -36,6 +36,8 @@
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect-debug.js"/>
   <script type="application/javascript" src="chrome://mailredirect/content/mailredirect.js"/>
 
+  <script type="application/javascript" src="chrome://messenger/content/customElements.js"/>
+
   <commandset id="mailToolbarItems">
     <command id="cmd_mailredirect" oncommand="goDoCommand('cmd_mailredirect')" />
   </commandset>

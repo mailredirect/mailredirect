@@ -6,17 +6,9 @@
 
 const Cc = Components.classes, Ci = Components.interfaces;
 
-var MailUtils;
+const { Log } = ChromeUtils.import("resource://gre/modules/Log.jsm");
 
-if (typeof ChromeUtils === "object" && typeof ChromeUtils.import === "function") {
-  try {
-    var { MailUtils } = ChromeUtils.import("resource:///modules/MailUtils.jsm");
-  } catch(ex) {
-    var { MailUtils } = ChromeUtils.import("resource:///modules/MailUtils.js");
-  }
-} else {
-  var { MailUtils } = Components.utils.import("resource:///modules/MailUtils.js", null);
-}
+var { MailUtils } = ChromeUtils.import("resource:///modules/MailUtils.jsm");
 
 window.MailredirectExtension = {
 
@@ -54,7 +46,7 @@ window.MailredirectExtension = {
       }
     }
 
-    window.openDialog("chrome://mailredirect/content/mailredirect-compose-thunderbird.xul", "_blank",
+    window.openDialog("chrome://mailredirect/content/mailredirect-compose-thunderbird.xhtml", "_blank",
         "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar,center,dialog=no",
         selectedURIs, currentIdentity.key);
   },
@@ -78,7 +70,7 @@ window.MailredirectExtension = {
             if (gFolderDisplay) {
               var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"].
                                    getService(Ci.nsIWindowMediator);
-              var currWindow = windowMediator.getMostRecentWindow("");
+              var currWindow = windowMediator.getMostRecentWindow(null);
               var currWindowType = currWindow.document.documentElement.getAttribute("windowtype");
               if (currWindowType === "mail:messageWindow") {
                 return true;
@@ -116,7 +108,7 @@ window.MailredirectExtension = {
       top.controllers.appendController(MailredirectExtension.MailredirectController);
       goUpdateCommand("cmd_mailredirect");
       MailredirectExtension.UpdateCommand();
-    }, 0);
+    }, 100);
   },
 
   OfflineObserver: {
@@ -307,7 +299,7 @@ window.MailredirectExtension = {
     // I've got to perform some tricks for multimessage redirect button, because it is in an iframe
     el = document.getElementById("multimessage");
     if (el !== null) {
-      MailredirectExtension.AddRedirectButtonToElement(el);
+      // MailredirectExtension.AddRedirectButtonToElement(el);
     }
 
     // Move Redirect toolbarbutton to the right place in appmenu for TB 68+
@@ -381,6 +373,7 @@ window.MailredirectExtension = {
   }
 }
 
+/*
 window.MailredirectPrefs.init();
 
 window.addEventListener("load", MailredirectExtension.InstallListeners, false);
@@ -393,44 +386,6 @@ window.MailredirectPrefs.unpackIcon();
 
 window.addEventListener("unload", MailredirectExtension.UninstallListeners, false);
 window.addEventListener("unload", MailredirectExtension.RemoveObservers, false);
+*/
 
 })();
-
-// Override InitMessageForward from Suite because it highlights the wrong element
-function InitMessageForward(aPopup)
-{
-  var kMsgForwardAsAttachment = 0;
-  var forwardType = Services.prefs.getIntPref("mail.forward_message_mode");
-
-  if (forwardType !== kMsgForwardAsAttachment) {
-    // forward inline is the first menuitem
-    aPopup.firstChild.setAttribute("default", "true");
-    aPopup.getElementsByTagName("menuitem")[1].removeAttribute("default");
-  } else {
-    // attachment is the second menuitem
-    aPopup.getElementsByTagName("menuitem")[1].setAttribute("default", "true");
-    aPopup.firstChild.removeAttribute("default");
-  }
-}
-
-// Override MsgForwardMessage because it also triggers forward as attachment in Suite when Redirect is chosen
-function MsgForwardMessage(event)
-{
-  var kMsgForwardAsAttachment = 0;
-  if (event === null || event.target.id !== "button-ForwardAsRedirect") {
-    var forwardType = 0;
-    try {
-      forwardType = Services.prefs.getIntPref("mail.forward_message_mode");
-    }
-    catch (ex) {}
-
-    // mail.forward_message_mode could be 1, if the user migrated from 4.x
-    // 1 (forward as quoted) is obsolete, so we treat is as forward inline
-    // since that is more like forward as quoted then forward as attachment
-    if (forwardType === kMsgForwardAsAttachment) {
-      MsgForwardAsAttachment(event);
-    } else {
-      MsgForwardAsInline(event);
-    }
-  }
-}
